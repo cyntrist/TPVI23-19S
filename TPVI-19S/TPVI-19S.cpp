@@ -3,14 +3,7 @@
 #include "Date.h"
 #include <windows.h>
 #include <string>
-
-struct ListaCoches
-{
-    int tam;
-    int num;
-    Coche* c = new Coche[tam]
-};
-
+#include <array>
 
 struct Coche 
 {
@@ -45,7 +38,29 @@ struct Alquiler
     Alquiler() = default;
 };
 
-bool leerModelos() 
+struct ListaCoches
+{
+    int tam = 10;
+    int num = 0;
+    Coche* c = new Coche[tam];
+
+    ListaCoches(int t, int n)
+    {
+        tam = t + 10;
+        num = n;
+
+        c = new Coche[tam];
+    }
+
+    ListaCoches() = default;
+};
+
+struct ListaAlquileres
+{
+
+};
+
+bool leerModelos(ListaCoches &lc) 
 {
     bool abierto = false;
     std::ifstream entrada("coches.txt");
@@ -65,7 +80,9 @@ bool leerModelos()
             entrada >> marca;
             entrada >> modelo;
             std::cout << "Coche " << i << ": " << id << " " << precio << " " << marca << " " << modelo << "\n";
-            Coche c = Coche(id, precio, marca, modelo);
+            Coche coche = Coche(id, precio, marca, modelo);
+            lc.c[lc.num] = coche;
+            lc.num++;
         }
     }
     return abierto;
@@ -100,8 +117,9 @@ int mostrarAlquileres()
 
 int main()
 {
+    ListaCoches lc = ListaCoches();
     SetConsoleOutputCP(CP_UTF8);
     std::cout << "Hello World!\n";
-    leerModelos();
+    leerModelos(lc);
 }
 
