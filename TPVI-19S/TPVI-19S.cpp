@@ -12,7 +12,7 @@ struct Coche
     std::string marca;
     std::string modelo;
 
-    Coche(int i, int p, std::string ma, std::string mo) {
+    Coche(const int i, const int p, const std::string &ma, const std::string &mo) {
         id = i;
         precio = p;
         marca = ma;
@@ -28,7 +28,7 @@ struct Alquiler
     int dias;
     Date fecha;
 
-    Alquiler(int i, int d, Date f)
+    Alquiler(const int i, const int d, const Date &f)
     {
         id = i;
         dias = d;
@@ -44,7 +44,7 @@ struct ListaCoches
     int num = 0;
     Coche* c = new Coche[tam];
 
-    ListaCoches(int t, int n)
+    ListaCoches(const int t, const int n)
     {
         tam = t + 10;
         num = n;
@@ -80,7 +80,7 @@ bool leerModelos(ListaCoches &lc)
             entrada >> marca;
             entrada >> modelo;
             std::cout << "Coche " << i << ": " << id << " " << precio << " " << marca << " " << modelo << "\n";
-            Coche coche = Coche(id, precio, marca, modelo);
+            auto coche = Coche(id, precio, marca, modelo);
             lc.c[lc.num] = coche;
             lc.num++;
         }
@@ -91,7 +91,7 @@ bool leerModelos(ListaCoches &lc)
 int leerAlquileres()
 {
     bool abierto = false;
-    std::ifstream entrada("rent.txt");
+    const std::ifstream entrada("rent.txt");
     if (entrada.is_open())
     {
         abierto = true;
@@ -117,9 +117,8 @@ int mostrarAlquileres()
 
 int main()
 {
-    ListaCoches lc = ListaCoches();
+    auto lc = ListaCoches();
     SetConsoleOutputCP(CP_UTF8);
-    std::cout << "Hello World!\n";
     leerModelos(lc);
 }
 
