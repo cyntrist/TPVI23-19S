@@ -1,6 +1,10 @@
-﻿#include <iostream>
+﻿// David Canelada Velasco
+// Cynthia Tristán Álvarez
+
+#include <iostream>
 #include <fstream>
 #include "Date.cpp"
+#include "Date.h"
 #include <windows.h>
 #include <string>
 #include <array>
@@ -114,7 +118,7 @@ int leerAlquileres(ListaAlquileres &la)
         {
             int id = 0;
             int dias = 0;
-            Date fecha = Date();
+            auto fecha = Date();
             entrada >> id;
             entrada >> fecha;
             entrada >> dias;
@@ -127,13 +131,16 @@ int leerAlquileres(ListaAlquileres &la)
     return abierto;
 }
 
-
-int ordenarAlquileres()
-{
-    return 0;
+bool operator<(const Alquiler& izdo, const Alquiler& dcho) {
+    return izdo.fecha < dcho.fecha;
 }
 
-int buscarCoche(ListaCoches lc, int id)
+void ordenarAlquileres(const ListaAlquileres &la)
+{
+    sort(la.a, la.a + la.tam);
+}
+
+int buscarCoche(const ListaCoches lc, const int id)
 {
     int ini = 0, n = lc.num -1;
     bool enc = false;
@@ -153,12 +160,11 @@ int buscarCoche(ListaCoches lc, int id)
     return indiceEnc;
 }
 
-int mostrarAlquileres(ListaCoches lc, ListaAlquileres la)
+int mostrarAlquileres(const ListaCoches lc, const ListaAlquileres la)
 {
-    int idBuscar = 0;
     for (int i = 0; i < la.num; i++)
     {
-        idBuscar = buscarCoche(lc, la.a[i].id);
+        int idBuscar = buscarCoche(lc, la.a[i].id);
         if (idBuscar != -1)
             std::cout << la.a[i].fecha << " " << lc.c[idBuscar].marca << " " << lc.c[idBuscar].modelo << " " << la.a[i].dias << " día(s) por " << (la.a[i].dias * lc.c[idBuscar].precio) << " euros\n";
         else
@@ -174,7 +180,7 @@ int main()
     SetConsoleOutputCP(CP_UTF8);
     leerModelos(lc);
     leerAlquileres(la);
+    ordenarAlquileres(la);
     //std::cout << buscarCoche(lc, 1620);
     mostrarAlquileres(lc, la);
 }
-
