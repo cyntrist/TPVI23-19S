@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "Date.cpp"
 #include "Date.h"
+#include "Date.cpp"
 #include <windows.h>
 #include <string>
 #include <array>
@@ -41,6 +41,10 @@ struct Alquiler
     }
 
     Alquiler() = default;
+
+    friend bool operator<(const Alquiler& izdo, const Alquiler& dcho) {
+        return izdo.fecha < dcho.fecha;
+    }
 };
 
 struct ListaCoches
@@ -96,7 +100,7 @@ bool leerModelos(ListaCoches &lc)
             entrada >> precio;
             entrada >> marca;
             entrada >> modelo;
-            auto coche = Coche(id, precio, marca, modelo);
+            const auto coche = Coche(id, precio, marca, modelo);
             lc.c[lc.num] = coche;
             //std::cout << "Coche " << i << ": " << lc.c[lc.num].id << " " << lc.c[lc.num].precio << " " << lc.c[lc.num].marca << " " << lc.c[lc.num].modelo << "\n";
             lc.num++;
@@ -122,17 +126,13 @@ int leerAlquileres(ListaAlquileres &la)
             entrada >> id;
             entrada >> fecha;
             entrada >> dias;
-            auto alquiler = Alquiler(id, dias, fecha);
+            const auto alquiler = Alquiler(id, dias, fecha);
             la.a[la.num] = alquiler;
             //std::cout << "Coche " << i << ": " << la.a[la.num].id << " " << la.a[la.num].dias << " " << la.a[la.num].fecha << "\n";
             la.num++;
         }
     }
     return abierto;
-}
-
-bool operator<(const Alquiler& izdo, const Alquiler& dcho) {
-    return izdo.fecha < dcho.fecha;
 }
 
 void ordenarAlquileres(const ListaAlquileres &la)
@@ -146,7 +146,7 @@ int buscarCoche(const ListaCoches lc, const int id)
     bool enc = false;
     int indiceEnc = -1;
     while (ini <= n && !enc) {
-        int med = (ini + n) / 2;
+        const int med = (ini + n) / 2;
         if (id < lc.c[med].id)
             n = med - 1;
         else if (id > lc.c[med].id)
@@ -164,7 +164,7 @@ int mostrarAlquileres(const ListaCoches lc, const ListaAlquileres la)
 {
     for (int i = 0; i < la.num; i++)
     {
-        int idBuscar = buscarCoche(lc, la.a[i].id);
+        const int idBuscar = buscarCoche(lc, la.a[i].id);
         if (idBuscar != -1)
             std::cout << la.a[i].fecha << " " << lc.c[idBuscar].marca << " " << lc.c[idBuscar].modelo << " " << la.a[i].dias << " día(s) por " << (la.a[i].dias * lc.c[idBuscar].precio) << " euros\n";
         else
