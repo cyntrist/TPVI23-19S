@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include "Date.cpp"
 #include <windows.h>
@@ -133,13 +133,37 @@ int ordenarAlquileres()
     return 0;
 }
 
-int buscarCoche()
+int buscarCoche(ListaCoches lc, int id)
 {
-    return 0;
+    int ini = 0, n = lc.num -1;
+    bool enc = false;
+    int indiceEnc = -1;
+    while (ini <= n && !enc) {
+        int med = (ini + n) / 2;
+        if (id < lc.c[med].id)
+            n = med - 1;
+        else if (id > lc.c[med].id)
+            ini = med + 1;
+        else
+        {
+            enc = true;
+            indiceEnc = med;
+        }
+    }
+    return indiceEnc;
 }
 
-int mostrarAlquileres()
+int mostrarAlquileres(ListaCoches lc, ListaAlquileres la)
 {
+    int idBuscar = 0;
+    for (int i = 0; i < la.num; i++)
+    {
+        idBuscar = buscarCoche(lc, la.a[i].id);
+        if (idBuscar != -1)
+            std::cout << la.a[i].fecha << " " << lc.c[idBuscar].marca << " " << lc.c[idBuscar].modelo << " " << la.a[i].dias << " día(s) por " << (la.a[i].dias * lc.c[idBuscar].precio) << " euros\n";
+        else
+            std::cout << la.a[i].fecha << " ERROR: Modelo inexistente\n";
+    }
     return 0;
 }
 
@@ -150,5 +174,7 @@ int main()
     SetConsoleOutputCP(CP_UTF8);
     leerModelos(lc);
     leerAlquileres(la);
+    //std::cout << buscarCoche(lc, 1620);
+    mostrarAlquileres(lc, la);
 }
 
