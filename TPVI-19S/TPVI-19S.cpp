@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Date.h"
+#include "Date.cpp"
 #include <windows.h>
 #include <string>
 #include <array>
@@ -57,6 +57,19 @@ struct ListaCoches
 
 struct ListaAlquileres
 {
+    int tam = 10;
+    int num = 0;
+    Alquiler* a = new Alquiler[tam];
+
+    ListaAlquileres(const int t, const int n)
+    {
+        tam = t + 10;
+        num = n;
+
+        a = new Alquiler[tam];
+    }
+
+    ListaAlquileres() = default;
 
 };
 
@@ -79,26 +92,41 @@ bool leerModelos(ListaCoches &lc)
             entrada >> precio;
             entrada >> marca;
             entrada >> modelo;
-            std::cout << "Coche " << i << ": " << id << " " << precio << " " << marca << " " << modelo << "\n";
             auto coche = Coche(id, precio, marca, modelo);
             lc.c[lc.num] = coche;
+            //std::cout << "Coche " << i << ": " << lc.c[lc.num].id << " " << lc.c[lc.num].precio << " " << lc.c[lc.num].marca << " " << lc.c[lc.num].modelo << "\n";
             lc.num++;
         }
     }
     return abierto;
 }
 
-int leerAlquileres()
+int leerAlquileres(ListaAlquileres &la)
 {
     bool abierto = false;
-    const std::ifstream entrada("rent.txt");
+    std::ifstream entrada("rent.txt");
     if (entrada.is_open())
     {
         abierto = true;
-        //...
+        int num = 0;
+        entrada >> num;
+        for (int i = 0; i < num; i++)
+        {
+            int id = 0;
+            int dias = 0;
+            Date fecha = Date();
+            entrada >> id;
+            entrada >> fecha;
+            entrada >> dias;
+            auto alquiler = Alquiler(id, dias, fecha);
+            la.a[la.num] = alquiler;
+            //std::cout << "Coche " << i << ": " << la.a[la.num].id << " " << la.a[la.num].dias << " " << la.a[la.num].fecha << "\n";
+            la.num++;
+        }
     }
     return abierto;
 }
+
 
 int ordenarAlquileres()
 {
@@ -118,7 +146,9 @@ int mostrarAlquileres()
 int main()
 {
     auto lc = ListaCoches();
+    auto la = ListaAlquileres();
     SetConsoleOutputCP(CP_UTF8);
     leerModelos(lc);
+    leerAlquileres(la);
 }
 
