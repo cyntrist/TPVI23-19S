@@ -1,9 +1,10 @@
 ﻿#include <iostream>
 #include <fstream>
-#include "Date.cpp"
+#include "Date.h"
 #include <windows.h>
 #include <string>
 #include <array>
+#include <algorithm>
 
 struct Coche 
 {
@@ -70,7 +71,6 @@ struct ListaAlquileres
     }
 
     ListaAlquileres() = default;
-
 };
 
 bool leerModelos(ListaCoches &lc) 
