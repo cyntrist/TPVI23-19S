@@ -49,38 +49,29 @@ void func(Registro* reg, double* irpf, int* edad)
 	reg->edad++;
 	*irpf = reg->sueldo * TIPO;
 	*edad = reg->edad;
-
-}
-
-Registro* crearNuevoReg() {
-	Registro* preg = new Registro; // el registro *preg toma valor
-	return preg;
 }
 
 int main()
 {
 	Registro r1;
-	Registro* pr = nullptr;
 	r1.nombre = "Paco";
 	r1.sueldo =  15000;
 	r1.edad = 53;
-	pr = &r1;
+	auto* pr = new Registro;
 
+	// los registros r1 y *pr toman valor
 	double cotiza = 0;
 	int anyos = 0;
 	double* p1 = &cotiza;
 	int* p2 = &anyos;
 
+	//func(r1, cotiza, años);
 	func(pr, p1, p2);
 
-	func(r1, cotiza, anyos);
-	func(pr, cotiza, anyos);
-
-	/* EJ 4
 	delete pr;
 	delete p1;
-	delete p2;
+	//delete p2;
 	cout << r1.nombre << " " << r1.sueldo << " " << r1.edad << endl;
 	//cout << *p1 << " " << *p2 << " " << endl;
-	//cout << pr->nombre << " " << pr->sueldo << " " << pr->edad << endl; */
+	//cout << pr->nombre << " " << pr->sueldo << " " << pr->edad << endl;
 }
