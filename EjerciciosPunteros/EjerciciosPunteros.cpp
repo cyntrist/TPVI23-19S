@@ -57,14 +57,19 @@ Registro* crearNuevoReg() {
 	return preg;
 }
 
+void crearNuevoRegB(Registro*& preg)
+{
+	preg = new Registro;
+}
+
 int main()
 {
-	Registro r1;
 	Registro* pr = nullptr;
-	r1.nombre = "Paco";
-	r1.sueldo =  15000;
-	r1.edad = 53;
-	pr = &r1;
+	crearNuevoRegB(pr);
+	pr->nombre = "Paco";
+	pr->sueldo =  15000;
+	pr->edad = 53;
+	//pr = &r1;
 
 	double cotiza = 0;
 	int anyos = 0;
@@ -73,14 +78,16 @@ int main()
 
 	func(pr, p1, p2);
 
-	func(r1, cotiza, anyos);
-	func(pr, cotiza, anyos);
+	//func(r1, cotiza, anyos);
+	//func(pr, cotiza, anyos);
 
-	/* EJ 4
-	delete pr;
-	delete p1;
-	delete p2;
-	cout << r1.nombre << " " << r1.sueldo << " " << r1.edad << endl;
+	//delete pr;
+	//delete p1;
+	//delete p2;
+	//cout << r1.nombre << " " << r1.sueldo << " " << r1.edad << endl;
 	//cout << *p1 << " " << *p2 << " " << endl;
-	//cout << pr->nombre << " " << pr->sueldo << " " << pr->edad << endl; */
+	cout << pr->nombre << " " << pr->sueldo << " " << pr->edad << endl;
+	cout << pr << endl;
+	delete pr;
+	cout << pr << endl;
 }
