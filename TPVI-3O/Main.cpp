@@ -11,10 +11,14 @@
 #include <algorithm>
 
 #include "Coche.h"
+#include "ListaCoches.h"
+#include "Alquiler.h"
+#include "ListaAlquileres.h"
 
 using namespace std;
 
 int main()
 {
-
+	ListaCoches lc = ListaCoches();
+	lc.leer("coches.txt");
 }

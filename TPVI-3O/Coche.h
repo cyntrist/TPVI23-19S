@@ -16,5 +16,5 @@ public:
 	int GetPrecio();
 	std::string GetMarca();
 	std::string GetModelo();
-	bool operator==(const Coche& other) const;
+	//bool operator==(const Coche& other) const;
 };

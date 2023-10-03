@@ -1,7 +1,4 @@
 #include "Coche.h"
-#include "Coche.h"
-#include "Coche.h"
-#include "Coche.h"
 #include "checkML.h"
 
 Coche::Coche() : id(), precio(), marca(), modelo() {}
@@ -16,4 +13,4 @@ std::string Coche::GetMarca() { return marca; }
 
 std::string Coche::GetModelo() { return modelo; }
 
-bool Coche::operator==(const Coche& other) const { return id = other.id; }
+//bool Coche::operator==(const Coche& other) const { return id = other.id; } //me da error ay
