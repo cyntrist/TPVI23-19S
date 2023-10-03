@@ -19,6 +19,15 @@ using namespace std;
 
 int main()
 {
-	ListaCoches lc = ListaCoches();
-	lc.leer("coches.txt");
+    Coche c = Coche(1, 5, "sa", "asdc");
+    Coche p = Coche(1, 5, "sa", "asdc");
+
+    Date asd = Date(1, 1, 2020);
+    Date bdg = Date(1, 2, 2020);
+
+    Alquiler a = Alquiler(1, 2, asd);
+    Alquiler b = Alquiler(1, 2, bdg);
+
+    if (a < b)
+        std::cout << c.GetPrecio();
 }
