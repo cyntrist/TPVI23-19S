@@ -14,5 +14,6 @@ private:
 public:
 	Coche();
 	Coche(int id, int precio, std::string marca, std::string modelo);
+	int GetPrecio();
 };
 #endif

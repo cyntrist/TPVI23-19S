@@ -16,7 +16,8 @@ using namespace std;
 
 int main()
 {
-    Coche c = new Coche();
+    Coche c = Coche(1, 5, "sa", "asdc");
+    Coche p = Coche(1, 5, "sa", "asdc");
 
-    std::cout << "Hello World!\n";
+    std::cout << c.GetPrecio();
 }
