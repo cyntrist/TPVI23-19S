@@ -13,6 +13,7 @@
 #include "Coche.h"
 #include "Alquiler.h"
 #include "Date.h"
+#include "ListaAlquileres.h"
 
 using namespace std;
 
@@ -28,6 +29,9 @@ int main()
     Alquiler a = Alquiler(1, 2, asd);
     Alquiler b = Alquiler(1, 2, bdg);
 
-    if (a < b)
-        std::cout << c.GetPrecio();
+    ListaAlquileres la = ListaAlquileres();
+    la.LeerAlquileres("rent.txt");
+    std::cout << la.GetAlquiler(0).GetFecha();
+    //if (a < b)
+    //    std::cout << c.GetPrecio();
 }
