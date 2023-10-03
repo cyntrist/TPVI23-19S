@@ -1,6 +1,4 @@
-#ifndef COCHE_H_
-#define COCHE_H_
-//#pragma once
+#pragma once
 #include <string>
 
 class Coche
@@ -14,6 +12,9 @@ private:
 public:
 	Coche();
 	Coche(int id, int precio, std::string marca, std::string modelo);
+	int GetId();
 	int GetPrecio();
+	std::string GetMarca();
+	std::string GetModelo();
+	bool operator==(const Coche& other) const;
 };
-#endif
