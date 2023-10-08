@@ -29,7 +29,7 @@ public:
 
 	// métodos
 	bool read(const std::string& archivo);
-	int search(const int id);
+	int search(int id);
 	void show();
 
 	// delete?

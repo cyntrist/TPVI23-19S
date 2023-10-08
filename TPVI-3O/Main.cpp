@@ -18,6 +18,15 @@
 
 using namespace std;
 
+void showOptions()
+{
+    cout << "0. Salir" << endl
+    << "1. Mostrar lista de coches." << endl
+    << "2. Mostrar lista de alquileres." << endl
+	<< "3. Añadir nuevo coche." << endl
+	<< "4. Añadir nuevo alquiler." << endl;
+}
+
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
@@ -40,10 +49,50 @@ int main()
     if (a < b)
 		std::cout << c.GetPrecio();
 	*/
-
     auto lc = ListaCoches(10);
     lc.read("coches.txt");
-    lc.show();
-    lc.deleteCars();
-    //delete[] lc.getCars();
+    //lc.show();
+
+    // a ver qué tal el bucle ppal
+    int opcion = -1;
+    while (opcion != 0)
+    {
+        showOptions();
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            lc.show();
+            break;
+        case 2:
+            // la.show();
+            break;
+        case 3:
+        	int id, precio;
+            std::string marca, modelo;
+
+            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
+            cin >> id;
+            cout << "¿Precio?" << endl;
+            cin >> precio;
+            cout << "¿Marca?" << endl;
+            cin >> marca;
+            cout << "¿Modelo?" << endl;
+            cin >> modelo;
+
+            const auto coche = Coche(id, precio, marca, modelo);
+            lc.addCar(coche);
+            break;
+        case 4:
+            // ...
+            // la.add...
+            break;
+        default: // nada?
+            break;
+        }
+     }
+
+	lc.deleteCars();
+	//delete[] lc.getCars();
 }
