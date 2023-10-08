@@ -20,18 +20,20 @@ using namespace std;
 
 int main()
 {
-    Coche c = Coche(1, 5, "sa", "asdc");
-    Coche p = Coche(1, 5, "sa", "asdc");
+    auto c = Coche(1, 5, "sa", "asdc");
+    auto p = Coche(1, 5, "sa", "asdc");
 
-    Date asd = Date(1, 1, 2020);
-    Date bdg = Date(1, 2, 2020);
+    auto asd = Date(1, 1, 2020);
+    auto bdg = Date(1, 2, 2020);
 
-    Alquiler a = Alquiler(1, 2, asd);
-    Alquiler b = Alquiler(1, 2, bdg);
+    auto a = Alquiler(1, 2, asd);
+    auto b = Alquiler(1, 2, bdg);
 
-    ListaAlquileres la = ListaAlquileres();
-    la.LeerAlquileres("rent.txt");
-    std::cout << la.GetAlquiler(0).GetFecha();
+    auto la = ListaAlquileres();
+    auto lc = ListaCoches(10);
+    lc.leer("coches.txt");
+    //la.LeerAlquileres("rent.txt");
+    //std::cout << la.GetAlquiler(0).GetFecha();
     //if (a < b)
     //    std::cout << c.GetPrecio();
 }

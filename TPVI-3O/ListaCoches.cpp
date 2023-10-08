@@ -2,9 +2,16 @@
 #include "checkML.h"
 #include <fstream>;
 
-ListaCoches::ListaCoches(int tam, int num, Coche* c) : tam(tam), num(num), c(c) {}
+//ListaCoches::ListaCoches(int tam, int num, Coche* c) : tam(tam), num(num), c(c) {}
 
-bool ListaCoches::leer(std::string archivo)
+ListaCoches::ListaCoches(int t)
+{
+	tam = t;
+    num = 0;
+    auto c = new Coche[tam];
+}
+
+bool ListaCoches::leer(const std::string& archivo)
 {
     std::ifstream entrada(archivo);
     if (entrada.is_open())
@@ -24,8 +31,8 @@ bool ListaCoches::leer(std::string archivo)
             entrada >> modelo;
 
             const auto coche = Coche(id, precio, marca, modelo);
-            //ListaCoches::c[ListaCoches::num] = coche; 
-            //ListaCoches::num++;
+            addCar(coche);
+            addNum();
         }
     }
     return entrada.is_open();
