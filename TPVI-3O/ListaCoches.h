@@ -26,9 +26,11 @@ public:
 	ListaCoches() = default;
 	ListaCoches(int tam);
 	//ListaCoches(int tam, int num, Coche* c);
+
 	// métodos
 	bool read(const std::string& archivo);
 	int search(const int id);
+	void show();
 
 	// delete?
 	void deleteCars(); 

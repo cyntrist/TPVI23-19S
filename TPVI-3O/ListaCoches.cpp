@@ -1,6 +1,7 @@
 #include "ListaCoches.h"
 //#include "checkML.h"
 #include <fstream>
+#include <iostream>
 
 //ListaCoches::ListaCoches(int tam, int num, Coche* c) : tam(tam), num(num), c(c) {}
 
@@ -58,4 +59,13 @@ int ListaCoches::search(const int id)
         }
     }
     return indiceEnc;
+}
+
+void ListaCoches::show()
+{
+	for (int i = 0; i < getNum(); i++) { std::cout << getCar(i).GetId()
+		<< " " << getCar(i).GetPrecio()
+		<< " " << getCar(i).GetMarca()
+		<< " " << getCar(i).GetModelo()
+		<< "\n"; }
 }
