@@ -69,20 +69,22 @@ int main()
             // la.show();
             break;
         case 3:
-        	int id, precio;
-            std::string marca, modelo;
+	        {
+        		int id, precio;
+	            std::string marca, modelo;
 
-            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
-            cin >> id;
-            cout << "¿Precio?" << endl;
-            cin >> precio;
-            cout << "¿Marca?" << endl;
-            cin >> marca;
-            cout << "¿Modelo?" << endl;
-            cin >> modelo;
+	            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
+	            cin >> id;
+	            cout << "¿Precio?" << endl;
+	            cin >> precio;
+	            cout << "¿Marca?" << endl;
+	            cin >> marca;
+	            cout << "¿Modelo?" << endl;
+	            cin >> modelo;
 
-            const auto coche = Coche(id, precio, marca, modelo);
-            lc.addCar(coche);
+	            const auto coche = Coche(id, precio, marca, modelo);
+	            lc.addCar(coche);
+	        }
             break;
         case 4:
             // ...
