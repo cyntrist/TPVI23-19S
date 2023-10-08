@@ -20,6 +20,10 @@ using namespace std;
 
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
+	//_crtBreakAlloc = 206;
+
+    /*
     auto c = Coche(1, 5, "sa", "asdc");
     auto p = Coche(1, 5, "sa", "asdc");
 
@@ -30,10 +34,16 @@ int main()
     auto b = Alquiler(1, 2, bdg);
 
     auto la = ListaAlquileres();
+
+	la.LeerAlquileres("rent.txt");
+    std::cout << la.GetAlquiler(0).GetFecha();
+    if (a < b)
+		std::cout << c.GetPrecio();
+	*/
+
     auto lc = ListaCoches(10);
-    lc.leer("coches.txt");
-    //la.LeerAlquileres("rent.txt");
-    //std::cout << la.GetAlquiler(0).GetFecha();
-    //if (a < b)
-    //    std::cout << c.GetPrecio();
+    lc.read("coches.txt");
+    lc.show();
+    lc.deleteCars();
+    //delete[] lc.getCars();
 }
