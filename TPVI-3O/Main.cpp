@@ -72,8 +72,10 @@ int main()
         			int id, precio;
 		            std::string marca, modelo;
 
-		            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
-		            cin >> id;
+                    id = 1325; 
+                    while (lc.search(id) != -1)  // ids únicos
+                        id++;
+
 		            cout << "¿Precio?" << endl;
 		            cin >> precio;
 		            cout << "¿Marca?" << endl;
