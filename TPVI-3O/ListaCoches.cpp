@@ -8,10 +8,8 @@ ListaCoches::ListaCoches(int t)
 	tam = t;
     num = 0;
     c = new Coche[tam];
-    c2 = new Coche*[tam];
+    c2 = new Coche*[tam]; // array dinámico de punteros?
 }
-
-void ListaCoches::deleteCars() { delete[] c; }
 
 bool ListaCoches::read(const std::string& archivo)
 {
@@ -32,7 +30,7 @@ bool ListaCoches::read(const std::string& archivo)
             entrada >> marca;
             entrada >> modelo;
 
-            const auto coche = Coche(id, precio, marca, modelo);
+            auto coche = Coche(id, precio, marca, modelo);
             addCar(coche);
         }
     }

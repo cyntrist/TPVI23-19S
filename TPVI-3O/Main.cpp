@@ -29,7 +29,7 @@ void showOptions()
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
-	//_crtBreakAlloc = 206;
+	//_crtBreakAlloc = 206; // memory leak debug
 
     /*
     auto c = Coche(1, 5, "sa", "asdc");
@@ -82,7 +82,7 @@ int main()
 		            cout << "¿Modelo?" << endl;
 		            cin >> modelo; 
 
-		            const auto coche = Coche(id, precio, marca, modelo);
+		            auto coche = Coche(id, precio, marca, modelo);
 		            lc.addCar(coche);
                     sort(lc.getCars(), lc.getCars() + lc.getNum());
         		}

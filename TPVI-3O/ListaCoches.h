@@ -7,13 +7,18 @@ class ListaCoches
 	int tam;
 	int num;
 	Coche* c;
-	Coche** c2;
+	Coche** c2; // array dinámico de punteros?
 
 public:
+	// constructores
+	ListaCoches() = default;
+	ListaCoches(int tam);
+
 	// getters
 	int getTam() { return tam; }
 	int getNum() { return num; }
 	Coche* getCars() { return c; }
+	Coche getCar(const int pos) { return c[pos]; }
 
 	// setters
 	void setTam(const int v) { tam = v; }
@@ -22,18 +27,20 @@ public:
 
 	void addNum() { num++; }
 	void addCar(const Coche& v) { c[num] = v; num++; }
-	Coche getCar(const int pos) { return c[pos]; }
 
-	// constructores
-	ListaCoches() = default;
-	ListaCoches(int tam);
+	// delete
+	void deleteCars() { delete[] c; }
 
 	// métodos
 	bool read(const std::string& archivo);
 	int search(int id);
 	void show();
 
-	// delete
-	void deleteCars(); 
+	// c2
+	Coche** getCars2() { return c2; }
+	void addCar2(Coche* v) { c2[num] = v; num++; }
+	void setCars2(Coche** v) { c2 = v; }
+	Coche* getCar2 (const int pos) { return c2[pos]; }
+	void deleteCars2() { delete[] c2; }
 };
 
