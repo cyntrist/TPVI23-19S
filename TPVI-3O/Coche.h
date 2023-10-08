@@ -12,9 +12,9 @@ private:
 public:
 	Coche();
 	Coche(int id, int precio, std::string marca, std::string modelo);
-	int GetId();
-	int GetPrecio();
-	std::string GetMarca();
-	std::string GetModelo();
-	//bool operator==(const Coche& other) const;
+	int getId() { return id; };
+	int getPrecio() { return precio; };
+	std::string getMarca() { return marca; }
+	std::string getModelo() { return modelo; };
+	friend bool operator<(const Coche& izdo, const Coche& dcho) { return izdo.id < dcho.id; }
 };

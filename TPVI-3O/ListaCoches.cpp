@@ -7,9 +7,9 @@
 
 ListaCoches::ListaCoches(int t)
 {
-	this->tam = t;
-    this->num = 0;
-    this->c = new Coche[tam];
+	tam = t;
+    num = 0;
+    c = new Coche[tam];
 }
 
 void ListaCoches::deleteCars() { delete[] c; }
@@ -48,9 +48,9 @@ int ListaCoches::search(const int id)
     int indiceEnc =  -1;
     while (ini <= n && !enc) {
         const int med = (ini + n) / 2;
-        if (id < getCar(med).GetId())
+        if (id < getCar(med).getId())
             n = med - 1;
-        else if (id > getCar(med).GetId())
+        else if (id > getCar(med).getId())
             ini = med + 1;
         else
         {
@@ -63,9 +63,9 @@ int ListaCoches::search(const int id)
 
 void ListaCoches::show()
 {
-	for (int i = 0; i < getNum(); i++) { std::cout << getCar(i).GetId()
-		<< " " << getCar(i).GetPrecio()
-		<< " " << getCar(i).GetMarca()
-		<< " " << getCar(i).GetModelo()
+	for (int i = 0; i < getNum(); i++) { std::cout << getCar(i).getId()
+		<< " " << getCar(i).getPrecio()
+		<< " " << getCar(i).getMarca()
+		<< " " << getCar(i).getModelo()
 		<< "\n"; }
 }

@@ -72,7 +72,6 @@ int main()
         			int id, precio;
 		            std::string marca, modelo;
 
-                    /*
 		            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
 		            cin >> id;
 		            cout << "¿Precio?" << endl;
@@ -80,11 +79,11 @@ int main()
 		            cout << "¿Marca?" << endl;
 		            cin >> marca;
 		            cout << "¿Modelo?" << endl;
-		            cin >> modelo; */
+		            cin >> modelo; 
 
-		            //const auto coche = Coche(id, precio, marca, modelo);
-		            const auto coche = Coche(9999, 200, "Seat", "Corola");
+		            const auto coche = Coche(id, precio, marca, modelo);
 		            lc.addCar(coche);
+                    sort(lc.getCars(), lc.getCars() + lc.getNum());
         		}
                 else
                     cout << "No caben más coches." << endl;
