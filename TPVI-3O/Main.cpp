@@ -7,7 +7,6 @@
 #include "Date.h"
 #include <windows.h>
 #include <string>
-#include <array>
 #include <algorithm>
 
 #include "Coche.h"
@@ -49,7 +48,7 @@ int main()
     if (a < b)
 		std::cout << c.GetPrecio();
 	*/
-    auto lc = ListaCoches(11);
+    auto lc = ListaCoches(15);
     lc.read("coches.txt");
 
 	int opcion = -1;
@@ -63,7 +62,7 @@ int main()
             lc.show();
             break;
         case 2:
-            // la.show();
+            // ...
             break;
         case 3:
 	        {
@@ -95,11 +94,10 @@ int main()
             // ...
             // la.add...
             break;
-        default: // nada?
+        default: 
             break;
         }
      }
 
 	lc.deleteCars();
-	//delete[] lc.getCars();
 }

@@ -4,9 +4,10 @@
 
 class ListaCoches
 {
-	int tam = 10;
-	int num = 0;
-	Coche* c = new Coche[tam];
+	int tam;
+	int num;
+	Coche* c;
+	Coche** c2;
 
 public:
 	// getters
@@ -26,14 +27,13 @@ public:
 	// constructores
 	ListaCoches() = default;
 	ListaCoches(int tam);
-	//ListaCoches(int tam, int num, Coche* c);
 
 	// métodos
 	bool read(const std::string& archivo);
 	int search(int id);
 	void show();
 
-	// delete?
+	// delete
 	void deleteCars(); 
 };
 

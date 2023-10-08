@@ -3,13 +3,12 @@
 #include <fstream>
 #include <iostream>
 
-//ListaCoches::ListaCoches(int tam, int num, Coche* c) : tam(tam), num(num), c(c) {}
-
 ListaCoches::ListaCoches(int t)
 {
 	tam = t;
     num = 0;
     c = new Coche[tam];
+    c2 = new Coche*[tam];
 }
 
 void ListaCoches::deleteCars() { delete[] c; }
@@ -35,7 +34,6 @@ bool ListaCoches::read(const std::string& archivo)
 
             const auto coche = Coche(id, precio, marca, modelo);
             addCar(coche);
-            //addNum();
         }
     }
     return entrada.is_open();
