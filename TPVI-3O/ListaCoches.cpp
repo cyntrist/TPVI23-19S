@@ -11,7 +11,7 @@ ListaCoches::ListaCoches(int t)
     auto c = new Coche[tam];
 }
 
-bool ListaCoches::leer(const std::string& archivo)
+bool ListaCoches::read(const std::string& archivo)
 {
     std::ifstream entrada(archivo);
     if (entrada.is_open())
