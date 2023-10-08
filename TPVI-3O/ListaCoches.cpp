@@ -1,6 +1,6 @@
 #include "ListaCoches.h"
-#include "checkML.h"
-#include <fstream>;
+//#include "checkML.h"
+#include <fstream>
 
 //ListaCoches::ListaCoches(int tam, int num, Coche* c) : tam(tam), num(num), c(c) {}
 
@@ -10,6 +10,8 @@ ListaCoches::ListaCoches(int t)
     num = 0;
     auto c = new Coche[tam];
 }
+
+void ListaCoches::deleteCars() { delete[] c; }
 
 bool ListaCoches::read(const std::string& archivo)
 {
@@ -36,4 +38,24 @@ bool ListaCoches::read(const std::string& archivo)
         }
     }
     return entrada.is_open();
+}
+
+int ListaCoches::search(const int id)
+{
+	int ini = 0, n = getNum() - 1;
+    bool enc = false;
+    int indiceEnc =  -1;
+    while (ini <= n && !enc) {
+        const int med = (ini + n) / 2;
+        if (id < getCar(med).GetId())
+            n = med - 1;
+        else if (id > getCar(med).GetId())
+            ini = med + 1;
+        else
+        {
+            enc = true;
+            indiceEnc = med;
+        }
+    }
+    return indiceEnc;
 }
