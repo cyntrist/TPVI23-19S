@@ -49,17 +49,14 @@ int main()
     if (a < b)
 		std::cout << c.GetPrecio();
 	*/
-    auto lc = ListaCoches(10);
+    auto lc = ListaCoches(11);
     lc.read("coches.txt");
-    //lc.show();
 
-    // a ver qué tal el bucle ppal
-    int opcion = -1;
+	int opcion = -1;
+	showOptions();
     while (opcion != 0)
     {
-        showOptions();
         cin >> opcion;
-
         switch (opcion)
         {
         case 1:
@@ -70,20 +67,27 @@ int main()
             break;
         case 3:
 	        {
-        		int id, precio;
-	            std::string marca, modelo;
+        		if (lc.getNum() < lc.getTam())
+        		{
+        			int id, precio;
+		            std::string marca, modelo;
 
-	            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
-	            cin >> id;
-	            cout << "¿Precio?" << endl;
-	            cin >> precio;
-	            cout << "¿Marca?" << endl;
-	            cin >> marca;
-	            cout << "¿Modelo?" << endl;
-	            cin >> modelo;
+                    /*
+		            cout << "¿ID?" << endl; // No debería preguntar id, o como mínimo hacer una comprobacion de si están duplis
+		            cin >> id;
+		            cout << "¿Precio?" << endl;
+		            cin >> precio;
+		            cout << "¿Marca?" << endl;
+		            cin >> marca;
+		            cout << "¿Modelo?" << endl;
+		            cin >> modelo; */
 
-	            const auto coche = Coche(id, precio, marca, modelo);
-	            lc.addCar(coche);
+		            //const auto coche = Coche(id, precio, marca, modelo);
+		            const auto coche = Coche(9999, 200, "Seat", "Corola");
+		            lc.addCar(coche);
+        		}
+                else
+                    cout << "No caben más coches." << endl;
 	        }
             break;
         case 4:

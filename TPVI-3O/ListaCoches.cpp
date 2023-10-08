@@ -7,9 +7,9 @@
 
 ListaCoches::ListaCoches(int t)
 {
-	tam = t;
-    num = 0;
-    auto c = new Coche[tam];
+	this->tam = t;
+    this->num = 0;
+    this->c = new Coche[tam];
 }
 
 void ListaCoches::deleteCars() { delete[] c; }
@@ -35,7 +35,7 @@ bool ListaCoches::read(const std::string& archivo)
 
             const auto coche = Coche(id, precio, marca, modelo);
             addCar(coche);
-            addNum();
+            //addNum();
         }
     }
     return entrada.is_open();

@@ -19,7 +19,7 @@ public:
 
 
 	void addNum() { num++; }
-	void addCar(const Coche& v) { c[num] = v; }
+	void addCar(const Coche& v) { c[num] = v; num++; }
 	Coche getCar(const int pos) { return c[pos]; }
 
 	// constructores
