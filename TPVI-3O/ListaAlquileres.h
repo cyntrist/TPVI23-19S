@@ -11,9 +11,10 @@ class ListaAlquileres
 public:
 	ListaAlquileres(int tam);
 	Alquiler GetAlquiler(int position);
-	void addRent(const Alquiler& alquiler) {
-		a[num] = alquiler;
-		num++;
+	void addRent(const Alquiler& alquiler)
+	{
+			a[num] = alquiler;
+			num++;
 	}
 	bool read(const std::string& archivo);
 	void show(ListaCoches &lc);

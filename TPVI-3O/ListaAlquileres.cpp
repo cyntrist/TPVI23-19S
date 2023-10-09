@@ -37,7 +37,6 @@ bool ListaAlquileres::read(const std::string& archivo)
             addRent(alquiler);
             //a[num] = alquiler; //peta aqui
             //std::cout << "Coche " << i << ": " << a.a[a.num].id << " " << a.a[a.num].dias << " " << a.a[a.num].fecha << "\n";
-            num++;
         }
     }
     return abierto;
@@ -47,7 +46,7 @@ void ListaAlquileres::show(ListaCoches &lc) {
     for (int i = 0; i < num; i++) {
         Alquiler auxA = GetAlquiler(i);
         std::cout << auxA.GetFecha() << " ";
-        Coche auxC = lc.getCar(auxA.GetId());
+        Coche auxC = lc.getCar(lc.search(auxA.GetId()));
         std::cout << auxC.getId()
             << auxC.getMarca()
             << " "
