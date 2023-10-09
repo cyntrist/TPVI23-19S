@@ -11,6 +11,8 @@ class ListaAlquileres
 public:
 	ListaAlquileres(int tam);
 	Alquiler GetAlquiler(int position);
+	int getNum();
+	int getTam();
 	void addRent(Alquiler& alquiler)
 	{
 		a[num] = alquiler;

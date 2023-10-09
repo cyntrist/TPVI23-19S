@@ -94,8 +94,40 @@ int main()
 	        }
             break;
         case 4:
-            // ...
-            // a.add...
+            if (la.getNum() < la.getTam())
+            {
+                int id = 0;
+                int pos = -1;
+                std::cout << "Codigo de coche?\n";
+                std::cin >> id;
+                pos = lc.search(id);
+                if (pos == -1) {
+                    std::cout << "No existe un coche con ese código.\n\n";
+                    showOptions();
+                }
+                else {
+                    Coche aux = lc.getCar(pos);
+                    std::cout << "Elegido " << aux.getMarca() << " "
+                        << aux.getModelo() << " con "
+                        << aux.getPrecio() << " euros/dia\n";
+                    
+                    std::cout << "Fecha de inicio: ";
+                    Date fecha;
+                    std::cin >> fecha;
+
+                    std::cout << "Numero de dias: ";
+                    int dias;
+                    std::cin >> dias;
+
+                    Alquiler alquiler(id, dias, fecha);
+                    la.addRent(alquiler);
+                    std::cout << "Alquiler insertado.\n";
+
+                    showOptions();
+                }
+            }
+            else
+                cout << "No caben más alquileres." << endl;
             break;
         default: 
             break;

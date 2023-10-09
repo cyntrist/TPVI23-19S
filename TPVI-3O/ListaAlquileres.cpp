@@ -15,6 +15,14 @@ Alquiler ListaAlquileres::GetAlquiler(int position) {
     return a[position];
 }
 
+int ListaAlquileres::getNum() {
+    return num;
+}
+
+int ListaAlquileres::getTam() {
+    return tam;
+}
+
 bool ListaAlquileres::read(const std::string& archivo)
 {
     bool abierto = false;
