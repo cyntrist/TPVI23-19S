@@ -46,22 +46,29 @@ void ListaAlquileres::show(ListaCoches &lc) {
     for (int i = 0; i < num; i++) {
         Alquiler auxA = GetAlquiler(i);
         std::cout << auxA.GetFecha() << " ";
-        Coche auxC = lc.getCar(lc.search(auxA.GetId()));
-        std::cout << auxC.getId()
-            << auxC.getMarca()
-            << " "
-            << auxC.getModelo()
-            << " por "
-            << auxC.getPrecio()
-            << " €/día "
-            << auxA.GetDias()
-            << " día(s) por "
-            << auxC.getPrecio() * auxA.GetDias()
-            << " euros\n";
-
+        int cocheID = lc.search(auxA.GetId());
+        if (cocheID != -1) {
+            Coche auxC = lc.getCar(lc.search(auxA.GetId()));
+            std::cout << auxC.getId()
+                << " "
+                << auxC.getMarca()
+                << " "
+                << auxC.getModelo()
+                << " por "
+                << auxC.getPrecio()
+                << " euros/dia "
+                << auxA.GetDias()
+                << " dia(s) por "
+                << auxC.getPrecio() * auxA.GetDias()
+                << " euros\n";
+        }
+        else {
+            std::cout << "ERROR: Modelo inexistente\n";
+        }
+        
     }
 }
 
 void ListaAlquileres::ordena() {
-    //std::sort(a, a, a + tam);
+    std::sort(a, a + tam);
 }

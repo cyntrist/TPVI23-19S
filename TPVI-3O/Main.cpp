@@ -53,8 +53,7 @@ int main()
     
     auto la = ListaAlquileres(15);
     la.read("rent.txt");
-    la.ordena();
-
+    //la.ordena();
 	int opcion = -1;
 	showOptions();
     while (opcion != 0)
@@ -67,7 +66,6 @@ int main()
             break;
         case 2:
             la.show(lc);
-
             break;
         case 3:
 	        {
