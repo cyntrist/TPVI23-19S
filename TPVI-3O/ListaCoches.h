@@ -7,7 +7,7 @@ class ListaCoches
 	int tam;
 	int num;
 	Coche* c;
-	Coche** c2; // array dinámico de punteros?
+	Coche** c2; // array dinámico de punteros?  no he sabido hacer esta parte de la práctica...
 
 public:
 	// constructores
