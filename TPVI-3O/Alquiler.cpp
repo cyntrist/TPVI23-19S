@@ -1,3 +1,5 @@
+// Cynthia Tristán Álvarez
+// David Canelada Velasco
 #include "Alquiler.h"
 #include "checkML.h"
 Alquiler::Alquiler() : id(), dias(), fecha(){}

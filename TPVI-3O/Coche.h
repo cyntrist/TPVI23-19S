@@ -1,3 +1,5 @@
+// Cynthia Tristán Álvarez
+// David Canelada Velasco
 #pragma once
 #include <string>
 

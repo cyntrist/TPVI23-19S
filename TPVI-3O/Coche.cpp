@@ -1,3 +1,5 @@
+// Cynthia Tristán Álvarez
+// David Canelada Velasco
 #include "Coche.h"
 //#include "checkML.h" 
 

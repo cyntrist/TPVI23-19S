@@ -1,3 +1,5 @@
+// Cynthia Tristán Álvarez
+// David Canelada Velasco
 #include "ListaAlquileres.h"
 //#include "checkML.h"
 #include <string>

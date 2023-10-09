@@ -1,3 +1,5 @@
+// Cynthia Tristán Álvarez
+// David Canelada Velasco
 #pragma once
 //#include "checkML.h" // me da error de compilacion si lo pongo en archivos distintos al main, quizá porque no hay que ponerlo en main
 #include "Coche.h"
