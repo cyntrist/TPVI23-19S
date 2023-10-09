@@ -1,15 +1,21 @@
 #include "ListaAlquileres.h"
-#include "checkML.h"
+//#include "checkML.h"
 #include <string>
 #include <fstream>
-ListaAlquileres::ListaAlquileres() : tam(), num(), a(){}
-ListaAlquileres::ListaAlquileres(int tam, int num, Alquiler* lista) : tam(tam), num(num), a(lista){}
+#include <algorithm>
+
+ListaAlquileres::ListaAlquileres(int size)
+{
+    tam = size;
+    num = 0;
+    a = new Alquiler[tam];
+}
 
 Alquiler ListaAlquileres::GetAlquiler(int position) {
     return a[position];
 }
 
-bool ListaAlquileres::LeerAlquileres(std::string archivo)
+bool ListaAlquileres::read(const std::string& archivo)
 {
     bool abierto = false;
     std::ifstream entrada(archivo);
@@ -26,13 +32,37 @@ bool ListaAlquileres::LeerAlquileres(std::string archivo)
             entrada >> id;
             entrada >> fecha;
             entrada >> dias;
-            const auto alquiler = Alquiler(id, dias, fecha);
-            AddAlquiler(num, alquiler);
+            auto alquiler = Alquiler(id, dias, fecha);
+
+            addRent(alquiler);
             //a[num] = alquiler; //peta aqui
-            //std::cout << "Coche " << i << ": " << la.a[la.num].id << " " << la.a[la.num].dias << " " << la.a[la.num].fecha << "\n";
+            //std::cout << "Coche " << i << ": " << a.a[a.num].id << " " << a.a[a.num].dias << " " << a.a[a.num].fecha << "\n";
             num++;
         }
     }
     return abierto;
 }
 
+void ListaAlquileres::show(ListaCoches &lc) {
+    for (int i = 0; i < num; i++) {
+        Alquiler auxA = GetAlquiler(i);
+        std::cout << auxA.GetFecha() << " ";
+        Coche auxC = lc.getCar(auxA.GetId());
+        std::cout << auxC.getId()
+            << auxC.getMarca()
+            << " "
+            << auxC.getModelo()
+            << " por "
+            << auxC.getPrecio()
+            << " €/día "
+            << auxA.GetDias()
+            << " día(s) por "
+            << auxC.getPrecio() * auxA.GetDias()
+            << " euros\n";
+
+    }
+}
+
+void ListaAlquileres::ordena() {
+    //std::sort(a, a, a + tam);
+}

@@ -1,8 +1,8 @@
 //
-// Activa la comprobación de fugas de memoria de Visual C++
+// Activa a comprobación de fugas de memoria de Visual C++
 //
 // Esta cabecera solo tiene efecto en Windows. En Linux o macOS
-// añade -fsanitize=address a la línea de comandos del compilador
+// añade -fsanitize=address a a línea de comandos del compilador
 // para comprobar las fugas.
 //
 
@@ -15,11 +15,11 @@
 #define new DBG_NEW
 #endif
 
-// El siguiente código activa el análisis de las fugas de memoria la finalizar
+// El siguiente código activa el análisis de las fugas de memoria a finalizar
 // el programa. Utiliza variables inline, una novedad de C++17, que no está
 // disponible en versiones antiguas de Visual Studio (anteriores a VS 2017).
-// En tal caso se ha de comentar la línea que empieza por inline y llamar a
-// la función _CrtSetDbgFlag manualmente en el main.
+// En tal caso se ha de comentar a línea que empieza por inline y llamar a
+// a función _CrtSetDbgFlag manualmente en el main.
 
 class crt_leak_setflag_dummy {
 	struct constructor {

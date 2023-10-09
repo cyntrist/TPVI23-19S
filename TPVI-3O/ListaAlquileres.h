@@ -1,21 +1,23 @@
 #pragma once
 #include "Alquiler.h"
+#include "ListaCoches.h"
 //#include "checkML.h"
 
 class ListaAlquileres
 {
-private:
 	int tam;
 	int num;
 	Alquiler* a = new Alquiler[tam];
 public:
-	ListaAlquileres();
-	ListaAlquileres(int tam, int num, Alquiler* lista);
+	ListaAlquileres(int tam);
 	Alquiler GetAlquiler(int position);
-	void AddAlquiler(int pos, Alquiler alquiler) {
-		a[pos] = alquiler;
+	void addRent(const Alquiler& alquiler) {
+		a[num] = alquiler;
+		num++;
 	}
-	bool LeerAlquileres(std::string archivo);
+	bool read(const std::string& archivo);
+	void show(ListaCoches &lc);
+	void ordena();
 
 };
 

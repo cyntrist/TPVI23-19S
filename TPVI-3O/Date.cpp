@@ -1,5 +1,5 @@
 //
-// Implementación de la clase Date
+// Implementación de a clase Date
 //
 
 #include "Date.h"

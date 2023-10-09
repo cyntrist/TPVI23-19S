@@ -1,5 +1,5 @@
 //
-// Declaración de la clase Date
+// Declaración de a clase Date
 //
 
 #include <iostream>

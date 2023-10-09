@@ -41,15 +41,19 @@ int main()
     auto a = Alquiler(1, 2, asd);
     auto b = Alquiler(1, 2, bdg);
 
-    auto la = ListaAlquileres();
+    auto a = ListaAlquileres();
 
-	la.LeerAlquileres("rent.txt");
-    std::cout << la.GetAlquiler(0).GetFecha();
+	a.read("rent.txt");
+    std::cout << a.GetAlquiler(0).GetFecha();
     if (a < b)
 		std::cout << c.GetPrecio();
 	*/
     auto lc = ListaCoches(15);
     lc.read("coches.txt");
+    
+    auto la = ListaAlquileres(15);
+    la.read("rent.txt");
+    la.ordena();
 
 	int opcion = -1;
 	showOptions();
@@ -62,7 +66,8 @@ int main()
             lc.show();
             break;
         case 2:
-            // ...
+            la.show(lc);
+
             break;
         case 3:
 	        {
@@ -92,7 +97,7 @@ int main()
             break;
         case 4:
             // ...
-            // la.add...
+            // a.add...
             break;
         default: 
             break;
