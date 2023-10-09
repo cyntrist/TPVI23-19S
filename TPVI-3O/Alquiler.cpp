@@ -17,5 +17,5 @@ Date Alquiler::GetFecha() {
 }
 
 bool Alquiler::operator<(const Alquiler& alquiler) const {
-	return fecha < alquiler.fecha;
+	return alquiler.fecha < fecha;
 }

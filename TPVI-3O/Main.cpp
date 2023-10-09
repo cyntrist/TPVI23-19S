@@ -53,7 +53,7 @@ int main()
     
     auto la = ListaAlquileres(15);
     la.read("rent.txt");
-    //la.ordena();
+    la.ordena();
 	int opcion = -1;
 	showOptions();
     while (opcion != 0)
@@ -108,14 +108,14 @@ int main()
                 else {
                     Coche aux = lc.getCar(pos);
                     std::cout << "Elegido " << aux.getMarca() << " "
-                        << aux.getModelo() << " con "
-                        << aux.getPrecio() << " euros/dia\n";
+                        << aux.getModelo() << " con precio de "
+                        << aux.getPrecio() << " euros/día\n";
                     
                     std::cout << "Fecha de inicio: ";
                     Date fecha;
                     std::cin >> fecha;
 
-                    std::cout << "Numero de dias: ";
+                    std::cout << "Numero de días: ";
                     int dias;
                     std::cin >> dias;
 
