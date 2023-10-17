@@ -15,6 +15,7 @@ Game::Game() {
 	}
 	// ...
 }
+
 Game::~Game() {
 	for (uint i = 0; i < NUM_TEXTURES; i++) delete textures[i];
 	SDL_DestroyRenderer(renderer);
