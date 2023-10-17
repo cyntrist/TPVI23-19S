@@ -1,9 +1,11 @@
 #include "checkML.h"
 
+#include "Vector2D.h"
+#include "texture.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
-#include "texture.h"
+
 
 using namespace std;
 
@@ -34,6 +36,10 @@ void firstTest()
 
 int main(int argc, char* argv[])
 {
-	firstTest();
+	Vector2D<double> v(1, 2);
+	Vector2D<double> b(2, 3);
+
+	cout << v;
+	//firstTest();
 	return 0;
 }
