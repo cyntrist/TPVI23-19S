@@ -7,12 +7,11 @@ class Bunker
 {
 private:
 	// Point2D
-	uint vidas;
-	Texture* textura;
+	uint lives;
+	Texture* texture;
 
 public:
-	Bunker(uint v);
-	~Bunker();
+	Bunker(uint v, Texture* t);
 	void render() const;
 	bool update();
 	void hit();

@@ -84,20 +84,3 @@ Texture::renderFrame(const SDL_Rect& rect,
 	SDL_Rect origin{ col * frameWidth, row * frameHeight, frameWidth, frameHeight };
 	SDL_RenderCopyEx(renderer, texture, &origin, &rect, angle, center, flip);
 }
-
-void Texture::load(const std::string& directory)
-{ // "..\\images\\background1.png"
-	SDL_Surface* surface = IMG_Load(directory.c_str()); 
-	texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-}
-
-void Texture::draw()
-{
-	render();
-}
-
-void Texture::destroy() const
-{
-	SDL_DestroyTexture(texture);
-}

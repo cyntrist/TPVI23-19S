@@ -3,13 +3,14 @@
 
 using namespace std;
 
-Bunker::Bunker(const uint v) {
-	vidas = v;
+Bunker::Bunker(const uint v, Texture* t) {
+	lives = v;
+	texture = t; 
 }
 
 bool Bunker::update()
 {
-	if (vidas <= 0) return false;
+	if (lives <= 0) return false;
 	return true;
 }
 
@@ -20,5 +21,5 @@ void Bunker::render() const
 
 void Bunker::hit()
 {
-	vidas--;
+	lives--;
 }

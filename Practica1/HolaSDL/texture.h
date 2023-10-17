@@ -51,13 +51,6 @@ public:
 	                 double angle,
 	                 const SDL_Point* center = nullptr,
 	                 SDL_RendererFlip flip = SDL_FLIP_NONE) const;
-
-	// Load texture from file
-	void load(const std::string& directory);
-	// Render texture
-	void draw();
-	// Free texture memory
-	void destroy() const;
 };
 
 inline int
