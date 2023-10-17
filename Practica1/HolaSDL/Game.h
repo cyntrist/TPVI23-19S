@@ -1,5 +1,4 @@
-﻿#ifndef GAME_H
-#define GAME_H
+﻿#pragma once
 
 #include "SDL.h"
 #include "texture.h"
@@ -24,4 +23,4 @@ public:
 	void handleEvents();
 	void update();
 };
-#endif
+

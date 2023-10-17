@@ -1,5 +1,4 @@
-#ifndef BUNKER_H
-#define BUNKER_H
+#pragma once
 
 #include "texture.h"
 using uint = unsigned int;
@@ -18,4 +17,3 @@ public:
 	bool update();
 	void hit();
 };
-#endif
