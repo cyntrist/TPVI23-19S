@@ -20,9 +20,14 @@ bool Bunker::update()
 	return true;
 }
 
-void Bunker::render(const SDL_Rect& rect) const
+void Bunker::render() const
 {
-	texture->renderFrame(rect, 1, 3 - lives);
+	SDL_Rect rect;
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.w = texture->getFrameWidth();
+	rect.h = texture->getFrameHeight();
+	texture->renderFrame(rect, texture->getNumRows(), texture->getNumColumns() - lives);
 }
 
 void Bunker::hit()

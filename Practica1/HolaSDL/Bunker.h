@@ -13,7 +13,7 @@ private:
 
 public:
 	Bunker(uint v, Texture* t);
-	void render(const SDL_Rect& rect) const;
+	void render() const;
 	bool update();
 	void hit();
 };
