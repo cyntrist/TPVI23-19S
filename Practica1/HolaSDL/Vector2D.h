@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 template <class T>
 class Vector2D {
 private:
@@ -42,3 +43,5 @@ public:
 		return os;
 	}
 };
+
+using Point2D = Vector2D;
