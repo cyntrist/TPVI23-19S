@@ -6,7 +6,6 @@
 #include "SDL_image.h"
 #include <iostream>
 
-
 using namespace std;
 
 using uint = unsigned int;
