@@ -22,5 +22,8 @@ public:
 	void render() const;
 	void handleEvents();
 	void update();
+	void getDirection();
+	void cannotMove();
+	void fireLaser();
 };
 
