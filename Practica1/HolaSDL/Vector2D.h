@@ -25,13 +25,13 @@ public:
 		return r;
 	}
 	Vector2D operator-(const Vector2D& v) const {
-		Vector2D<T> r;
+		Vector2D r;
 		r.x = this->x - v.x;
 		r.y = this->y - v.y;
 		return r;
 	}
 	Vector2D operator*(double d) const {
-		Vector2D<T> r;
+		Vector2D r;
 		r.x = x * d;
 		r.y = y * d;
 		return r;
@@ -43,8 +43,7 @@ public:
 		os << "(" << v.x << "," << v.y << ")";
 		return os;
 	}
-
 };
 
-template <class T = double>
+template <class T = int>
 using Point2D = Vector2D<T>;
