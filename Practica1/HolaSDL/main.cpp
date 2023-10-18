@@ -43,5 +43,6 @@ int main(int argc, char* argv[])
 	//firstTest();
 
 	auto game = Game();
+	//Game game();
 	return 0;
 }

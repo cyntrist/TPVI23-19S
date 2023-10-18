@@ -2,7 +2,7 @@
 #include "texture.h"
 #include "Vector2D.h"
 //#include "Game.h"
-class Game;
+class Game; // para evitar dependencia circular (la línea de arriba)
 
 using uint = unsigned int;
 
