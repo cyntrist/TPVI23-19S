@@ -7,7 +7,8 @@ private:
 	T x;
 	T y;
 public:
-	Vector2D<T>::Vector2D(T a, T b) {
+	Vector2D() {}
+	Vector2D(T a, T b) {
 		x = a;
 		y = b;
 	}
@@ -42,6 +43,9 @@ public:
 		os << "(" << v.x << "," << v.y << ")";
 		return os;
 	}
+
+	//using Point2D = Vector2D;
 };
 
-using Point2D = Vector2D;
+template <class T>
+using Point2D = Vector2D<T>;

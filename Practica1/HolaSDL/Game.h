@@ -22,7 +22,6 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	//std::vector<std::any> elements; // me estoy fumando un petardaco
-	//std::vector<Alien, Bunker, Cannon, Laser> elements;
 	std::vector<Alien*> aliens;
 	std::vector<Bunker*> bunkers;
 	std::vector<Cannon*> cannons;

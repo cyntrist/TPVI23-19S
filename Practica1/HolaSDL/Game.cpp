@@ -12,7 +12,7 @@ Game::Game() {
 		throw "Error loading SDL window or renderer"s;
 	SDL_RenderClear(renderer);
 	for (uint i = 0; i < NUM_TEXTURES; i++) {
-		SDL_RenderCopy(renderer, textures[i], textures[i]->);
+		//SDL_RenderCopy(renderer, textures[i], textures[i]->);
 	}
 	SDL_RenderPresent(renderer);
 }
@@ -43,13 +43,13 @@ void Game::render() const
 {
 	SDL_RenderClear(renderer);
 	for (int i = 0; i < aliens.size(); i++)
-		aliens[i]->render();
+		//aliens[i]->render();
 	for (int i = 0; i < bunkers.size(); i++)
-		bunkers[i]->render();
+		//bunkers[i]->render();
 	for (int i = 0; i < cannons.size(); i++)
-		cannons[i]->render();
+		//cannons[i]->render();
 	for (int i = 0; i < lasers.size(); i++)
-		lasers[i]->render();
+		//lasers[i]->render();
 	SDL_RenderPresent(renderer);
 	//std::any_cast<decltype(i)>(elements[i])(render);
 }

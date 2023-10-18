@@ -6,6 +6,8 @@
 #include "SDL_image.h"
 #include <iostream>
 
+#include "Game.h"
+
 using namespace std;
 
 using uint = unsigned int;
@@ -40,5 +42,7 @@ int main(int argc, char* argv[])
 
 	cout << v;
 	//firstTest();
+
+	auto game = Game();
 	return 0;
 }

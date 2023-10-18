@@ -8,9 +8,9 @@ using uint = unsigned int;
 class Cannon
 {
 private:
-	Point2D position;
+	Point2D<double> position;
 	Texture* texture = nullptr;
-	Game* game = nullptr;
+	//Game* game = nullptr;
 
 	int movement; // int?	
 	uint lives;

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Bunker::Bunker(Point2D p, const uint v, Texture* t) {
+Bunker::Bunker(const Point2D<double>& p, const uint& v, Texture*& t) {
 	position = p;
 	lives = v;
 	texture = t; 

@@ -7,8 +7,8 @@ using uint = unsigned int;
 class Laser
 {
 private:
-	Point2D<uint> position;
-	Vector2D<uint> speed;
+	Point2D<double> position;
+	Vector2D<double> speed;
 	bool friendly;
 public:
 	Laser();
