@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 //#include <any>
 #include "SDL.h"
 #include "texture.h"
@@ -15,6 +14,7 @@ using uint = unsigned int;
 constexpr uint WIN_WIDTH = 800;
 constexpr uint WIN_HEIGHT = 600;
 constexpr uint NUM_TEXTURES = 3;
+constexpr std::string TEXTURE_ROOT = "";
 
 class Game {
 private:
