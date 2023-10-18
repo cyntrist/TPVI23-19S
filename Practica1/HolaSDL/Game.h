@@ -1,7 +1,15 @@
 ﻿#pragma once
 
+#include <any>
 #include "SDL.h"
 #include "texture.h"
+#include <vector>
+#include <array>
+
+#include "Alien.h"
+#include "Bunker.h"
+#include "Cannon.h"
+#include "Laser.h"
 
 using uint = unsigned int;
 
@@ -13,8 +21,11 @@ class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	std::vector<std::any> elements; // de qué tipo????
+	//std::vector<Alien, Bunker, Cannon, Laser> elements;
 	bool exit = false;
 	Texture* textures[NUM_TEXTURES];
+	//std::array<Texture*, NUM_TEXTURES> textures; // tipo 2??
 public:
 	Game();
 	~Game();

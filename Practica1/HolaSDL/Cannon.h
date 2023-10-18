@@ -9,8 +9,8 @@ class Cannon
 {
 private:
 	Point2D position;
-	Texture* texture;
-	Game* game;
+	Texture* texture = nullptr;
+	Game* game = nullptr;
 
 	int movement; // int?	
 	uint lives;

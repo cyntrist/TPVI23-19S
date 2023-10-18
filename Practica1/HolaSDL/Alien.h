@@ -8,8 +8,8 @@ class Alien
 private:
 	Point2D position;
 	int type;
-	Texture* texture;
-	Game* game;
+	Texture* texture = nullptr;
+	Game* game = nullptr;
 public:
 	Alien();
 	render();

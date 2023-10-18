@@ -42,7 +42,8 @@ void Game::update()
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
-	// ...
+	for (int i = 0; i < elements.size(); i++)
+		std::any_cast<decltype(i)>(elements[i])(render);
 	SDL_RenderPresent(renderer);
 }
 

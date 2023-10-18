@@ -9,7 +9,7 @@ class Bunker
 private:
 	Point2D<uint> position;
 	uint lives;
-	Texture* texture;
+	Texture* texture = nullptr;
 
 public:
 	Bunker(Point2D p, uint v, Texture* t);
