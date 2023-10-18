@@ -12,7 +12,7 @@ private:
 	Game* game = nullptr;
 public:
 	Alien();
-	render();
-	update();
-	hit();
+	void render();
+	void update();
+	void hit();
 };

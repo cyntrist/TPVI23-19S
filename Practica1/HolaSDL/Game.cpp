@@ -42,9 +42,16 @@ void Game::update()
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
-	for (int i = 0; i < elements.size(); i++)
-		std::any_cast<decltype(i)>(elements[i])(render);
+	for (int i = 0; i < aliens.size(); i++)
+		aliens[i]->render();
+	for (int i = 0; i < bunkers.size(); i++)
+		bunkers[i]->render();
+	for (int i = 0; i < cannons.size(); i++)
+		cannons[i]->render();
+	for (int i = 0; i < lasers.size(); i++)
+		lasers[i]->render();
 	SDL_RenderPresent(renderer);
+	//std::any_cast<decltype(i)>(elements[i])(render);
 }
 
 void Game::handleEvents()

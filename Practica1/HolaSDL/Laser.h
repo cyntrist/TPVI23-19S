@@ -12,6 +12,6 @@ private:
 	bool friendly;
 public:
 	Laser();
-	render();
-	update();
+	void render();
+	void update();
 };

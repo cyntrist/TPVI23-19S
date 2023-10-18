@@ -21,8 +21,12 @@ class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	std::vector<std::any> elements; // de qué tipo????
+	//std::vector<std::any> elements; // me estoy fumando un petardaco
 	//std::vector<Alien, Bunker, Cannon, Laser> elements;
+	std::vector<Alien*> aliens;
+	std::vector<Bunker*> bunkers;
+	std::vector<Cannon*> cannons;
+	std::vector<Laser*> lasers;
 	bool exit = false;
 	Texture* textures[NUM_TEXTURES];
 	//std::array<Texture*, NUM_TEXTURES> textures; // tipo 2??

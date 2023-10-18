@@ -1,7 +1,7 @@
 #pragma once
-#include "Game.h"
 #include "texture.h"
 #include "Vector2D.h"
+#include "Game.h"
 
 using uint = unsigned int;
 
@@ -18,8 +18,8 @@ private:
 
 public:
 	Cannon();
-	render();
-	update();
-	hit();
-	handleEvent();
+	void render();
+	void update();
+	void hit();
+	void handleEvent();
 };
