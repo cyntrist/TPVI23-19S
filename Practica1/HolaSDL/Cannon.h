@@ -1,7 +1,8 @@
 #pragma once
 #include "texture.h"
 #include "Vector2D.h"
-//#include "Game.h"
+//#include "Game.h"ç
+class Game;
 
 using uint = unsigned int;
 
@@ -10,7 +11,7 @@ class Cannon
 private:
 	Point2D<double> position;
 	Texture* texture = nullptr;
-	//Game* game = nullptr;
+	Game* game = nullptr;
 
 	int movement; // int?	
 	uint lives;
