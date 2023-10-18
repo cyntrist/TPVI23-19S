@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 	Vector2D<double> v(1, 2);
 	Vector2D<double> b(2, 3);
 
-	cout << v;
+	//cout << v;
 	//firstTest();
 
 	auto game = Game();

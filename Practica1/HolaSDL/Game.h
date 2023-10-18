@@ -13,8 +13,8 @@ using uint = unsigned int;
 
 constexpr uint WIN_WIDTH = 800;
 constexpr uint WIN_HEIGHT = 600;
-constexpr uint NUM_TEXTURES = 3;
-//constexpr std::string TEXTURE_ROOT = "";
+constexpr uint NUM_TEXTURES = 4;
+const std::string TEXTURE_ROOT = "..\\images\\";
 
 class Game {
 private:

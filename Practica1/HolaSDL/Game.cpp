@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include <SDL.h>
+#include <SDL_image.h>
 
 using namespace std;
 
@@ -11,10 +12,17 @@ Game::Game() {
 	if (window == nullptr || renderer == nullptr)
 		throw "Error loading SDL window or renderer"s;
 	SDL_RenderClear(renderer);
+
+	// fondo (todo esto hay que reformarlo, solo estoy probando)
+	Texture* fondo = new Texture(renderer, "..\\images\\stars.png", 1, 1); // esto debería ser parte de texturas
+	fondo->render();
+
 	for (uint i = 0; i < NUM_TEXTURES; i++) {
-		//SDL_RenderCopy(renderer, textures[i], textures[i]->);
+		//textures[i];
 	}
 	SDL_RenderPresent(renderer);
+	SDL_Delay(5000);
+	delete fondo;
 }
 
 Game::~Game() {
