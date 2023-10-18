@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.h"
+//#include "Game.h"
 #include "texture.h"
 #include "Vector2D.h"
 
@@ -13,7 +13,7 @@ private:
 	Texture* texture = nullptr;
 	//Game* game = nullptr;
 public:
-	Alien();
+	Alien() = default;
 	void render();
 	void update();
 	void hit();

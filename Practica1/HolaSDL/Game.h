@@ -1,15 +1,14 @@
 ﻿#pragma once
 
-#include <any>
+//#include <any>
 #include "SDL.h"
 #include "texture.h"
-#include <vector>
-#include <array>
-
 #include "Alien.h"
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"
+#include <vector>
+//#include <array>
 
 using uint = unsigned int;
 
@@ -22,7 +21,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	//std::vector<std::any> elements; // me estoy fumando un petardaco
-	std::vector<Alien*> aliens;
+	std::vector<Alien*> aliens; // me dan error alien y canon exclusivamente no lo entiendo
 	std::vector<Bunker*> bunkers;
 	std::vector<Cannon*> cannons;
 	std::vector<Laser*> lasers;

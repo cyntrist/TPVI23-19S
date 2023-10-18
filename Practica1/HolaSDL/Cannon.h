@@ -1,7 +1,7 @@
 #pragma once
 #include "texture.h"
 #include "Vector2D.h"
-#include "Game.h"
+//#include "Game.h"
 
 using uint = unsigned int;
 
@@ -17,7 +17,7 @@ private:
 	uint timer;
 
 public:
-	Cannon();
+	Cannon() = default;
 	void render();
 	void update();
 	void hit();

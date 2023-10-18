@@ -11,7 +11,7 @@ private:
 	Vector2D<double> speed;
 	bool friendly;
 public:
-	Laser();
+	Laser() = default;
 	void render();
 	void update();
 };
