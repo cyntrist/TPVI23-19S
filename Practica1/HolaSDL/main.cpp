@@ -43,6 +43,11 @@ int main(int argc, char* argv[])
 	//firstTest();
 
 	auto game = Game();
-	//Game game();
+
+	// probando probando
+	auto bunker = Bunker();
+	auto laser = Laser();
+	auto alien = Alien();
+
 	return 0;
 }

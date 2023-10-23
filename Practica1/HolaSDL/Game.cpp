@@ -13,13 +13,10 @@ Game::Game() {
 		throw "Error loading SDL window or renderer"s;
 	SDL_RenderClear(renderer);
 
-	// fondo (todo esto hay que reformarlo, solo estoy probando)
+	// todo esto hay que reformarlo, solo estoy probando
 	Texture* fondo = new Texture(renderer, "..\\images\\stars.png", 1, 1); // esto debería ser parte de texturas
 	fondo->render();
 
-	for (uint i = 0; i < NUM_TEXTURES; i++) {
-		//textures[i];
-	}
 	SDL_RenderPresent(renderer);
 	SDL_Delay(5000);
 	delete fondo;
