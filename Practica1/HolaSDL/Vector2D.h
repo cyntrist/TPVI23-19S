@@ -36,6 +36,12 @@ public:
 		r.y = y * d;
 		return r;
 	}
+	Vector2D operator+=(const Vector2D& v) const {
+		Vector2D r;
+		r.x += v.x;
+		r.y += v.y;
+		return r;
+	}
 	double operator*(const Vector2D& d) const {
 		return d.x * x + d.y * y;
 	}

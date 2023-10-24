@@ -16,6 +16,7 @@ static constexpr uint WIN_WIDTH = 800,
 					  NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static enum TextureName { stars, spaceship, bunker, aliens};
+static const int alienMovSpeed = 10;
 
 class Game {
 private:
@@ -27,6 +28,10 @@ private:
 	std::vector<Laser*> lasers;
 	bool exit = false;
 	std::array<Texture*, NUM_TEXTURES> textures; 
+	Texture* textures[NUM_TEXTURES];
+	//std::array<Texture*, NUM_TEXTURES> textures; // tipo 2??
+
+	int movDir;
 public:
 	Game();
 	~Game();
@@ -34,7 +39,7 @@ public:
 	void render() const;
 	void handleEvents();
 	void update();
-	void getDirection();
+	int getDirection();
 	void cannotMove();
 	void fireLaser();
 };
