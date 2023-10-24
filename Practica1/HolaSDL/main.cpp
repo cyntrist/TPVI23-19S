@@ -44,10 +44,7 @@ int main(int argc, char* argv[])
 
 	auto game = Game();
 
-	// probando probando
-	auto bunker = Bunker();
-	auto laser = Laser();
-	auto alien = Alien();
+	game.run();
 
 	return 0;
 }

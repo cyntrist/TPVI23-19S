@@ -7,7 +7,7 @@
 #include "Cannon.h"
 #include "Laser.h"
 #include <vector>
-//#include <array>
+#include <array>
 
 using uint = unsigned int;
 
@@ -15,19 +15,19 @@ constexpr uint WIN_WIDTH = 800;
 constexpr uint WIN_HEIGHT = 600;
 constexpr uint NUM_TEXTURES = 4;
 const std::string TEXTURE_ROOT = "..\\images\\";
+enum TextureName { stars, spaceship, bunker, aliens};
 
 class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	//std::vector<std::any> elements; // me estoy fumando un petardaco
-	std::vector<Alien*> aliens; // me dan error alien y canon exclusivamente no lo entiendo
+	std::vector<Alien*> aliens; 
 	std::vector<Bunker*> bunkers;
 	std::vector<Cannon*> cannons;
 	std::vector<Laser*> lasers;
 	bool exit = false;
-	Texture* textures[NUM_TEXTURES];
-	//std::array<Texture*, NUM_TEXTURES> textures; // tipo 2??
+	std::array<Texture*, NUM_TEXTURES> textures; 
 public:
 	Game();
 	~Game();

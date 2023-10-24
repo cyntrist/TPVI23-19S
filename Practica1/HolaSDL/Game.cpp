@@ -4,6 +4,19 @@
 
 using namespace std;
 
+struct sprite {
+	std::string name;
+	int fil;
+	int col;
+};
+
+const sprite sprites[NUM_TEXTURES]{ 
+	sprite {"stars", 1, 1},
+	sprite {"spaceship", 1, 1},
+	sprite {"bunker", 1, 4},
+	sprite {"aliens", 3, 2}
+};
+
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("SPACE INVADERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -11,15 +24,9 @@ Game::Game() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error loading SDL window or renderer"s;
+	for (int i = 0; i < NUM_TEXTURES; ++i)
+		//textures[i] = new Texture(renderer, TEXTURE_ROOT.c_str(), 1, 1);
 	SDL_RenderClear(renderer);
-
-	// todo esto hay que reformarlo, solo estoy probando
-	Texture* fondo = new Texture(renderer, "..\\images\\stars.png", 1, 1); // esto debería ser parte de texturas
-	fondo->render();
-
-	SDL_RenderPresent(renderer);
-	SDL_Delay(5000);
-	delete fondo;
 }
 
 Game::~Game() {
@@ -47,6 +54,10 @@ void Game::update()
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
+	Texture* fondo = new Texture(renderer, "..\\images\\stars.png", 1, 1); // esto debería ser parte de texturas
+	fondo->render();
+	for (int i = 0; i < NUM_TEXTURES; ++i)
+		textures[i]->render();
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->render();
 	for (int i = 0; i < bunkers.size(); i++)
