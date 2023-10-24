@@ -16,7 +16,7 @@ constexpr uint WIN_HEIGHT = 600;
 constexpr uint NUM_TEXTURES = 4;
 const std::string TEXTURE_ROOT = "..\\images\\";
 enum TextureName { stars, spaceship, bunker, aliens};
-static const int alienMovSpeed = 10;
+const int alienMovSpeed = 10;
 
 class Game {
 private:
@@ -31,7 +31,7 @@ private:
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	Texture* textures[NUM_TEXTURES];
 	//std::array<Texture*, NUM_TEXTURES> textures; // tipo 2??
-
+	std::mt19937_64 randomGenerator;
 	int movDir;
 public:
 	Game();
@@ -43,5 +43,6 @@ public:
 	int getDirection();
 	void cannotMove();
 	void fireLaser();
+	int Game::getRandomRange(int min, int max);
 };
 

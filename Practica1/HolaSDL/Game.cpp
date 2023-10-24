@@ -1,6 +1,7 @@
 ﻿#include "Game.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <random>
 
 using namespace std;
 
@@ -82,4 +83,8 @@ void Game::handleEvents()
 
 int Game::getDirection() {
 	return movDir;
+}
+
+int Game::getRandomRange(int min, int max) {
+	return uniform_int_distribution<int>(min, max)(randomGenerator);
 }
