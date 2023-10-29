@@ -79,7 +79,3 @@ void Game::handleEvents()
 		// ...
 	}
 }
-
-int Game::getDirection() {
-	return movDir;
-}

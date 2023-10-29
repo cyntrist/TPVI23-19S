@@ -15,7 +15,6 @@ private:
 	Game* game = nullptr;
 
 public:
-	Alien(const Point2D<double>& p, int type, Texture*& t, Game*& game);
 	Alien() = default;
 	void render();
 	void update();
