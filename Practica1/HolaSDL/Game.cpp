@@ -28,6 +28,7 @@ Game::Game() {
 		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	// pruebita
 	Alien alien = Alien();
+
 	Bunker bunker = Bunker();
 	Cannon cannon = Cannon();
 	SDL_RenderClear(renderer);
@@ -42,6 +43,16 @@ Game::~Game() {
 
 void Game::run()
 {
+	/*
+	vector<Alien> aliens;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 11; j++)
+		{
+			aliens.push_back(Alien(Point2D<double>(i * textures[3]->getFrameWidth(), i * textures[3]->getFrameHeight()), 0, textures[3], this));
+		}
+	}
+	*/
 	while (!exit)
 	{
 		handleEvents();

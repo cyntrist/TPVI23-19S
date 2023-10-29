@@ -1,7 +1,7 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& p, int tipo, Texture*& t, Game*& g) { 
+Alien::Alien(Point2D<double>& p, int tipo, Texture*& t, Game*& g) { 
 	position = p;
 	type = tipo;
 	texture = t;
