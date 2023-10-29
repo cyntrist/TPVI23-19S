@@ -16,6 +16,7 @@ private:
 
 public:
 	Alien() = default;
+	Alien(const Point2D<double>& p, int type, Texture*& t, Game*& game);
 	void render();
 	void update();
 	void hit();
