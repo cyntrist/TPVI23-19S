@@ -43,16 +43,23 @@ Game::~Game() {
 
 void Game::run()
 {
-	/*
-	vector<Alien> aliens;
+	Point2D<double> position(textures[3]->getFrameWidth(), textures[3]->getFrameHeight());
+	int type = 0;
+	Texture* alienTexture = textures[3];
+	Game* juego = this;
+
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			aliens.push_back(Alien(Point2D<double>(i * textures[3]->getFrameWidth(), i * textures[3]->getFrameHeight()), 0, textures[3], this));
+
+			position = position * i;
+			Alien alien(position, type, alienTexture, juego);
+			Alien* pAlien = &alien;
+			aliens.push_back(pAlien);
+			cout << j << endl;
 		}
 	}
-	*/
 	while (!exit)
 	{
 		handleEvents();
@@ -68,9 +75,12 @@ void Game::update()
 
 void Game::render() const
 {
+
 	SDL_RenderClear(renderer);
+
 	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
 		textures[i]->render();
+
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->render();
 	for (int i = 0; i < bunkers.size(); i++)
