@@ -70,6 +70,7 @@ void Game::render() const
 		lasers[i]->render();
 	SDL_RenderPresent(renderer);
 	//std::any_cast<decltype(i)>(elements[i])(render);
+
 }
 
 void Game::handleEvents()
@@ -84,4 +85,8 @@ void Game::handleEvents()
 
 int Game::getDirection() {
 	return movDir;
+}
+
+void Game::cannotMove() {
+	movDir = -movDir;
 }

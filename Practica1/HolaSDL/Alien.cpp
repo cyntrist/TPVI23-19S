@@ -1,7 +1,7 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& p, int tipo, Texture*& t, Game*& g) {
+Alien::Alien(const Point2D<double>& p, int tipo, Texture*& t, Game*& g) { 
 	position = p;
 	type = tipo;
 	texture = t;
@@ -19,8 +19,13 @@ void Alien::render()
 	texture->renderFrame(rect, texture->getNumRows() * type, texture->getNumColumns());
 }
 
-void Alien::update() {
-	position += Vector2D<double>(game->getDirection() * alienMovSpeed, 0);
+void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
+
+	position += Vector2D<double>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
+
+	if (position.getX() <= texture->getFrameWidth() ||
+		position.getX() >= WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
+		game->cannotMove();
 
 }
 

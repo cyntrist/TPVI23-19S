@@ -12,6 +12,7 @@ private:
 	bool friendly;
 public:
 	Laser() = default;
+	Laser(Point2D<double> position, Vector2D<double> speed, bool friendly);
 	void render();
 	void update();
 };
