@@ -6,9 +6,9 @@
 using namespace std;
 
 struct sprite {
-	const std::string name;
-	int rows;
-	int cols;
+	std::string name;
+	int fil;
+	int col;
 };
 
 const sprite sprites[NUM_TEXTURES]{ 
@@ -25,12 +25,8 @@ Game::Game() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error loading SDL window or renderer"s;
-	for (int i = 0; i < NUM_TEXTURES; i++)
-		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
-	// pruebita
-	Alien alien = Alien();
-	Bunker bunker = Bunker();
-	Cannon cannon = Cannon();
+	for (int i = 0; i < NUM_TEXTURES; ++i)
+		//textures[i] = new Texture(renderer, TEXTURE_ROOT.c_str(), 1, 1);
 	SDL_RenderClear(renderer);
 }
 
@@ -59,7 +55,9 @@ void Game::update()
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
-	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
+	Texture* fondo = new Texture(renderer, "..\\images\\stars.png", 1, 1); // esto debería ser parte de texturas
+	fondo->render();
+	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures[i]->render();
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->render();
