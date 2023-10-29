@@ -43,6 +43,14 @@ Game::~Game() {
 
 void Game::run()
 {
+	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11, pero no se renderizan los aliens
+	//además tambien empezarian a aparecer en la esquina superior izquierda por lo que la cuadricula no estaria en el lugar correctp, pero
+	//eso tiene facil solucion, lo importante es que los aliens funcionen bien primero
+
+	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
+
+	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
+
 	Point2D<double> position(textures[3]->getFrameWidth(), textures[3]->getFrameHeight());
 	int type = 0;
 	Texture* alienTexture = textures[3];
@@ -57,9 +65,9 @@ void Game::run()
 			Alien alien(position, type, alienTexture, juego);
 			Alien* pAlien = &alien;
 			aliens.push_back(pAlien);
-			cout << j << endl;
 		}
 	}
+
 	while (!exit)
 	{
 		handleEvents();
