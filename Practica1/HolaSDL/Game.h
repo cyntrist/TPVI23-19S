@@ -12,16 +12,16 @@
 using uint = unsigned int;
 
 static constexpr uint WIN_WIDTH = 800,
-					  WIN_HEIGHT = 600,
-					  NUM_TEXTURES = 4;
+WIN_HEIGHT = 600,
+NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
-static enum TextureName { stars, spaceship, bunker, aliens};
+static enum TextureName { stars, spaceship, bunker, aliens };
 
 class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	//std::vector<std::any> elements; // me estoy fumando un petardaco
+	
 	std::vector<Alien*> aliens; 
 	std::vector<Bunker*> bunkers;
 	std::vector<Cannon*> cannons;
