@@ -135,7 +135,8 @@ void Game::handleEvents()
 	while (SDL_PollEvent(&event) && !exit)
 	{
 		if (event.type == SDL_QUIT) exit = true;
-		// ...
+		for (const auto i : cannons)
+				i->handleEvent(event);
 	}
 }
 

@@ -9,7 +9,7 @@ using uint = unsigned int;
 class Cannon
 {
 private:
-	Point2D<int> position;
+	Point2D<double> position;
 	Texture* texture = nullptr;
 	Game* game = nullptr;
 
@@ -23,5 +23,5 @@ public:
 	void render();
 	void update();
 	void hit();
-	void handleEvent();
+	void handleEvent(SDL_Event& event);
 };

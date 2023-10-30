@@ -1,5 +1,7 @@
 #include "Cannon.h"
 
+#include "Game.h"
+
 Cannon::Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g) {
 	position = p;
 	lives = l;
@@ -21,7 +23,9 @@ void Cannon::render()
 
 void Cannon::update()
 {
-	position += Vector2D<int>(movement, 0);
+
+	if (position.getX() > 0 && position.getX() < WIN_WIDTH - texture->getFrameWidth())
+		position = position + Vector2D<>(movement, 0);
 }
 
 void Cannon::hit()
@@ -29,11 +33,25 @@ void Cannon::hit()
 	
 }
 
-void Cannon::handleEvent()
+void Cannon::handleEvent(SDL_Event& event)
 {
-	while (SDL_PollEvent(&event))
+	if (event.type == SDL_KEYDOWN)
 	{
-		
+		if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			std::cout << "Derecha\n";
+			movement = 1; 
+		}
+		else if (event.key.keysym.sym == SDLK_LEFT)
+		{
+			movement = -1;
+			std::cout << "Izquierda\n";
+		}
+	}
+	else if (event.type == SDL_KEYUP)
+	{
+		movement = 0;
+		std::cout << "Parado\n";
 	}
 }
 
