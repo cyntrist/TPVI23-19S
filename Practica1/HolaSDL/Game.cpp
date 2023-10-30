@@ -30,8 +30,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-	for (auto const i : textures)
-		delete i;
+	for (auto const i : textures) 
+		//delete i; // sigue dando infraccion de acceso de lectura no se por que
 	for (auto const i : aliens)
 		delete i;
 	for (auto const i : bunkers)
@@ -76,7 +76,7 @@ void Game::run()
 	bunkers.push_back(pBunker);
 
 	// a ver el cañon
-	Point2D<double> posCan(textures[spaceship]->getFrameWidth(), textures[spaceship]->getFrameHeight());
+	Point2D<double> posCan(WIN_WIDTH/2 - textures[spaceship]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/8 - textures[spaceship]->getFrameHeight() );
 	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
 	cannons.push_back(pCannon);
 	
