@@ -46,10 +46,9 @@ void Game::run()
 	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
 
 
-
+	// aliens
 	int type = 0;
 	Game* juego = this;
-
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 11; j++)
@@ -63,11 +62,15 @@ void Game::run()
 		}
 	}
 
-	for (int i = 0; i < 4; i++)
-	{
-		Point2D<double> position(textures[bunker]->getFrameWidth() + 136, textures[bunker]->getFrameHeight() + 200); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
-		Bunker* pBunker = new Bunker(position, 3, textures[bunker]);
-	}
+	// una unidad de bunker que no se por que no renderiza pero bueno el cañon es más importante
+	const Point2D<double> posBun(10,  10); 
+	auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
+	bunkers.push_back(pBunker);
+
+	// a ver el cañon
+	Point2D<double> posCan(textures[spaceship]->getFrameWidth(), textures[spaceship]->getFrameHeight());
+	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
+	cannons.push_back(pCannon);
 
 	while (!exit)
 	{
@@ -82,8 +85,8 @@ void Game::update()
 	
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->update();
-	for (int i = 0; i < bunkers.size(); i++)
-		bunkers[i]->update();
+	//for (int i = 0; i < bunkers.size(); i++)
+		//bunkers[i]->update();
 	/*
 	for (int i = 0; i < cannons.size(); i++)
 		cannons[i]->update();
