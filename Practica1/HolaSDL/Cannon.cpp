@@ -23,9 +23,12 @@ void Cannon::render()
 
 void Cannon::update()
 {
+	position = position + Vector2D<>(movement, 0);
+	if (position.getX() < 0)
+		position = Vector2D<>(0, position.getY());
+	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
+		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
 
-	if (position.getX() > 0 && position.getX() < WIN_WIDTH - texture->getFrameWidth())
-		position = position + Vector2D<>(movement, 0);
 }
 
 void Cannon::hit()
