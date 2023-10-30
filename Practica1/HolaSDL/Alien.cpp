@@ -10,7 +10,6 @@ Alien::Alien(Point2D<double>& p, int tipo, Texture*& t, Game*& g) {
 
 void Alien::render()
 {
-
 	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();

@@ -31,9 +31,7 @@ Game::Game() {
 
 Game::~Game() {
 	// sigue dando infraccion de acceso de lectura no se por que
-	/*
-	for (const auto i : textures) 
-		delete i; */
+	//auto newEnd = std::remove(textures.begin(), textures.end(), NUM_TEXTURES); // como es array fijo no se puedde borrar segun internet
 	for (const auto i : aliens)
 		delete i;
 	for (const auto i : bunkers)
@@ -58,7 +56,7 @@ void Game::run()
 
 	// aliens
 	int type = 0;
-	Game* juego = this;
+	auto* juego = this;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 11; j++)
@@ -72,13 +70,16 @@ void Game::run()
 		}
 	}
 
-	// una unidad de bunker 
-	const Point2D<double> posBun(10,  10); 
-	auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
-	bunkers.push_back(pBunker);
+	// cuatro unidad de bunker
+	for (uint i = 1; i < 5; i++)
+	{
+		const Point2D<double> posBun(WIN_WIDTH*i/5 - textures[bunker]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/4.0 - textures[bunker]->getFrameHeight()); 
+		auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
+		bunkers.push_back(pBunker);
+	}
 
 	// a ver el cañon
-	Point2D<double> posCan(WIN_WIDTH/2 - textures[spaceship]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/8 - textures[spaceship]->getFrameHeight() );
+	Point2D<double> posCan(WIN_WIDTH/2 - textures[spaceship]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/8.0 - textures[spaceship]->getFrameHeight());
 	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
 	cannons.push_back(pCannon);
 	
@@ -92,13 +93,13 @@ void Game::run()
 
 void Game::update()
 {
-	for (auto i : aliens)
+	for (const auto i : aliens)
 		i->update();
-	for (auto i : bunkers)
+	for (const auto i : bunkers)
 		i->update();
-	for (auto i : cannons)
+	for (const auto i : cannons)
 		i->update();
-	for (auto i : lasers)
+	for (const auto i : lasers)
 		i->update();
 }
 

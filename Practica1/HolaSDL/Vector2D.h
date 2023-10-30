@@ -42,7 +42,7 @@ public:
 		r.y += v.y;
 		return r;
 	}
-	double operator*(const Vector2D& d) const {
+	T operator*(const Vector2D& d) const {
 		return d.x * x + d.y * y;
 	}
 	friend std::ostream& operator<<(std::ostream& os, const Vector2D& v) {
