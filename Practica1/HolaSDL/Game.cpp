@@ -35,6 +35,7 @@ Game::Game() {
 
 Game::~Game() {
 	for (uint i = 0; i < NUM_TEXTURES; i++) delete textures[i];
+	// hay que borrar los objs tmb
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -94,6 +95,7 @@ void Game::render() const
 {
 
 	SDL_RenderClear(renderer);
+	textures[stars]->render(); // el fondo!!!!!! :-)
 	/*
 	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
 		textures[i]->render();
