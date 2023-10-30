@@ -9,7 +9,7 @@ using uint = unsigned int;
 class Cannon
 {
 private:
-	Point2D<double> position;
+	Point2D<int> position;
 	Texture* texture = nullptr;
 	Game* game = nullptr;
 

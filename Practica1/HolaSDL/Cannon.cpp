@@ -5,11 +5,13 @@ Cannon::Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g) {
 	lives = l;
 	texture = t;
 	game = g;
+	movement = 0;
+	timer = 0; //?
 }
 
 void Cannon::render()
 {
-SDL_Rect rect;
+	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
@@ -19,7 +21,7 @@ SDL_Rect rect;
 
 void Cannon::update()
 {
-	
+	position += Vector2D<int>(movement, 0);
 }
 
 void Cannon::hit()
@@ -29,7 +31,10 @@ void Cannon::hit()
 
 void Cannon::handleEvent()
 {
-	
+	while (SDL_PollEvent(&event))
+	{
+		
+	}
 }
 
 
