@@ -33,7 +33,7 @@ void Cannon::update()
 
 void Cannon::hit()
 {
-	
+	lives--;
 }
 
 void Cannon::handleEvent(SDL_Event& event)
