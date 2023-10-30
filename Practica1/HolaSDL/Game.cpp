@@ -14,7 +14,7 @@ const sprite sprites[NUM_TEXTURES]{
 	sprite {"stars", 1, 1},
 	sprite {"spaceship", 1, 1},
 	sprite {"bunker", 1, 4},
-	sprite {"aliens", 3, 2}
+	sprite {"alien", 3, 2}
 };
 
 Game::Game() {
@@ -26,10 +26,6 @@ Game::Game() {
 		throw "Error loading SDL window or renderer"s;
 	for (int i = 0; i < NUM_TEXTURES; i++)
 		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
-	// pruebita
-	Alien alien = Alien();
-	Bunker bunker = Bunker();
-	Cannon cannon = Cannon();
 	SDL_RenderClear(renderer);
 }
 
@@ -46,23 +42,28 @@ void Game::run()
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 
 	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
-
+	/// he quitado una de las variables intermedias (la de texture del alien) por probar!! si te parece bien 
 	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
 
 
 
 	int type = 0;
-	Texture* alienTexture = textures[3];
 	Game* juego = this;
 
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			Point2D<double> position(textures[3]->getFrameWidth() * j + 136, textures[3]->getFrameHeight() * i + 32); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
-			Alien* pAlien = new Alien(position, type, alienTexture, juego);
+			Point2D<double> position(textures[alien]->getFrameWidth() * j + 136, textures[alien]->getFrameHeight() * i + 32); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
+			Alien* pAlien = new Alien(position, type, textures[alien], juego);
 			aliens.push_back(pAlien);
 		}
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		Point2D<double> position(textures[bunker]->getFrameWidth() + 136, textures[bunker]->getFrameHeight() + 200); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
+		Bunker* pBunker = new Bunker(position, 3, textures[bunker]);
 	}
 
 	while (!exit)
