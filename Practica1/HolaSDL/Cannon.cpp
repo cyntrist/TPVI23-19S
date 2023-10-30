@@ -13,7 +13,7 @@ SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
+	rect.h = texture->getFrameHeight();	
 	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 

@@ -16,6 +16,6 @@ int main(int argc, char* argv[])
 	auto game = Game();
 
 	game.run();
-
+	game.~Game();
 	return 0;
 }

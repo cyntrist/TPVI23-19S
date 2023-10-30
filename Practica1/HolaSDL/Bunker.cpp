@@ -21,7 +21,7 @@ void Bunker::render() const
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives);
+	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
 }
 
 void Bunker::hit()

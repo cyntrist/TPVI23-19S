@@ -30,8 +30,15 @@ Game::Game() {
 }
 
 Game::~Game() {
-	for (uint i = 0; i < NUM_TEXTURES; i++) delete textures[i];
-	// hay que borrar los objs tmb
+	//for (uint i = 0; i < NUM_TEXTURES; i++) delete textures[i]; esto da error ( el resto no)
+	for (auto const i : aliens)
+		delete i;
+	for (auto const i : bunkers)
+		delete i;
+	for (auto const i : cannons)
+		delete i;
+	for (auto const i : lasers)
+		delete i;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -71,13 +78,13 @@ void Game::run()
 	Point2D<double> posCan(textures[spaceship]->getFrameWidth(), textures[spaceship]->getFrameHeight());
 	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
 	cannons.push_back(pCannon);
-
+	/*
 	while (!exit)
 	{
 		handleEvents();
 		update();
 		render();
-	}
+	}*/
 }
 
 void Game::update()
@@ -85,8 +92,8 @@ void Game::update()
 	
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->update();
-	//for (int i = 0; i < bunkers.size(); i++)
-		//bunkers[i]->update();
+	for (int i = 0; i < bunkers.size(); i++)
+		bunkers[i]->update();
 	/*
 	for (int i = 0; i < cannons.size(); i++)
 		cannons[i]->update();
@@ -120,8 +127,6 @@ void Game::render() const
 	for (int i = 0; i < lasers.size(); i++)
 		lasers[i]->render();
 	SDL_RenderPresent(renderer);
-	//std::any_cast<decltype(i)>(elements[i])(render);
-
 }
 
 void Game::handleEvents()
