@@ -62,6 +62,9 @@ void Game::run()
 			Point2D<double> position(textures[3]->getFrameWidth() * j + 136, textures[3]->getFrameHeight() * i + 32); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo, se que esta feo tener numeros asi sueltos pero luego se cambiara a leer de archivo el tablero
 			Alien* pAlien = new Alien(position, type, alienTexture, juego);
 			aliens.push_back(pAlien);
+
+			if (aliens.size() == 11 || aliens.size() == 22)
+				type++;
 		}
 	}
 
