@@ -10,12 +10,14 @@ Alien::Alien(Point2D<double>& p, int tipo, Texture*& t, Game*& g) {
 
 void Alien::render()
 {
+
 	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
 	texture->renderFrame(rect, type, 0);
+
 }
 
 void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos

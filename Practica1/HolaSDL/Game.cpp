@@ -60,7 +60,7 @@ void Game::run()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			Point2D<double> position(textures[alien]->getFrameWidth() * j + 136, textures[alien]->getFrameHeight() * i + 32); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
+			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
 			Alien* pAlien = new Alien(position, type, textures[alien], juego);
 			aliens.push_back(pAlien);
 
