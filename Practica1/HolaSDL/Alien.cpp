@@ -15,8 +15,8 @@ void Alien::render()
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, texture->getNumRows() * type, texture->getNumColumns());
-
+	texture->renderFrame(rect, texture->getNumRows() * type, 0);
+	std::cout << texture->getNumRows() << " x " << texture->getNumColumns() << std::endl;
 	//std::cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl;
 }
 
