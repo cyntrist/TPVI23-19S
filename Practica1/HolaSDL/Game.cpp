@@ -28,7 +28,6 @@ Game::Game() {
 		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	// pruebita
 	Alien alien = Alien();
-
 	Bunker bunker = Bunker();
 	Cannon cannon = Cannon();
 	SDL_RenderClear(renderer);
@@ -44,7 +43,7 @@ Game::~Game() {
 void Game::run()
 {
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11, pero no se renderizan los aliens
-	//además tambien empezarian a aparecer en la esquina superior izquierda por lo que la cuadricula no estaria en el lugar correctp, pero
+	//además tambien empezarian a aparecer en la esquina superior izquierda por lo que la cuadricula no estaria en el lugar correcto, pero
 	//eso tiene facil solucion, lo importante es que los aliens funcionen bien primero
 
 	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
@@ -62,10 +61,10 @@ void Game::run()
 		for (int j = 0; j < 11; j++)
 		{
 			Point2D<double> position(textures[3]->getFrameWidth() * j, textures[3]->getFrameHeight() * i);
-			Alien alien(position, type, alienTexture, juego);
-			Alien* pAlien = &alien;
+			//Alien alien(position, type, alienTexture, juego);
+			Alien* pAlien = new Alien(position, type, alienTexture, juego);
 			aliens.push_back(pAlien);
-			//cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl;
+			//cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl; 
 		}
 	}
 
@@ -79,14 +78,23 @@ void Game::run()
 
 void Game::update()
 {
-	// ...
+	/*
+	for (int i = 0; i < aliens.size(); i++)
+		aliens[i]->update();
+	for (int i = 0; i < bunkers.size(); i++)
+		bunkers[i]->update();
+	for (int i = 0; i < cannons.size(); i++)
+		cannons[i]->update();
+	for (int i = 0; i < lasers.size(); i++)
+		lasers[i]->update();
+	*/
 }
 
 void Game::render() const
 {
 
 	SDL_RenderClear(renderer);
-/*
+	/*
 	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
 		textures[i]->render();
 */
