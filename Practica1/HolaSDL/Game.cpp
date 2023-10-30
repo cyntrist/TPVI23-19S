@@ -30,7 +30,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-	//for (uint i = 0; i < NUM_TEXTURES; i++) delete textures[i]; esto da error ( el resto no)
+	for (auto const i : textures)
+		delete i;
 	for (auto const i : aliens)
 		delete i;
 	for (auto const i : bunkers)
