@@ -31,9 +31,8 @@ Game::Game() {
 
 Game::~Game() {
 	// sigue dando infraccion de acceso de lectura no se por que
-	/*
 	for (const auto i : textures) 
-		delete i; */
+		delete i;
 	for (const auto i : aliens)
 		delete i;
 	for (const auto i : bunkers)
