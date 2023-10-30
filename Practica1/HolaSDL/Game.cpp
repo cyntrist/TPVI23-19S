@@ -76,11 +76,12 @@ void Game::run()
 
 void Game::update()
 {
-	/*
+	
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->update();
 	for (int i = 0; i < bunkers.size(); i++)
 		bunkers[i]->update();
+	/*
 	for (int i = 0; i < cannons.size(); i++)
 		cannons[i]->update();
 	for (int i = 0; i < lasers.size(); i++)

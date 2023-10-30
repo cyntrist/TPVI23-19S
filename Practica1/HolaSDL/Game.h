@@ -16,7 +16,7 @@ WIN_HEIGHT = 600,
 NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static enum TextureName { stars, spaceship, bunker, alien};
-static const int alienMovSpeed = 10;
+static const double alienMovSpeed = 0.05;
 
 class Game {
 private:
@@ -29,7 +29,7 @@ private:
 	std::vector<Laser*> lasers;
 	bool exit = false;
 	std::array<Texture*, NUM_TEXTURES> textures; 
-	int movDir;
+	int movDir = 1;
 public:
 	Game();
 	~Game();
