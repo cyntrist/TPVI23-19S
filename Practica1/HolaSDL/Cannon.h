@@ -19,6 +19,7 @@ private:
 
 public:
 	Cannon() = default;
+	Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g);
 	void render();
 	void update();
 	void hit();
