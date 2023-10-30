@@ -72,7 +72,7 @@ void Game::run()
 		}
 	}
 
-	// una unidad de bunker que no se por que no renderiza pero bueno el cañon es más importante
+	// una unidad de bunker 
 	const Point2D<double> posBun(10,  10); 
 	auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
 	bunkers.push_back(pBunker);
@@ -92,17 +92,14 @@ void Game::run()
 
 void Game::update()
 {
-	
-	for (int i = 0; i < aliens.size(); i++)
-		aliens[i]->update();
-	for (int i = 0; i < bunkers.size(); i++)
-		bunkers[i]->update();
-	/*
-	for (int i = 0; i < cannons.size(); i++)
-		cannons[i]->update();
-	for (int i = 0; i < lasers.size(); i++)
-		lasers[i]->update();
-	*/
+	for (auto i : aliens)
+		i->update();
+	for (auto i : bunkers)
+		i->update();
+	for (auto i : cannons)
+		i->update();
+	for (auto i : lasers)
+		i->update();
 }
 
 void Game::render() const
