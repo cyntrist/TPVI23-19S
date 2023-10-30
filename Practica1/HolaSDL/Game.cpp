@@ -61,7 +61,7 @@ void Game::run()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			Point2D<double> position(textures[3]->getFrameWidth() * j, textures[3]->getFrameHeight() * i);
+			Point2D<double> position(textures[3]->getFrameWidth() * j + 136, textures[3]->getFrameHeight() * i + 32);
 			//Alien alien(position, type, alienTexture, juego);
 			Alien* pAlien = new Alien(position, type, alienTexture, juego);
 			aliens.push_back(pAlien);
