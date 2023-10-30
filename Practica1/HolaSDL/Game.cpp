@@ -79,13 +79,13 @@ void Game::run()
 	Point2D<double> posCan(textures[spaceship]->getFrameWidth(), textures[spaceship]->getFrameHeight());
 	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
 	cannons.push_back(pCannon);
-	/*
+	
 	while (!exit)
 	{
 		handleEvents();
 		update();
 		render();
-	}*/
+	}
 }
 
 void Game::update()
