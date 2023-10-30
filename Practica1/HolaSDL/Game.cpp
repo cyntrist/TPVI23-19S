@@ -43,9 +43,7 @@ Game::~Game() {
 
 void Game::run()
 {
-	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11, pero no se renderizan los aliens
-	//además tambien empezarian a aparecer en la esquina superior izquierda por lo que la cuadricula no estaria en el lugar correcto, pero
-	//eso tiene facil solucion, lo importante es que los aliens funcionen bien primero
+	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 
 	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
 
@@ -61,11 +59,9 @@ void Game::run()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			Point2D<double> position(textures[3]->getFrameWidth() * j + 136, textures[3]->getFrameHeight() * i + 32);
-			//Alien alien(position, type, alienTexture, juego);
+			Point2D<double> position(textures[3]->getFrameWidth() * j + 136, textures[3]->getFrameHeight() * i + 32); //+136 para que esten centrados y +32 para que no aparezcan arriba del todo
 			Alien* pAlien = new Alien(position, type, alienTexture, juego);
 			aliens.push_back(pAlien);
-			//cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl; 
 		}
 	}
 

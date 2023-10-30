@@ -15,7 +15,7 @@ void Alien::render()
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, texture->getNumRows() * type, 0);
+	texture->renderFrame(rect, type, 0);
 }
 
 void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
