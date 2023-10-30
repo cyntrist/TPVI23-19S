@@ -16,8 +16,8 @@ WIN_HEIGHT = 600,
 NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static enum TextureName { stars, spaceship, bunker, alien};
-static const double alienMovSpeed = 0.05
-;
+static const double alienMovSpeed = 0.05;
+static const double cannonMovSpeed = 0.1;
 
 class Game {
 private:

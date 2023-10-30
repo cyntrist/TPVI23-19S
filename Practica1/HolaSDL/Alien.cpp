@@ -15,7 +15,7 @@ void Alien::render()
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, type, 0);
+	texture->renderFrame(rect, type, state);
 
 }
 
@@ -26,7 +26,7 @@ void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	if (position.getX() <= 0 ||
 		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
 		game->cannotMove();
-
+	state = (state + 1) % 2;
 }
 
 void Alien::hit() {

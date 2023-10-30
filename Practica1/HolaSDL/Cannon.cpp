@@ -23,7 +23,7 @@ void Cannon::render()
 
 void Cannon::update()
 {
-	position = position + Vector2D<>(movement, 0);
+	position = position + Vector2D<>(cannonMovSpeed * movement, 0);
 	if (position.getX() < 0)
 		position = Vector2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())

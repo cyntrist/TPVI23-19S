@@ -13,7 +13,7 @@ private:
 	int type;
 	Texture* texture = nullptr;
 	Game* game = nullptr;
-
+	int state = 0;
 public:
 	Alien() = default;
 	Alien(Point2D<double>& p, int type, Texture*& t, Game*& game);
