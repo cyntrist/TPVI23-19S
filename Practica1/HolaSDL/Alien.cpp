@@ -17,6 +17,7 @@ void Alien::render()
 	rect.w = texture->getFrameWidth();
 	rect.h = texture->getFrameHeight();
 	texture->renderFrame(rect, texture->getNumRows() * type, texture->getNumColumns());
+	//std::cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl;
 }
 
 void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos

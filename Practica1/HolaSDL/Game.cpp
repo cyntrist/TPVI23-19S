@@ -51,7 +51,8 @@ void Game::run()
 
 	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
 
-	Point2D<double> position(textures[3]->getFrameWidth(), textures[3]->getFrameHeight());
+
+
 	int type = 0;
 	Texture* alienTexture = textures[3];
 	Game* juego = this;
@@ -60,11 +61,11 @@ void Game::run()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-
-			position = position * i;
+			Point2D<double> position(textures[3]->getFrameWidth() * j, textures[3]->getFrameHeight() * i);
 			Alien alien(position, type, alienTexture, juego);
 			Alien* pAlien = &alien;
 			aliens.push_back(pAlien);
+			//cout << "{" << position.getX() << " ," << position.getY() << " }" << std::endl;
 		}
 	}
 
@@ -85,9 +86,16 @@ void Game::render() const
 {
 
 	SDL_RenderClear(renderer);
-
+/*
 	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
 		textures[i]->render();
+*/
+	/*
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderDrawLine(renderer, 0, 0, 400, 300);
+	*/
 
 	for (int i = 0; i < aliens.size(); i++)
 		aliens[i]->render();
