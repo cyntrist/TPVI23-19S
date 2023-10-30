@@ -20,11 +20,14 @@ void Alien::render()
 
 void Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 
-	position += Vector2D<double>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
+	position = position + Vector2D<double>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
-	if (position.getX() <= texture->getFrameWidth() ||
-		position.getX() >= WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
+	if (position.getX() <= 0 ||
+		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
+	{
 		game->cannotMove();
+		std::cout << position.getX() << std::endl;
+	}
 
 }
 
