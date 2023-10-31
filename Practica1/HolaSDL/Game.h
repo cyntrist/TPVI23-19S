@@ -9,6 +9,7 @@
 #include <vector>
 #include <array>
 #include <fstream>
+#include <random>
 
 using uint = unsigned int;
 
@@ -47,5 +48,6 @@ public:
 	int getDirection();
 	void cannotMove();
 	void fireLaser(const Point2D<double>&pos, const Vector2D<>&speed, const bool friendly);
+	int getRandomRange(int min, int max);
 };
 

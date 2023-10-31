@@ -50,6 +50,7 @@ void Game::run()
 	auto* juego = this;
 	std::string mapName = "original";
 
+
 	readMap(mapName, juego);
 
 	//Laser* laser = new Laser(Point2D<double>(400, 300), Vector2D<double>(0, laserMovSpeed), false);
@@ -199,4 +200,10 @@ void Game::fireLaser(const Point2D<double>&pos, const Vector2D<>&speed, const bo
 {
 	auto* laser = new Laser(pos, speed, friendly);
 	lasers.push_back(laser);
-};
+}
+
+/*
+mt19937_64 randomGenerator(time(nullptr));
+int Game::getRandomRange(int min, int max) {
+	return uniform_int_distribution<int>(min, max)(randomGenerator);
+}*/
