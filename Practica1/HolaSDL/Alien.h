@@ -18,6 +18,6 @@ public:
 	Alien() = default;
 	Alien(Point2D<double>& p, int type, Texture*& t, Game*& game);
 	void render();
-	void update();
+	bool update();
 	void hit();
 };
