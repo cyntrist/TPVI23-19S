@@ -20,7 +20,7 @@ void Alien::render()
 }
 
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	// todo: hit 
+	// todo: hit
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
