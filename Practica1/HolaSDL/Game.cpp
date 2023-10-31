@@ -48,7 +48,7 @@ Game::~Game() {
 void Game::run()
 {	
 	auto* juego = this;
-	std::string mapName = "lol";
+	std::string mapName = "original";
 
 	readMap(mapName, juego);
 
@@ -189,4 +189,5 @@ void Game::readMap(std::string &mapName, Game *juego) {
 		}
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
+	in.close();
 }

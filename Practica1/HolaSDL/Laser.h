@@ -13,6 +13,6 @@ private:
 public:
 	Laser() = default;
 	Laser(Point2D<double> position, Vector2D<double> speed, bool friendly);
-	void render();
+	void render(SDL_Renderer &renderer);
 	void update();
 };
