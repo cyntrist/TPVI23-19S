@@ -52,6 +52,8 @@ void Game::run()
 
 	readMap(mapName, juego);
 
+	Laser* laser = new Laser(Point2D<double>(400, 300), Vector2D<double>(0, 0), true);
+	lasers.push_back(laser);
 	//exampleInit(juego); //ejemplo de 4x11
 
 	while (!exit)
