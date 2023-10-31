@@ -1,5 +1,4 @@
 #include "Cannon.h"
-
 #include "Game.h"
 
 Cannon::Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g) {
@@ -49,6 +48,11 @@ void Cannon::handleEvent(SDL_Event& event)
 		{
 			movement = -1;
 			std::cout << "Izquierda\n";
+		}
+		else if (event.key.keysym.sym == SDLK_SPACE)
+		{
+			game->fireLaser();
+			std::cout << "laser\n";
 		}
 	}
 	else if (event.type == SDL_KEYUP)
