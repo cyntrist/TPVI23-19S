@@ -92,7 +92,7 @@ void Game::render() const
 	for (const auto i : cannons)
 		i->render();
 	for (const auto i : lasers)
-		i->render();
+		i->render(*renderer);
 	SDL_RenderPresent(renderer);
 }
 
