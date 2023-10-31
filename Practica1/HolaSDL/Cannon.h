@@ -5,6 +5,7 @@
 class Game; // para evitar dependencia circular (la línea de arriba)
 
 using uint = unsigned int;
+static constexpr int TIMERMS = 200;
 
 class Cannon
 {
@@ -13,7 +14,7 @@ private:
 	Texture* texture = nullptr;
 	Game* game = nullptr;
 
-	int movement; // int?	
+	int movement; 	
 	uint lives;
 	uint timer;
 
