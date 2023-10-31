@@ -46,43 +46,12 @@ Game::~Game() {
 }
 
 void Game::run()
-{
-	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
+{	
+	std::string map = "lluvia";
+	readMap(map);
 
-	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
-	/// he quitado una de las variables intermedias (la de texture del alien) por probar!! si te parece bien 
-	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
+	//exampleInit(); //ejemplo de 4x11
 
-
-	// aliens
-	int type = 0;
-	auto* juego = this;
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			Alien* pAlien = new Alien(position, type, textures[alien], juego);
-			aliens.push_back(pAlien);
-
-			if (aliens.size() == 11 || aliens.size() == 22)
-				type++;
-		}
-	}
-
-	// cuatro unidad de bunker
-	for (uint i = 1; i < 5; i++)
-	{
-		const Point2D<double> posBun(WIN_WIDTH*i/5 - textures[bunker]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/4.0 - textures[bunker]->getFrameHeight()); 
-		auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
-		bunkers.push_back(pBunker);
-	}
-
-	// a ver el cañon
-	Point2D<double> posCan(WIN_WIDTH/2 - textures[spaceship]->getFrameWidth()/2, WIN_HEIGHT - WIN_HEIGHT/8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
-	cannons.push_back(pCannon);
-	
 	while (!exit)
 	{
 		handleEvents();
@@ -146,4 +115,51 @@ int Game::getDirection() {
 
 void Game::cannotMove() {
 	movDir = -movDir;
+}
+
+void Game::exampleInit() {
+
+	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
+
+	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
+	/// he quitado una de las variables intermedias (la de texture del alien) por probar!! si te parece bien 
+	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
+
+
+	// aliens
+	int type = 0;
+	auto* juego = this;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 11; j++)
+		{
+			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
+			Alien* pAlien = new Alien(position, type, textures[alien], juego);
+			aliens.push_back(pAlien);
+
+			if (aliens.size() == 11 || aliens.size() == 22)
+				type++;
+		}
+	}
+
+	// cuatro unidad de bunker
+	for (uint i = 1; i < 5; i++)
+	{
+		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
+		auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
+		bunkers.push_back(pBunker);
+	}
+
+	// a ver el cañon
+	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
+	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
+	cannons.push_back(pCannon);
+}
+
+void Game::readMap(std::string &mapName) {
+
+	std::ifstream in(MAP_ROOT + mapName + ".txt");
+	auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt
+
+
 }
