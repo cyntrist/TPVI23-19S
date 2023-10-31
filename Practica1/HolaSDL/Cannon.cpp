@@ -50,8 +50,9 @@ void Cannon::handleEvent(SDL_Event& event)
 			std::cout << "Izquierda\n";
 		}
 		else if (event.key.keysym.sym == SDLK_SPACE)
-		{
-			game->fireLaser();
+		{ // todo: hay que pasr lo de -2.5 a constat (width del laser) 
+			const Point2D<double> pos(this->position.getX() + texture->getFrameWidth()/2 - 2.5, this->position.getY());
+			game->fireLaser(pos, Vector2D<>(0, -laserMovSpeed), true); 
 			std::cout << "laser\n";
 		}
 	}

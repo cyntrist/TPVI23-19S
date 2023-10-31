@@ -107,8 +107,6 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) exit = true;
 		for (const auto i : cannons)
 				i->handleEvent(event);
-		if (event.key.keysym.sym == SDLK_SPACE)
-			fireLaser();
 	}
 }
 
@@ -197,8 +195,8 @@ void Game::readMap(std::string &mapName, Game *juego) {
 	in.close();
 }
 
-void Game::fireLaser()
+void Game::fireLaser(const Point2D<double>&pos, const Vector2D<>&speed, const bool friendly)
 {
-	auto* laser = new Laser(Point2D<double>(0, 0), Vector2D<double>(0, 0), true);
+	auto* laser = new Laser(pos, speed, friendly);
 	lasers.push_back(laser);
 };

@@ -17,10 +17,10 @@ WIN_HEIGHT = 600,
 NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static const std::string MAP_ROOT = "..\\material\\mapas\\";
-static enum TextureName { stars, spaceship, bunker, alien};
-static const double alienMovSpeed = 0.05;
-static const double cannonMovSpeed = 0.1;
-static const double laserMovSpeed = 0.05;
+enum TextureName { stars, spaceship, bunker, alien};
+static constexpr double alienMovSpeed = 0.05;
+static constexpr double cannonMovSpeed = 0.1;
+static constexpr double laserMovSpeed = 0.05;
 
 class Game {
 private:
@@ -46,6 +46,6 @@ public:
 	void update();
 	int getDirection();
 	void cannotMove();
-	void fireLaser();
+	void fireLaser(const Point2D<double>&pos, const Vector2D<>&speed, const bool friendly);
 };
 
