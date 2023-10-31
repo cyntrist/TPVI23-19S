@@ -47,10 +47,12 @@ Game::~Game() {
 
 void Game::run()
 {	
-	std::string map = "lluvia";
-	readMap(map);
+	auto* juego = this;
+	std::string mapName = "lol";
 
-	//exampleInit(); //ejemplo de 4x11
+	readMap(mapName, juego);
+
+	//exampleInit(juego); //ejemplo de 4x11
 
 	while (!exit)
 	{
@@ -77,16 +79,12 @@ void Game::render() const
 
 	SDL_RenderClear(renderer);
 	textures[stars]->render(); // el fondo!!!!!! :-)
+
 	/*
 	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
 		textures[i]->render();
-*/
-	/*
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderDrawLine(renderer, 0, 0, 400, 300);
 	*/
+
 	for (const auto i : aliens)
 		i->render();
 	for (const auto i : bunkers)
@@ -117,7 +115,7 @@ void Game::cannotMove() {
 	movDir = -movDir;
 }
 
-void Game::exampleInit() {
+void Game::exampleInit(Game *juego) {
 
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 
@@ -128,7 +126,6 @@ void Game::exampleInit() {
 
 	// aliens
 	int type = 0;
-	auto* juego = this;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 11; j++)
@@ -156,10 +153,40 @@ void Game::exampleInit() {
 	cannons.push_back(pCannon);
 }
 
-void Game::readMap(std::string &mapName) {
+void Game::readMap(std::string &mapName, Game *juego) {
 
 	std::ifstream in(MAP_ROOT + mapName + ".txt");
-	auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt
+	auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 
+	int read;
+	while (cin >> read) {
 
+		if (read == 0) {
+
+			int x, y;
+			cin >> x >> y;
+			Point2D<double> posCan(x, y);
+			auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
+			cannons.push_back(pCannon);
+
+		}
+		else if (read == 1) {
+
+			int x, y, type;
+			cin >> x >> y >> type;
+			Point2D<double> position(x, y);
+			Alien* pAlien = new Alien(position, type, textures[alien], juego);
+			aliens.push_back(pAlien);
+
+		}
+		else{
+
+			int x, y;
+			cin >> x >> y;
+			const Point2D<double> posBun(x, y);
+			auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
+			bunkers.push_back(pBunker);
+		}
+	}
+	std::cin.rdbuf(cinbuf); //restablecer entrada
 }

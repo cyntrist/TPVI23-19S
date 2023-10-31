@@ -34,8 +34,8 @@ private:
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	int movDir = 1;
 
-	void exampleInit();
-	void readMap(std::string &mapName);
+	void exampleInit(Game *juego);
+	void readMap(std::string &mapName, Game *juego);
 public:
 	Game();
 	~Game();
