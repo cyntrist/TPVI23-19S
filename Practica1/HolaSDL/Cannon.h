@@ -16,7 +16,8 @@ private:
 
 	int movement; 	
 	uint lives;
-	uint timer;
+	uint startTime; // cooldown del cañon
+	uint elapsedTime;
 
 public:
 	Cannon() = default;
