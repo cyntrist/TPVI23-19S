@@ -13,7 +13,6 @@ void Laser::render(SDL_Renderer& renderer)
 	else
 		SDL_SetRenderDrawColor(&renderer, 0, 0, 255, 255);
 
-	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = 5;
