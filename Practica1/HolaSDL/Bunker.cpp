@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Bunker::Bunker(const Point2D<double>& p, const uint& v, Texture*& t) {
+Bunker::Bunker(const Point2D<double>& p, const int& v, Texture*& t) {
 	position = p;
 	lives = v;
 	texture = t; 
@@ -10,8 +10,9 @@ Bunker::Bunker(const Point2D<double>& p, const uint& v, Texture*& t) {
 
 bool Bunker::update()
 {
-	if (lives <= 0) return false;
-	return true;
+	if (lives >= 0)
+		return true;
+	return false;
 }
 
 void Bunker::render() 
