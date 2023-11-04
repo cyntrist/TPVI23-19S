@@ -69,13 +69,13 @@ void Game::run()
 void Game::update()
 {
 	for (const auto i : aliens)
-		i->update();
+		if (!i->update()) delete i;
 	for (const auto i : bunkers)
-		i->update();
+		if (!i->update()) delete i;
 	for (const auto i : cannons)
-		i->update();
+		if (!i->update()) delete i;
 	for (const auto i : lasers)
-		i->update();
+		if (!i->update()) delete i;
 }
 
 void Game::render() const
@@ -83,20 +83,14 @@ void Game::render() const
 
 	SDL_RenderClear(renderer);
 	textures[stars]->render(); // el fondo!!!!!! :-)
-
-	/*
-	for (int i = 0; i < NUM_TEXTURES; i++) // debugging
-		textures[i]->render();
-	*/
-
-	for (const auto i : aliens)
-		if (!i->render()) delete i;
+	for (const auto i : aliens) // los objetos
+		i->render();
 	for (const auto i : bunkers)
-		if (!i->render()) delete i;
+		i->render();
 	for (const auto i : cannons)
-		if (!i->render()) delete i;
+		i->render();
 	for (const auto i : lasers)
-		if (!i->render(*renderer)) delete i;
+		i->render(*renderer);
 	SDL_RenderPresent(renderer);
 }
 

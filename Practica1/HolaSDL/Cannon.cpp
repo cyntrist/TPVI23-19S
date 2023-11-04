@@ -20,14 +20,15 @@ void Cannon::render()
 	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 
-void Cannon::update()
+bool Cannon::update()
 {
+	if (lives <= 0) return false;
 	position = position + Vector2D<>(cannonMovSpeed * movement, 0);
 	if (position.getX() < 0)
 		position = Vector2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
-
+	return true;
 }
 
 void Cannon::hit()
