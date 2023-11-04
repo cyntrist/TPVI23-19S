@@ -35,7 +35,7 @@ void Cannon::hit()
 	lives--;
 }
 
-void Cannon::handleEvent(SDL_Event& event)
+void Cannon::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_KEYDOWN)
 	{

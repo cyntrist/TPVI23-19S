@@ -90,13 +90,13 @@ void Game::render() const
 	*/
 
 	for (const auto i : aliens)
-		i->render();
+		if (!i->render()) delete i;
 	for (const auto i : bunkers)
-		i->render();
+		if (!i->render()) delete i;
 	for (const auto i : cannons)
-		i->render();
+		if (!i->render()) delete i;
 	for (const auto i : lasers)
-		i->render(*renderer);
+		if (!i->render(*renderer)) delete i;
 	SDL_RenderPresent(renderer);
 }
 

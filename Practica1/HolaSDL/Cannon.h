@@ -24,5 +24,5 @@ public:
 	void render();
 	void update();
 	void hit();
-	void handleEvent(SDL_Event& event);
+	void handleEvent(const SDL_Event& event);
 };
