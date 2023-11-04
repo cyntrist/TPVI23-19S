@@ -8,12 +8,10 @@ Cannon::Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g) {
 	game = g;
 	movement = 0;
 	startTime = 0;
-	elapsedTime = TIMERMS; 
 }
 
 void Cannon::render()
 {
-	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();
@@ -41,7 +39,7 @@ void Cannon::hit()
 
 void Cannon::handleEvent(const SDL_Event& event)
 {
-	elapsedTime = SDL_GetTicks() - startTime; 
+	auto elapsedTime = SDL_GetTicks() - startTime; 
 	if (event.type == SDL_KEYDOWN)
 	{
 		if (event.key.keysym.sym == SDLK_RIGHT)

@@ -23,5 +23,5 @@ public:
 	SDL_Rect getRect() { return rect; }
 	void render();
 	bool update();
-	bool hit(const SDL_Rect& other);
+	bool hit();
 };

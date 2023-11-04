@@ -184,10 +184,16 @@ void Game::readMap(std::string &mapName, Game *juego) {
 	in.close();
 }
 
-void Game::fireLaser(const Point2D<double>&pos, const Vector2D<>&speed, const bool friendly)
+void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool& friendly)
 {
-	auto* laser = new Laser(pos, speed, friendly);
+	auto* juego = this;
+	auto* laser = new Laser(pos, speed, friendly, juego);
 	lasers.push_back(laser);
+}
+
+void Game::collisions()
+{
+	
 }
 
 /*

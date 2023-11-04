@@ -14,9 +14,8 @@ bool Bunker::update()
 	return true;
 }
 
-void Bunker::render() const
+void Bunker::render() 
 {
-	SDL_Rect rect;
 	rect.x = position.getX();
 	rect.y = position.getY();
 	rect.w = texture->getFrameWidth();

@@ -1,17 +1,18 @@
 #include "Laser.h"
+#include "Game.h"
 
-Laser::Laser(Point2D<double> position, Vector2D<double> speed, bool friendly) {
+Laser::Laser(Point2D<double>& position, Vector2D<>& speed, bool& friendly, Game*& game) {
 	this->position = position;
 	this->speed = speed;
 	this->friendly = friendly;
+	this->game = game;
 }
 
 void Laser::render(SDL_Renderer& renderer)
 {
+	SDL_SetRenderDrawColor(&renderer, 0, 0, 255, 255);
 	if (friendly)
 		SDL_SetRenderDrawColor(&renderer, 255, 0, 0, 255);
-	else
-		SDL_SetRenderDrawColor(&renderer, 0, 0, 255, 255);
 
 	rect.x = position.getX();
 	rect.y = position.getY();

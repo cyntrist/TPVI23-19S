@@ -19,7 +19,7 @@ void Alien::render()
 
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	// todo: hit
-	//if (hit() return false;
+	if (hit()) return false;
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
@@ -33,6 +33,6 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	return true;
 }
 
-bool Alien::hit(const SDL_Rect& other) {
-	return SDL_HasIntersection(&rect, &other);
+bool Alien::hit() {
+	return false;
 }

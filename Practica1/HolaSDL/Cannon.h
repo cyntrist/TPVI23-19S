@@ -13,15 +13,16 @@ private:
 	Point2D<double> position;
 	Texture* texture = nullptr;
 	Game* game = nullptr;
+	SDL_Rect rect;
 
 	int movement; 	
 	uint lives;
-	uint startTime; // cooldown del cañon
-	uint elapsedTime;
+	uint startTime; // para el cooldown del cañon
 
 public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g);
+	SDL_Rect getRect() { return rect; }
 	void render();
 	bool update();
 	void hit();
