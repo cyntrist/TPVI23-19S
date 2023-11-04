@@ -13,6 +13,10 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[])
 {
+	/*_crtBreakAlloc = 224;
+	_crtBreakAlloc = 228;
+	_crtBreakAlloc = 232;
+	_crtBreakAlloc = 236;*/
 	auto game = Game();
 	game.run();
 	game.~Game();
