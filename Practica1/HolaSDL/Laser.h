@@ -13,8 +13,8 @@ private:
 	Vector2D<> speed;
 	bool friendly;
 	SDL_Rect rect;
-	Game* game;
-	bool destroy = false;
+	Game* game; // referencia al juego para poder llamar a las colisiones
+	bool destroy = false; // si ha de ser destruido
 
 public:
 	Laser() = default;

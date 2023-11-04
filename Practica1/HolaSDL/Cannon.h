@@ -16,7 +16,7 @@ private:
 	SDL_Rect rect;
 
 	int movement; 	
-	uint lives;
+	int lives;
 	uint startTime; // para el cooldown del cañon
 
 public:

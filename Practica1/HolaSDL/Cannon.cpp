@@ -21,7 +21,7 @@ void Cannon::render()
 
 bool Cannon::update()
 {
-	if (lives <= 0) return false;
+	if (lives < 0) return false;
 
 	position = position + Vector2D<>(cannonMovSpeed * movement, 0);
 	if (position.getX() < 0)
