@@ -55,22 +55,48 @@ void Game::run()
 
 	while (!exit)
 	{
+		render();
 		handleEvents();
 		update();
-		render();
 	}
 }
 
 void Game::update()
-{
-	for (const auto i : aliens)
+{/*
+	for (auto i : aliens)
 		if (!i->update()) delete i;
-	for (const auto i : bunkers)
+	for (auto i : bunkers)
 		if (!i->update()) delete i;
-	for (const auto i : cannons)
-		if (!i->update()) delete i;
-	for (const auto i : lasers)
-		if (!i->update()) delete i;
+	for (auto i : cannons)
+		if (!i->update()) delete i;*/
+	for (int i = 0; i < lasers.size();)
+		if (!lasers[i]->update())
+		{
+			delete lasers[i];
+			lasers.erase(lasers.begin() + i);
+		}
+		else i++;
+	for (int i = 0; i < aliens.size();)
+		if (!aliens[i]->update())
+		{
+			delete aliens[i];
+			aliens.erase(aliens.begin() + i);
+		}
+		else i++;
+	for (int i = 0; i < bunkers.size();)
+		if (!bunkers[i]->update())
+		{
+			delete bunkers[i];
+			bunkers.erase(bunkers.begin() + i);
+		}
+		else i++;
+	for (int i = 0; i < cannons.size();)
+		if (!cannons[i]->update())
+		{
+			delete cannons[i];
+			cannons.erase(cannons.begin() + i);
+		}
+		else i++;
 }
 
 void Game::render() const
@@ -184,16 +210,45 @@ void Game::readMap(std::string &mapName, Game *juego) {
 	in.close();
 }
 
-void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool& friendly)
+void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 {
 	auto* juego = this;
 	auto* laser = new Laser(pos, speed, friendly, juego);
 	lasers.push_back(laser);
 }
 
-void Game::collisions()
+bool Game::collisions(SDL_Rect* laser, bool friendly)
 {
-	
+	if (friendly)
+	{ // si es del jugador choca contra los aliens, no contra los cañones
+		for (const auto i : aliens)
+			if (SDL_HasIntersection(laser, i->getRect()))
+			{
+				std::cout << "KAPUM ALIEN";
+				i->hit();
+				return true;
+			}
+	}
+	else
+	{ // si es enemigo, no choca con el resto de aliens y sí con los cañones
+		for (const auto i : cannons)
+			if (SDL_HasIntersection(laser, i->getRect()))
+			{
+				std::cout << "KAPUM CAÑON";
+				i->hit();
+				return true;
+			}
+	}
+
+	for (const auto i : bunkers)
+		if (SDL_HasIntersection(laser, i->getRect()))
+		{
+			std::cout << "KAPUM BUNKER";
+			i->hit();
+			return true;
+		}
+
+	return false;
 }
 
 /*

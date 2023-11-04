@@ -48,7 +48,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 			movement = -1;
 		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
 		{ 
-			const Point2D<double> pos(position.getX() + (texture->getFrameWidth() -LASER_WIDTH)/2, position.getY() - texture->getFrameHeight());
+			Point2D<double> pos(position.getX() + (texture->getFrameWidth() -LASER_WIDTH)/2, position.getY() - texture->getFrameHeight());
 			game->fireLaser(pos, Vector2D<>(0, -laserMovSpeed), true);
 			startTime = SDL_GetTicks();
 		}

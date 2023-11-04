@@ -20,7 +20,7 @@ private:
 public:
 	Alien() = default;
 	Alien(Point2D<double>& p, int type, Texture*& t, Game*& game);
-	SDL_Rect getRect() { return rect; }
+	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();
 	bool hit();

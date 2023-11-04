@@ -22,7 +22,7 @@ private:
 public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g);
-	SDL_Rect getRect() { return rect; }
+	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();
 	void hit();

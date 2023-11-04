@@ -15,7 +15,7 @@ private:
 public:
 	Bunker() = default;
 	Bunker(const Point2D<double>& p, const uint& v, Texture*& t);
-	SDL_Rect getRect() { return rect; }
+	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();
 	void hit();

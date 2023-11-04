@@ -47,8 +47,8 @@ public:
 	void update();
 	int getDirection();
 	void cannotMove();
-	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool& friendly);
+	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
 	int getRandomRange(int min, int max);
-	void collisions();
+	bool collisions(SDL_Rect* laser, bool friendly);
 };
 
