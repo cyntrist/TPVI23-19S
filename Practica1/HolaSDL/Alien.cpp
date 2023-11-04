@@ -17,9 +17,9 @@ void Alien::render()
 	texture->renderFrame(rect, type, state);
 }
 
-bool Alien::update(Laser* laser) { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
+bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	// todo: hit
-	if (hit(laser->getRect())) return false;
+	//if (hit() return false;
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 

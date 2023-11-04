@@ -44,8 +44,8 @@ void Cannon::handleEvent(SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_LEFT)
 			movement = -1;
 		else if (event.key.keysym.sym == SDLK_SPACE)
-		{ // todo: hay que pasr lo de -2.5 a constat (width del laser) 
-			const Point2D<double> pos(position.getX() + texture->getFrameWidth()/2 - 2.5, position.getY() - texture->getFrameHeight());
+		{ 
+			const Point2D<double> pos(position.getX() + (texture->getFrameWidth() -LASER_WIDTH)/2, position.getY() - texture->getFrameHeight());
 			game->fireLaser(pos, Vector2D<>(0, -laserMovSpeed), true); 
 		}
 	}

@@ -3,6 +3,8 @@
 #include "Vector2D.h"
 
 using uint = unsigned int;
+constexpr int LASER_WIDTH = 5,
+			LASER_HEIGHT = 30;
 
 class Laser
 {

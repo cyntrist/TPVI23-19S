@@ -15,8 +15,8 @@ void Laser::render(SDL_Renderer& renderer)
 
 	rect.x = position.getX();
 	rect.y = position.getY();
-	rect.w = 5;
-	rect.h = 30;
+	rect.w = LASER_WIDTH;
+	rect.h = LASER_HEIGHT;
 	SDL_RenderFillRect(&renderer, &rect);
 }
 
