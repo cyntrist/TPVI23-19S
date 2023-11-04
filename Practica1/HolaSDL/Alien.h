@@ -1,4 +1,5 @@
 #pragma once
+#include "Laser.h"
 #include "texture.h"
 #include "Vector2D.h"
 //#include "Game.h"
@@ -19,8 +20,9 @@ private:
 public:
 	Alien() = default;
 	Alien(Point2D<double>& p, int type, Texture*& t, Game*& game);
+	~Alien();
 	SDL_Rect getRect() { return rect; }
 	void render();
-	bool update();
-	bool hit();
+	bool update(Laser* laser);
+	bool hit(const SDL_Rect& other);
 };

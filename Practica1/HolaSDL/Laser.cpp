@@ -20,6 +20,7 @@ void Laser::render(SDL_Renderer& renderer)
 	SDL_RenderFillRect(&renderer, &rect);
 }
 
-void Laser::update() {
+bool Laser::update() {
 	position = position + speed;
+	return true;
 }
