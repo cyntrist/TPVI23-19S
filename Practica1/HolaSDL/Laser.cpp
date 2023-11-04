@@ -23,5 +23,6 @@ void Laser::render(SDL_Renderer& renderer)
 
 bool Laser::update() {
 	position = position + speed;
-	return !game->collisions(getRect(), friendly); // llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
+	return destroy || !game->collisions(getRect(), friendly);
+	// llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
 }

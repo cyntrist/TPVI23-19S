@@ -224,7 +224,7 @@ bool Game::collisions(SDL_Rect* laser, bool friendly)
 		for (const auto i : aliens)
 			if (SDL_HasIntersection(laser, i->getRect()))
 			{
-				std::cout << "KAPUM ALIEN";
+				std::cout << "KAPUM ALIEN\n";
 				i->hit();
 				return true;
 			}
@@ -234,16 +234,18 @@ bool Game::collisions(SDL_Rect* laser, bool friendly)
 		for (const auto i : cannons)
 			if (SDL_HasIntersection(laser, i->getRect()))
 			{
-				std::cout << "KAPUM CAÑON";
+				std::cout << "KAPUM CAÑON\n";
 				i->hit();
 				return true;
 			}
 	}
 
+	/* todo: faltaría colisiones laser x laser pero no he sabido hacerlas de momento */
+
 	for (const auto i : bunkers)
 		if (SDL_HasIntersection(laser, i->getRect()))
 		{
-			std::cout << "KAPUM BUNKER";
+			std::cout << "KAPUM BUNKER\n";
 			i->hit();
 			return true;
 		}

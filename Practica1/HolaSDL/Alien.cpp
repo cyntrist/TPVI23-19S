@@ -17,9 +17,8 @@ void Alien::render()
 	texture->renderFrame(rect, type, state);
 }
 
-bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	// todo: hit
-	if (hit()) return false;
+bool Alien::update() {
+	if (destroy) return false;
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
@@ -33,6 +32,6 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	return true;
 }
 
-bool Alien::hit() {
-	return false;
+void Alien::hit() {
+	destroy = true;
 }

@@ -16,6 +16,7 @@ private:
 	Game* game = nullptr;
 	int state = 0; // estado de animacion
 	SDL_Rect rect; // rectangulo de hitbox
+	bool destroy = false; // si ha de ser destruido
 
 public:
 	Alien() = default;
@@ -23,5 +24,5 @@ public:
 	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();
-	bool hit();
+	void hit();
 };

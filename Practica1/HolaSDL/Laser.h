@@ -14,6 +14,7 @@ private:
 	bool friendly;
 	SDL_Rect rect;
 	Game* game;
+	bool destroy = false;
 
 public:
 	Laser() = default;
@@ -21,4 +22,5 @@ public:
 	SDL_Rect* getRect() { return &rect; }
 	void render(SDL_Renderer &renderer);
 	bool update();
+	void hit() { destroy = true; }
 };
