@@ -21,7 +21,7 @@ static const std::string MAP_ROOT = "..\\material\\mapas\\";
 enum TextureName { stars, spaceship, bunker, alien};
 static constexpr double alienMovSpeed = 0.05;
 static constexpr double cannonMovSpeed = 0.1;
-static constexpr double laserMovSpeed = 0.05;
+static constexpr double laserMovSpeed = 0.3;
 
 class Game {
 private:

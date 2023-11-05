@@ -27,7 +27,18 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 		game->cannotMove();
 	//state = (state + 1) % 2;
 
-	// todo: random shoot...
+	if (type == 0) {
+		// todo: random shoot...
+		if (timer <= 0)
+			timer = game->getRandomRange(1000, 10000); //IMPORTANTE: el min y max son numero de frames, si hacemos que despues de cada update haya delay entonces tenemos que bajar estos numeros mucho
+		else
+			timer--;
+
+		if (timer <= 0) { //se que está feo de narices 
+			Point2D<double> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
+			game->fireLaser(pos, Vector2D<>(0, laserMovSpeed), false);
+		}
+	}
 
 	return true;
 }

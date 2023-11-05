@@ -50,7 +50,7 @@ void Game::run()
 	auto* juego = this;
 	std::string mapName = "original";
 	readMap(mapName, juego);
-	
+
 	//exampleInit(juego); //ejemplo de 4x11
 
 	while (!exit)
@@ -97,6 +97,9 @@ void Game::update()
 			cannons.erase(cannons.begin() + i);
 		}
 		else i++;
+
+	if (aliens.size() == 0 || cannons.size() == 0)
+		exit = true;
 }
 
 void Game::render() const
@@ -217,6 +220,11 @@ void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 	lasers.push_back(laser);
 }
 
+mt19937_64 randomGenerator(time(nullptr));
+int Game::getRandomRange(int min, int max) {
+	return uniform_int_distribution<int>(min, max)(randomGenerator);
+}
+
 bool Game::collisions(SDL_Rect* laser, bool friendly)
 {
 	if (friendly)
@@ -253,8 +261,3 @@ bool Game::collisions(SDL_Rect* laser, bool friendly)
 	return false;
 }
 
-/*
-mt19937_64 randomGenerator(time(nullptr));
-int Game::getRandomRange(int min, int max) {
-	return uniform_int_distribution<int>(min, max)(randomGenerator);
-}*/
