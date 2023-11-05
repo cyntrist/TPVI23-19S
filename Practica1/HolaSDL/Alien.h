@@ -17,7 +17,7 @@ private:
 	int state = 0; // estado de animacion
 	SDL_Rect rect; // rectangulo de hitbox
 	bool destroy = false; // si ha de ser destruido
-	int shootingTimer;
+	double shootingTimer;
 
 public:
 	Alien() = default;

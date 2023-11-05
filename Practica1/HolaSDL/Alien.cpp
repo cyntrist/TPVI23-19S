@@ -29,7 +29,7 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 
 	if (type == 0) { // random shoot:
 		if (shootingTimer <= 0)
-			shootingTimer = game->getRandomRange(20, 40); //IMPORTANTE: el min y max son numero de frames de update del alien, es decir, el alien disparara una vez cada x updates entre ese rango
+			shootingTimer = game->getRandomRange(0.1 * TIME_BETWEEN_FRAMES, 2 * TIME_BETWEEN_FRAMES); //IMPORTANTE: el min y max son numero de frames de update del alien, es decir, el alien disparara una vez cada x updates entre ese rango
 		else
 			shootingTimer--;
 

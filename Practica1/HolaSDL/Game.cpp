@@ -66,7 +66,7 @@ void Game::run()
 	{
 		handleEvents();
 		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > FRAME_RATE) {
+		if (frameTime > TIME_BETWEEN_FRAMES) {
 			update();
 			startTime = SDL_GetTicks();
 		}

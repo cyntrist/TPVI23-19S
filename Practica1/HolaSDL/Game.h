@@ -15,15 +15,18 @@ using uint = unsigned int;
 
 static constexpr uint WIN_WIDTH = 800,
 WIN_HEIGHT = 600,
-NUM_TEXTURES = 4;
+NUM_TEXTURES = 4,
+FRAME_RATE = 60;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static const std::string MAP_ROOT = "..\\material\\mapas\\";
 enum TextureName { stars, spaceship, bunker, alien};
-static constexpr double alienMovSpeed = 5,
-cannonMovSpeed = 5,
-laserMovSpeed = 3,
-FRAME_RATE = 16.6; //tiempo que queremos entre cada frame en milisegundos, no numero de frames por segundo (para eso: FRAME_RATE = 1000ms/numfps)
-const int alienRefreshRate = 10; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+static constexpr double
+TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
+alienMovSpeed = 0.5 * TIME_BETWEEN_FRAMES,
+cannonMovSpeed = 0.25 * TIME_BETWEEN_FRAMES,
+laserMovSpeed = 0.15 * TIME_BETWEEN_FRAMES;
+
+const int alienRefreshRate = 0.5 * FRAME_RATE; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 
 
 
