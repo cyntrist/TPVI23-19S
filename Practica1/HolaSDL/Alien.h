@@ -26,4 +26,7 @@ public:
 	void render();
 	bool update();
 	void hit();
+	Point2D<double> getPos() {
+		return position;
+	}
 };

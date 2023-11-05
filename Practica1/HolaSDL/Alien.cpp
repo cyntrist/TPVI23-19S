@@ -22,9 +22,10 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
-	if (position.getX() <= 0 ||
+	/*if (position.getX() <= 0 ||
 		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
-		game->cannotMove();
+		game->cannotMove();*/
+
 	state = (state + 1) % 2; // animacion
 
 	if (type == 0) { // random shoot:

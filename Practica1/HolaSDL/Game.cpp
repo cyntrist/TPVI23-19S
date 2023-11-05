@@ -97,10 +97,12 @@ void Game::update()
 			}
 			else i++;
 		alienUpdateTimer = alienRefreshRate;
+		cannotMove();
 	}
 	else
 		alienUpdateTimer--;
 	
+
 	for (int i = 0; i < bunkers.size();)
 		if (!bunkers[i]->update())
 		{
@@ -115,6 +117,7 @@ void Game::update()
 			cannons.erase(cannons.begin() + i);
 		}
 		else i++;
+
 
 	if (aliens.empty() || cannons.empty())
 		exit = true;
@@ -151,7 +154,16 @@ int Game::getDirection() {
 }
 
 void Game::cannotMove() {
-	movDir = -movDir;
+	bool cantMove = false;
+	int i = 0;
+	while (i < aliens.size() && !cantMove) {
+		if (aliens[i]->getPos().getX() <= 0 || aliens[i]->getPos().getX() >= WIN_WIDTH - textures[alien]->getFrameWidth())
+			cantMove = true;
+		else
+			i++;
+	}
+	if (cantMove)
+		movDir = -movDir;
 }
 
 void Game::exampleInit(Game *juego) {
