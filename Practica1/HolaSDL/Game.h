@@ -22,7 +22,7 @@ static const std::string MAP_ROOT = "..\\material\\mapas\\";
 enum TextureName { stars, spaceship, bunker, alien};
 static constexpr double
 TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
-alienMovSpeed = 0.5 * TIME_BETWEEN_FRAMES,
+alienMovSpeed = 1 * TIME_BETWEEN_FRAMES,
 cannonMovSpeed = 0.25 * TIME_BETWEEN_FRAMES,
 laserMovSpeed = 0.15 * TIME_BETWEEN_FRAMES;
 

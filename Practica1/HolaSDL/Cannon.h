@@ -5,7 +5,7 @@
 class Game; // para evitar dependencia circular (la línea de arriba)
 
 using uint = unsigned int;
-static constexpr int TIMERMS = 200;
+static constexpr int TIMERMS = 500;
 
 class Cannon
 {
