@@ -8,7 +8,7 @@ Bunker::Bunker(const Point2D<double>& p, const int& v, Texture*& t) {
 	texture = t; 
 }
 
-bool Bunker::update()
+bool Bunker::update() const
 {
 	if (lives >= 0)
 		return true;

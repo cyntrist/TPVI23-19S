@@ -20,7 +20,7 @@ void Alien::render()
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	if (destroy) return false; // hit
 
-	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
+	position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 
 	if (position.getX() <= 0 ||
 		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
@@ -35,7 +35,7 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 
 		if (shootingTimer <= 0) { //se que esta feo de narices pero si lo ponia dentro de la comprobacion anterior todos los aliens disparaban en la primera iteracion (supongo que iniciando los aliens ya con un valor del random se solucionaria, pero no conseguia hacerlo)
 			Point2D<double> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
-			game->fireLaser(pos, Vector2D<>(0, laserMovSpeed), false);
+			game->fireLaser(pos, Vector2D<>(0, LASER_MOV_SPEED), false);
 		}
 	}
 	return true;
