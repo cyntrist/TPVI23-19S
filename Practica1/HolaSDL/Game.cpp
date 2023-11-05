@@ -52,12 +52,18 @@ void Game::run()
 	readMap(mapName, juego);
 
 	//exampleInit(juego); //ejemplo de 4x11
-
+	startTime = SDL_GetTicks();
+	int i = 0;
 	while (!exit)
 	{
-		render();
 		handleEvents();
-		update();
+		frameTime = SDL_GetTicks() - startTime;
+		if (frameTime > FRAME_RATE) {
+			update();
+			startTime = SDL_GetTicks();
+		}
+		render();
+
 	}
 
 	cout << "\n*** GAME OVER ***\n";
@@ -72,7 +78,7 @@ void Game::update()
 			lasers.erase(lasers.begin() + i);
 		}
 		else i++;
-	if (timer <= 0) {
+	if (alienUpdateTimer <= 0) {
 		for (int i = 0; i < aliens.size();)
 			if (!aliens[i]->update())
 			{
@@ -80,10 +86,10 @@ void Game::update()
 				aliens.erase(aliens.begin() + i);
 			}
 			else i++;
-		timer = alienRefreshRate;
+		alienUpdateTimer = alienRefreshRate;
 	}
 	else
-		timer--;
+		alienUpdateTimer--;
 	
 	for (int i = 0; i < bunkers.size();)
 		if (!bunkers[i]->update())

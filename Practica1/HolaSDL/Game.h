@@ -19,10 +19,13 @@ NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\";
 static const std::string MAP_ROOT = "..\\material\\mapas\\";
 enum TextureName { stars, spaceship, bunker, alien};
-static constexpr double alienMovSpeed = 10;
-static constexpr double cannonMovSpeed = 0.1;
-static constexpr double laserMovSpeed = 0.05;
-const int alienRefreshRate = 1000;
+static constexpr double alienMovSpeed = 5,
+cannonMovSpeed = 5,
+laserMovSpeed = 3,
+FRAME_RATE = 16.6; //tiempo que queremos entre cada frame en milisegundos, no numero de frames por segundo (para eso: FRAME_RATE = 1000ms/numfps)
+const int alienRefreshRate = 10; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+
+
 
 class Game {
 private:
@@ -36,7 +39,8 @@ private:
 	bool exit = false;
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	int movDir = 1;
-	int timer = alienRefreshRate;
+	int alienUpdateTimer = alienRefreshRate;
+	uint32_t startTime, frameTime;
 
 	void exampleInit(Game *juego);
 	void readMap(const std::string &mapName, Game *juego);
