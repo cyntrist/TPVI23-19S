@@ -25,11 +25,11 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	if (position.getX() <= 0 ||
 		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
 		game->cannotMove();
-	//state = (state + 1) % 2; // animacion
+	state = (state + 1) % 2; // animacion
 
 	if (type == 0) { // random shoot:
 		if (timer <= 0)
-			timer = game->getRandomRange(1000, 10000); //IMPORTANTE: el min y max son numero de frames, si hacemos que despues de cada update haya delay entonces tenemos que bajar estos numeros mucho
+			timer = game->getRandomRange(5, 15); //IMPORTANTE: el min y max son numero de frames, si hacemos que despues de cada update haya delay entonces tenemos que bajar estos numeros mucho
 		else
 			timer--;
 
