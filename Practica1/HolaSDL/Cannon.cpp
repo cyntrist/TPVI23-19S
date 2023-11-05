@@ -1,7 +1,7 @@
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g) {
+Cannon::Cannon(const Point2D<double>& p, const int& l, Texture*& t, Game*& g) {
 	position = p;
 	lives = l;
 	texture = t;
