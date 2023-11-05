@@ -21,7 +21,7 @@ static const std::string MAP_ROOT = "..\\material\\mapas\\";
 enum TextureName { stars, spaceship, bunker, alien};
 static constexpr double alienMovSpeed = 0.05;
 static constexpr double cannonMovSpeed = 0.1;
-static constexpr double laserMovSpeed = 0.3;
+static constexpr double laserMovSpeed = 0.05;
 
 class Game {
 private:
@@ -37,7 +37,7 @@ private:
 	int movDir = 1;
 
 	void exampleInit(Game *juego);
-	void readMap(std::string &mapName, Game *juego);
+	void readMap(const std::string &mapName, Game *juego);
 public:
 	Game();
 	~Game();
@@ -48,7 +48,7 @@ public:
 	int getDirection();
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
-	int getRandomRange(int min, int max);
-	bool collisions(SDL_Rect* laser, bool friendly);
+	int getRandomRange(const int& min, const int& max);
+	bool collisions(Laser* laser) const;
 };
 

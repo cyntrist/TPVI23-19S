@@ -59,16 +59,12 @@ void Game::run()
 		handleEvents();
 		update();
 	}
+
+	cout << "\n*** GAME OVER ***\n";
 }
 
 void Game::update()
-{/*
-	for (auto i : aliens)
-		if (!i->update()) delete i;
-	for (auto i : bunkers)
-		if (!i->update()) delete i;
-	for (auto i : cannons)
-		if (!i->update()) delete i;*/
+{ // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
 	for (int i = 0; i < lasers.size();)
 		if (!lasers[i]->update())
 		{
@@ -98,13 +94,12 @@ void Game::update()
 		}
 		else i++;
 
-	if (aliens.size() == 0 || cannons.size() == 0)
+	if (aliens.empty() || cannons.empty())
 		exit = true;
 }
 
 void Game::render() const
 {
-
 	SDL_RenderClear(renderer);
 	textures[stars]->render(); // el fondo!!!!!! :-)
 	for (const auto i : aliens) // los objetos
@@ -174,38 +169,31 @@ void Game::exampleInit(Game *juego) {
 	cannons.push_back(pCannon);
 }
 
-void Game::readMap(std::string &mapName, Game *juego) {
+void Game::readMap(const std::string &mapName, Game *juego) {
 
 	std::ifstream in(MAP_ROOT + mapName + ".txt");
-	auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
+	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 
-	int read;
+	int read, x, y;
 	while (cin >> read) {
-
-		if (read == 0) {
-
-			int x, y;
+		if (read == 0) 
+		{ // cannon
 			cin >> x >> y;
-			Point2D<double> posCan(x, y);
-			auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
+			auto* pCannon = new Cannon(Point2D<double>(x,y), 3, textures[spaceship], juego);
 			cannons.push_back(pCannon);
-
 		}
-		else if (read == 1) {
-
-			int x, y, type;
+		else if (read == 1) 
+		{ // alien
+			int type;
 			cin >> x >> y >> type;
-			Point2D<double> position(x, y);
-			Alien* pAlien = new Alien(position, type, textures[alien], juego);
+			auto* pAlien = new Alien(Point2D<double>(x,y), type, textures[alien], juego);
 			aliens.push_back(pAlien);
-
 		}
-		else{
-
-			int x, y;
+		else 
+		{ // bunker
 			cin >> x >> y;
 			const Point2D<double> posBun(x, y);
-			auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
+			auto* pBunker = new Bunker(Point2D<double>(x,y), 3, textures[bunker]);
 			bunkers.push_back(pBunker);
 		}
 	}
@@ -221,43 +209,33 @@ void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 }
 
 mt19937_64 randomGenerator(time(nullptr));
-int Game::getRandomRange(int min, int max) {
-	return uniform_int_distribution<int>(min, max)(randomGenerator);
+int Game::getRandomRange(const int& min, const int& max) {
+	return uniform_int_distribution<>(min, max )(randomGenerator);
 }
 
-bool Game::collisions(SDL_Rect* laser, bool friendly)
-{
-	if (friendly)
+bool Game::collisions(Laser* laser) const
+{ 
+	if (laser->getFriendly())
 	{ // si es del jugador choca contra los aliens, no contra los cañones
 		for (const auto i : aliens)
-			if (SDL_HasIntersection(laser, i->getRect()))
-			{
-				std::cout << "KAPUM ALIEN\n";
-				i->hit();
-				return true;
-			}
+			if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	}
 	else
 	{ // si es enemigo, no choca con el resto de aliens y sí con los cañones
 		for (const auto i : cannons)
-			if (SDL_HasIntersection(laser, i->getRect()))
-			{
-				std::cout << "KAPUM CAÑON\n";
-				i->hit();
-				return true;
-			}
+			if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	}
 
-	/* todo: faltaría colisiones laser x laser pero no he sabido hacerlas de momento */
+	// colisiones laser x laser
+	for (const auto i : lasers)
+			if (SDL_HasIntersection(laser->getRect(), i->getRect()) 
+				&& laser->getFriendly() == !i->getFriendly() ) { i->hit(); return true; }
 
+	// todos dañan los bunkeres
 	for (const auto i : bunkers)
-		if (SDL_HasIntersection(laser, i->getRect()))
-		{
-			std::cout << "KAPUM BUNKER\n";
-			i->hit();
-			return true;
-		}
-
+		if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	return false;
 }
+
+
 

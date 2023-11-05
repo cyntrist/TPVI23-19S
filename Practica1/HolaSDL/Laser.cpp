@@ -24,6 +24,6 @@ void Laser::render(SDL_Renderer& renderer)
 bool Laser::update() {
 	position = position + speed;
 	if (position.getY() < 0) return false;  // si se sale por arriba
-	return destroy || !game->collisions(getRect(), friendly);
+	return !destroy && !game->collisions(this);
 	// llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
 }

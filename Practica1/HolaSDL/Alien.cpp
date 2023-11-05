@@ -1,7 +1,7 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(Point2D<double>& p, int tipo, Texture*& t, Game*& g) { 
+Alien::Alien(const Point2D<double>& p, int tipo, Texture*& t, Game*& g) { 
 	position = p;
 	type = tipo;
 	texture = t;
@@ -18,17 +18,16 @@ void Alien::render()
 }
 
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (destroy) return false;
+	if (destroy) return false; // hit
 
 	position = position + Vector2D<>(game->getDirection() * alienMovSpeed, 0); //movimiento de los aliens
 
 	if (position.getX() <= 0 ||
 		position.getX() > WIN_WIDTH - texture->getFrameWidth()) //comprobacion por si no pueden moverse mas y hay que invertir la direcccion de movimiento
 		game->cannotMove();
-	//state = (state + 1) % 2;
+	//state = (state + 1) % 2; // animacion
 
-	if (type == 0) {
-		// todo: random shoot...
+	if (type == 0) { // random shoot:
 		if (timer <= 0)
 			timer = game->getRandomRange(1000, 10000); //IMPORTANTE: el min y max son numero de frames, si hacemos que despues de cada update haya delay entonces tenemos que bajar estos numeros mucho
 		else
@@ -39,7 +38,6 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 			game->fireLaser(pos, Vector2D<>(0, laserMovSpeed), false);
 		}
 	}
-
 	return true;
 }
 

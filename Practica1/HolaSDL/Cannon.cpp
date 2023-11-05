@@ -41,20 +41,20 @@ void Cannon::handleEvent(const SDL_Event& event)
 {
 	auto elapsedTime = SDL_GetTicks() - startTime; 
 	if (event.type == SDL_KEYDOWN)
-	{
+	{ // input general
 		if (event.key.keysym.sym == SDLK_RIGHT)
-			movement = 1; 
+			movement = 1; // movimiento der
 		else if (event.key.keysym.sym == SDLK_LEFT)
-			movement = -1;
+			movement = -1; // movimiento izq
 		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
-		{ 
+		{ // disparar si han pasado suficientes ticks
 			Point2D<double> pos(position.getX() + (texture->getFrameWidth() -LASER_WIDTH)/2, position.getY() - texture->getFrameHeight());
 			game->fireLaser(pos, Vector2D<>(0, -laserMovSpeed), true);
-			startTime = SDL_GetTicks();
+			startTime = SDL_GetTicks(); // se resetea el timer a 0
 		}
 	}
 	else if (event.type == SDL_KEYUP)
-		movement = 0;
+		movement = 0; // se para
 }
 
 
