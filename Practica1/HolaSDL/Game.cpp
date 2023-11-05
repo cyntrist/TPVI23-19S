@@ -1,4 +1,6 @@
 ﻿#include "Game.h"
+
+#include <filesystem>
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -153,7 +155,6 @@ void Game::cannotMove() {
 }
 
 void Game::exampleInit(Game *juego) {
-
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 
 	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
@@ -190,35 +191,48 @@ void Game::exampleInit(Game *juego) {
 }
 
 void Game::readMap(const std::string &mapName, Game *juego) {
-
-	std::ifstream in(MAP_ROOT + mapName + ".txt");
-	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
-
-	int read, x, y;
-	while (cin >> read) {
-		if (read == 0) 
-		{ // cannon
-			cin >> x >> y;
-			auto* pCannon = new Cannon(Point2D<double>(x,y), 3, textures[spaceship], juego);
-			cannons.push_back(pCannon);
+	try {
+		std::ifstream in(MAP_ROOT + mapName + ".txt");
+		const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
+		if (in.fail())
+		{
+			std::error_code ec;
+			std::filesystem::path route = MAP_ROOT + mapName + ".txt";
+			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
 		}
-		else if (read == 1) 
-		{ // alien
-			int type;
-			cin >> x >> y >> type;
-			auto* pAlien = new Alien(Point2D<double>(x,y), type, textures[alien], juego);
-			aliens.push_back(pAlien);
+		int read, x, y;
+		while (cin >> read) {
+			if (read == 0) 
+			{ // cannon
+				cin >> x >> y;
+				auto* pCannon = new Cannon(Point2D<double>(x,y), 3, textures[spaceship], juego);
+				cannons.push_back(pCannon);
+			}
+			else if (read == 1) 
+			{ // alien
+				int type;
+				cin >> x >> y >> type;
+				auto* pAlien = new Alien(Point2D<double>(x,y), type, textures[alien], juego);
+				aliens.push_back(pAlien);
+			}
+			else 
+			{ // bunker
+				cin >> x >> y;
+				auto* pBunker = new Bunker(Point2D<double>(x,y), 3, textures[bunker]);
+				bunkers.push_back(pBunker);
+			}
 		}
-		else 
-		{ // bunker
-			cin >> x >> y;
-			const Point2D<double> posBun(x, y);
-			auto* pBunker = new Bunker(Point2D<double>(x,y), 3, textures[bunker]);
-			bunkers.push_back(pBunker);
-		}
+		std::cin.rdbuf(cinbuf); //restablecer entrada
+		in.close();
+	} catch (std::filesystem::filesystem_error const& ex)
+	{
+		cerr << "Error while reading:\n" << ex.what() << endl;
+		exampleInit(this); // se inicia un mapa genérico
+	} catch(...)
+	{
+		cerr << "An error occurred during the scene load." << endl;
+		exampleInit(this); // se inicia un mapa genérico
 	}
-	std::cin.rdbuf(cinbuf); //restablecer entrada
-	in.close();
 }
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
