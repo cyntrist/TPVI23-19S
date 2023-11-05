@@ -4,7 +4,7 @@
 class Game;
 using uint = unsigned int;
 constexpr int LASER_WIDTH = 5,
-			LASER_HEIGHT = 30;
+			  LASER_HEIGHT = 30;
 
 class Laser
 {

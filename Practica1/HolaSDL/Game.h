@@ -1,5 +1,4 @@
 ﻿#pragma once
-//#include <any>
 #include "SDL.h"
 #include "texture.h"
 #include "Alien.h"
@@ -8,24 +7,21 @@
 #include "Laser.h"
 #include <vector>
 #include <array>
-#include <fstream>
 #include <random>
 
 using uint = unsigned int;
 
 static constexpr uint WIN_WIDTH = 800,
-WIN_HEIGHT = 600,
-NUM_TEXTURES = 4;
-static const std::string TEXTURE_ROOT = "..\\images\\";
-static const std::string MAP_ROOT = "..\\material\\mapas\\";
+					  WIN_HEIGHT = 600,
+					  NUM_TEXTURES = 4;
+static const std::string TEXTURE_ROOT = "..\\images\\",
+						 MAP_ROOT = "..\\material\\mapas\\";
+static constexpr double ALIEN_MOV_SPEED = 5,
+						CANNON_MOV_SPEED = 5,
+						LASER_MOV_SPEED = 3,
+						FRAME_RATE = 16.6; //tiempo que queremos entre cada frame en milisegundos, no numero de frames por segundo (para eso: FRAME_RATE = 1000ms/numfps)
+static constexpr int ALIEN_REFRESH_RATE = 10; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 enum TextureName { stars, spaceship, bunker, alien};
-static constexpr double alienMovSpeed = 5,
-cannonMovSpeed = 5,
-laserMovSpeed = 3,
-FRAME_RATE = 16.6; //tiempo que queremos entre cada frame en milisegundos, no numero de frames por segundo (para eso: FRAME_RATE = 1000ms/numfps)
-const int alienRefreshRate = 10; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
-
-
 
 class Game {
 private:
@@ -39,7 +35,7 @@ private:
 	bool exit = false;
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	int movDir = 1;
-	int alienUpdateTimer = alienRefreshRate;
+	int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	uint32_t startTime, frameTime;
 
 	void exampleInit(Game *juego);

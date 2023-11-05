@@ -1,5 +1,5 @@
 ﻿#include "Game.h"
-
+#include <fstream>
 #include <filesystem>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -25,7 +25,7 @@ Game::Game() {
 			WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
-		throw "Error loading SDL window or renderer"s;
+		throw "Error loading SDL window or renderer"s; 
 	try {
 		for (int i = 0; i < NUM_TEXTURES; i++)
 		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
@@ -96,7 +96,7 @@ void Game::update()
 				aliens.erase(aliens.begin() + i);
 			}
 			else i++;
-		alienUpdateTimer = alienRefreshRate;
+		alienUpdateTimer = ALIEN_REFRESH_RATE;
 	}
 	else
 		alienUpdateTimer--;
@@ -196,8 +196,8 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 		const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 		if (in.fail())
 		{
-			std::error_code ec;
-			std::filesystem::path route = MAP_ROOT + mapName + ".txt";
+			const std::error_code ec;
+			const std::filesystem::path route = MAP_ROOT + mapName + ".txt";
 			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
 		}
 		int read, x, y;

@@ -5,7 +5,7 @@
 class Game; // para evitar dependencia circular (la línea de arriba)
 
 using uint = unsigned int;
-static constexpr int TIMERMS = 200;
+static constexpr int TIMERMS = 200; // ticks entre disparo y disparo
 
 class Cannon
 {
@@ -14,14 +14,13 @@ private:
 	Texture* texture = nullptr;
 	Game* game = nullptr;
 	SDL_Rect rect;
-
 	int movement; 	
 	int lives;
 	uint startTime; // para el cooldown del cañon
 
 public:
 	Cannon() = default;
-	Cannon(const Point2D<double>& p, const uint& l, Texture*& t, Game*& g);
+	Cannon(const Point2D<double>& p, const int& l, Texture*& t, Game*& g);
 	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();

@@ -23,7 +23,7 @@ bool Cannon::update()
 {
 	if (lives < 0) return false;
 
-	position = position + Vector2D<>(cannonMovSpeed * movement, 0);
+	position = position + Vector2D<>(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
 		position = Vector2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
@@ -39,7 +39,7 @@ void Cannon::hit()
 
 void Cannon::handleEvent(const SDL_Event& event)
 {
-	auto elapsedTime = SDL_GetTicks() - startTime; 
+	const auto elapsedTime = SDL_GetTicks() - startTime; 
 	if (event.type == SDL_KEYDOWN)
 	{ // input general
 		if (event.key.keysym.sym == SDLK_RIGHT)
@@ -49,7 +49,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<double> pos(position.getX() + (texture->getFrameWidth() -LASER_WIDTH)/2, position.getY() - texture->getFrameHeight());
-			game->fireLaser(pos, Vector2D<>(0, -laserMovSpeed), true);
+			game->fireLaser(pos, Vector2D<>(0, -LASER_MOV_SPEED), true);
 			startTime = SDL_GetTicks(); // se resetea el timer a 0
 		}
 	}
