@@ -72,13 +72,19 @@ void Game::update()
 			lasers.erase(lasers.begin() + i);
 		}
 		else i++;
-	for (int i = 0; i < aliens.size();)
-		if (!aliens[i]->update())
-		{
-			delete aliens[i];
-			aliens.erase(aliens.begin() + i);
-		}
-		else i++;
+	if (timer <= 0) {
+		for (int i = 0; i < aliens.size();)
+			if (!aliens[i]->update())
+			{
+				delete aliens[i];
+				aliens.erase(aliens.begin() + i);
+			}
+			else i++;
+		timer = alienRefreshRate;
+	}
+	else
+		timer--;
+	
 	for (int i = 0; i < bunkers.size();)
 		if (!bunkers[i]->update())
 		{
