@@ -28,12 +28,12 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	state = (state + 1) % 2; // animacion
 
 	if (type == 0) { // random shoot:
-		if (timer <= 0)
-			timer = game->getRandomRange(5, 15); //IMPORTANTE: el min y max son numero de frames, si hacemos que despues de cada update haya delay entonces tenemos que bajar estos numeros mucho
+		if (shootingTimer <= 0)
+			shootingTimer = game->getRandomRange(20, 40); //IMPORTANTE: el min y max son numero de frames de update del alien, es decir, el alien disparara una vez cada x updates entre ese rango
 		else
-			timer--;
+			shootingTimer--;
 
-		if (timer <= 0) { //se que esta feo de narices pero si lo ponia dentro de la comprobacion anterior todos los aliens disparaban en la primera iteracion (supongo que iniciando los aliens ya con un valor del random se solucionaria, pero no conseguia hacerlo)
+		if (shootingTimer <= 0) { //se que esta feo de narices pero si lo ponia dentro de la comprobacion anterior todos los aliens disparaban en la primera iteracion (supongo que iniciando los aliens ya con un valor del random se solucionaria, pero no conseguia hacerlo)
 			Point2D<double> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
 			game->fireLaser(pos, Vector2D<>(0, laserMovSpeed), false);
 		}
