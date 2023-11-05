@@ -24,8 +24,16 @@ Game::Game() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error loading SDL window or renderer"s;
-	for (int i = 0; i < NUM_TEXTURES; i++)
+	try {
+		for (int i = 0; i < NUM_TEXTURES; i++)
 		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
+	} catch (const runtime_error& ex) {
+        cerr << "Runtime exception occured: " << ex.what() << endl;
+		this->exit = true;
+    } catch(...) { // no se muy bien como hacer que pille distintos tipos de errores en la carga de texturas, siempre sale el default
+		cerr << "Default exception occurred: Could not load textures." << endl;
+    	this->exit = true;
+	}
 	SDL_RenderClear(renderer);
 }
 
@@ -203,9 +211,8 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 {
-	auto* juego = this;
-	auto* laser = new Laser(pos, speed, friendly, juego);
-	lasers.push_back(laser);
+	auto* juego = this; // lvalue
+	lasers.push_back(new Laser(pos, speed, friendly, juego));
 }
 
 mt19937_64 randomGenerator(time(nullptr));
