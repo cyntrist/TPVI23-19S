@@ -92,8 +92,29 @@ void Game::update()
 		for (int i = 0; i < aliens.size();)
 			if (!aliens[i]->update())
 			{
+				/*switch (aliens[i]->getType())
+				{
+				case(0):
+				{
+					playerPoints += 30;
+					cout << "amarillo";
+				}
+				case(1):
+				{
+					playerPoints += 20;
+					cout << "verde";
+				}
+				case(2):
+				{
+					playerPoints += 10;
+					cout << "rojo";
+				}
+				default:
+					break;
+				}*/
 				delete aliens[i];
 				aliens.erase(aliens.begin() + i);
+				cout << playerPoints << endl;
 			}
 			else i++;
 		alienUpdateTimer = ALIEN_REFRESH_RATE;
@@ -168,11 +189,6 @@ void Game::cannotMove() {
 
 void Game::exampleInit(Game *juego) {
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
-
-	//ah y no tengo ni idea de si esto es necesario o no, no entiendo nada respecto a la arquitectura del juego la vd
-	/// he quitado una de las variables intermedias (la de texture del alien) por probar!! si te parece bien 
-	//tmb intente hacer los aliens sin todas estas variables intermedias pero no se por que no conseguia que funcionase, probe a almacenar las cosas en varibales y entonces ya funciono
-
 	// aliens
 	int type = 0;
 	for (int i = 0; i < 4; i++)

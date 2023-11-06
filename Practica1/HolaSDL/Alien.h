@@ -28,4 +28,7 @@ public:
 	Point2D<double> getPos() {
 		return position;
 	}
+	int getType() {
+		return type;
+	}
 };
