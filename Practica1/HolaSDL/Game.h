@@ -16,7 +16,7 @@ static constexpr uint WIN_WIDTH = 800,
 					  NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\",
 						 MAP_ROOT = "..\\material\\mapas\\";
-static constexpr double FRAME_RATE = 60, //tiempo que queremos entre cada frame en milisegundos, no numero de frames por segundo (para eso: FRAME_RATE = 1000ms/numfps)
+static constexpr double FRAME_RATE = 60, 
 						TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
 						ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
 						CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
@@ -45,6 +45,7 @@ private:
 	int movDir = 1;
 	int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	uint32_t startTime, frameTime;
+	int playerPoints = 0;
 
 	void exampleInit(Game *juego);
 	void readMap(const std::string &mapName, Game *juego);
