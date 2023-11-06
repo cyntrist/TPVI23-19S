@@ -58,7 +58,7 @@ Game::~Game() {
 void Game::run()
 {	
 	auto* juego = this;
-	std::string mapName = "original";
+	const std::string mapName = "original";
 	readMap(mapName, juego);
 
 	//exampleInit(juego); //ejemplo de 4x11
@@ -88,35 +88,21 @@ void Game::update()
 			lasers.erase(lasers.begin() + i);
 		}
 		else i++;
-	if (alienUpdateTimer <= 0) {
-		for (int i = 0; i < aliens.size();)
-			if (!aliens[i]->update())
-			{
-				if(aliens[i]->getType() == 0){
-					playerPoints += 30;
-					//cout << "amarillo ";
-				}
-				else if (aliens[i]->getType() == 1)
-				{
-					playerPoints += 20;
-					//cout << "verde ";
-				}
-				else
-				{
-					playerPoints += 10;
-					//cout << "rojo ";
-				}
-				delete aliens[i];
-				aliens.erase(aliens.begin() + i);
-				cout << playerPoints << endl;
-			}
-			else i++;
-		alienUpdateTimer = ALIEN_REFRESH_RATE;
-		cannotMove();
-	}
-	else
-		alienUpdateTimer--;
-	
+
+	for (int i = 0; i < aliens.size();)
+		if (!aliens[i]->update())
+		{
+			if(aliens[i]->getType() == 0)
+				playerPoints += 30;
+			else if (aliens[i]->getType() == 1)
+				playerPoints += 20;
+			else
+				playerPoints += 10;
+			delete aliens[i];
+			aliens.erase(aliens.begin() + i);
+			cout << playerPoints << endl;
+		}
+		else i++;
 
 	for (int i = 0; i < bunkers.size();)
 		if (!bunkers[i]->update())
@@ -133,6 +119,13 @@ void Game::update()
 		}
 		else i++;
 
+	if (alienUpdateTimer <= 0)
+	{
+		cannotMove();
+		alienUpdateTimer = ALIEN_REFRESH_RATE;
+	}
+	else 
+		alienUpdateTimer--;
 
 	if (aliens.empty() || cannons.empty())
 		exit = true;
@@ -162,10 +155,6 @@ void Game::handleEvents()
 		for (const auto i : cannons)
 				i->handleEvent(event);
 	}
-}
-
-int Game::getDirection() {
-	return movDir;
 }
 
 void Game::cannotMove() {

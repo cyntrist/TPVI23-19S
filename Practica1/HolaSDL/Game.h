@@ -24,13 +24,6 @@ static constexpr double FRAME_RATE = 60,
 static constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 enum TextureName { stars, spaceship, bunker, alien};
 
-static constexpr double
-alienMovSpeed = 1 * TIME_BETWEEN_FRAMES,
-cannonMovSpeed = 0.25 * TIME_BETWEEN_FRAMES,
-laserMovSpeed = 0.15 * TIME_BETWEEN_FRAMES;
-
-const int alienRefreshRate = 0.5 * FRAME_RATE; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
-
 class Game {
 private:
 	SDL_Window* window = nullptr;
@@ -56,10 +49,11 @@ public:
 	void render() const;
 	void handleEvents();
 	void update();
-	int getDirection();
+	int getDirection() const { return movDir; }
+	int getAlienUpdateTimer() const { return alienUpdateTimer; }
+	int getRandomRange(const int& min, const int& max);
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
-	int getRandomRange(const int& min, const int& max);
 	bool collisions(Laser* laser) const;
 };
 
