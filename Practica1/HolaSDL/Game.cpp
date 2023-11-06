@@ -237,7 +237,7 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 				auto* pAlien = new Alien(Point2D<double>(x,y), type, textures[alien], juego);
 				aliens.push_back(pAlien);
 			}
-			else 
+			else if (read == 2)
 			{ // bunker
 				cin >> x >> y;
 				auto* pBunker = new Bunker(Point2D<double>(x,y), 3, textures[bunker]);
