@@ -76,7 +76,7 @@ void Game::run()
 
 	}
 
-	cout << "\n*** GAME OVER ***\n";
+	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
 
 void Game::update()
@@ -94,17 +94,17 @@ void Game::update()
 			{
 				if(aliens[i]->getType() == 0){
 					playerPoints += 30;
-					cout << "amarillo ";
+					//cout << "amarillo ";
 				}
 				else if (aliens[i]->getType() == 1)
 				{
 					playerPoints += 20;
-					cout << "verde ";
+					//cout << "verde ";
 				}
 				else
 				{
 					playerPoints += 10;
-					cout << "rojo ";
+					//cout << "rojo ";
 				}
 				delete aliens[i];
 				aliens.erase(aliens.begin() + i);
