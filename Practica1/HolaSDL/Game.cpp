@@ -40,8 +40,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-	//for (int i = 0; i < textures.size(); i++)
-		//delete textures[i]; // IMPORTANTE: ESTE ES EL MEMORY LEAK pero no se porqué da error en el destructor de texture.cpp
+	for (int i = 0; i < textures.size(); i++)
+		delete textures[i]; // IMPORTANTE: ESTE ES EL MEMORY LEAK pero no se porqué da error en el destructor de texture.cpp
 	for (const auto i : aliens)
 		delete i;
 	for (const auto i : bunkers)

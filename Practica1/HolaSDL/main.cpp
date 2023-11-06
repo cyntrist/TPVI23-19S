@@ -19,6 +19,5 @@ int main(int argc, char* argv[])
 	_crtBreakAlloc = 236;*/
 	auto game = Game();
 	game.run();
-	game.~Game();
 	return 0;
 }
