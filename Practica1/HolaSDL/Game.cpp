@@ -92,26 +92,20 @@ void Game::update()
 		for (int i = 0; i < aliens.size();)
 			if (!aliens[i]->update())
 			{
-				/*switch (aliens[i]->getType())
-				{
-				case(0):
-				{
+				if(aliens[i]->getType() == 0){
 					playerPoints += 30;
-					cout << "amarillo";
+					cout << "amarillo ";
 				}
-				case(1):
+				else if (aliens[i]->getType() == 1)
 				{
 					playerPoints += 20;
-					cout << "verde";
+					cout << "verde ";
 				}
-				case(2):
+				else
 				{
 					playerPoints += 10;
-					cout << "rojo";
+					cout << "rojo ";
 				}
-				default:
-					break;
-				}*/
 				delete aliens[i];
 				aliens.erase(aliens.begin() + i);
 				cout << playerPoints << endl;
