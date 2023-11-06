@@ -100,7 +100,7 @@ void Game::update()
 				playerPoints += 10;
 			delete aliens[i];
 			aliens.erase(aliens.begin() + i);
-			cout << playerPoints << endl;
+			cout << "PLAYER SCORE: " << playerPoints << endl;
 		}
 		else i++;
 
