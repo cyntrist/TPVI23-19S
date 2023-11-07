@@ -1,7 +1,8 @@
+#include "checkML.h"
 #include "Laser.h"
 #include "Game.h"
 
-Laser::Laser(Point2D<double>& position, Vector2D<>& speed, bool& friendly, Game*& game) {
+Laser::Laser(Point2D<double>& position, Vector2D<>& speed, bool& friendly, Game* game) {
 	this->position = position;
 	this->speed = speed;
 	this->friendly = friendly;

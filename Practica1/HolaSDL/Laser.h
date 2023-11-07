@@ -18,7 +18,7 @@ private:
 
 public:
 	Laser() = default;
-	Laser(Point2D<double>& position, Vector2D<>& speed, bool& friendly, Game*& game);
+	Laser(Point2D<double>& position, Vector2D<>& speed, bool& friendly, Game* game);
 	bool getFriendly() const { return friendly; }
 	SDL_Rect* getRect() { return &rect; }
 	void render(SDL_Renderer &renderer);

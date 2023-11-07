@@ -1,3 +1,4 @@
+#include "checkML.h"
 #include "InfoBar.h"
 
 InfoBar::InfoBar(const Point2D<double>& position, Texture*& texture, const int& padding)

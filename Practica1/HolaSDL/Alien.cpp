@@ -1,7 +1,8 @@
+#include "checkML.h"
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& position, const int& type, Texture*& texture, Game*& game) { 
+Alien::Alien(const Point2D<double>& position, const int& type, Texture*& texture, Game* game) { 
 	this->position = position;
 	this->type = type;
 	this->texture = texture;

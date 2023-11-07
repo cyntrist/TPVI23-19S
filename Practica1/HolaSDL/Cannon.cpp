@@ -1,7 +1,8 @@
+#include "checkML.h"
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game*& game) {
+Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game* game) {
 	this->position = position;
 	this->texture = texture;
 	this->game = game;
@@ -9,7 +10,7 @@ Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game*& game) 
 	startTime = 0;
 }
 
-Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game*& game, const int& _lives) {
+Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game* game, const int& _lives) {
 	this->position = position;
 	this->texture = texture;
 	this->game = game;

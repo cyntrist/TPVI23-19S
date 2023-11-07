@@ -59,11 +59,8 @@ Game::~Game() {
 
 void Game::run()
 {	
-	
 	startMenu();
-
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
-
 	//exampleInit(this); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 	while (!exit)
@@ -247,7 +244,7 @@ void Game::exampleInit(Game *juego) {
 
 	// a ver el cañon
 	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, textures[spaceship], juego, 3);
+	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
 	cannons.push_back(pCannon);
 }
 
