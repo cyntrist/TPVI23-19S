@@ -59,7 +59,7 @@ Game::~Game() {
 
 void Game::run()
 {	
-	const std::string mapName = "original";
+	const std::string mapName = "lol";
 	readMap(mapName, this);
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
 
@@ -213,28 +213,9 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 			const std::filesystem::path route = MAP_ROOT + mapName + ".txt";
 			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
 		}
-		int read, x, y;
-		while (cin >> read) {
-			if (read == 0) 
-			{ // cannon
-				cin >> x >> y;
-				auto* pCannon = new Cannon(Point2D<double>(x,y), textures[spaceship], juego, 3);
-				cannons.push_back(pCannon);
-			}
-			else if (read == 1) 
-			{ // alien
-				int type;
-				cin >> x >> y >> type;
-				auto* pAlien = new Alien(Point2D<double>(x,y), type, textures[alien], juego);
-				aliens.push_back(pAlien);
-			}
-			else if (read == 2)
-			{ // bunker
-				cin >> x >> y;
-				auto* pBunker = new Bunker(Point2D<double>(x,y), 3, textures[bunker]);
-				bunkers.push_back(pBunker);
-			}
-		}
+
+		readEntities(juego); //lee y añade todas las entidades
+
 		std::cin.rdbuf(cinbuf); //restablecer entrada
 		in.close();
 	} catch(std::filesystem::filesystem_error const& ex)
@@ -248,6 +229,30 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 	}
 }
 
+void Game::readEntities(Game* juego) {
+	int read, x, y;
+	while (cin >> read) {
+		if (read == 0)
+		{ // cannon
+			cin >> x >> y;
+			auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, 3);
+			cannons.push_back(pCannon);
+		}
+		else if (read == 1)
+		{ // alien
+			int type;
+			cin >> x >> y >> type;
+			auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
+			aliens.push_back(pAlien);
+		}
+		else if (read == 2)
+		{ // bunker
+			cin >> x >> y;
+			auto* pBunker = new Bunker(Point2D<double>(x, y), 3, textures[bunker]);
+			bunkers.push_back(pBunker);
+		}
+	}
+}
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 {
 	auto* juego = this; // lvalue
@@ -282,6 +287,8 @@ bool Game::collisions(Laser* laser) const
 		if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	return false;
 }
+
+
 
 
 

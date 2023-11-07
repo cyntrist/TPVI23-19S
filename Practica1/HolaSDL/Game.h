@@ -44,6 +44,7 @@ private:
 
 	void exampleInit(Game *juego);
 	void readMap(const std::string &mapName, Game *juego);
+	void readEntities(Game* juego);
 public:
 	Game();
 	~Game();
@@ -57,5 +58,6 @@ public:
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
 	bool collisions(Laser* laser) const;
+	void readSaveData(const std::string& saveFileName, Game* juego);
 };
 
