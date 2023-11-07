@@ -1,4 +1,5 @@
-﻿#include "Game.h"
+﻿#include "checkML.h"
+#include "Game.h"
 #include <fstream>
 #include <filesystem>
 #include <SDL.h>
@@ -50,6 +51,7 @@ Game::~Game() {
 		delete i;
 	for (const auto i : lasers)
 		delete i; 
+	delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -57,25 +59,23 @@ Game::~Game() {
 
 void Game::run()
 {	
-	auto* juego = this;
 	const std::string mapName = "original";
-	readMap(mapName, juego);
+	readMap(mapName, this);
+	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
 
-	//exampleInit(juego); //ejemplo de 4x11
+	//exampleInit(this); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
-	int i = 0;
 	while (!exit)
 	{
 		handleEvents();
 		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > TIME_BETWEEN_FRAMES) {
+		if (frameTime > TIME_BETWEEN_FRAMES) 
+		{
 			update();
 			startTime = SDL_GetTicks();
 		}
 		render();
-
 	}
-
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
 
@@ -111,6 +111,7 @@ void Game::update()
 			bunkers.erase(bunkers.begin() + i);
 		}
 		else i++;
+
 	for (int i = 0; i < cannons.size();)
 		if (!cannons[i]->update())
 		{
@@ -143,6 +144,7 @@ void Game::render() const
 		i->render();
 	for (const auto i : lasers)
 		i->render(*renderer);
+	infoBar->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -197,7 +199,7 @@ void Game::exampleInit(Game *juego) {
 
 	// a ver el cañon
 	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, 3, textures[spaceship], juego);
+	auto* pCannon = new Cannon(posCan, textures[spaceship], juego);
 	cannons.push_back(pCannon);
 }
 
@@ -216,7 +218,7 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 			if (read == 0) 
 			{ // cannon
 				cin >> x >> y;
-				auto* pCannon = new Cannon(Point2D<double>(x,y), 3, textures[spaceship], juego);
+				auto* pCannon = new Cannon(Point2D<double>(x,y), textures[spaceship], juego);
 				cannons.push_back(pCannon);
 			}
 			else if (read == 1) 

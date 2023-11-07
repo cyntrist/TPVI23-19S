@@ -5,6 +5,7 @@
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"
+#include "InfoBar.h"
 #include <vector>
 #include <array>
 #include <random>
@@ -21,20 +22,21 @@ static constexpr double FRAME_RATE = 60,
 						ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
 						CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
 						LASER_MOV_SPEED = 0.15 * TIME_BETWEEN_FRAMES;
-static constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE; //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+static constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+					 INFOBAR_PADDING = 10; // espacio entre iconos del infobar
 enum TextureName { stars, spaceship, bunker, alien};
 
 class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	
+	std::array<Texture*, NUM_TEXTURES> textures; 
 	std::vector<Alien*> aliens; 
 	std::vector<Bunker*> bunkers;
 	std::vector<Cannon*> cannons;
 	std::vector<Laser*> lasers;
+	InfoBar* infoBar;
 	bool exit = false;
-	std::array<Texture*, NUM_TEXTURES> textures; 
 	int movDir = 1;
 	int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	uint32_t startTime, frameTime;

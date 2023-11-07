@@ -1,9 +1,8 @@
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& p, const int& l, Texture*& t, Game*& g) {
+Cannon::Cannon(const Point2D<double>& p, Texture*& t, Game*& g) {
 	position = p;
-	lives = l;
 	texture = t;
 	game = g;
 	movement = 0;
@@ -21,7 +20,7 @@ void Cannon::render()
 
 bool Cannon::update()
 {
-	if (lives < 0) return false;
+	if (lives <= 0) return false;
 
 	position = position + Vector2D<>(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
