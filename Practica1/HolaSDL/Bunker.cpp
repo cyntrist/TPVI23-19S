@@ -21,8 +21,3 @@ void Bunker::render()
 	rect.h = texture->getFrameHeight();
 	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
 }
-
-void Bunker::hit()
-{
-	lives--;
-}

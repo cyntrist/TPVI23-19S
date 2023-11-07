@@ -39,7 +39,3 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	}
 	return true;
 }
-
-void Alien::hit() {
-	destroy = true;
-}

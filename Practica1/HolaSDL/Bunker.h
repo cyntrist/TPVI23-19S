@@ -16,5 +16,5 @@ public:
 	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update() const;
-	void hit();
+	void hit() { lives--; }
 };
