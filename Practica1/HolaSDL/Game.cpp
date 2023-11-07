@@ -59,8 +59,9 @@ Game::~Game() {
 
 void Game::run()
 {	
-	const std::string mapName = "lol";
-	readMap(mapName, this);
+	
+	startMenu();
+
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
 
 	//exampleInit(this); //ejemplo de 4x11
@@ -154,8 +155,48 @@ void Game::handleEvents()
 	while (SDL_PollEvent(&event) && !exit)
 	{
 		if (event.type == SDL_QUIT) exit = true;
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
+		{
+			saveGame("save");
+			exit = true;
+		}
 		for (const auto i : cannons)
-				i->handleEvent(event);
+			i->handleEvent(event);
+	}
+}
+
+void Game::startMenu() {
+	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
+	char read;
+	cin >> read;
+	while (read != 'y' && read != 'n')
+	{
+		cout << "Input a valid command (y/n)\n";
+		cin >> read;
+	}
+	if (read == 'y')
+		readSaveData("save", this);
+	else
+	{
+		cout << "CARGAR MAPA? y/n\n";
+		cin >> read;
+		while (read != 'y' && read != 'n')
+		{
+			cout << "Input a valid command (y/n)\n";
+			cin >> read;
+		}
+		if (read == 'y')
+		{
+			cout << "Nombre del mapa:\n";
+			std::string mapName;
+			cin >> mapName;
+			readMap(mapName, this);
+		}
+		else
+		{
+			cout << "CARGANDO EJEMPLO\n";
+			exampleInit(this);
+		}
 	}
 }
 
@@ -214,7 +255,28 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
 		}
 
-		readEntities(juego); //lee y añade todas las entidades
+		int read, x, y;
+		while (cin >> read) {
+			if (read == 0)
+			{ // cannon
+				cin >> x >> y;
+				auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, 3);
+				cannons.push_back(pCannon);
+			}
+			else if (read == 1)
+			{ // alien
+				int type;
+				cin >> x >> y >> type;
+				auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
+				aliens.push_back(pAlien);
+			}
+			else if (read == 2)
+			{ // bunker
+				cin >> x >> y;
+				auto* pBunker = new Bunker(Point2D<double>(x, y), 3, textures[bunker]);
+				bunkers.push_back(pBunker);
+			}
+		}
 
 		std::cin.rdbuf(cinbuf); //restablecer entrada
 		in.close();
@@ -229,30 +291,89 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 	}
 }
 
-void Game::readEntities(Game* juego) {
-	int read, x, y;
-	while (cin >> read) {
-		if (read == 0)
-		{ // cannon
-			cin >> x >> y;
-			auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, 3);
-			cannons.push_back(pCannon);
+void Game::saveGame(const std::string& saveFileName) {
+	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
+	
+	if (out.fail())
+	{
+		const std::error_code ec;
+		const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
+		throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
+	}
+
+	out << playerPoints << endl;
+
+	for (int i = 0; i < cannons.size(); i++) {
+		out << "0 " << (int)cannons[i]->getPos().getX() << " " << (int)cannons[i]->getPos().getY() << " " << cannons[i]->getLives() << endl;
+	}
+	for (int i = 0; i < aliens.size(); i++) {
+		out << "1 " << (int)aliens[i]->getPos().getX() << " " << (int)aliens[i]->getPos().getY() << " " << aliens[i]->getType() << endl;
+	}
+	for (int i = 0; i < bunkers.size(); i++) {
+		out << "2 " << (int)bunkers[i]->getPos().getX() << " " << (int)bunkers[i]->getPos().getY() << " " << bunkers[i]->getLives() << endl;
+	}
+
+	out.close();
+}
+
+void Game::readSaveData(const std::string& saveFileName, Game* juego) {
+	try {
+		std::ifstream in(SAVE_FILE_ROOT + saveFileName + ".txt");
+		const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
+		if (in.fail())
+		{
+			const std::error_code ec;
+			const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
+			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
 		}
-		else if (read == 1)
-		{ // alien
-			int type;
-			cin >> x >> y >> type;
-			auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
-			aliens.push_back(pAlien);
+
+		if (in.peek() == std::ifstream::traits_type::eof())
+		{
+			cout << "Empty save file, loading example\n";
+			exampleInit(this);
 		}
-		else if (read == 2)
-		{ // bunker
-			cin >> x >> y;
-			auto* pBunker = new Bunker(Point2D<double>(x, y), 3, textures[bunker]);
-			bunkers.push_back(pBunker);
+		cin >> playerPoints;
+
+		int read, x, y;
+		while (cin >> read) {
+			if (read == 0)
+			{ // cannon
+				int lives;
+				cin >> x >> y >> lives;
+				auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, lives);
+				cannons.push_back(pCannon);
+			}
+			else if (read == 1)
+			{ // alien
+				int type;
+				cin >> x >> y >> type;
+				auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
+				aliens.push_back(pAlien);
+			}
+			else if (read == 2)
+			{ // bunker
+				int lives;
+				cin >> x >> y >> lives;
+				auto* pBunker = new Bunker(Point2D<double>(x, y), lives, textures[bunker]);
+				bunkers.push_back(pBunker);
+			}
 		}
+
+		std::cin.rdbuf(cinbuf); //restablecer entrada
+		in.close();
+	}
+	catch (std::filesystem::filesystem_error const& ex)
+	{
+		cerr << "Error while reading:\n" << ex.what() << endl;
+		exampleInit(this); // se inicia un mapa genérico
+	}
+	catch (...)
+	{
+		cerr << "An error occurred during the scene load." << endl;
+		exampleInit(this); // se inicia un mapa genérico
 	}
 }
+
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 {
 	auto* juego = this; // lvalue
@@ -287,8 +408,6 @@ bool Game::collisions(Laser* laser) const
 		if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	return false;
 }
-
-
 
 
 

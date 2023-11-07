@@ -16,7 +16,8 @@ static constexpr uint WIN_WIDTH = 800,
 					  WIN_HEIGHT = 600,
 					  NUM_TEXTURES = 4;
 static const std::string TEXTURE_ROOT = "..\\images\\",
-						 MAP_ROOT = "..\\material\\mapas\\";
+						 MAP_ROOT = "..\\material\\mapas\\",
+						 SAVE_FILE_ROOT = "..\\";
 static constexpr double FRAME_RATE = 60, 
 						TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
 						ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
@@ -42,9 +43,10 @@ private:
 	uint32_t startTime, frameTime;
 	int playerPoints = 0;
 
+	void startMenu();
 	void exampleInit(Game *juego);
 	void readMap(const std::string &mapName, Game *juego);
-	void readEntities(Game* juego);
+	void readSaveData(const std::string& saveFileName, Game* juego);
 public:
 	Game();
 	~Game();
@@ -58,6 +60,6 @@ public:
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
 	bool collisions(Laser* laser) const;
-	void readSaveData(const std::string& saveFileName, Game* juego);
+	void saveGame(const std::string& saveFileName);
 };
 

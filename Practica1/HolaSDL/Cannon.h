@@ -29,4 +29,7 @@ public:
 	bool update();
 	static void hit() { lives--; };
 	void handleEvent(const SDL_Event& event);
+	Point2D<double> getPos() {
+		return position;
+	}
 };
