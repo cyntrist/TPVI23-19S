@@ -199,7 +199,7 @@ void Game::exampleInit(Game *juego) {
 
 	// a ver el cañon
 	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, textures[spaceship], juego);
+	auto* pCannon = new Cannon(posCan, textures[spaceship], juego, 3);
 	cannons.push_back(pCannon);
 }
 
@@ -218,7 +218,7 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 			if (read == 0) 
 			{ // cannon
 				cin >> x >> y;
-				auto* pCannon = new Cannon(Point2D<double>(x,y), textures[spaceship], juego);
+				auto* pCannon = new Cannon(Point2D<double>(x,y), textures[spaceship], juego, 3);
 				cannons.push_back(pCannon);
 			}
 			else if (read == 1) 

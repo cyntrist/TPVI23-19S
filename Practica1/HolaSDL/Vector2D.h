@@ -8,9 +8,9 @@ private:
 	T y;
 public:
 	Vector2D() {}
-	Vector2D(T a, T b) {
-		x = a;
-		y = b;
+	Vector2D(T x, T y) {
+		this->x = x;
+		this->y = y;
 	}
 	double getX() const {
 		return x;

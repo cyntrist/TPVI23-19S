@@ -1,9 +1,9 @@
 #include "Bunker.h"
 
-Bunker::Bunker(const Point2D<double>& p, const int& v, Texture*& t) {
-	position = p;
-	lives = v;
-	texture = t; 
+Bunker::Bunker(const Point2D<double>& position, const int& lives, Texture*& texture) {
+	this->position = position;
+	this->lives = lives;
+	this->texture = texture; 
 }
 
 bool Bunker::update() const

@@ -6,7 +6,8 @@ class Game; // para evitar dependencia circular (la línea de arriba)
 
 using uint = unsigned int;
 static constexpr int TIMERMS = 500; // ticks entre disparo y disparo
-inline int lives = 3; // estática porque, aunque haya varios cannon comparten vidas y así se lleva fácil al infobar
+inline int lives = 1; // inline porque aunque haya varios cannon comparten vidas y se lleva fácil al infobar
+					  // (y estatica no lo traduce bien cuando accede? preguntar al profe cómo se debería hacer esto)
 
 class Cannon
 {
@@ -20,11 +21,12 @@ private:
 
 public:
 	Cannon() = default;
-	Cannon(const Point2D<double>& p, Texture*& t, Game*& g);
+	Cannon(const Point2D<double>& position, Texture*& texture, Game*& game);
+	Cannon(const Point2D<double>& position, Texture*& texture, Game*& game, const int& _lives);
 	static int getLives() { return lives; }
 	SDL_Rect* getRect() { return &rect; }
 	void render();
 	bool update();
-	void hit();
+	static void hit() { lives--; };
 	void handleEvent(const SDL_Event& event);
 };

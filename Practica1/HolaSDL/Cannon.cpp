@@ -1,12 +1,21 @@
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& p, Texture*& t, Game*& g) {
-	position = p;
-	texture = t;
-	game = g;
+Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game*& game) {
+	this->position = position;
+	this->texture = texture;
+	this->game = game;
 	movement = 0;
 	startTime = 0;
+}
+
+Cannon::Cannon(const Point2D<double>& position, Texture*& texture, Game*& game, const int& _lives) {
+	this->position = position;
+	this->texture = texture;
+	this->game = game;
+	movement = 0;
+	startTime = 0;
+	lives = _lives; 
 }
 
 void Cannon::render()
@@ -29,11 +38,6 @@ bool Cannon::update()
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
 
 	return true;
-}
-
-void Cannon::hit()
-{
-	lives--;
 }
 
 void Cannon::handleEvent(const SDL_Event& event)
