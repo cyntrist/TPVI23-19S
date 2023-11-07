@@ -17,10 +17,6 @@ public:
 	void render();
 	bool update() const;
 	void hit() { lives--; }
-	Point2D<double> getPos() {
-		return position;
-	}
-	int getLives() {
-		return lives;
-	}
+	Point2D<double> getPos() { return position; }
+	int getLives() { return lives; }
 };

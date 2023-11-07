@@ -20,16 +20,12 @@ private:
 
 public:
 	Alien() = default;
-	Alien(const Point2D<double>& position, const int& type, Texture*& texture, const Game* game);
+	Alien(const Point2D<double>& position, const int& type, Texture*& texture, Game* game);
 	void render();
 	bool update();
 	void hit() { destroy = true; }
 	SDL_Rect* getRect() { return &rect; }
-	Point2D<double> getPos() const {
-		return position;
-	}
-	int getType() const {
-		return type;
-	}
 	void down();
+	Point2D<double> getPos() const { return position; }
+	int getType() const { return type; }
 };
