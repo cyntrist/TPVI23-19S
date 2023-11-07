@@ -292,28 +292,38 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 }
 
 void Game::saveGame(const std::string& saveFileName) {
-	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
-	
-	if (out.fail())
+	try {
+		std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
+
+		if (out.fail())
+		{
+			const std::error_code ec;
+			const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
+			throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
+		}
+
+		out << playerPoints << endl;
+
+		for (int i = 0; i < cannons.size(); i++) {
+			out << "0 " << (int)cannons[i]->getPos().getX() << " " << (int)cannons[i]->getPos().getY() << " " << cannons[i]->getLives() << endl;
+		}
+		for (int i = 0; i < aliens.size(); i++) {
+			out << "1 " << (int)aliens[i]->getPos().getX() << " " << (int)aliens[i]->getPos().getY() << " " << aliens[i]->getType() << endl;
+		}
+		for (int i = 0; i < bunkers.size(); i++) {
+			out << "2 " << (int)bunkers[i]->getPos().getX() << " " << (int)bunkers[i]->getPos().getY() << " " << bunkers[i]->getLives() << endl;
+		}
+
+		out.close();
+	}
+	catch (std::filesystem::filesystem_error const& ex)
 	{
-		const std::error_code ec;
-		const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
-		throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
+		cerr << "Error while saving:\n" << ex.what() << endl;
 	}
-
-	out << playerPoints << endl;
-
-	for (int i = 0; i < cannons.size(); i++) {
-		out << "0 " << (int)cannons[i]->getPos().getX() << " " << (int)cannons[i]->getPos().getY() << " " << cannons[i]->getLives() << endl;
+	catch (...)
+	{
+		cerr << "An error occurred while saving." << endl;
 	}
-	for (int i = 0; i < aliens.size(); i++) {
-		out << "1 " << (int)aliens[i]->getPos().getX() << " " << (int)aliens[i]->getPos().getY() << " " << aliens[i]->getType() << endl;
-	}
-	for (int i = 0; i < bunkers.size(); i++) {
-		out << "2 " << (int)bunkers[i]->getPos().getX() << " " << (int)bunkers[i]->getPos().getY() << " " << bunkers[i]->getLives() << endl;
-	}
-
-	out.close();
 }
 
 void Game::readSaveData(const std::string& saveFileName, Game* juego) {
