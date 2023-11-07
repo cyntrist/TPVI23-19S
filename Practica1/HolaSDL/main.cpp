@@ -1,11 +1,8 @@
 #include "checkML.h"
-
 #include "Vector2D.h"
 #include "texture.h"
 #include "SDL.h"
 #include "Game.h"
-
-using namespace std;
 
 using uint = unsigned int;
 

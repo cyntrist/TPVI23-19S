@@ -1,7 +1,5 @@
 #include "Bunker.h"
 
-using namespace std;
-
 Bunker::Bunker(const Point2D<double>& p, const int& v, Texture*& t) {
 	position = p;
 	lives = v;

@@ -235,7 +235,7 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 		}
 		std::cin.rdbuf(cinbuf); //restablecer entrada
 		in.close();
-	} catch (std::filesystem::filesystem_error const& ex)
+	} catch(std::filesystem::filesystem_error const& ex)
 	{
 		cerr << "Error while reading:\n" << ex.what() << endl;
 		exampleInit(this); // se inicia un mapa genérico
