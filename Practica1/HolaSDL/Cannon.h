@@ -23,13 +23,13 @@ public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& position, Texture*& texture, Game*& game);
 	Cannon(const Point2D<double>& position, Texture*& texture, Game*& game, const int& _lives);
-	static int getLives() { return lives; }
-	SDL_Rect* getRect() { return &rect; }
+	static int getLives()  { return lives; }
+	const SDL_Rect* getRect() const { return &rect; }
 	void render();
 	bool update();
-	static void hit() { lives--; };
+	static void hit() { lives--; }
 	void handleEvent(const SDL_Event& event);
-	Point2D<double> getPos() {
+	Point2D<double> getPos() const {
 		return position;
 	}
 };

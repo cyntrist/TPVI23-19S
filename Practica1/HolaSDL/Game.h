@@ -42,6 +42,7 @@ private:
 	int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	uint32_t startTime, frameTime;
 	int playerPoints = 0;
+	std::mt19937_64 randomGenerator;
 
 	void startMenu();
 	void exampleInit(Game *juego);

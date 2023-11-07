@@ -20,7 +20,7 @@ const sprite sprites[NUM_TEXTURES]{
 	sprite {"alien", 3, 2}
 };
 
-Game::Game() {
+Game::Game() : randomGenerator(time(nullptr)) {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("SPACE INVADERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -129,6 +129,10 @@ void Game::update()
 	else 
 		alienUpdateTimer--;
 
+	for (const auto i : aliens)
+		if (i->getPos().getY() >= WIN_HEIGHT*3/4)
+			exit = true;
+
 	if (aliens.empty() || cannons.empty())
 		exit = true;
 }
@@ -205,7 +209,10 @@ void Game::cannotMove() {
 	int i = 0;
 	while (i < aliens.size() && !cantMove) {
 		if (aliens[i]->getPos().getX() <= 0 || aliens[i]->getPos().getX() >= WIN_WIDTH - textures[alien]->getFrameWidth())
+		{
 			cantMove = true;
+			for (const auto i : aliens) i->down();
+		}
 		else
 			i++;
 	}
@@ -222,7 +229,7 @@ void Game::exampleInit(Game *juego) {
 		for (int j = 0; j < 11; j++)
 		{
 			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			Alien* pAlien = new Alien(position, type, textures[alien], juego);
+			auto* pAlien = new Alien(position, type, textures[alien], this);
 			aliens.push_back(pAlien);
 
 			if (aliens.size() == 11 || aliens.size() == 22)
@@ -390,7 +397,6 @@ void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 	lasers.push_back(new Laser(pos, speed, friendly, juego));
 }
 
-mt19937_64 randomGenerator(time(nullptr));
 int Game::getRandomRange(const int& min, const int& max) {
 	return uniform_int_distribution<>(min, max )(randomGenerator);
 }

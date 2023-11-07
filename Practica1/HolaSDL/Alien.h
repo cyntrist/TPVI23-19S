@@ -20,7 +20,7 @@ private:
 
 public:
 	Alien() = default;
-	Alien(const Point2D<double>& position, const int& type, Texture*& texture, Game*& game);
+	Alien(const Point2D<double>& position, const int& type, Texture*& texture, const Game* game);
 	void render();
 	bool update();
 	void hit() { destroy = true; }
@@ -31,4 +31,5 @@ public:
 	int getType() const {
 		return type;
 	}
+	void down();
 };

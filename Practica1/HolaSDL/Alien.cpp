@@ -39,3 +39,8 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 	}
 	return true;
 }
+
+void Alien::down()
+{
+	position = position + Vector2D<>(0, ALIEN_MOV_SPEED);
+}
