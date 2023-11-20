@@ -1,7 +1,7 @@
 #include "checkML.h"
 #include "InfoBar.h"
 
-InfoBar::InfoBar(const Point2D<double>& position, Texture*& texture, const int& padding)
+InfoBar::InfoBar(const Point2D<double>& position, Texture* texture, int& padding)
 {
 	this->position = position;
 	this->texture = texture;

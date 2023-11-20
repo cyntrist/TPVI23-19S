@@ -2,7 +2,7 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& position, const int& type, Texture*& texture, Game* game) { 
+Alien::Alien(const Point2D<double>& position, int& type, Texture* texture, Game* game) { 
 	this->position = position;
 	this->type = type;
 	this->texture = texture;
@@ -34,7 +34,8 @@ bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos
 
 			if (shootingTimer <= 0) { //se que esta feo de narices pero si lo ponia dentro de la comprobacion anterior todos los aliens disparaban en la primera iteracion (supongo que iniciando los aliens ya con un valor del random se solucionaria, pero no conseguia hacerlo)
 				Point2D<double> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
-				game->fireLaser(pos, Vector2D<>(0, LASER_MOV_SPEED), false);
+				Vector2D<> speed(0, LASER_MOV_SPEED);
+				game->fireLaser(pos, speed, false);
 			}
 		}
 	}

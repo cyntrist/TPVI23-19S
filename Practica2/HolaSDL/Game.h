@@ -12,18 +12,18 @@
 
 using uint = unsigned int;
 
-static constexpr uint WIN_WIDTH = 800,
+constexpr uint WIN_WIDTH = 800,
 					  WIN_HEIGHT = 600,
 					  NUM_TEXTURES = 4;
-static const std::string TEXTURE_ROOT = "..\\images\\",
+const std::string TEXTURE_ROOT = "..\\images\\",
 						 MAP_ROOT = "..\\maps\\",
 						 SAVE_FILE_ROOT = "..\\";
-static constexpr double FRAME_RATE = 60, 
+constexpr double FRAME_RATE = 60, 
 						TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
 						ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
 						CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
 						LASER_MOV_SPEED = 0.15 * TIME_BETWEEN_FRAMES;
-static constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 					 INFOBAR_PADDING = 10; // espacio entre iconos del infobar
 enum TextureName { stars, spaceship, bunker, alien};
 
@@ -57,7 +57,7 @@ public:
 	void update();
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
-	int getRandomRange(const int& min, const int& max);
+	int getRandomRange(int min, int max);
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
 	bool collisions(Laser* laser) const;

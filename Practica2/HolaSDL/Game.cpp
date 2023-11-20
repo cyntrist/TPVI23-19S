@@ -394,7 +394,7 @@ void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 	lasers.push_back(new Laser(pos, speed, friendly, juego));
 }
 
-int Game::getRandomRange(const int& min, const int& max) {
+int Game::getRandomRange(int min, int max) {
 	return uniform_int_distribution<>(min, max )(randomGenerator);
 }
 
