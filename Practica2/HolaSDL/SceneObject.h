@@ -28,6 +28,9 @@ public:
 	// setter
 	virtual void setListIterator() {} // no se hacer esto!!!!!!!!
 	// methods
+	void positionRect();
+	void render() override;
+	void render(int row, int col) override; // para frames
 	virtual void hit(SDL_Rect*& otherRect, char friendly);
 	virtual void hasDied();
 };

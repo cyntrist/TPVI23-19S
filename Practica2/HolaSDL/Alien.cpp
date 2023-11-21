@@ -9,15 +9,6 @@ Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* 
 	this->game = game;
 }
 
-void Alien::render()
-{
-	rect.x = position.getX();
-	rect.y = position.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, type, state);
-}
-
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	if (destroy) return false; // hit
 

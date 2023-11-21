@@ -1,5 +1,13 @@
 #include "SceneObject.h"
 
+void SceneObject::positionRect()
+{
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.w = texture->getFrameWidth();
+	rect.h = texture->getFrameHeight();
+}
+
 SceneObject::SceneObject()
 {
 	this->position = Point2D<double>(0, 0);
@@ -21,11 +29,20 @@ SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, 
 	this->texture = texture;
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
-	rect.x = position.getX();
-	rect.y = position.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
+	positionRect();
 	game  = g;
+}
+
+void SceneObject::render()
+{
+	positionRect();
+	texture->render(rect);
+}
+
+void SceneObject::render(int row, int col)
+{
+	positionRect();
+	texture->renderFrame(rect, row, col);
 }
 
 void SceneObject::hit(SDL_Rect*& otherRect, char friendly)
