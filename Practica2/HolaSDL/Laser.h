@@ -19,5 +19,5 @@ public:
 	Laser() = default;
 	Laser(Point2D<double>& position, Vector2D<>& speed, bool friendly, Game* game);
 	char getColor() const { return color; }
-	SDL_Rect* getRect() { return &rect; }
+
 };

@@ -1,14 +1,13 @@
 ﻿#pragma once
 #include "SDL.h"
 #include "texture.h"
-#include "Alien.h"
-#include "Bunker.h"
-#include "Cannon.h"
-#include "Laser.h"
-//#include "InfoBar.h"
+#include "InfoBar.h"
 #include <vector>
 #include <array>
+#include <list>
 #include <random>
+
+#include "SceneObject.h"
 
 using uint = unsigned int;
 
@@ -32,11 +31,8 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures; 
-	std::vector<Alien*> aliens; 
-	std::vector<Bunker*> bunkers;
-	std::vector<Cannon*> cannons;
-	std::vector<Laser*> lasers;
-	InfoBar* infoBar;
+	std::list<SceneObject*> sceneObjs;
+	//InfoBar* infoBar;
 	bool exit = false;
 	int movDir = 1;
 	int alienUpdateTimer = ALIEN_REFRESH_RATE;
@@ -60,7 +56,7 @@ public:
 	int getRandomRange(int min, int max);
 	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
-	bool collisions(Laser* laser) const;
+	//bool collisions(Laser* laser) const;
 	void saveGame(const std::string& saveFileName);
 };
 

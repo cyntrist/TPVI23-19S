@@ -6,6 +6,7 @@ class GameObject
 {
 	Game* game = nullptr;
 public:
+	virtual Game* getGame() { return game; }
 	virtual ~GameObject() = delete;
 	virtual void render() const = 0;
 	virtual bool update() = 0;
