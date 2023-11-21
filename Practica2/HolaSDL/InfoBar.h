@@ -10,6 +10,7 @@ private:
 	Point2D<double> position = Point2D<double>(0, 0);
 	Texture* texture = nullptr;
 	int padding;
+	int points;
 
 public:
 	InfoBar() = default;

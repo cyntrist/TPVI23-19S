@@ -5,7 +5,7 @@
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"
-#include "InfoBar.h"
+//#include "InfoBar.h"
 #include <vector>
 #include <array>
 #include <random>

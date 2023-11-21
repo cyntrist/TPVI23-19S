@@ -5,5 +5,5 @@ class ShooterAlien : public Alien
 private:
 	int reloadTime;
 public:
-	ShooterAlien() = default;
+	ShooterAlien();
 };
