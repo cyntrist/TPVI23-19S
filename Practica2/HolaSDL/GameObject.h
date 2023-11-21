@@ -1,11 +1,12 @@
 #pragma once
+#include "Game.h"
 
 class GameObject
 {
-
+	Game* game = nullptr;
 public:
-	GameObject() = default;
-	GameObject();
-	~GameObject();
+	virtual ~GameObject() = delete;
 	virtual void render() = 0;
+	virtual bool update() = 0;
+	virtual void save() = 0;
 };

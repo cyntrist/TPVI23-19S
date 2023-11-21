@@ -2,8 +2,9 @@
 #include "texture.h"
 #include "Vector2D.h"
 #include "Cannon.h"
+#include "GameObject.h"
 
-class InfoBar
+class InfoBar : public GameObject
 {
 private:
 	Point2D<double> position = Point2D<double>(0, 0);
