@@ -8,12 +8,16 @@
 
 class SceneObject : public GameObject
 {
+protected:
 	Point2D<double> position;
 	int width, height, lives;	
 	Texture* texture; // no se si va en esta clase pero es lo que más sentido me parece que tiene?
 	SDL_Rect rect; // idem
 	std::list<int>::iterator iterator; // movida del iterador (int???)
 public:
+	// constructor
+	SceneObject();
+	SceneObject(Point2D<double> position, int lives, Texture* texture, Game* game);
 	// getters
 	virtual Point2D<double> getPosition() { return position; }
 	virtual int getWidth() { return width; }
