@@ -43,15 +43,9 @@ Game::Game() : randomGenerator(time(nullptr)) {
 Game::~Game() {
 	for (const auto i : textures)
 		delete i;
-	for (const auto i : aliens)
-		delete i;
-	for (const auto i : bunkers)
-		delete i;
-	for (const auto i : cannons)
-		delete i;
-	for (const auto i : lasers)
+	for (const auto i : sceneObjs)
 		delete i; 
-	delete infoBar;
+	//delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -60,7 +54,7 @@ Game::~Game() {
 void Game::run()
 {	
 	startMenu();
-	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
+	//infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
 	//exampleInit(this); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 	while (!exit)
@@ -79,44 +73,28 @@ void Game::run()
 
 void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
-	for (int i = 0; i < lasers.size();)
-		if (!lasers[i]->update())
+	for (int i = 0; i < sceneObjs.size();)
+		if (!sceneObjs[i]->update())
 		{
-			delete lasers[i];
-			lasers.erase(lasers.begin() + i);
+			delete sceneObjs[i];
+			sceneObjs.erase(sceneObjs.begin() + i);
 		}
 		else i++;
 
-	for (int i = 0; i < aliens.size();)
-		if (!aliens[i]->update())
-		{
-			if(aliens[i]->getType() == 0)
-				playerPoints += 30;
-			else if (aliens[i]->getType() == 1)
-				playerPoints += 20;
-			else
-				playerPoints += 10;
-			delete aliens[i];
-			aliens.erase(aliens.begin() + i);
-			cout << "PLAYER SCORE: " << playerPoints << endl;
-		}
-		else i++;
-
-	for (int i = 0; i < bunkers.size();)
-		if (!bunkers[i]->update())
-		{
-			delete bunkers[i];
-			bunkers.erase(bunkers.begin() + i);
-		}
-		else i++;
-
-	for (int i = 0; i < cannons.size();)
-		if (!cannons[i]->update())
-		{
-			delete cannons[i];
-			cannons.erase(cannons.begin() + i);
-		}
-		else i++;
+	//for (int i = 0; i < aliens.size();) // Esto al alien
+	//	if (!aliens[i]->update())
+	//	{
+	//		if(aliens[i]->getType() == 0)
+	//			playerPoints += 30;
+	//		else if (aliens[i]->getType() == 1)
+	//			playerPoints += 20;
+	//		else
+	//			playerPoints += 10;
+	//		delete aliens[i];
+	//		aliens.erase(aliens.begin() + i);
+	//		cout << "PLAYER SCORE: " << playerPoints << endl;
+	//	}
+	//	else i++;
 
 	if (alienUpdateTimer <= 0)
 	{
@@ -138,15 +116,9 @@ void Game::render() const
 {
 	SDL_RenderClear(renderer);
 	textures[stars]->render(); // el fondo!!!!!! :-)
-	for (const auto i : aliens) // los objetos
+	for (const auto i : sceneObjs) // los objetos
 		i->render();
-	for (const auto i : bunkers)
-		i->render();
-	for (const auto i : cannons)
-		i->render();
-	for (const auto i : lasers)
-		i->render(*renderer);
-	infoBar->render();
+	//infoBar->render();
 	SDL_RenderPresent(renderer);
 }
 
