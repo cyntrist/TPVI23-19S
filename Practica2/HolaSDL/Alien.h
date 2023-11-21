@@ -27,6 +27,5 @@ public:
 	void hit() { destroy = true; }
 	SDL_Rect* getRect() { return &rect; }
 	void down();
-	Point2D<double> getPos() { return getPosition(); }
 	int getType() const { return type; }
 };
