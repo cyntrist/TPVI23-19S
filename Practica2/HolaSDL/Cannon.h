@@ -7,7 +7,7 @@ class Game; // para evitar dependencia circular (la l�nea de arriba)
 using uint = unsigned int;
 constexpr int TIMERMS = 500; // ticks entre disparo y disparo
 
-class Cannon
+class Cannon: public SceneObject
 {
 private:
 	int movement; // direccion de movimiento
