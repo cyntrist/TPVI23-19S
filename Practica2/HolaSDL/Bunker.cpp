@@ -7,18 +7,7 @@ Bunker::Bunker(const Point2D<double>& position, int lives, Texture* texture) {
 	this->texture = texture; 
 }
 
-bool Bunker::update() const
+void Bunker::render() const
 {
-	if (lives >= 0)
-		return true;
-	return false;
-}
-
-void Bunker::render() 
-{
-	rect.x = position.getX();
-	rect.y = position.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
+	SceneObject::render(texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
 }

@@ -28,9 +28,10 @@ public:
 	// setter
 	virtual void setListIterator() {} // no se hacer esto!!!!!!!!
 	// methods
-	void positionRect();
-	void render() override;
-	void render(int row, int col) override; // para frames
+	void render() const override;
+	void render(int row, int col) const override; // para frames
+	bool update() override;
+	void updateRect();
 	virtual void hit(SDL_Rect*& otherRect, char friendly);
 	virtual void hasDied();
 };

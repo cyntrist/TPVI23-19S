@@ -1,13 +1,5 @@
 #include "SceneObject.h"
 
-void SceneObject::positionRect()
-{
-	rect.x = position.getX();
-	rect.y = position.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-}
-
 SceneObject::SceneObject()
 {
 	this->position = Point2D<double>(0, 0);
@@ -22,6 +14,14 @@ SceneObject::SceneObject()
 	game  = nullptr;
 }
 
+void SceneObject::updateRect() // actualizar la posicion del rectángulo
+{
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.w = texture->getFrameWidth();
+	rect.h = texture->getFrameHeight();
+}
+
 SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, Game* g)
 {
 	this->position = position;
@@ -29,20 +29,26 @@ SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, 
 	this->texture = texture;
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
-	positionRect();
 	game  = g;
+	updateRect();
 }
 
-void SceneObject::render()
+void SceneObject::render() const  // renderizar sprite
 {
-	positionRect();
 	texture->render(rect);
 }
 
-void SceneObject::render(int row, int col)
+void SceneObject::render(int row, int col) const // renderizar frame
 {
-	positionRect();
 	texture->renderFrame(rect, row, col);
+}
+
+bool SceneObject::update() 
+{
+	if (lives < 0)
+		return false;
+	updateRect(); // actualiza el rectángulo en base a la posición actual
+	return true;
 }
 
 void SceneObject::hit(SDL_Rect*& otherRect, char friendly)
