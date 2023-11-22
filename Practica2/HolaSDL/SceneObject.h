@@ -31,7 +31,7 @@ public:
 	void render() const override;
 	void render(int row, int col) const override; // para frames
 	bool update() override;
-	void updateRect();
+	virtual void updateRect();
 	virtual void hit(SDL_Rect*& otherRect, char friendly);
 	virtual void hasDied();
 };

@@ -10,10 +10,10 @@ Cannon::Cannon(const Point2D<double>& p, Texture* t, Game* g) {
 	startTime = 0;
 }
 
-Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, int _lives) {
-	this->position = position;
-	this->texture = texture;
-	this->game = game;
+Cannon::Cannon(const Point2D<double>& p, Texture* t, Game* g, int _lives) {
+	position = p;
+	texture = t;
+	game = g;
 	movement = 0;
 	startTime = 0;
 	lives = _lives; 

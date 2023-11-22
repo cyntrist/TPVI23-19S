@@ -2,11 +2,19 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* game) { 
-	this->position = position;
-	this->type = type;
-	this->texture = texture;
-	this->game = game;
+Alien::Alien(const Point2D<double>& p, int ty, Texture* te, Game* g) { 
+	position = p;
+	type = ty;
+	texture = te;
+	game = g;
+}
+
+Alien::Alien(const Point2D<double>& p, int ty, Texture* te, Game* g, Mothership* m) { 
+	position = p;
+	type = ty;
+	texture = te;
+	game = g;
+	mothership = m;
 }
 
 bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos

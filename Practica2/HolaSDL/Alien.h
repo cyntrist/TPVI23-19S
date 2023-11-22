@@ -19,6 +19,7 @@ private:
 public:
 	Alien() = default;
 	Alien(const Point2D<double>& position, int type, Texture* texture, Game* game);
+	Alien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership);
 	void down();
 	int getType() const { return type; }
 };

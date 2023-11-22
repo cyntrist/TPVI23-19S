@@ -10,7 +10,7 @@ public:
 	GameObject();
 	GameObject(Game* game) { this->game = game; }
 	virtual Game* getGame() { return game; }
-	//virtual ~GameObject() = delete;
+	virtual ~GameObject() = default;
 	virtual void render() const = 0; // para renderizra sprites enteros
 	virtual void render(int row, int col) const = 0; // para renderizar frames concretos
 	virtual bool update() = 0; // update de cada objeto

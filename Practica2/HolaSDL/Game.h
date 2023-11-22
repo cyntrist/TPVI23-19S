@@ -54,7 +54,6 @@ public:
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);
-	void cannotMove();
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
 	//bool collisions(Laser* laser) const;
 	void saveGame(const std::string& saveFileName);

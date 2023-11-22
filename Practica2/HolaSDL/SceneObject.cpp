@@ -30,7 +30,6 @@ SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, 
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
 	game  = g;
-	updateRect();
 }
 
 void SceneObject::render() const  // renderizar sprite

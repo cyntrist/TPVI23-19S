@@ -1,4 +1,5 @@
 #pragma once
+#include "SceneObject.h"
 #include "texture.h"
 #include "Vector2D.h"
 //#include "Game.h"

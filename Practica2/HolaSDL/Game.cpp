@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "Laser.h"
+
 using namespace std;
 
 struct sprite {
@@ -363,7 +365,7 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
 {
 	auto* juego = this; // lvalue
-	lasers.push_back(new Laser(pos, speed, friendly, juego));
+	sceneObjs.push_back(new Laser(pos, speed, friendly, juego));
 }
 
 int Game::getRandomRange(int min, int max) {

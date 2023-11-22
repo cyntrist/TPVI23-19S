@@ -6,18 +6,20 @@ class Game;
 using uint = unsigned int;
 constexpr int LASER_WIDTH = 5,
 			  LASER_HEIGHT = 30;
+constexpr char FRIENDLY_CHAR = 'r';
 
 class Laser : SceneObject
 {
 private:
 	Vector2D<> speed;
 	char color;
-	SDL_Rect rect;
 	bool destroy = false; // si ha de ser destruido
 
 public:
 	Laser() = default;
-	Laser(Point2D<double>& position, Vector2D<>& speed, bool friendly, Game* game);
+	Laser(Point2D<double>& position, Vector2D<>& speed, char friendly, Game* game);
+	bool update() override;
+	void updateRect() override;
+	void render(SDL_Renderer& renderer) const;
 	char getColor() const { return color; }
-
 };
