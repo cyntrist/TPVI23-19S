@@ -1,12 +1,8 @@
 #include "checkML.h"
 #include "Bunker.h"
 
-Bunker::Bunker(const Point2D<double>& p, int l, Texture* t)
-{
-	position = p;
-	lives = l;
-	texture = t; 
-}
+Bunker::Bunker(const Point2D<double>& position, int lives, Texture* texture, Game* game)
+	: SceneObject(position, lives, texture, game) { }
 
 void Bunker::render() const
 {

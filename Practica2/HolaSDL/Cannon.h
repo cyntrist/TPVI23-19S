@@ -16,6 +16,6 @@ private:
 public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game);
-	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int _lives);
+	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives);
 	void handleEvent(const SDL_Event& event);
 };

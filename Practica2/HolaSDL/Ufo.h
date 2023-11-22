@@ -8,4 +8,5 @@ class Ufo : public SceneObject
 	int state; //int?
 public:
 	Ufo();
+	Ufo(int state);
 };

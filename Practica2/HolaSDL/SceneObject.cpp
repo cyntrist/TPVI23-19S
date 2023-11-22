@@ -1,6 +1,6 @@
 #include "SceneObject.h"
 
-SceneObject::SceneObject()
+SceneObject::SceneObject() : GameObject(nullptr)
 {
 	this->position = Point2D<double>(0, 0);
 	this->lives = 0;
@@ -11,7 +11,6 @@ SceneObject::SceneObject()
 	rect.y = 0;
 	rect.w = 0;
 	rect.h = 0;
-	game  = nullptr;
 }
 
 void SceneObject::updateRect() // actualizar la posicion del rectángulo
@@ -23,13 +22,10 @@ void SceneObject::updateRect() // actualizar la posicion del rectángulo
 }
 
 SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, Game* g)
+: GameObject(g), position(position), lives(lives), texture(texture)
 {
-	this->position = position;
-	this->lives = lives;
-	this->texture = texture;
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
-	game  = g;
 }
 
 void SceneObject::render() const  // renderizar sprite
@@ -44,14 +40,19 @@ void SceneObject::render(int row, int col) const // renderizar frame
 
 bool SceneObject::update() 
 {
-	if (lives < 0)
-		return false;
 	updateRect(); // actualiza el rectángulo en base a la posición actual
-	return true;
+	return !hasDied();
 }
 
 void SceneObject::hit(SDL_Rect*& otherRect, char friendly)
 {
 	if (SDL_HasIntersection(&rect, otherRect)) // faltaría comprobar si es friendly, pero es que depende del objeto?? nose
 		lives--; 
+}
+
+bool SceneObject::hasDied()
+{
+	if (lives < 0)
+		return true;
+	return false;
 }

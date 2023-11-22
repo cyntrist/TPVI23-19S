@@ -2,12 +2,8 @@
 #include "Laser.h"
 #include "Game.h"
 
-Laser::Laser(Point2D<double>& p, Vector2D<>& s, char c, Game* g) {
-	position = p;
-	speed = s;
-	color = c;
-	game = g;
-}
+Laser::Laser(Point2D<double>& position, Vector2D<>& speed, char color, Game* game)
+: SceneObject(position, 1, nullptr, game), speed(speed), color(color) { }
 
 void Laser::updateRect()
 {

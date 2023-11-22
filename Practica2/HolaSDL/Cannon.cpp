@@ -2,22 +2,8 @@
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& p, Texture* t, Game* g) {
-	position = p;
-	texture = t;
-	game = g;
-	movement = 0;
-	startTime = 0;
-}
-
-Cannon::Cannon(const Point2D<double>& p, Texture* t, Game* g, int _lives) {
-	position = p;
-	texture = t;
-	game = g;
-	movement = 0;
-	startTime = 0;
-	lives = _lives; 
-}
+Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives)
+	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS) { }
 
 /*bool Cannon::update()
 {

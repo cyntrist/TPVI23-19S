@@ -14,6 +14,6 @@ private:
 
 public:
 	InfoBar() = default;
-	InfoBar(const Point2D<double>& position, Texture* texture, int padding);
-	void render() const;
+	InfoBar(const Point2D<double>& position, Texture* texture, int padding, Game* game);
+	void render() const override;
 };

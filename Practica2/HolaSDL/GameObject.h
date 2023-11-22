@@ -7,8 +7,8 @@ class GameObject
 protected:
 	Game* game = nullptr;
 public:
-	GameObject();
-	GameObject(Game* game) { this->game = game; }
+	GameObject() = default;
+	GameObject(Game* game) : game(game) { }
 	virtual Game* getGame() { return game; }
 	virtual ~GameObject() = default;
 	virtual void render() const = 0; // para renderizra sprites enteros
