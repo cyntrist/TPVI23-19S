@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Laser.h"
+#include "Alien.h"
 
 using namespace std;
 
@@ -177,8 +178,12 @@ void Game::startMenu() {
 }
 
 void Game::exampleInit(Game *juego) {
-
-
+	// habría que hacer un bucle para cada objeto con lo siguiente creo, mucho mas pulido pero YA COMPILA!!!!!
+	auto it = sceneObjs.begin();
+	auto a = new Alien(Point2D<double>(WIN_WIDTH/2, WIN_HEIGHT/2), 1, textures[alien], this);
+	sceneObjs.push_back(a);
+	a->updateRect();
+	a->setIterator(++it);
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 	/*

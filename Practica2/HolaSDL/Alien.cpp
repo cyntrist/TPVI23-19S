@@ -8,6 +8,11 @@ Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* 
 Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 : SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
 
+void Alien::render() const
+{
+	texture->renderFrame(rect, type, state);
+}
+
 bool Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	if (destroy)  

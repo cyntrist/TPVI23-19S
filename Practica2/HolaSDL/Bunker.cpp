@@ -6,5 +6,5 @@ Bunker::Bunker(const Point2D<double>& position, int lives, Texture* texture, Gam
 
 void Bunker::render() const
 {
-	SceneObject::render(texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
+	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
 }

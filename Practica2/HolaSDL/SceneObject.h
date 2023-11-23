@@ -29,7 +29,7 @@ public:
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
 	// methods
 	void render() const override;
-	void render(int row, int col) const override; // para frames
+	//void render(int row, int col) const override; // me he achantado
 	bool update() override;
 	virtual void updateRect();
 	virtual bool hit(SDL_Rect* otherRect, char friendly);
