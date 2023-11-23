@@ -44,10 +44,14 @@ bool SceneObject::update()
 	return !hasDied();
 }
 
-void SceneObject::hit(SDL_Rect*& otherRect, char friendly)
+bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect)) // no entiendo como usar el friendly...
-		lives--; 
+	{
+		lives--;
+		return true;
+	}
+	return false;
 }
 
 bool SceneObject::hasDied()

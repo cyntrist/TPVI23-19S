@@ -16,7 +16,7 @@ public:
 	Mothership() = default;
 	Mothership(int direction, int alienCount, int state, int level, Game* game);
 	bool update() override { return true; } // para que no se queje por ser abstracta pura
-	void render() const override; // para que no se queje por ser abstracta pura
+	void render() const override {} // para que no se queje por ser abstracta pura
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
 	bool shouldMove();

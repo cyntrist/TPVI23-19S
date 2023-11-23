@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 
-enum state { visible, hidden, destroyed};
+//enum state { visible, hidden, destroyed};
 
 class Ufo : public SceneObject
 {

@@ -22,12 +22,12 @@ bool Alien::update()
 		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
 		return false; // hit
 	}
-
-	if (mothership->shouldMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
+	/*
+	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
 	{
 		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
-	}
+	} */
 	return true;
 }
 

@@ -2,5 +2,5 @@
 
 bool Ufo::update()
 {
-	
+	return true;
 }

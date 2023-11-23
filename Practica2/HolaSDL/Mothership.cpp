@@ -5,7 +5,10 @@
 Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game)
 : GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level) { }
 
-bool Mothership::cannotMove() { // copiado tal cual de game
+bool Mothership::cannotMove() {
+
+	/// VERSION ANTIGUA:
+	/* copiado tal cual de game
 	bool cantMove = false;
 	int i = 0;
 	while (i < aliens.size() && !cantMove) {
@@ -20,6 +23,8 @@ bool Mothership::cannotMove() { // copiado tal cual de game
 	if (cantMove)
 		direction = -direction;
 	return cantMove;
+	*/
+	return false;
 }
 
 bool Mothership::alienLanded(const Alien*& alien) // se me ocurre, no se

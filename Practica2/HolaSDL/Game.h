@@ -40,8 +40,8 @@ private:
 	bool exit = false;
 	int movDir = 1;
 	uint32_t startTime, frameTime;
-	static int playerPoints = 0;
-	static int alienUpdateTimer = ALIEN_REFRESH_RATE;
+	inline static int playerPoints = 0; // inline para prevenir errores de compilacion por estar definido en el header
+	inline static int alienUpdateTimer = ALIEN_REFRESH_RATE; // inline para prevenir errores de compilacion por estar definido en el header
 	std::mt19937_64 randomGenerator;
 
 	void startMenu();
