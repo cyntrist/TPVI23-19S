@@ -37,7 +37,8 @@ Game::~Game() {
 	for (const auto i : textures)
 		delete i;
 	for (const auto i : sceneObjs)
-		delete i; 
+		delete i;
+	delete mothership;
 	delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
