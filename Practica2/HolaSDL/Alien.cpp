@@ -2,41 +2,31 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<double>& p, int ty, Texture* te, Game* g) { 
-	position = p;
-	type = ty;
-	texture = te;
-	game = g;
-}
+Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* game)
+	: SceneObject(position, 1, texture, game), type(type) { }
 
-Alien::Alien(const Point2D<double>& p, int ty, Texture* te, Game* g, Mothership* m) { 
-	position = p;
-	type = ty;
-	texture = te;
-	game = g;
-	mothership = m;
-}
+Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)
+: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
 
-bool Alien::update() { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (destroy) return false; // hit
+bool Alien::update()
+{ //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
+	if (destroy)  
+	{
+		switch (type)
+		{
+		case 0: Game::addScore(30); break;
+		case 1: Game::addScore(20); break;
+		case 2: Game::addScore(10); break;
+		default: break;
+		}
+		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
+		return false; // hit
+	}
 
-	if (game->getAlienUpdateTimer() <= 0)
+	if (mothership->shouldMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
 	{
 		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
-
-		if (type == 0) { // random shoot:
-			if (reloadTime <= 0)
-				reloadTime = game->getRandomRange(0.1 * TIME_BETWEEN_FRAMES, 2 * TIME_BETWEEN_FRAMES); //IMPORTANTE: el min y max son numero de frames de update del alien, es decir, el alien disparara una vez cada x updates entre ese rango
-			else
-				reloadTime--;
-
-			if (reloadTime <= 0) { //se que esta feo de narices pero si lo ponia dentro de la comprobacion anterior todos los aliens disparaban en la primera iteracion (supongo que iniciando los aliens ya con un valor del random se solucionaria, pero no conseguia hacerlo)
-				Point2D<double> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
-				Vector2D<> speed(0, LASER_MOV_SPEED);
-				game->fireLaser(pos, speed, false);
-			}
-		}
 	}
 	return true;
 }

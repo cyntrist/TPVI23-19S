@@ -3,9 +3,9 @@
 #include "Game.h"
 
 Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives)
-	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS) { }
+	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS), cannonLives(lives) { }
 
-/*bool Cannon::update()
+bool Cannon::update()
 {
 	if (lives <= 0) return false;
 
@@ -16,7 +16,7 @@ Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, in
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
 
 	return true;
-}*/
+}
 
 void Cannon::handleEvent(const SDL_Event& event)
 {

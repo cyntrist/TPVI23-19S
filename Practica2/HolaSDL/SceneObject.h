@@ -19,12 +19,12 @@ public:
 	SceneObject();
 	SceneObject(Point2D<double> position, int lives, Texture* texture, Game* game);
 	// getters
-	virtual Point2D<double> getPosition() { return position; }
-	virtual int getWidth() { return width; }
-	virtual int getHeight() { return height; }
-	virtual int getLives() { return lives; }
-	virtual Texture* getTexture() { return texture; }
-	virtual SDL_Rect getRect() { return rect; }//Cynthia reina
+	Point2D<double> getPosition() const { return position; }
+	int getWidth() const { return width; }
+	int getHeight() const { return height; }
+	int getLives() const { return lives; }
+	Texture* getTexture() const { return texture; }
+	SDL_Rect* getRect() { return &rect; }//Cynthia reina
 	// setter
 	virtual void setListIterator(std::list<auto>::iterator value) { iterator = value; } // no se hacer esto!!!!!!!!
 	// methods

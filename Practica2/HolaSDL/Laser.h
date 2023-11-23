@@ -8,7 +8,7 @@ constexpr int LASER_WIDTH = 5,
 			  LASER_HEIGHT = 30;
 constexpr char FRIENDLY_CHAR = 'r';
 
-class Laser : SceneObject
+class Laser : public SceneObject
 {
 private:
 	Vector2D<> speed;

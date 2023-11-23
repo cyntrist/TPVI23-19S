@@ -13,9 +13,11 @@ class Cannon: public SceneObject
 private:
 	int movement; // direccion de movimiento
 	uint startTime; // para el cooldown del cannon
+	int cannonLives = lives; // vidas del jugador?
 public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game);
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives);
 	void handleEvent(const SDL_Event& event);
+	bool update() override;
 };

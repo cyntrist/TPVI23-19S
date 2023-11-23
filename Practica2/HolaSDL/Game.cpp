@@ -4,7 +4,6 @@
 #include <filesystem>
 #include <SDL.h>
 #include <SDL_image.h>
-
 #include "Laser.h"
 
 using namespace std;
@@ -29,16 +28,8 @@ Game::Game() : randomGenerator(time(nullptr)) {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error loading SDL window or renderer"s; 
-	try {
-		for (int i = 0; i < NUM_TEXTURES; i++)
-		textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
-	} catch (const runtime_error& ex) {
-        cerr << "Runtime exception occured: " << ex.what() << endl;
-		this->exit = true;
-    } catch(...) { // no se muy bien como hacer que pille distintos tipos de errores en la carga de texturas, siempre sale el default
-		cerr << "Default exception occurred: Could not load textures." << endl;
-    	this->exit = true;
-	}
+	for (int i = 0; i < NUM_TEXTURES; i++)
+	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
 }
 
@@ -47,7 +38,7 @@ Game::~Game() {
 		delete i;
 	for (const auto i : sceneObjs)
 		delete i; 
-	//delete infoBar;
+	delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -55,9 +46,11 @@ Game::~Game() {
 
 void Game::run()
 {	
-	startMenu();
-	//infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING);
-	//exampleInit(this); //ejemplo de 4x11
+	//startMenu();
+	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
+	mothership = new Mothership(); // ...
+	ufo = new Ufo(); // ...
+	exampleInit(this); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 	while (!exit)
 	{
@@ -83,35 +76,16 @@ void Game::update()
 		}
 		else i++;
 
-	//for (int i = 0; i < aliens.size();) // Esto al alien
-	//	if (!aliens[i]->update())
-	//	{
-	//		if(aliens[i]->getType() == 0)
-	//			playerPoints += 30;
-	//		else if (aliens[i]->getType() == 1)
-	//			playerPoints += 20;
-	//		else
-	//			playerPoints += 10;
-	//		delete aliens[i];
-	//		aliens.erase(aliens.begin() + i);
-	//		cout << "PLAYER SCORE: " << playerPoints << endl;
-	//	}
-	//	else i++;
-
 	if (alienUpdateTimer <= 0)
 	{
-		cannotMove();
+		mothership->cannotMove();
 		alienUpdateTimer = ALIEN_REFRESH_RATE;
 	}
 	else 
 		alienUpdateTimer--;
 
-	for (const auto i : aliens)
-		if (i->getPos().getY() >= WIN_HEIGHT*3/4)
-			exit = true;
-
-	if (aliens.empty() || cannons.empty())
-		exit = true;
+	//if (aliens.empty() || cannons.empty())
+		//exit = true;
 }
 
 void Game::render() const
@@ -120,7 +94,7 @@ void Game::render() const
 	textures[stars]->render(); // el fondo!!!!!! :-)
 	for (const auto i : sceneObjs) // los objetos
 		i->render();
-	//infoBar->render();
+	infoBar->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -173,22 +147,6 @@ void Game::startMenu() {
 			exampleInit(this);
 		}
 	}
-}
-
-void Game::cannotMove() {
-	bool cantMove = false;
-	int i = 0;
-	while (i < aliens.size() && !cantMove) {
-		if (aliens[i]->getPos().getX() <= 0 || aliens[i]->getPos().getX() >= WIN_WIDTH - textures[alien]->getFrameWidth())
-		{
-			cantMove = true;
-			for (const auto i : aliens) i->down();
-		}
-		else
-			i++;
-	}
-	if (cantMove)
-		movDir = -movDir;
 }
 
 void Game::exampleInit(Game *juego) {
@@ -362,19 +320,30 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 	}
 }
 
-void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly)
+void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
 {
 	auto* juego = this; // lvalue
 	sceneObjs.push_back(new Laser(pos, speed, friendly, juego));
 }
 
 int Game::getRandomRange(int min, int max) {
-	return uniform_int_distribution<>(min, max )(randomGenerator);
+	return uniform_int_distribution<>(min, max)(randomGenerator);
 }
 
 bool Game::collisions(Laser* laser) const
-{ 
-	if (laser->getFriendly())
+{
+	for (auto const i : sceneObjs)
+	{
+		if (SDL_HasIntersection(laser->getRect(), i->getRect()))
+		{
+			//...
+			i->hit();
+			return true;
+		}
+	}
+
+	/// 
+	if (laser->getColor() == FRIENDLY_CHAR)
 	{ // si es del jugador choca contra los aliens, no contra los cañones
 		for (const auto i : aliens)
 			if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
@@ -395,6 +364,3 @@ bool Game::collisions(Laser* laser) const
 		if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
 	return false;
 }
-
-
-

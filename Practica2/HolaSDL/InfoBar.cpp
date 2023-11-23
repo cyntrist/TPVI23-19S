@@ -12,9 +12,9 @@ void InfoBar::render() const
 		texture->getFrameWidth(),
 		texture->getFrameHeight()
 	};
-	for (int i = 1; i < Cannon::getLives() + 1; i++)
+	/*for (int i = 1; i < Cannon::getLives() + 1; i++)
 	{
 		texture->renderFrame(r, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 		r.x = texture->getFrameWidth() * i + padding * (i + 1);
-	}
+	}*/
 }

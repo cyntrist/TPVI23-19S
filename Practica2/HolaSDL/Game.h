@@ -6,24 +6,26 @@
 #include <array>
 #include <list>
 #include <random>
-
+#include "Mothership.h"
+#include "Laser.h"
 #include "SceneObject.h"
+#include "Ufo.h"
 
 using uint = unsigned int;
 
 constexpr uint WIN_WIDTH = 800,
-					  WIN_HEIGHT = 600,
-					  NUM_TEXTURES = 4;
-const std::string TEXTURE_ROOT = "..\\images\\",
-						 MAP_ROOT = "..\\maps\\",
-						 SAVE_FILE_ROOT = "..\\";
+			  WIN_HEIGHT = 600,
+			  NUM_TEXTURES = 4;
 constexpr double FRAME_RATE = 60, 
-						TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
-						ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
-						CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
-						LASER_MOV_SPEED = 0.15 * TIME_BETWEEN_FRAMES;
+				TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
+				ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
+				CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
+				LASER_MOV_SPEED = 0.15 * TIME_BETWEEN_FRAMES;
 constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
-					 INFOBAR_PADDING = 10; // espacio entre iconos del infobar
+			INFOBAR_PADDING = 10; // espacio entre iconos del infobar
+const std::string TEXTURE_ROOT = "..\\images\\",
+				 MAP_ROOT = "..\\maps\\",
+				 SAVE_FILE_ROOT = "..\\";
 enum TextureName { stars, spaceship, bunker, alien};
 
 class Game {
@@ -32,12 +34,14 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	std::list<SceneObject*> sceneObjs;
-	//InfoBar* infoBar;
+	InfoBar* infoBar;
+	Mothership* mothership;
+	Ufo* ufo;
 	bool exit = false;
 	int movDir = 1;
-	int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	uint32_t startTime, frameTime;
-	int playerPoints = 0;
+	static int playerPoints = 0;
+	static int alienUpdateTimer = ALIEN_REFRESH_RATE;
 	std::mt19937_64 randomGenerator;
 
 	void startMenu();
@@ -54,8 +58,10 @@ public:
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);
-	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, bool friendly);
-	//bool collisions(Laser* laser) const;
+	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly);
+	bool collisions(Laser* laser) const;
 	void saveGame(const std::string& saveFileName);
+	static void addScore(const uint value) { playerPoints += value; }
+	static int getScore() { return playerPoints; }
 };
 

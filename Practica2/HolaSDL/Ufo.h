@@ -9,4 +9,5 @@ class Ufo : public SceneObject
 public:
 	Ufo();
 	Ufo(int state);
+	bool update() override;
 };

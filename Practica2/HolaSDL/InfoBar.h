@@ -16,4 +16,5 @@ public:
 	InfoBar() = default;
 	InfoBar(const Point2D<double>& position, Texture* texture, int padding, Game* game);
 	void render() const override;
+	bool update() override { return true; } // para que no llore por ser virtual puro sin sobreescribir
 };
