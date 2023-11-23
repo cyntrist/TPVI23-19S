@@ -46,7 +46,7 @@ bool SceneObject::update()
 
 void SceneObject::hit(SDL_Rect*& otherRect, char friendly)
 {
-	if (SDL_HasIntersection(getRect(), otherRect)) // faltaria comprobar si es friendly, pero es que depende del objeto?? nose
+	if (SDL_HasIntersection(getRect(), otherRect)) // no entiendo como usar el friendly...
 		lives--; 
 }
 
