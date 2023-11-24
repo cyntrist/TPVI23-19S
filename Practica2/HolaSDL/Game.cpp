@@ -180,11 +180,29 @@ void Game::startMenu() {
 void Game::exampleInit(Game *juego) {
 	// habría que hacer un bucle para cada objeto con lo siguiente creo, mucho mas pulido pero YA COMPILA!!!!!
 	auto it = sceneObjs.begin();
-	const auto a = new Alien(Point2D<double>(WIN_WIDTH/2, WIN_HEIGHT/2), 1, textures[alien], this);
+	/*const auto a = new Alien(Point2D<double>(WIN_WIDTH/2, WIN_HEIGHT/2), 1, textures[alien], this);
 	sceneObjs.push_back(a);
 	a->updateRect();
 	if(it != sceneObjs.end())
 		a->setIterator(++it);
+		*/
+	int type = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 1 || i == 3)
+			type++;
+		for (int j = 0; j < 11; j++)
+		{
+			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
+			auto* pAlien = new Alien(position, type, textures[alien], this);
+			sceneObjs.push_back(pAlien);
+			pAlien->updateRect();
+			if (it != sceneObjs.end())
+				pAlien->setIterator(++it);
+		}
+	}
+
+
 
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
