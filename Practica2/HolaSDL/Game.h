@@ -63,5 +63,8 @@ public:
 	void saveGame(const std::string& saveFileName);
 	static void addScore(const uint value) { playerPoints += value; }
 	static int getScore() { return playerPoints; }
+	SDL_Renderer* getRenderer() {
+		return renderer;
+	}
 };
 

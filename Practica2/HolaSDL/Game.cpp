@@ -6,6 +6,8 @@
 #include <SDL_image.h>
 #include "Laser.h"
 #include "Alien.h"
+#include "ShooterAlien.h"
+#include "Mothership.h"
 
 using namespace std;
 
@@ -73,7 +75,7 @@ void Game::update()
 	for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
         if (!(*it)->update())
         {
-	        delete *it;
+	        delete (*it);
         	it = sceneObjs.erase(it);
         }
         else
@@ -186,6 +188,9 @@ void Game::exampleInit(Game *juego) {
 	if(it != sceneObjs.end())
 		a->setIterator(++it);
 		*/
+
+	Mothership* mothership = new Mothership(); //provisional para los shooter alien
+
 	int type = 0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -194,11 +199,22 @@ void Game::exampleInit(Game *juego) {
 		for (int j = 0; j < 11; j++)
 		{
 			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			auto* pAlien = new Alien(position, type, textures[alien], this);
-			sceneObjs.push_back(pAlien);
-			pAlien->updateRect();
-			if (it != sceneObjs.end())
-				pAlien->setIterator(++it);
+			if (type == 0) {
+				//los shooter aliens hacen que el juego pete en el update, es por el fire laser del game
+				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership, 10);
+				sceneObjs.push_back(pShAlien);
+				pShAlien->updateRect();
+				if (it != sceneObjs.end())
+					pShAlien->setIterator(++it);
+			}
+			else {
+				auto* pAlien = new Alien(position, type, textures[alien], this);
+				sceneObjs.push_back(pAlien);
+				pAlien->updateRect();
+				if (it != sceneObjs.end())
+					pAlien->setIterator(++it);
+			}
+			
 		}
 	}
 
@@ -357,9 +373,10 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 }
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
-{
+{/* Esto peta
 	auto* juego = this; // lvalue
 	sceneObjs.push_back(new Laser(pos, speed, friendly, juego));
+	*/
 }
 
 int Game::getRandomRange(int min, int max) {

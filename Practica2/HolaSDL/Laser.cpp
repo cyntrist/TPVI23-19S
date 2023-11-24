@@ -13,12 +13,12 @@ void Laser::updateRect()
 	rect.h = LASER_HEIGHT;
 }
 
-void Laser::render(SDL_Renderer& renderer) const 
+void Laser::render() const 
 {
-	SDL_SetRenderDrawColor(&renderer, 0, 0, 255, 255);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 255, 255);
 	if (color == FRIENDLY_CHAR)
-		SDL_SetRenderDrawColor(&renderer, 255, 0, 0, 255);
-	SDL_RenderFillRect(&renderer, &rect);
+		SDL_SetRenderDrawColor(game->getRenderer(), 255, 0, 0, 255);
+	SDL_RenderFillRect(game->getRenderer(), &rect);
 }
 
 bool Laser::update() {
