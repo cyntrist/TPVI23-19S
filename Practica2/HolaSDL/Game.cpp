@@ -183,7 +183,8 @@ void Game::exampleInit(Game *juego) {
 	const auto a = new Alien(Point2D<double>(WIN_WIDTH/2, WIN_HEIGHT/2), 1, textures[alien], this);
 	sceneObjs.push_back(a);
 	a->updateRect();
-	a->setIterator(++it);
+	if(it != sceneObjs.end())
+		a->setIterator(++it);
 
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
