@@ -2,8 +2,8 @@
 
 #include "Game.h"
 
-ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership, int reloadTime)
-: Alien(position, type, texture, game, mothership), reloadTime(reloadTime) { }
+ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)
+: Alien(position, type, texture, game, mothership), reloadTime(0) { }
 
 
 bool ShooterAlien::update()

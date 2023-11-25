@@ -203,7 +203,7 @@ void Game::exampleInit(Game *juego) {
 			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
 			if (type == 0) {
 				//los shooter aliens hacen que el juego pete en el update, es por el fire laser del game
-				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership, 10);
+				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership);
 				sceneObjs.push_back(pShAlien);
 				pShAlien->updateRect();
 				if (it != sceneObjs.end())
