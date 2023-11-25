@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include "Laser.h"
 #include "Alien.h"
+#include "Bunker.h"
 #include "ShooterAlien.h"
 #include "Mothership.h"
 
@@ -218,6 +219,21 @@ void Game::exampleInit(Game *juego) {
 		}
 	}
 
+	for (uint i = 1; i < 5; i++)
+	{
+		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
+		Bunker* pBunker = new Bunker(posBun, 3, textures[bunker], this);
+		sceneObjs.push_back(pBunker);
+		if (it != sceneObjs.end())
+			pBunker->setIterator(++it);
+	}
+
+	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
+	Cannon* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
+	sceneObjs.push_back(pCannon);
+	pCannon->updateRect();
+	if (it != sceneObjs.end())
+		pCannon->setIterator(++it);
 
 
 	/// VERSION ANTIGUA:
