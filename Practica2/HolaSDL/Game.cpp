@@ -373,10 +373,14 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 }
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
-{/* Esto peta
+{ //Esto peta
 	auto* juego = this; // lvalue
-	sceneObjs.push_back(new Laser(pos, speed, friendly, juego));
-	*/
+	auto it = sceneObjs.end();
+	it--;
+	Laser* pLaser = new Laser(pos, speed, friendly, juego);
+	sceneObjs.push_back(pLaser);
+	pLaser->setIterator(it);
+	
 }
 
 int Game::getRandomRange(int min, int max) {
