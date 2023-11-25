@@ -57,6 +57,7 @@ void Game::run()
 	//ufo = new Ufo(); // ...
 	exampleInit(this); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
+
 	while (!exit)
 	{
 		handleEvents();
@@ -235,7 +236,6 @@ void Game::exampleInit(Game *juego) {
 	if (it != sceneObjs.end())
 		pCannon->setIterator(++it);
 
-
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
 	/*
@@ -391,12 +391,11 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
 { //Esto peta
 	auto* juego = this; // lvalue
-	auto it = sceneObjs.end();
-	it--;
+	auto it = sceneObjs.end()--;
 	Laser* pLaser = new Laser(pos, speed, friendly, juego);
 	sceneObjs.push_back(pLaser);
 	pLaser->setIterator(it);
-	
+	pLaser->updateRect();
 }
 
 int Game::getRandomRange(int min, int max) {
@@ -406,7 +405,7 @@ int Game::getRandomRange(int min, int max) {
 bool Game::collisions(Laser* laser) const
 {
 	for (auto const i : sceneObjs)
-		if (i->hit(laser->getRect(), laser->getColor()))
+		if (i->hit(laser->getRect(), laser->getColor()) && i != laser)
 			return true;
 
 	/// VERSION ANTIGUA:

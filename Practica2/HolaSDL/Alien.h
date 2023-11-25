@@ -24,4 +24,5 @@ public:
 	void render() const override;
 	void down();
 	int getType() const { return type; }
+	bool hit(SDL_Rect* otherRect, char friendly) override;
 };

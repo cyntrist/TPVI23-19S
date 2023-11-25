@@ -14,7 +14,7 @@ bool Cannon::update()
 		position = Vector2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
-
+	updateRect();
 	return true;
 }
 
@@ -39,4 +39,12 @@ void Cannon::handleEvent(const SDL_Event& event)
 		movement = 0; // se para
 }
 
+bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
+	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'b')
+	{
+		lives--;
+		return true;
+	}
+	return false;
+}
 

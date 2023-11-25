@@ -40,3 +40,9 @@ void Alien::down()
 {
 	position = position + Vector2D<>(0, ALIEN_MOV_SPEED);
 }
+
+bool Alien::hit(SDL_Rect* otherRect, char friendly){
+	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
+		destroy = true;
+	return destroy;
+}
