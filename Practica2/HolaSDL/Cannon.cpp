@@ -8,7 +8,7 @@ Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, in
 bool Cannon::update()
 {
 	if (lives <= 0) {
-		game->endGame(); //asumo que solo va a haber un cañon
+		game->endGame(); //asumo que solo va a haber un cannon
 		return false;
 	}
 
