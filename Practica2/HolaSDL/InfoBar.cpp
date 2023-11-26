@@ -5,7 +5,7 @@ InfoBar::InfoBar(const Point2D<double>& position, Texture* texture, int padding,
 	: GameObject(game), position(position), texture(texture), padding(padding) { }
 
 void InfoBar::render() const
-{
+{ // todo: infobar con score
 	SDL_Rect r {
 		static_cast<int>(position.getX()) + padding,
 		static_cast<int>(position.getY()) - padding,

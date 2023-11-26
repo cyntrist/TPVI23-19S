@@ -25,11 +25,6 @@ void SceneObject::render() const  // renderizar sprite
 	texture->render(rect);
 }
 
-//void SceneObject::render(int row, int col) const // renderizar frame
-//{
-//	texture->renderFrame(rect, row, col);
-//}
-
 void SceneObject::updateRect() // actualizar la posicion del rectangulo
 {
 	rect.x = position.getX();

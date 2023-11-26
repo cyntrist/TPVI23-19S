@@ -6,7 +6,7 @@ Mothership::Mothership(int direction, int alienCount, int state, int level, Game
 : GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level) { }
 
 bool Mothership::cannotMove() {
-
+	// todo: casi todo XD
 	/// VERSION ANTIGUA:
 	/* copiado tal cual de game
 	bool cantMove = false;
