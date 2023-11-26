@@ -55,7 +55,7 @@ void Game::run()
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	//ufo = new Ufo(); // ...
-	exampleInit(this); //ejemplo de 4x11
+	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -180,21 +180,13 @@ void Game::startMenu() {
 		else
 		{
 			cout << "CARGANDO EJEMPLO\n";
-			exampleInit(this);
+			exampleInit();
 		}
 	}
 }
 
-void Game::exampleInit(Game *juego) {
-	// habría que hacer un bucle para cada objeto con lo siguiente creo, mucho mas pulido pero YA COMPILA!!!!!
+void Game::exampleInit() {
 	auto it = sceneObjs.begin();
-	/*const auto a = new Alien(Point2D<double>(WIN_WIDTH/2, WIN_HEIGHT/2), 1, textures[alien], this);
-	sceneObjs.push_back(a);
-	a->updateRect();
-	if(it != sceneObjs.end())
-		a->setIterator(++it);
-		*/
-
 	int type = 0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -225,14 +217,14 @@ void Game::exampleInit(Game *juego) {
 	for (uint i = 1; i < 5; i++)
 	{
 		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
-		Bunker* pBunker = new Bunker(posBun, 3, textures[bunker], this);
+		auto* pBunker = new Bunker(posBun, 3, textures[bunker], this);
 		sceneObjs.push_back(pBunker);
 		if (it != sceneObjs.end())
 			pBunker->setIterator(++it);
 	}
 
-	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	Cannon* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
+	const Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
+	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
 	sceneObjs.push_back(pCannon);
 	pCannon->updateRect();
 	if (it != sceneObjs.end())

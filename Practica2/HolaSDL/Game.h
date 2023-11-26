@@ -45,7 +45,7 @@ private:
 	std::mt19937_64 randomGenerator;
 
 	void startMenu();
-	void exampleInit(Game *juego);
+	void exampleInit();
 	void readMap(const std::string &mapName, Game *juego);
 	void readSaveData(const std::string& saveFileName, Game* juego);
 public:
