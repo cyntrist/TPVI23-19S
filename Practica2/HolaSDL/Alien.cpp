@@ -13,7 +13,7 @@ void Alien::render() const
 	texture->renderFrame(rect, type, state);
 }
 
-bool Alien::update()
+void Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	if (destroy)  
 	{
@@ -25,7 +25,6 @@ bool Alien::update()
 		default: break;
 		}
 		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
-		return false; // hit
 	}
 	/*
 	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
@@ -33,7 +32,6 @@ bool Alien::update()
 		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
 	} */
-	return true;
 }
 
 void Alien::down()
@@ -43,6 +41,9 @@ void Alien::down()
 
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
-		destroy = true;
-	return destroy;
+	{
+		game->hasDied(iterator);
+		return true;
+	}
+	return false;
 }

@@ -20,7 +20,7 @@ public:
 	Alien() = default;
 	Alien(const Point2D<double>& position, int type, Texture* texture, Game* game);
 	Alien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership);
-	bool update() override;
+	void update() override;
 	void render() const override;
 	void down();
 	int getType() const { return type; }

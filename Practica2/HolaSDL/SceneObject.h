@@ -29,9 +29,8 @@ public:
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
 	// methods
 	void render() const override;
-	bool update() override;
+	void update() override;
 	virtual void handleEvent(const SDL_Event& event) {}
 	virtual void updateRect();
 	virtual bool hit(SDL_Rect* otherRect, char friendly);
-	virtual bool hasDied();
 };

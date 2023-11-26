@@ -1,6 +1,6 @@
 #include "Ufo.h"
 
-bool Ufo::update()
+void Ufo::update()
 { // todo: todo XD
-	return true;
+	
 }

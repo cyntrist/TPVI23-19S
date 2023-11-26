@@ -74,7 +74,7 @@ void Game::run()
 
 void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
-	for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
+	/*for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
         if (!(*it)->update())
         {
 	        delete (*it);
@@ -82,8 +82,9 @@ void Game::update()
         }
         else
             ++it;
-    }
-
+    }*/
+	for (const auto i : sceneObjs) // los objetos
+		i->update();
 	/* Lo anterior y lo siguiente se supone que son identicos
 	for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
 	{

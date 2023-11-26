@@ -7,5 +7,5 @@ private:
 public:
 	ShooterAlien() = default;
 	ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership);
-	bool update() override;
+	void update() override;
 };

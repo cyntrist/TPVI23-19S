@@ -67,5 +67,8 @@ public:
 	SDL_Renderer* getRenderer() {
 		return renderer;
 	}
+	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
+		sceneObjs.erase(iterator);
+	}
 };
 
