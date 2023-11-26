@@ -55,3 +55,6 @@ bool SceneObject::hasDied()
 		return true;
 	return false;
 }
+void SceneObject::handleEvent(const SDL_Event& event) {
+
+}

@@ -34,7 +34,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<double> pos(position.getX() + (texture->getFrameWidth() /* - LASER_WIDTH*/) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D<> speed(0, -LASER_MOV_SPEED);
-			game->fireLaser(pos, speed, true);
+			game->fireLaser(pos, speed, 'r');
 			startTime = SDL_GetTicks(); // se resetea el timer a 0
 		}
 	}

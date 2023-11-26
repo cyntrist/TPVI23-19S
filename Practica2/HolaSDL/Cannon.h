@@ -18,7 +18,7 @@ public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game);
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives);
-	void handleEvent(const SDL_Event& event);
+	void handleEvent(const SDL_Event& event) override;
 	bool update() override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
 };

@@ -141,8 +141,12 @@ void Game::handleEvents()
 			saveGame("save");
 			endGame();
 		}
-		//for (const auto i : cannons)
-			//i->handleEvent(event);
+		for (const auto i : sceneObjs)
+			i->handleEvent(event);
+		/*for (auto i : sceneObjs) {
+			if (i = dynamic_cast<Cannon*>(i))
+				i->handleEvent(event);
+		}*/
 	}
 }
 
