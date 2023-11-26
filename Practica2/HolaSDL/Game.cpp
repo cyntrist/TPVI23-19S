@@ -9,7 +9,7 @@
 #include "Bunker.h"
 #include "ShooterAlien.h"
 #include "Mothership.h"
-
+//ignorar este comentario
 using namespace std;
 
 struct sprite {
