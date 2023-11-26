@@ -15,7 +15,7 @@ void Alien::render() const
 
 void Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (destroy)  
+	/*if (destroy)  
 	{
 		switch (type)
 		{
@@ -25,7 +25,7 @@ void Alien::update()
 		default: break;
 		}
 		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
-	}
+	}*/
 	/*
 	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
 	{
@@ -42,6 +42,14 @@ void Alien::down()
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{
+		switch (type)
+		{
+		case 0: Game::addScore(30); break;
+		case 1: Game::addScore(20); break;
+		case 2: Game::addScore(10); break;
+		default: break;
+		}
+		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
 		game->hasDied(iterator);
 		return true;
 	}

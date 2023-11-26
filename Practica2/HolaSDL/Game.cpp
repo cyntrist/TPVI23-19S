@@ -74,17 +74,9 @@ void Game::run()
 
 void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
-	/*for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
-        if (!(*it)->update())
-        {
-	        delete (*it);
-        	it = sceneObjs.erase(it);
-        }
-        else
-            ++it;
-    }*/
-	for (const auto i : sceneObjs) // los objetos
+	for (const auto i : sceneObjs)
 		i->update();
+
 	/* Lo anterior y lo siguiente se supone que son identicos
 	for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
 	{
@@ -209,17 +201,16 @@ void Game::exampleInit(Game *juego) {
 				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership);
 				sceneObjs.push_back(pShAlien);
 				pShAlien->updateRect();
-				if (it != sceneObjs.end())
-					pShAlien->setIterator(++it);
+				it = --sceneObjs.end();
+				pShAlien->setIterator(it);
 			}
 			else {
 				auto* pAlien = new Alien(position, type, textures[alien], this);
 				sceneObjs.push_back(pAlien);
 				pAlien->updateRect();
-				if (it != sceneObjs.end())
-					pAlien->setIterator(++it);
+				it = --sceneObjs.end();
+				pAlien->setIterator(it);
 			}
-			
 		}
 	}
 
@@ -228,16 +219,16 @@ void Game::exampleInit(Game *juego) {
 		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
 		Bunker* pBunker = new Bunker(posBun, 3, textures[bunker], this);
 		sceneObjs.push_back(pBunker);
-		if (it != sceneObjs.end())
-			pBunker->setIterator(++it);
+		it = --sceneObjs.end();
+		pBunker->setIterator(it);
 	}
 
 	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
 	Cannon* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
 	sceneObjs.push_back(pCannon);
 	pCannon->updateRect();
-	if (it != sceneObjs.end())
-		pCannon->setIterator(++it);
+	it = --sceneObjs.end();
+	pCannon->setIterator(it);
 
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
@@ -407,7 +398,7 @@ int Game::getRandomRange(int min, int max) {
 bool Game::collisions(Laser* laser) const
 {
 	for (auto const i : sceneObjs)
-		if (i->hit(laser->getRect(), laser->getColor()))
+		if (i->hit(laser->getRect(), laser->getColor()) && i != laser)
 			return true;
 
 	/// VERSION ANTIGUA:
