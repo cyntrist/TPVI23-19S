@@ -76,25 +76,10 @@ void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
 	for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
         if (!(*it)->update())
-        {
-	        delete (*it);
         	it = sceneObjs.erase(it);
-        }
-        else
-            ++it;
+        else 
+			++it;
     }
-
-	/* Lo anterior y lo siguiente se supone que son identicos
-	for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	{
-		if (!(*it)->update())
-        {
-	        delete *it;
-        	it = sceneObjs.erase(it);
-			--it;
-        }
-	}
-	*/
 
 	/// VERSION ANTIGUA:
 	// No está toodo de la version antigua porque lo he movido ya sea a alien o a mothership y soy idiota perdon
@@ -400,28 +385,5 @@ bool Game::collisions(Laser* laser) const
 	for (auto const i : sceneObjs)
 		if (i->hit(laser->getRect(), laser->getColor()))
 			return true;
-
-	/// VERSION ANTIGUA:
-	/*
-	if (laser->getColor() == FRIENDLY_CHAR)
-	{ // si es del jugador choca contra los aliens, no contra los cañones
-		for (const auto i : aliens)
-			if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
-	}
-	else
-	{ // si es enemigo, no choca con el resto de aliens y sí con los cañones
-		for (const auto i : cannons)
-			if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
-	}
-
-	// colisiones laser x laser
-	for (const auto i : lasers)
-			if (SDL_HasIntersection(laser->getRect(), i->getRect()) 
-				&& laser->getFriendly() == !i->getFriendly() ) { i->hit(); return true; }
-
-	// todos dañan los bunkeres
-	for (const auto i : bunkers)
-		if (SDL_HasIntersection(laser->getRect(), i->getRect())) { i->hit(); return true; }
-	*/
 	return false;
 }

@@ -15,12 +15,12 @@ void Alien::render() const
 
 bool Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (destroy)  
+	if (lives <= 0)  
 	{
 		const uint score = type * 10;
 		Game::addScore(score);
 		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
-		return false; // hit
+		return false; 
 	}
 	/*
 	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
@@ -38,6 +38,9 @@ void Alien::down()
 
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
-		destroy = true;
-	return destroy;
+	{
+		lives--;
+		return true;
+	}
+	return false;
 }

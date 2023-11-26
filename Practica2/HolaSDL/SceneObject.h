@@ -25,6 +25,7 @@ public:
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
 	SDL_Rect* getRect() { return &rect; }//Cynthia reina
+	std::list<SceneObject*>::iterator getIterator() { return iterator;}
 	// setter
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
 	// methods
