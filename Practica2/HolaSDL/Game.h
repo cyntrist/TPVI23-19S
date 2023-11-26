@@ -68,8 +68,7 @@ public:
 		return renderer;
 	}
 	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
-		/*delete (*iterator);
-		sceneObjs.erase(iterator);*/
+		sceneObjs.erase(iterator);
 	}
 };
 
