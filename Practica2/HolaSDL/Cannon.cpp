@@ -7,7 +7,10 @@ Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, in
 
 bool Cannon::update()
 {
-	if (lives <= 0) return false;
+	if (lives <= 0) {
+		game->endGame(); //asumo que solo va a haber un cañon
+		return false;
+	}
 
 	position = position + Vector2D<>(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)

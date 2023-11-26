@@ -55,6 +55,7 @@ public:
 	void render() const;
 	void handleEvents();
 	void update();
+	void endGame() { exit = true; }
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);

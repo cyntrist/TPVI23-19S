@@ -139,7 +139,7 @@ void Game::handleEvents()
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
 		{
 			saveGame("save");
-			exit = true;
+			endGame();
 		}
 		//for (const auto i : cannons)
 			//i->handleEvent(event);
@@ -190,8 +190,6 @@ void Game::exampleInit(Game *juego) {
 	if(it != sceneObjs.end())
 		a->setIterator(++it);
 		*/
-
-	Mothership* mothership = new Mothership(); //provisional para los shooter alien
 
 	int type = 0;
 	for (int i = 0; i < 4; i++)
