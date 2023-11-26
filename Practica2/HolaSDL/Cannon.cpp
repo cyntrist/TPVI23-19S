@@ -44,7 +44,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 
 bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'b')
-	{ // todo: el check de interseccion sobra porque ya se hace en las colisiones de game? y chequear si es friendly no se muy bien donde iria
+	{ 
 		lives--;
 		return true;
 	}
