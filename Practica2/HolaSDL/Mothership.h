@@ -3,9 +3,9 @@
 #include "Vector2D.h"
 class Alien;
 
-enum state {}; // ...
+enum state {}; // ...????? lo del enum cíclico... jiji
 
-class Mothership : public GameObject
+class Mothership final : public GameObject
 {
 	int direction;
 	int alienCount;
@@ -19,6 +19,8 @@ public:
 	void render() const override {} // para que no se queje por ser abstracta pura
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
+	void setDirection(int value) { direction = value; }
+	void setAlienCount(int value) { alienCount = value; }
 	bool shouldMove();
 	bool cannotMove();
 	void alienDied();

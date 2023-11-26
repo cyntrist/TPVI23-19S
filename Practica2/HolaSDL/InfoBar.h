@@ -4,7 +4,7 @@
 #include "Cannon.h"
 #include "GameObject.h"
 
-class InfoBar : public GameObject
+class InfoBar final : public GameObject
 {
 private:
 	Point2D<double> position = Point2D<double>(0, 0);

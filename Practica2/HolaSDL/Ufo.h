@@ -1,13 +1,13 @@
 #pragma once
 #include "SceneObject.h"
 
-//enum state { visible, hidden, destroyed};
+enum states { visible, hidden, destroyed };
 
-class Ufo : public SceneObject
+class Ufo final: public SceneObject 
 {
-	int state; //int?
+	int state; 
 public:
-	Ufo();
-	Ufo(int state);
+	Ufo() = default;
+	Ufo(Point2D<double> position, int lives, Texture* texture, Game* game, int state);
 	bool update() override;
 };

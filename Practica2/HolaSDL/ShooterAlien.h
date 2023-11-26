@@ -1,6 +1,6 @@
 #pragma once
 #include "Alien.h"
-class ShooterAlien : public Alien
+class ShooterAlien final : public Alien
 {
 private:
 	int reloadTime;

@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 #include "SceneObject.h"
 
-class Bunker : public SceneObject
+class Bunker final : public SceneObject
 {
 public:
 	Bunker() = default;

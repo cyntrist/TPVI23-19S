@@ -22,7 +22,8 @@ const sprite sprites[NUM_TEXTURES]{
 	sprite {"stars", 1, 1},
 	sprite {"spaceship", 1, 1},
 	sprite {"bunker", 1, 4},
-	sprite {"alien", 3, 2}
+	sprite {"alien", 3, 2},
+	sprite {"ufo", 1, 2}
 };
 
 Game::Game() : randomGenerator(time(nullptr)) {
@@ -54,7 +55,7 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
-	//ufo = new Ufo(); // ...
+	ufo = new Ufo(); // ...
 	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 

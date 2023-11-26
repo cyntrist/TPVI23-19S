@@ -35,6 +35,7 @@ bool Mothership::alienLanded(const Alien*& alien) // se me ocurre, no se
 }
 
 bool Mothership::haveLanded()
-{
-	return false;
+{ // idkkkk
+	game->endGame();
+	return true;
 }
