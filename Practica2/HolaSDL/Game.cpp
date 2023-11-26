@@ -384,9 +384,9 @@ void Game::readSaveData(const std::string& saveFileName, Game* juego) {
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
 { //Esto peta
-	const auto it = --sceneObjs.end();
 	auto* pLaser = new Laser(pos, speed, friendly, this);
 	sceneObjs.push_back(pLaser);
+	auto it = --sceneObjs.end();
 	pLaser->setIterator(it);
 	pLaser->updateRect();
 }
