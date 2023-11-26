@@ -35,3 +35,13 @@ bool Laser::update() {
 	return !destroy && !game->collisions(this);
 	// llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
 }
+
+
+bool Laser::hit(SDL_Rect* otherRect, char friendly) {
+	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
+	{ // todo: el check de interseccion sobra porque ya se hace en las colisiones de game? y chequear si es friendly no se muy bien donde iria
+		destroy = true;
+		return true;
+	}
+	return false;
+}

@@ -22,4 +22,5 @@ public:
 	void updateRect() override;
 	void render() const override;
 	char getColor() const { return color; }
+	bool hit(SDL_Rect* otherRect, char friendly) override;
 };
