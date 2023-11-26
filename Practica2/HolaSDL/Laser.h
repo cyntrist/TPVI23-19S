@@ -13,7 +13,6 @@ class Laser : public SceneObject
 private:
 	Vector2D<> speed;
 	char color;
-	bool destroy = false; // si ha de ser destruido
 
 public:
 	Laser() = default;
