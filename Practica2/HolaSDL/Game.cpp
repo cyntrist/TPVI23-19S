@@ -404,7 +404,7 @@ int Game::getRandomRange(int min, int max) {
 bool Game::collisions(Laser* laser) const
 {
 	for (auto const i : sceneObjs)
-		if (i->hit(laser->getRect(), laser->getColor()) && i != laser)
+		if (i->hit(laser->getRect(), laser->getColor()))
 			return true;
 
 	/// VERSION ANTIGUA:

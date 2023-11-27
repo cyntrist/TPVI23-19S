@@ -31,7 +31,7 @@ void Laser::render() const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->collisions(this))
+	if (game->collisions(this) || destroy)
 		game->hasDied(iterator);
 
 
