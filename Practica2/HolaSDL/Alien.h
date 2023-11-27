@@ -13,7 +13,6 @@ class Alien : public SceneObject
 private:
 	int type;
 	int state = 0; // estado de animacion
-	bool destroy = false; // si ha de ser destruido
 	Mothership* mothership;
 
 public:

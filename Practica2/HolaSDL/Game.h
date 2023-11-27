@@ -26,7 +26,7 @@ constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del 
 const std::string TEXTURE_ROOT = "..\\images\\",
 				 MAP_ROOT = "..\\maps\\",
 				 SAVE_FILE_ROOT = "..\\";
-enum TextureName { stars, spaceship, bunker, alien};
+enum TextureName { stars, spaceship, bunker, alien, ufos};
 
 class Game {
 private:

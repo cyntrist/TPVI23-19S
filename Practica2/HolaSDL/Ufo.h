@@ -5,9 +5,11 @@ enum states { visible, hidden, destroyed };
 
 class Ufo final: public SceneObject 
 {
+	int direction;
 	int state; 
 public:
 	Ufo() = default;
-	Ufo(Point2D<double> position, int lives, Texture* texture, Game* game, int state);
+	Ufo(Texture* texture, Game* game, int state);
+	void render() const override;
 	bool update() override;
 };
