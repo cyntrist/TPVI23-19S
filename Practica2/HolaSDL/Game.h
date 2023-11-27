@@ -34,6 +34,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	std::list<SceneObject*> sceneObjs;
+	std::list<SceneObject*> deleteObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
 	Ufo* ufo;
@@ -68,7 +69,7 @@ public:
 		return renderer;
 	}
 	void hasDied(std::list<SceneObject*>::iterator& iterator) {
-		sceneObjs.erase(iterator);
+		deleteObjs.push_back(*iterator);
 	}
 };
 

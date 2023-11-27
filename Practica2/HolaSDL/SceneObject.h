@@ -27,6 +27,7 @@ public:
 	SDL_Rect* getRect() { return &rect; }//Cynthia reina
 	// setter
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
+	std::list<SceneObject*>::iterator& getIterator() { return iterator; }
 	// methods
 	void render() const override;
 	void update() override;
