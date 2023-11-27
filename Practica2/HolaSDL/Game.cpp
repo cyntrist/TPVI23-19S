@@ -241,28 +241,6 @@ void Game::saveData(const std::string& saveFileName) const {
 	for (const auto i : sceneObjs)
 		i->save(out);
 	out.close();
-
-	/// VERSION ANTIGUA:
-	/*
-	if (out.fail())
-	{
-		const std::error_code ec;
-		const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
-		throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
-	}
-
-	out << playerPoints << endl;
-
-	for (int i = 0; i < cannons.size(); i++) {
-		out << "0 " << (int)cannons[i]->getPos().getX() << " " << (int)cannons[i]->getPos().getY() << " " << cannons[i]->getLives() << endl;
-	}
-	for (int i = 0; i < aliens.size(); i++) {
-		out << "1 " << (int)aliens[i]->getPos().getX() << " " << (int)aliens[i]->getPos().getY() << " " << aliens[i]->getType() << endl;
-	}
-	for (int i = 0; i < bunkers.size(); i++) {
-		out << "2 " << (int)bunkers[i]->getPos().getX() << " " << (int)bunkers[i]->getPos().getY() << " " << bunkers[i]->getLives() << endl;
-	}
-	*/
 }
 
 void Game::readData(const std::string& filename, Game* juego, bool isMap) {

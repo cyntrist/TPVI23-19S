@@ -58,5 +58,5 @@ bool SceneObject::hasDied()
 
 void SceneObject::save(std::ostream& os) const
 {
-	
+	os  << position.getX() << " " << position.getY() << " " << std::endl;
 }
