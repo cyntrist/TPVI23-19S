@@ -11,16 +11,18 @@ class Mothership final : public GameObject
 	int alienCount;
 	int state;
 	int level;
+	int movementTimer;
 
 public:
 	Mothership() = default;
-	Mothership(int direction, int alienCount, int state, int level, Game* game);
-	bool update() override { return true; } // para que no se queje por ser abstracta pura
+	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
+	bool update() override; // para que no se queje por ser abstracta pura
 	void render() const override {} // para que no se queje por ser abstracta pura
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
 	void setDirection(int value) { direction = value; }
 	void setAlienCount(int value) { alienCount = value; }
+	void addAlienCount() { alienCount++; }
 	bool shouldMove();
 	bool cannotMove();
 	void alienDied();

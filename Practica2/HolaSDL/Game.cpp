@@ -120,7 +120,7 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) exit = true;
 		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
 		{
-			saveGame("save");
+			saveData("save");
 			endGame();
 		}
 		else
@@ -148,7 +148,7 @@ void Game::startMenu() {
 		cin >> read;
 	}
 	if (read == 'y')
-		readSaveData("save", this);
+		readData("save", this);
 	else
 	{
 		cout << "CARGAR MAPA? y/n\n";
@@ -174,6 +174,7 @@ void Game::startMenu() {
 }
 
 void Game::exampleInit() {
+	// aliens
 	auto it = sceneObjs.begin();
 	int type = 0;
 	for (int i = 0; i < 4; i++)
@@ -190,6 +191,7 @@ void Game::exampleInit() {
 				pShAlien->updateRect();
 				if (it != sceneObjs.end())
 					pShAlien->setIterator(++it);
+				mothership->addAlienCount();
 			}
 			else {
 				auto* pAlien = new Alien(position, type, textures[alien], this);
@@ -197,10 +199,13 @@ void Game::exampleInit() {
 				pAlien->updateRect();
 				if (it != sceneObjs.end())
 					pAlien->setIterator(++it);
+				mothership->addAlienCount();
 			}
 		}
 	}
 
+
+	// bunkers
 	for (uint i = 1; i < 5; i++)
 	{
 		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
@@ -210,6 +215,7 @@ void Game::exampleInit() {
 			pBunker->setIterator(++it);
 	}
 
+	// cannon
 	const Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
 	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
 	sceneObjs.push_back(pCannon);
@@ -266,7 +272,7 @@ void Game::readMap(const std::string &mapName, Game *juego) {
 	*/
 }
 
-void Game::saveGame(const std::string& saveFileName) {
+void Game::saveData(const std::string& saveFileName) {
 
 	/// VERSION ANTIGUA:
 	/*
@@ -295,54 +301,80 @@ void Game::saveGame(const std::string& saveFileName) {
 	*/
 }
 
-void Game::readSaveData(const std::string& saveFileName, Game* juego) {
-
-	/// VERSION ANTIGUA:
-	/*
-	std::ifstream in(SAVE_FILE_ROOT + saveFileName + ".txt");
+void Game::readData(const std::string& filename, Game* juego, bool isMap) {
+	string fileroot;
+	if (isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
+	else fileroot = MAP_ROOT + filename + ".txt";
+	std::ifstream in(fileroot);
 	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 	if (in.fail())
 	{
-		const std::error_code ec;
-		const std::filesystem::path route = SAVE_FILE_ROOT + saveFileName + ".txt";
-		throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
+		exampleInit(); // esto debería moverse en el futuro al catch de ambos 
+		throw "Could not read the specified file"s;
 	}
-
 	if (in.peek() == std::ifstream::traits_type::eof())
 	{
-		cout << "Empty save file, loading example\n";
-		exampleInit(this);
+		exampleInit(); // esto debería moverse en el futuro al catch de ambos 
+		throw "Empty save file, loading example\n"s;
 	}
-	cin >> playerPoints;
 
-	int read, x, y;
+	auto it = sceneObjs.begin();
+	int read, x, y, lives, timer, type, state, level;
+	int alienCount = 0;
+	char color;
+	SceneObject* object = nullptr; // para simplificar, espero saber usarlo
 	while (cin >> read) {
-		if (read == 0)
-		{ // cannon
-			int lives;
-			cin >> x >> y >> lives;
-			auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, lives);
-			cannons.push_back(pCannon);
-		}
-		else if (read == 1)
-		{ // alien
-			int type;
-			cin >> x >> y >> type;
-			auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
-			aliens.push_back(pAlien);
-		}
-		else if (read == 2)
-		{ // bunker
-			int lives;
-			cin >> x >> y >> lives;
-			auto* pBunker = new Bunker(Point2D<double>(x, y), lives, textures[bunker]);
-			bunkers.push_back(pBunker);
+		cin >> x >> y;
+		auto position  = Point2D<double>(x, y);
+		switch (read)
+		{
+		case 0: // cannon
+			cin >> lives >> timer;
+			object = new Cannon(position, textures[spaceship], juego, lives, timer);
+			break;
+		case 1: // alien
+			cin >> type;
+			object = new Alien(position, type, textures[alien], this, mothership);
+			alienCount++;
+			break;
+		case 2: // shooter alien
+			cin >> type >> timer;
+			object = new ShooterAlien(position, type, textures[alien], this, mothership);
+			alienCount++;
+			break;
+		case 3: // mothership
+			cin>> state >> level >> timer;
+			mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
+			break;
+		case 4: // bunker
+			cin >> y >> lives;
+			object = new Bunker(position, lives, textures[bunker], this);
+			break;
+		case 5: // ufo
+			cin >> y >> state >> timer;
+			object = new Ufo(position, textures[ufos], this, false, state, timer);
+			break;
+		case 6: // laser
+			cin >> color;
+			auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
+			object = new Laser(position, speed, color, this);
+			break;
+		case 7: // score
+			playerPoints = x;
+			break;
+		default: // nada
+			throw "Invalid type of object"s;
 		}
 	}
-
+	if (object != nullptr)
+	{
+		sceneObjs.push_back(object);
+		object->updateRect();
+			if (it != sceneObjs.end())
+				object->setIterator(++it);
+	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();
-	*/
 }
 
 void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)

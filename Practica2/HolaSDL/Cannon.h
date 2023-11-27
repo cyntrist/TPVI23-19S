@@ -13,11 +13,12 @@ class Cannon final : public SceneObject
 private:
 	int movement; // direccion de movimiento
 	uint startTime; // para el cooldown del cannon
-	int cannonLives = lives; // vidas del jugador?
+	int cannonLives = lives; // para el infobar, pero creo que se puede implementar con las vidas normales
 public:
 	Cannon() = default;
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game);
 	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives);
+	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives, int startTime);
 	void handleEvent(const SDL_Event& event) override;
 	bool update() override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;

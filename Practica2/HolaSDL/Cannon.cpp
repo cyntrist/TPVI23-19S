@@ -5,6 +5,9 @@
 Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives)
 	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS), cannonLives(lives) { }
 
+Cannon::Cannon(const Point2D<double>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
+	: Cannon(_position, _texture, _game, _lives) { startTime = _startTime; }
+
 bool Cannon::update()
 {
 	if (lives <= 0) {

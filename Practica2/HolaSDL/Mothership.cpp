@@ -2,8 +2,8 @@
 #include "Alien.h"
 #include "Game.h"
 
-Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game)
-: GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level) { }
+Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer)
+: GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level), movementTimer(movementTimer) { }
 
 bool Mothership::cannotMove() {
 	// todo: casi todo XD
@@ -25,6 +25,13 @@ bool Mothership::cannotMove() {
 	return cantMove;
 	*/
 	return false;
+}
+
+bool Mothership::update()
+{
+	if (alienCount <= 0) game->endGame();
+	// ...
+	return true;
 }
 
 bool Mothership::alienLanded(const Alien*& alien) // se me ocurre, no se

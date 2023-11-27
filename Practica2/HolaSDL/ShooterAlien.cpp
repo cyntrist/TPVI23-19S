@@ -5,6 +5,11 @@
 ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 : Alien(position, type, texture, game, mothership), reloadTime(0) { }
 
+ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership, int reloadTime)
+: ShooterAlien(position, type, texture, game, mothership)
+{
+	this->reloadTime = reloadTime;
+}
 
 bool ShooterAlien::update()
 {

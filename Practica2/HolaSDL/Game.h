@@ -46,7 +46,8 @@ private:
 	void startMenu();
 	void exampleInit();
 	void readMap(const std::string &mapName, Game *juego);
-	void readSaveData(const std::string& saveFileName, Game* juego);
+	void readData(const std::string& saveFileName, Game* juego, bool isMap);
+	void saveData(const std::string& saveFileName);
 public:
 	Game();
 	~Game();
@@ -55,17 +56,17 @@ public:
 	void handleEvents();
 	void update();
 	void endGame() { exit = true; }
-	int getDirection() const { return movDir; }
-	int getAlienUpdateTimer() const { return alienUpdateTimer; }
-	int getRandomRange(int min, int max);
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly);
 	bool collisions(Laser* laser) const;
-	void saveGame(const std::string& saveFileName);
 	static void addScore(const int value)
 	{
 		playerPoints += value;
 		std::cout << "PLAYER SCORE: " << getScore() << std::endl; 
 	}
+	// getters
+	int getDirection() const { return movDir; }
+	int getAlienUpdateTimer() const { return alienUpdateTimer; }
+	int getRandomRange(int min, int max);
 	static int getScore() { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
 };

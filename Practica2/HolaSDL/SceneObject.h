@@ -13,7 +13,7 @@ protected:
 	int width, height, lives;	
 	Texture* texture; // no se si va en esta clase pero es lo que más sentido me parece que tiene?
 	SDL_Rect rect; // idem
-	std::list<SceneObject*>::iterator iterator; // movida del iterador (int???)
+	std::list<SceneObject*>::iterator iterator;
 public:
 	// constructor
 	SceneObject();
