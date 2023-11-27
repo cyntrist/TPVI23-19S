@@ -131,10 +131,13 @@ void Game::handleEvents()
 			endGame();
 		}
 		for (const auto i : sceneObjs)
+		{ // funciona directamente poniendo i->handleEvent()... pero por qué? lo unico que entiendo es que es mejor hacer este casting pero no se...
+			auto* cannon = dynamic_cast<Cannon*>(i);
+			if (cannon != nullptr) 
+				cannon->handleEvent(event);
+		}
+		/*for (const auto i : sceneObjs) {
 			i->handleEvent(event);
-		/*for (auto i : sceneObjs) {
-			if (i = dynamic_cast<Cannon*>(i))
-				i->handleEvent(event);
 		}*/
 	}
 }
