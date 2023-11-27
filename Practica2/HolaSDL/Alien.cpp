@@ -17,7 +17,7 @@ bool Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
 	if (lives <= 0)  
 	{
-		const uint score = type * 10;
+		const uint score = 30 - type * 10;
 		Game::addScore(score);
 		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
 		return false; 
