@@ -76,7 +76,7 @@ void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
 
 	for (const auto i : sceneObjs) 
-		i->update(); //Bueno pues creo que ya se cual es el problema, se borra elemento de sceneobjects pero resulta que este bucle intenta hacer un update de algo borrado, al menos eso creo pero yo que se, estoy hasta las narices
+		i->update(); //algo hace un acceso que no deberia
 
 	/* Lo anterior y lo siguiente se supone que son identicos
 	for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
