@@ -9,8 +9,8 @@ Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s)
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
 }
-Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s, int hT)
-	: Ufo(p, t, g, d, s)
+Ufo::Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state, int hT)
+	: Ufo(position, texture, game, direction, state)
 {
 	hiddenTimer = hT;
 }
@@ -29,7 +29,7 @@ bool Ufo::update()
 		position = position + Vector2D<>(direction * UFO_MOV_SPEED, 0); //movimiento de los aliens
 		if (getPosition().getX() + width < 0)
 			state = hidden;
-		else if (lives <= 0)
+		if (lives <= 0)
 		{
 			state = destroyed;
 			lives = 1;
@@ -62,7 +62,7 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
-		game->addScore(SCORE_POINTS);
+		Game::addScore(SCORE_POINTS);
 		lives--;
 		return true;
 	} 

@@ -17,8 +17,8 @@ class Ufo final: public SceneObject
 
 public:
 	Ufo() = default;
-	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direccion, int state);
-	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direccion, int state, int hiddenTimer);
+	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state);
+	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state, int hT);
 	void render() const override;
 	bool update() override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
