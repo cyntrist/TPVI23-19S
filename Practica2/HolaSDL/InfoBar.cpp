@@ -1,5 +1,6 @@
 #include "checkML.h"
 #include "InfoBar.h"
+#include "Game.h"
 
 InfoBar::InfoBar(const Point2D<double>& position, Texture* texture, int padding, Game* game)
 	: GameObject(game), position(position), texture(texture), padding(padding) { }

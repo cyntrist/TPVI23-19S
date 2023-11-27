@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneObject.h"
+class Game;
 
 constexpr int ANIMATION_DURATION = 10, // los frames que dura destruido
 			  HIDDEN_DURATION = 100,  // solo para debugging

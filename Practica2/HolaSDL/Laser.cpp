@@ -32,7 +32,7 @@ void Laser::render() const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->collisions(this) || destroy)
+	if (game->collisions(this) || lives <= 0)
 		game->hasDied(iterator);
 
 	//if (position.getY() < 0) return false;  // si se sale por arriba

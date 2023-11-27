@@ -1,5 +1,7 @@
 #pragma once
 #include "Alien.h"
+class Game;
+
 class ShooterAlien final : public Alien
 {
 private:

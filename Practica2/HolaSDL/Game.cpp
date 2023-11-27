@@ -45,7 +45,7 @@ Game::~Game() {
 	for (const auto i : sceneObjs)
 		delete i;
 	delete mothership;
-	delete infoBar;
+	//delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -54,7 +54,7 @@ Game::~Game() {
 void Game::run()
 {	
 	//startMenu();
-	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
+	//infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
@@ -104,7 +104,7 @@ void Game::render() const
 	textures[stars]->render(); // el fondo!!!!!! :-)
 	for (const auto i : sceneObjs) // los objetos
 		i->render();
-	infoBar->render();
+	//infoBar->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -147,7 +147,10 @@ void Game::startMenu() {
 		cin >> read;
 	}
 	if (read == 'y')
-		readData("save", this, false);
+	{
+		//readData("save", this, false);
+
+	}
 	else
 	{
 		cout << "CARGAR MAPA? y/n\n";
@@ -162,7 +165,7 @@ void Game::startMenu() {
 			cout << "Nombre del mapa:\n";
 			std::string mapName;
 			cin >> mapName;
-			readMap(mapName, this);
+			//readData(mapName, this, true);
 		}
 		else
 		{
@@ -285,7 +288,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		case 3: // mothership
 			cin>> state >> level >> timer;
-			mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
+			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
 			break;
 		case 4: // bunker
 			cin >> y >> lives;
@@ -296,9 +299,9 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			object = new Ufo(position, textures[ufos], this, false, state, timer);
 			break;
 		case 6: // laser
-			cin >> color;
-			auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
-			object = new Laser(position, speed, color, this);
+			//cin >> color;
+			//auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
+			//object = new Laser(position, speed, color, this);
 			break;
 		case 7: // score
 			playerPoints = x;

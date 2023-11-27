@@ -1,5 +1,4 @@
 #include "ShooterAlien.h"
-
 #include "Game.h"
 
 ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)

@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "texture.h"
 #include "Vector2D.h"
+class Game;
 
 class SceneObject : public GameObject
 {
@@ -28,7 +29,6 @@ public:
 	std::list<SceneObject*>::iterator getIterator() { return iterator;}
 	// setter
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
-	std::list<SceneObject*>::iterator& getIterator() { return iterator; }
 	// methods
 	void render() const override;
 	void save(std::ostream& os) const override;

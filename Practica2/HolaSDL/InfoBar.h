@@ -3,6 +3,7 @@
 #include "Vector2D.h"
 #include "Cannon.h"
 #include "GameObject.h"
+class Game;
 
 class InfoBar final : public GameObject
 {

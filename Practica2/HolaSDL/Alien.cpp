@@ -22,7 +22,6 @@ void Alien::update()
 		state = (state + 1) % 2; // animacion
 	}
 	*/
-	return true;
 }
 
 void Alien::down()

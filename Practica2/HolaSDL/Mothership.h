@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 class Alien;
+class Game;
 
 enum state {}; // ...????? lo del enum c�clico... jiji
 

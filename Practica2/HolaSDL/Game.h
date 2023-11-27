@@ -46,7 +46,6 @@ private:
 
 	void startMenu();
 	void exampleInit();
-	void readMap(const std::string &mapName, Game *juego);
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:

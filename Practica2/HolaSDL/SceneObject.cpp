@@ -1,4 +1,5 @@
 #include "SceneObject.h"
+#include "Game.h"
 
 SceneObject::SceneObject() : GameObject(nullptr)
 {
