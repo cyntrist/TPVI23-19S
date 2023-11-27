@@ -148,7 +148,7 @@ void Game::startMenu() {
 		cin >> read;
 	}
 	if (read == 'y')
-		readData("save", this);
+		readData("save", this, false);
 	else
 	{
 		cout << "CARGAR MAPA? y/n\n";
