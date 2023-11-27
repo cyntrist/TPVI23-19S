@@ -232,52 +232,18 @@ void Game::exampleInit() {
 		pUfo->setIterator(++it);
 }
 
-void Game::readMap(const std::string &mapName, Game *juego) {
-
-	/// VERSION ANTIGUA:
-	/*
-	std::ifstream in(MAP_ROOT + mapName + ".txt");
-	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
-	if (in.fail())
-	{
-		const std::error_code ec;
-		const std::filesystem::path route = MAP_ROOT + mapName + ".txt";
-		throw std::filesystem::filesystem_error("Could not read the specified file at " + route.string(), route, ec);
-	}
-
-	int read, x, y;
-	while (cin >> read) {
-		if (read == 0)
-		{ // cannon
-			cin >> x >> y;
-			auto* pCannon = new Cannon(Point2D<double>(x, y), textures[spaceship], juego, 3);
-			cannons.push_back(pCannon);
-		}
-		else if (read == 1)
-		{ // alien
-			int type;
-			cin >> x >> y >> type;
-			auto* pAlien = new Alien(Point2D<double>(x, y), type, textures[alien], juego);
-			aliens.push_back(pAlien);
-		}
-		else if (read == 2)
-		{ // bunker
-			cin >> x >> y;
-			auto* pBunker = new Bunker(Point2D<double>(x, y), 3, textures[bunker]);
-			bunkers.push_back(pBunker);
-		}
-	}
-	std::cin.rdbuf(cinbuf); //restablecer entrada
-	in.close();
-	*/
-}
-
-void Game::saveData(const std::string& saveFileName) {
-
-	/// VERSION ANTIGUA:
-	/*
+void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 
+	if (out.fail())
+		throw "Could not read the specified file"s;
+
+	for (const auto i : sceneObjs)
+		i->save(out);
+	out.close();
+
+	/// VERSION ANTIGUA:
+	/*
 	if (out.fail())
 	{
 		const std::error_code ec;
@@ -296,8 +262,6 @@ void Game::saveData(const std::string& saveFileName) {
 	for (int i = 0; i < bunkers.size(); i++) {
 		out << "2 " << (int)bunkers[i]->getPos().getX() << " " << (int)bunkers[i]->getPos().getY() << " " << bunkers[i]->getLives() << endl;
 	}
-
-	out.close();
 	*/
 }
 

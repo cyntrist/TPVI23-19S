@@ -6,7 +6,7 @@ Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* 
 	: SceneObject(position, 1, texture, game), type(type) { }
 
 Alien::Alien(const Point2D<double>& position, int type, Texture* texture, Game* game, Mothership* mothership)
-: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
+	: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
 
 void Alien::render() const
 {

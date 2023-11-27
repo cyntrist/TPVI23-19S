@@ -55,3 +55,8 @@ bool SceneObject::hasDied()
 		return true;
 	return false;
 }
+
+void SceneObject::save(std::ostream& os) const
+{
+	
+}
