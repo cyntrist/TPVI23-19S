@@ -10,7 +10,7 @@
 #include "ShooterAlien.h"
 #include "Mothership.h"
 #include "Ufo.h"
-//ignorar este comentario
+
 using namespace std;
 
 struct sprite {
@@ -87,14 +87,7 @@ void Game::update()
 
 	/// VERSION ANTIGUA:
 	// No está toodo de la version antigua porque lo he movido ya sea a alien o a mothership y soy idiota perdon
-	/*for (int i = 0; i < sceneObjs.size();)
-		if (!sceneObjs[i]->update())
-		{
-			delete sceneObjs[i];
-			sceneObjs.erase(sceneObjs.begin() + i);
-		}
-		else i++;
-		
+	/*		
 	if (alienUpdateTimer <= 0)
 	{
 		mothership->cannotMove();
@@ -106,7 +99,7 @@ void Game::update()
 
 	if (aliens.empty() || cannons.empty())
 		exit = true;
-		*/
+	*/
 }
 
 void Game::render() const
@@ -125,20 +118,23 @@ void Game::handleEvents()
 	while (SDL_PollEvent(&event) && !exit)
 	{
 		if (event.type == SDL_QUIT) exit = true;
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
+		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
 		{
 			saveGame("save");
 			endGame();
 		}
-		for (const auto i : sceneObjs)
-		{ // funciona directamente poniendo i->handleEvent()... pero por qué? lo unico que entiendo es que es mejor hacer este casting pero no se...
-			auto* cannon = dynamic_cast<Cannon*>(i);
-			if (cannon != nullptr) 
-				cannon->handleEvent(event);
+		else
+		{
+			for (const auto i : sceneObjs)
+			{ // funciona directamente poniendo i->handleEvent()... pero por qué? lo unico que entiendo es que es mejor hacer este casting pero no se...
+				auto* cannon = dynamic_cast<Cannon*>(i);
+				if (cannon != nullptr) 
+					cannon->handleEvent(event);
+			}
+			/*for (const auto i : sceneObjs) {
+				i->handleEvent(event);
+			}*/
 		}
-		/*for (const auto i : sceneObjs) {
-			i->handleEvent(event);
-		}*/
 	}
 }
 
@@ -202,7 +198,6 @@ void Game::exampleInit() {
 				if (it != sceneObjs.end())
 					pAlien->setIterator(++it);
 			}
-			
 		}
 	}
 
