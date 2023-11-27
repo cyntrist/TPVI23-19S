@@ -7,6 +7,12 @@ Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s)
 	iniPos = position; // guarda referencia a la posicion incial para poder volver en el futuro
 	direction = d ? 1 : -1;
 	state = s;
+	hiddenTimer = HIDDEN_DURATION;
+}
+Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s, int hT)
+	: Ufo(p, t, g, d, s)
+{
+	hiddenTimer = hT;
 }
 
 void Ufo::render() const
