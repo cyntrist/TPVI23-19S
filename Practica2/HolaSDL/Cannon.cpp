@@ -8,11 +8,11 @@ Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, in
 Cannon::Cannon(const Point2D<double>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
 	: Cannon(_position, _texture, _game, _lives) { startTime = _startTime; }
 
-bool Cannon::update()
+void Cannon::update()
 {
 	if (lives <= 0) {
+		game->hasDied(iterator);
 		game->endGame(); //asumo que solo va a haber un cannon
-		return false;
 	}
 
 	position = position + Vector2D<>(CANNON_MOV_SPEED * movement, 0);
@@ -21,7 +21,6 @@ bool Cannon::update()
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
 	updateRect();
-	return true;
 }
 
 void Cannon::handleEvent(const SDL_Event& event)

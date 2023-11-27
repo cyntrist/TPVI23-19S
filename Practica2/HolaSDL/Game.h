@@ -34,6 +34,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures; 
 	std::list<SceneObject*> sceneObjs;
+	std::list<SceneObject*> deleteObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
 	bool exit = false;
@@ -69,5 +70,8 @@ public:
 	int getRandomRange(int min, int max);
 	static int getScore() { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
+	void hasDied(std::list<SceneObject*>::iterator& iterator) {
+		deleteObjs.push_back(*iterator);
+	}
 };
 

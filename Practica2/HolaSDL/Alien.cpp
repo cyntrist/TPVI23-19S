@@ -13,16 +13,10 @@ void Alien::render() const
 	texture->renderFrame(rect, type, state);
 }
 
-bool Alien::update()
+void Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (lives <= 0)  
-	{
-		const int score = 30 - type * 10;
-		Game::addScore(score);
-		return false; 
-	}
 	/*
-	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe está sin hacer XD
+	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe esta sin hacer XD
 	{
 		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
@@ -39,7 +33,9 @@ void Alien::down()
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{
-		lives--;
+		const int score = 30 - type * 10;
+		Game::addScore(score);
+		game->hasDied(iterator);
 		return true;
 	}
 	return false;

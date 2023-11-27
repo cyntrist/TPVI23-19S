@@ -29,12 +29,13 @@ void Laser::render() const
 	SDL_RenderFillRect(game->getRenderer(), &rect);
 }
 
-bool Laser::update() {
+void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (position.getY() < 0) return false;  // si se sale por arriba
-	return lives > 0 && !game->collisions(this);
-	// llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
+	if (game->collisions(this) || destroy)
+		game->hasDied(iterator);
+
+	//if (position.getY() < 0) return false;  // si se sale por arriba
 }
 
 

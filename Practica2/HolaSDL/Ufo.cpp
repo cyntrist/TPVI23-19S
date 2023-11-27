@@ -20,8 +20,19 @@ void Ufo::render() const
 	texture->renderFrame(rect, 0, std::min(state, texture->getNumColumns()));
 }
 
-bool Ufo::update()
+bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 {
+	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
+	{
+		Game::addScore(SCORE_POINTS);
+		lives--;
+		return true;
+	} 
+	return false; 
+}
+
+void Ufo::update()
+{ // todo: todo XD
 	updateRect();
 	switch (state)
 	{
@@ -36,7 +47,7 @@ bool Ufo::update()
 		}
 		break;
 	case destroyed:
-		// ha de mostrar el frame de explosion (de ello se encarga el render) durane unos segundos y luego volver al estado hidden además de devolverlo a la posición inicial
+		// ha de mostrar el frame de explosion (de ello se encarga el render) durane unos segundos y luego volver al estado hidden ademï¿½s de devolverlo a la posiciï¿½n inicial
 		if (animationTimer <= 0)
 		{
 			state = hidden;
@@ -55,16 +66,4 @@ bool Ufo::update()
 		else hiddenTimer--;
 		break;
 	}
-	return true;
-}
-
-bool Ufo::hit(SDL_Rect* otherRect, char friendly)
-{
-	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
-	{
-		Game::addScore(SCORE_POINTS);
-		lives--;
-		return true;
-	} 
-	return false; 
 }

@@ -75,15 +75,11 @@ void Game::run()
 
 void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
-	for (auto it = sceneObjs.begin(); it != sceneObjs.end();) {
-        if (!(*it)->update())
-        {
-			delete *it;
-        	it = sceneObjs.erase(it);
-        }
-        else 
-			++it;
-    }
+	for (auto i : sceneObjs) 
+		i->update(); //algo hace un acceso que no deberia
+	for (auto i : deleteObjs)
+		sceneObjs.erase(i->getIterator());
+	deleteObjs.clear();
 
 	/// VERSION ANTIGUA:
 	// No está toodo de la version antigua porque lo he movido ya sea a alien o a mothership y soy idiota perdon
@@ -127,13 +123,16 @@ void Game::handleEvents()
 		{
 			for (const auto i : sceneObjs)
 			{ // funciona directamente poniendo i->handleEvent()... pero por qué? lo unico que entiendo es que es mejor hacer este casting pero no se...
-				auto* cannon = dynamic_cast<Cannon*>(i);
+				auto* cannon = dynamic_cast<Cannon*>(i); // hacer atributo el cannon
 				if (cannon != nullptr) 
 					cannon->handleEvent(event);
 			}
-			/*for (const auto i : sceneObjs) {
+			// tambien funciona:
+			/*
+			for (const auto i : sceneObjs) {
 				i->handleEvent(event);
-			}*/
+			}
+			*/
 		}
 	}
 }
@@ -189,17 +188,17 @@ void Game::exampleInit() {
 				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership);
 				sceneObjs.push_back(pShAlien);
 				pShAlien->updateRect();
-				if (it != sceneObjs.end())
-					pShAlien->setIterator(++it);
 				mothership->addAlienCount();
+				it = --sceneObjs.end();
+				pShAlien->setIterator(it);
 			}
 			else {
 				auto* pAlien = new Alien(position, type, textures[alien], this);
 				sceneObjs.push_back(pAlien);
 				pAlien->updateRect();
-				if (it != sceneObjs.end())
-					pAlien->setIterator(++it);
 				mothership->addAlienCount();
+				it = --sceneObjs.end();
+				pAlien->setIterator(it);
 			}
 		}
 	}
@@ -211,8 +210,8 @@ void Game::exampleInit() {
 		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
 		auto* pBunker = new Bunker(posBun, 3, textures[bunker], this);
 		sceneObjs.push_back(pBunker);
-		if (it != sceneObjs.end())
-			pBunker->setIterator(++it);
+		it = --sceneObjs.end();
+		pBunker->setIterator(it);
 	}
 
 	// cannon
@@ -220,8 +219,8 @@ void Game::exampleInit() {
 	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
 	sceneObjs.push_back(pCannon);
 	pCannon->updateRect();
-	if (it != sceneObjs.end())
-		pCannon->setIterator(++it);
+	it = --sceneObjs.end();
+	pCannon->setIterator(it);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	const Point2D<double> posUfo(WIN_WIDTH, WIN_HEIGHT / 2); 

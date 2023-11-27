@@ -11,7 +11,7 @@ class SceneObject : public GameObject
 protected:
 	Point2D<double> position;
 	int width, height, lives;	
-	Texture* texture; // no se si va en esta clase pero es lo que más sentido me parece que tiene?
+	Texture* texture; // no se si va en esta clase pero es lo que mï¿½s sentido me parece que tiene?
 	SDL_Rect rect; // idem
 	std::list<SceneObject*>::iterator iterator;
 public:
@@ -28,12 +28,12 @@ public:
 	std::list<SceneObject*>::iterator getIterator() { return iterator;}
 	// setter
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
+	std::list<SceneObject*>::iterator& getIterator() { return iterator; }
 	// methods
 	void render() const override;
-	bool update() override;
 	void save(std::ostream& os) const override;
+	void update() override;
 	virtual void handleEvent(const SDL_Event& event) {}
 	virtual void updateRect();
 	virtual bool hit(SDL_Rect* otherRect, char friendly);
-	virtual bool hasDied();
 };

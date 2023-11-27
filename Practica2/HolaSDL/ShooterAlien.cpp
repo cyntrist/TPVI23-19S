@@ -11,7 +11,7 @@ ShooterAlien::ShooterAlien(const Point2D<double>& position, int type, Texture* t
 	this->reloadTime = reloadTime;
 }
 
-bool ShooterAlien::update()
+void ShooterAlien::update()
 {
 	if (reloadTime <= 0)
 		reloadTime = game->getRandomRange(2 * TIME_BETWEEN_FRAMES, 20 * TIME_BETWEEN_FRAMES); //IMPORTANTE: el min y max son numero de frames de update del alien, es decir, el alien disparara una vez cada x updates entre ese rango
@@ -23,5 +23,5 @@ bool ShooterAlien::update()
 		Vector2D<> speed(0, LASER_MOV_SPEED);
 		game->fireLaser(pos, speed, 'b');
 	}
-	return Alien::update();
+	Alien::update();
 }

@@ -33,10 +33,9 @@ void SceneObject::updateRect() // actualizar la posicion del rectangulo
 	rect.h = texture->getFrameHeight();
 }
 
-bool SceneObject::update() 
+void SceneObject::update() 
 {
 	updateRect(); // actualiza el rectangulo en base a la posicion actual
-	return !hasDied();
 }
 
 bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
@@ -46,13 +45,6 @@ bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 		lives--;
 		return true;
 	}
-	return false;
-}
-
-bool SceneObject::hasDied()
-{
-	if (lives < 0)
-		return true;
 	return false;
 }
 

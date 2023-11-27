@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 class Alien;
 
-enum state {}; // ...????? lo del enum cíclico... jiji
+enum state {}; // ...????? lo del enum cï¿½clico... jiji
 
 class Mothership final : public GameObject
 {
@@ -16,7 +16,8 @@ class Mothership final : public GameObject
 public:
 	Mothership() = default;
 	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
-	bool update() override; // para que no se queje por ser abstracta pura
+	Mothership(int direction, int alienCount, int state, int level, Game* game);
+	void update() override { } // para que no se queje por ser abstracta pura
 	void render() const override {} // para que no se queje por ser abstracta pura
 	void save(std::ostream& os) const override {}
 	int getDirection() const { return direction; }

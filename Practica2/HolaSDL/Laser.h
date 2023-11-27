@@ -17,7 +17,7 @@ private:
 public:
 	Laser() = default;
 	Laser(Point2D<double>& position, Vector2D<>& speed, char friendly, Game* game);
-	bool update() override;
+	void update() override;
 	void updateRect() override;
 	void render() const override;
 	char getColor() const { return color; }
