@@ -220,7 +220,7 @@ void Game::exampleInit() {
 		pCannon->setIterator(++it);
 
 	// el ufo (IMPORTANTE: puede haber varios)
-	const Point2D<double> posUfo(WIN_WIDTH / 2, WIN_HEIGHT / 2); // textures[ufos]->getFrameHeight()
+	const Point2D<double> posUfo(WIN_WIDTH, WIN_HEIGHT / 2); 
 	auto* pUfo = new Ufo(posUfo, textures[ufos], this, false, visible);
 	sceneObjs.push_back(pUfo);
 	pUfo->updateRect();
