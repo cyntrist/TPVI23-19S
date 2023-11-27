@@ -33,10 +33,6 @@ bool Laser::update() {
 	position = position + speed;
 	updateRect();
 	if (position.getY() < 0) return false;  // si se sale por arriba
-	if (lives <= 0 || game->collisions(this))
-	{
-		std::cout << "me cago en la puta" << std::endl;
-	}
 	return lives > 0 && !game->collisions(this);
 	// llama a las colisiones totales, y si ha colisionado, sera destruido en el propio game
 }
@@ -44,6 +40,9 @@ bool Laser::update() {
 
 bool Laser::hit(SDL_Rect* otherRect, char friendly) {
 	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
+	{
+		lives--;
 		return true;
+	}
 	return false;
 }

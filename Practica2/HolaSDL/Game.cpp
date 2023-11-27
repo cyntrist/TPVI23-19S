@@ -226,38 +226,6 @@ void Game::exampleInit() {
 	pUfo->updateRect();
 	if (it != sceneObjs.end())
 		pUfo->setIterator(++it);
-
-	/// VERSION ANTIGUA:
-	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
-	/*
-	// aliens
-	int type = 0;
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			auto* pAlien = new Alien(position, type, textures[alien], this);
-			aliens.push_back(pAlien);
-
-			if (aliens.size() == 11 || aliens.size() == 22)
-				type++;
-		}
-	}
-
-	// cuatro unidad de bunker
-	for (uint i = 1; i < 5; i++)
-	{
-		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
-		auto* pBunker = new Bunker(posBun, 3, textures[bunker]);
-		bunkers.push_back(pBunker);
-	}
-
-	// a ver el cañon
-	Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
-	cannons.push_back(pCannon);
-	*/
 }
 
 void Game::readMap(const std::string &mapName, Game *juego) {
