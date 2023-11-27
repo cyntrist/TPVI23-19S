@@ -2,12 +2,9 @@
 #include "Game.h"
 
 Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s)
+	: SceneObject(p, 1, t, g)
 {
-	position = p;
-	iniPos = p; // guarda referencia a la posicion incial para poder volver en el futuro
-	lives = 1;
-	texture = t;
-	game = g;
+	iniPos = position; // guarda referencia a la posicion incial para poder volver en el futuro
 	direction = d ? 1 : -1;
 	state = s;
 }
