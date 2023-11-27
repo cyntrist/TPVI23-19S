@@ -19,7 +19,6 @@ bool Alien::update()
 	{
 		const uint score = 30 - type * 10;
 		Game::addScore(score);
-		std::cout << "PLAYER SCORE: " << Game::getScore() << std::endl; // imagino que esto habría que devolverlo al main
 		return false; 
 	}
 	/*
@@ -27,7 +26,8 @@ bool Alien::update()
 	{
 		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
-	} */
+	}
+	*/
 	return true;
 }
 

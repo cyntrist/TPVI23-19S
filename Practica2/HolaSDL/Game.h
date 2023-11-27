@@ -9,7 +9,6 @@
 #include "Mothership.h"
 #include "Laser.h"
 #include "SceneObject.h"
-#include "Ufo.h"
 
 using uint = unsigned int;
 
@@ -19,6 +18,7 @@ constexpr uint WIN_WIDTH = 800,
 constexpr double FRAME_RATE = 60, 
 				TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE,
 				ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
+				UFO_MOV_SPEED = ALIEN_MOV_SPEED / 10, 
 				CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
 				LASER_MOV_SPEED = 0.15 * TIME_BETWEEN_FRAMES;
 constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
@@ -36,7 +36,6 @@ private:
 	std::list<SceneObject*> sceneObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
-	Ufo* ufo;
 	bool exit = false;
 	int movDir = 1;
 	uint32_t startTime, frameTime;
@@ -62,10 +61,12 @@ public:
 	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly);
 	bool collisions(Laser* laser) const;
 	void saveGame(const std::string& saveFileName);
-	static void addScore(const uint value) { playerPoints += value; }
-	static int getScore() { return playerPoints; }
-	SDL_Renderer* getRenderer() {
-		return renderer;
+	static void addScore(const int value)
+	{
+		playerPoints += value;
+		std::cout << "PLAYER SCORE: " << getScore() << std::endl; 
 	}
+	static int getScore() { return playerPoints; }
+	SDL_Renderer* getRenderer() const { return renderer; }
 };
 

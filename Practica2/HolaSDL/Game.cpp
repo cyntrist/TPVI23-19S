@@ -9,6 +9,7 @@
 #include "Bunker.h"
 #include "ShooterAlien.h"
 #include "Mothership.h"
+#include "Ufo.h"
 //ignorar este comentario
 using namespace std;
 
@@ -55,7 +56,6 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
-	ufo = new Ufo(textures[ufos], this); // ...
 	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
 
@@ -218,6 +218,14 @@ void Game::exampleInit() {
 	pCannon->updateRect();
 	if (it != sceneObjs.end())
 		pCannon->setIterator(++it);
+
+	// el ufo (IMPORTANTE: puede haber varios)
+	const Point2D<double> posUfo(WIN_WIDTH / 2, WIN_HEIGHT / 2); // textures[ufos]->getFrameHeight()
+	auto* pUfo = new Ufo(posUfo, textures[ufos], this, false, visible);
+	sceneObjs.push_back(pUfo);
+	pUfo->updateRect();
+	if (it != sceneObjs.end())
+		pUfo->setIterator(++it);
 
 	/// VERSION ANTIGUA:
 	//Toda esta movida hace que el vector de aliens se llene con la cuadricula predeterminada de 4x11
