@@ -57,7 +57,8 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
-	exampleInit(); //ejemplo de 4x11
+	//exampleInit(); //ejemplo de 4x11
+	readData("lluvia", this, true);
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -223,7 +224,7 @@ void Game::addObject(SceneObject*& object)
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
-		throw "Could not read the specified file"s;
+		throw "Could not find the specified save file"s;
 	for (const auto i : sceneObjs)
 		i->save(out);
 	out.close();
@@ -231,20 +232,14 @@ void Game::saveData(const std::string& saveFileName) const {
 
 void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	string fileroot;
-	if (isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
+	if (!isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
 	else fileroot = MAP_ROOT + filename + ".txt";
 	std::ifstream in(fileroot);
 	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 	if (in.fail())
-	{
-		exampleInit(); // esto debería moverse en el futuro al catch de ambos 
-		throw "Could not read the specified file"s;
-	}
+		throw "Could not read the specified data file at "s + fileroot ;
 	if (in.peek() == std::ifstream::traits_type::eof())
-	{
-		exampleInit(); // esto debería moverse en el futuro al catch de ambos 
 		throw "Empty save file, loading example\n"s;
-	}
 
 	auto it = sceneObjs.begin();
 	int read, x, y, lives, timer, type, state, level;
@@ -258,9 +253,13 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 		switch (read)
 		{
 		case 0: // cannon
-			cin >> lives >> timer;
-			object = new Cannon(position, textures[spaceship], juego, lives, timer);
-			break;
+			{
+				cin >> lives >> timer;
+				auto* newCannon = new Cannon(position, textures[spaceship], juego, lives, timer);
+				cannon = newCannon;
+				object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
+				break;
+			}
 		case 1: // alien
 			cin >> type;
 			object = new Alien(position, type, textures[alien], this, mothership);
@@ -276,7 +275,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
 			break;
 		case 4: // bunker
-			cin >> y >> lives;
+			cin >> lives;
 			object = new Bunker(position, lives, textures[bunker], this);
 			break;
 		case 5: // ufo
@@ -292,13 +291,12 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			playerPoints = x;
 			break;
 		default: // nada
-			throw "Invalid type of object"s;
+			break;
 		}
+		if (object != nullptr)
+			addObject(object);
 	}
-	if (object != nullptr)
-	{
-		addObject(object);
-	}
+
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();
 }

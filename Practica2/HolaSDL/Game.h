@@ -24,7 +24,7 @@ constexpr double FRAME_RATE = 60,
 constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 			INFOBAR_PADDING = 10; // espacio entre iconos del infobar
 const std::string TEXTURE_ROOT = "..\\images\\",
-				 MAP_ROOT = "..\\maps\\",
+				 MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 				 SAVE_FILE_ROOT = "..\\";
 enum TextureName { stars, spaceship, bunker, alien, ufos};
 
