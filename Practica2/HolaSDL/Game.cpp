@@ -62,10 +62,11 @@ Game::~Game() {
 /// con llamadas a los métodos principales, gestiona el framerate y tras acabar el bucle ppal la puntuación por consola*/
 void Game::run()
 { 
-	startMenu();
+	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	//exampleInit(); //ejemplo de 4x11
+	readData("original", this, true);
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -111,17 +112,20 @@ void Game::render() const
 /// INPUT BLOCK
 ///	gestiona los diferentes inputs que puede haber:
 ///	de Cannon (en su propio método, mov lateral y disparar),
-///	de guardado (G),
+///	de guardado (S),
+///	de carga (L),
+///	de mapa (M)
 ///	y de salida 
 void Game::handleEvents()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit)
 	{
+		SDL_Keycode key = event.key.keysym.sym;
 		if (event.type == SDL_QUIT) exit = true;
-		else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_l))
+		else if (event.type == SDL_KEYDOWN && (key == SDLK_s || key == SDLK_l ||key == SDLK_m))
 		{
-			if (event.key.keysym.sym == SDLK_s) // guardar
+			if (key == SDLK_s) // guardar
 			{
 				std::cout << "Input save slot to save to: " << std::endl;
 				char k;
@@ -134,18 +138,24 @@ void Game::handleEvents()
 				}
 				else std::cout << "Invalid number.";
 			}
-			else if (event.key.keysym.sym == SDLK_l)
+			else if (key == SDLK_l)
 			{
 				std::cout << "Input save slot to load: " << std::endl;
 				char k;
 				std::cin >> k;
 				if (isdigit(k))
 				{
-					sceneObjs.clear();
+					emptyGame();
 					readData("save" + std::to_string(k - '0'), this, false);
 					std::cout << "Loaded game." << std::endl;
 				}
 				else std::cout << "Invalid number.";
+			}
+			else if (key == SDLK_m)
+			{
+				cin >> mapName;
+				emptyGame();
+				readData(mapName, this, true);
 			}
 		}
 		else if (cannon != nullptr) 
@@ -156,26 +166,37 @@ void Game::handleEvents()
 /// INITIALIZATION BLOCK:
 ///	Muestra por consola diferentes mensajes para cargar o no un archivo guardado, un mapa o el tablero ejemplo
 void Game::startMenu() {
+	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
 	char read;
-	cout << "CARGAR MAPA? y/n\n";
 	cin >> read;
-	read = std::tolower(read);
 	while (read != 'y' && read != 'n')
 	{
 		cout << "Input a valid command (y/n)\n";
 		cin >> read;
 	}
 	if (read == 'y')
-	{
-		cout << "Nombre del mapa:\n";
-		std::string mapName;
-		cin >> mapName;
-		readData(mapName, this, true);
-	}
+		readData("save", this, false);
 	else
 	{
-		cout << "CARGANDO EJEMPLO\n";
-		exampleInit();
+		cout << "CARGAR MAPA? y/n\n";
+		cin >> read;
+		while (read != 'y' && read != 'n')
+		{
+			cout << "Input a valid command (y/n)\n";
+			cin >> read;
+		}
+		if (read == 'y')
+		{
+			cout << "Nombre del mapa:\n";
+			std::string mapName;
+			cin >> mapName;
+			readData(mapName, this, true);
+		}
+		else
+		{
+			cout << "CARGANDO EJEMPLO\n";
+			exampleInit();
+		}
 	}
 }
 
@@ -243,9 +264,15 @@ void Game::addObject(SceneObject*& object)
 	object->updateRect();
 }
 
+/// metodo para vaciar todos los objetos y liberar su memoria, usado previo a cargar partida o mapa
 void Game::emptyGame()
 {
+	for (const auto i : sceneObjs)
+		delete i;
 	sceneObjs.clear();
+	for (const auto i : deleteObjs)
+		delete i;
+	deleteObjs.clear();
 }
 
 /// DATA MANAGEMENT BLOCK:
