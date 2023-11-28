@@ -3,7 +3,7 @@
 
 SceneObject::SceneObject() : GameObject(nullptr)
 {
-	position = Point2D<double>(0, 0);
+	position = Point2D<>(0, 0);
 	lives = 0;
 	texture = nullptr;
 	width = 0;
@@ -14,7 +14,7 @@ SceneObject::SceneObject() : GameObject(nullptr)
 	rect.h = 0;
 }
 
-SceneObject::SceneObject(Point2D<double> position, int lives, Texture* texture, Game* g)
+SceneObject::SceneObject(Point2D<> position, int lives, Texture* texture, Game* g)
 : GameObject(g), position(position), lives(lives), texture(texture)
 {
 	width = texture->getFrameWidth();
@@ -51,5 +51,5 @@ bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 
 void SceneObject::save(std::ostream& os) const
 {
-	os  << position.getX() << " " << position.getY() << " " << std::endl;
+	os << position.getX() << " " << position.getY() << " " << std::endl;
 }

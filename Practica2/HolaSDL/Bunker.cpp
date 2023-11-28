@@ -2,7 +2,7 @@
 #include "Bunker.h"
 #include "Game.h"
 
-Bunker::Bunker(const Point2D<double>& position, int lives, Texture* texture, Game* game)
+Bunker::Bunker(const Point2D<>& position, int lives, Texture* texture, Game* game)
 	: SceneObject(position, lives, texture, game) { }
 
 void Bunker::render() const

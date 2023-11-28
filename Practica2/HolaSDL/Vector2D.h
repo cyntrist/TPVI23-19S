@@ -42,5 +42,5 @@ public:
 	}
 };
 
-template <class T = int>
+template <class T = double>
 using Point2D = Vector2D<T>;

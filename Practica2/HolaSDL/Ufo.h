@@ -14,12 +14,12 @@ class Ufo final: public SceneObject
 	int state;
 	int animationTimer = ANIMATION_DURATION;
 	int hiddenTimer;
-	Point2D<double> iniPos;
+	Point2D<> iniPos;
 
 public:
 	Ufo() = default;
-	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state);
-	Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state, int hT);
+	Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state);
+	Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state, int hT);
 	void render() const override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
 	void update() override;

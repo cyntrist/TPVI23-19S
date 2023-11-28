@@ -8,7 +8,7 @@ class Bunker : public SceneObject
 {
 public:
 	Bunker() = default;
-	Bunker(const Point2D<double>& position, int lives, Texture* texture, Game* game);
+	Bunker(const Point2D<>& position, int lives, Texture* texture, Game* game);
 	void render() const override;
 	void update() override;
 };

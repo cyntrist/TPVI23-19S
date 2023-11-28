@@ -29,7 +29,7 @@ bool Mothership::cannotMove() {
 
 void Mothership::update()
 {
-	if (alienCount <= 0) game->endGame();
+	//if (alienCount <= 0) game->endGame();
 	// ...
 }
 

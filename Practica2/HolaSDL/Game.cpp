@@ -19,7 +19,7 @@ struct sprite {
 	int cols;
 };
 
-const sprite sprites[NUM_TEXTURES]{ 
+const sprite sprites[NUM_TEXTURES] { 
 	sprite {"stars", 1, 1},
 	sprite {"spaceship", 1, 1},
 	sprite {"bunker", 1, 4},
@@ -51,10 +51,11 @@ Game::~Game() {
 	SDL_Quit();
 }
 
+/// GAME LOGIC BLOCK
 void Game::run()
 {	
 	//startMenu();
-	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
+	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
@@ -107,6 +108,7 @@ void Game::render() const
 	SDL_RenderPresent(renderer);
 }
 
+/// INPUT BLOCK
 void Game::handleEvents()
 {
 	SDL_Event event;
@@ -123,6 +125,8 @@ void Game::handleEvents()
 	}
 }
 
+
+/// INITIALIZATION BLOCK
 void Game::startMenu() {
 	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
 	char read;
@@ -161,6 +165,8 @@ void Game::startMenu() {
 void Game::exampleInit() {
 	// aliens
 	auto it = sceneObjs.begin();
+	Point2D<> position;
+	SceneObject* object;
 	int type = 0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -168,55 +174,51 @@ void Game::exampleInit() {
 			type++;
 		for (int j = 0; j < 11; j++)
 		{
-			Point2D<double> position((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			if (type == 0) {
-				//los shooter aliens hacen que el juego pete en el update, es por el fire laser del game
-				auto* pShAlien = new ShooterAlien(position, type, textures[alien],this, mothership);
-				sceneObjs.push_back(pShAlien);
-				pShAlien->updateRect();
-				mothership->addAlienCount();
-				it = --sceneObjs.end();
-				pShAlien->setIterator(it);
-			}
-			else {
-				auto* pAlien = new Alien(position, type, textures[alien], this);
-				sceneObjs.push_back(pAlien);
-				pAlien->updateRect();
-				mothership->addAlienCount();
-				it = --sceneObjs.end();
-				pAlien->setIterator(it);
-			}
+			position = Point2D<>((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
+			if (type == 0) 
+				object = new ShooterAlien(position, type, textures[alien],this, mothership);
+			else 
+				object = new Alien(position, type, textures[alien], this);
+
+			sceneObjs.push_back(object);
+			it = --sceneObjs.end();
+			object->setIterator(it);
+			object->updateRect();
+			mothership->addAlienCount();
 		}
 	}
 
 	// bunkers
 	for (uint i = 1; i < 5; i++)
 	{
-		const Point2D<double> posBun(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
-		auto* pBunker = new Bunker(posBun, 3, textures[bunker], this);
-		sceneObjs.push_back(pBunker);
+		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
+		object = new Bunker(position, 3, textures[bunker], this);
+		sceneObjs.push_back(object);
 		it = --sceneObjs.end();
-		pBunker->setIterator(it);
+		object->setIterator(it);
+		object->updateRect();
 	}
 
 	// cannon
-	const Point2D<double> posCan(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
-	auto* pCannon = new Cannon(posCan, textures[spaceship], this, 3);
-	sceneObjs.push_back(pCannon);
-	pCannon->updateRect();
+	position = Point2D<>(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
+	auto* newCannon = new Cannon(position, textures[spaceship], this, 3);
+	sceneObjs.push_back(newCannon);
 	it = --sceneObjs.end();
-	pCannon->setIterator(it);
-	cannon = pCannon;
+	newCannon->setIterator(it);
+	newCannon->updateRect();
+	cannon = newCannon;
 
 	// el ufo (IMPORTANTE: puede haber varios)
-	const Point2D<double> posUfo(WIN_WIDTH, WIN_HEIGHT / 2); 
-	auto* pUfo = new Ufo(posUfo, textures[ufos], this, false, visible);
-	sceneObjs.push_back(pUfo);
-	pUfo->updateRect();
-	if (it != sceneObjs.end())
-		pUfo->setIterator(++it);
+	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2); 
+	object = new Ufo(position, textures[ufos], this, false, visible);
+	sceneObjs.push_back(object);
+	it = --sceneObjs.end();
+	object->setIterator(it);
+	object->updateRect();
 }
 
+
+/// DATA MANAGEMENT BLOCK
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
@@ -251,7 +253,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	SceneObject* object = nullptr; // para simplificar, espero saber usarlo
 	while (cin >> read) {
 		cin >> x >> y;
-		auto position  = Point2D<double>(x, y);
+		auto position  = Point2D<>(x, y);
 		switch (read)
 		{
 		case 0: // cannon
@@ -270,7 +272,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		case 3: // mothership
 			cin>> state >> level >> timer;
-			mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
+			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
 			break;
 		case 4: // bunker
 			cin >> y >> lives;
@@ -303,7 +305,8 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	in.close();
 }
 
-void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
+/// GAME COLLISIONS BLOCK
+void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly)
 { //Esto peta
 	auto* pLaser = new Laser(pos, speed, friendly, this);
 	sceneObjs.push_back(pLaser);
@@ -312,14 +315,14 @@ void Game::fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly)
 	pLaser->updateRect();
 }
 
-int Game::getRandomRange(int min, int max) {
-	return uniform_int_distribution<>(min, max)(randomGenerator);
-}
-
 bool Game::collisions(Laser* laser) const
 {
 	for (auto const i : sceneObjs)
 		if (i->hit(laser->getRect(), laser->getColor()))
 			return true;
 	return false;
+}
+
+int Game::getRandomRange(int min, int max) {
+	return uniform_int_distribution<>(min, max)(randomGenerator);
 }

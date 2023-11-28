@@ -1,7 +1,7 @@
 #include "Ufo.h"
 #include "Game.h"
 
-Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s)
+Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
 	: SceneObject(p, 1, t, g)
 {
 	iniPos = position; // guarda referencia a la posicion incial para poder volver en el futuro
@@ -9,7 +9,7 @@ Ufo::Ufo(Point2D<double> p, Texture* t, Game* g, bool d, int s)
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
 }
-Ufo::Ufo(Point2D<double> position, Texture* texture, Game* game, bool direction, int state, int hT)
+Ufo::Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state, int hT)
 	: Ufo(position, texture, game, direction, state)
 {
 	hiddenTimer = hT;

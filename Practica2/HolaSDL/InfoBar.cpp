@@ -2,7 +2,7 @@
 #include "InfoBar.h"
 #include "Game.h"
 
-InfoBar::InfoBar(const Point2D<double>& position, Texture* texture, int padding, Game* game)
+InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, Game* game)
 	: GameObject(game), position(position), texture(texture), padding(padding) { }
 
 void InfoBar::render() const

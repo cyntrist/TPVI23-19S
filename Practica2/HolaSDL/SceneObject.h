@@ -10,7 +10,7 @@ class Game;
 class SceneObject : public GameObject
 {
 protected:
-	Point2D<double> position;
+	Point2D<> position;
 	int width, height, lives;	
 	Texture* texture; // no se si va en esta clase pero es lo que m�s sentido me parece que tiene?
 	SDL_Rect rect; // idem
@@ -18,9 +18,9 @@ protected:
 public:
 	// constructor
 	SceneObject();
-	SceneObject(Point2D<double> position, int lives, Texture* texture, Game* game);
+	SceneObject(Point2D<> position, int lives, Texture* texture, Game* game);
 	// getters
-	Point2D<double> getPosition() const { return position; }
+	Point2D<> getPosition() const { return position; }
 	int getWidth() const { return width; }
 	int getHeight() const { return height; }
 	int getLives() const { return lives; }

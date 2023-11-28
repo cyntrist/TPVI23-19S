@@ -57,7 +57,7 @@ public:
 	void handleEvents();
 	void update();
 	void endGame() { exit = true; }
-	void fireLaser(Point2D<double>&pos, Vector2D<>&speed, char friendly);
+	void fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly);
 	bool collisions(Laser* laser) const;
 	static void addScore(const int value)
 	{

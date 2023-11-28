@@ -2,10 +2,10 @@
 #include "Cannon.h"
 #include "Game.h"
 
-Cannon::Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives)
+Cannon::Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives)
 	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS), cannonLives(lives) { }
 
-Cannon::Cannon(const Point2D<double>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
+Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
 	: Cannon(_position, _texture, _game, _lives) { startTime = _startTime; }
 
 void Cannon::update()
@@ -34,7 +34,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 			movement = -1; // movimiento izq
 		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
 		{ // disparar si han pasado suficientes ticks
-			Point2D<double> pos(position.getX() + (texture->getFrameWidth() /* - LASER_WIDTH*/) / 2, position.getY() - texture->getFrameHeight());
+			Point2D<> pos(position.getX() + (texture->getFrameWidth() /* - LASER_WIDTH*/) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D<> speed(0, -LASER_MOV_SPEED);
 			game->fireLaser(pos, speed, 'r');
 			startTime = SDL_GetTicks(); // se resetea el timer a 0

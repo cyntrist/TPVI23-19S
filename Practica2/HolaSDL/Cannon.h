@@ -16,9 +16,9 @@ private:
 	int cannonLives = lives; // para el infobar, pero creo que se puede implementar con las vidas normales
 public:
 	Cannon() = default;
-	Cannon(const Point2D<double>& position, Texture* texture, Game* game);
-	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives);
-	Cannon(const Point2D<double>& position, Texture* texture, Game* game, int lives, int startTime);
+	Cannon(const Point2D<>& position, Texture* texture, Game* game);
+	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
+	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int startTime);
 	void handleEvent(const SDL_Event& event) override;
 	void update() override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
