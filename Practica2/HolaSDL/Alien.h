@@ -17,7 +17,6 @@ protected:
 
 public:
 	Alien() = default;
-	Alien(const Point2D<>& position, int type, Texture* texture, Game* game);
 	Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
 	void update() override;
 	void render() const override;

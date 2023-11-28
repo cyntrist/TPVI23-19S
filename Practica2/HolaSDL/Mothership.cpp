@@ -5,6 +5,10 @@
 Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer)
 : GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level), movementTimer(movementTimer) { }
 
+bool Mothership::shouldMove() {
+	return true;
+}
+
 bool Mothership::cannotMove() {
 	/* copiado tal cual de game
 	bool cantMove = false;

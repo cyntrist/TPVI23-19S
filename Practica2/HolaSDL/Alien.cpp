@@ -2,8 +2,8 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game)
-	: SceneObject(position, 1, texture, game), type(type) { }
+//Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game)
+//	: SceneObject(position, 1, texture, game), type(type) { }
 
 Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 	: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
@@ -15,13 +15,11 @@ void Alien::render() const
 
 void Alien::update()
 { //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	/*
-	if (mothership->cannotMove()) // he puesto esto por ejemplo, pero ni idea poruqe esta sin hacer XD
+	/*if (mothership->shouldMove()) // he puesto esto por ejemplo, pero ni idea poruqe esta sin hacer XD
 	{
-		position = position + Vector2D<>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
+		position = position + Vector2D<int>(game->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
-	}
-	*/
+	}*/
 }
 
 void Alien::down()
@@ -35,6 +33,7 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	{
 		const int score = 30 - type * 10;
 		game->addScore(score);
+		mothership->alienDied();
 		game->hasDied(iterator);
 		return true;
 	}

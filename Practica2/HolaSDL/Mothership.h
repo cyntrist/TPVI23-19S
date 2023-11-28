@@ -20,9 +20,9 @@ public:
 	void update() override {} 
 	void render() const override {} 
 	void save(std::ostream& os) const override {};
-	bool shouldMove() { return false;}
+	bool shouldMove();
 	bool cannotMove();
-	void alienDied() {}
+	void alienDied() { alienCount--; std::cout << alienCount << std::endl; }
 	bool alienLanded(const Alien*& alien);
 	bool haveLanded();
 	// getters
@@ -31,5 +31,5 @@ public:
 	//setters
 	void setDirection(int value) { direction = value; }
 	//void setAlienCount(int value) { alienCount = value; }
-	//void addAlienCount() { alienCount++; }
+	void addAlienCount() { alienCount++; std::cout << alienCount << std::endl; }
 	};

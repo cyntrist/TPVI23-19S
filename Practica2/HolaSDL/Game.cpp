@@ -65,8 +65,8 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
 	mothership = new Mothership(); // ...
-	//exampleInit(); //ejemplo de 4x11
-	readData("original", this, true);
+	exampleInit(); //ejemplo de 4x11
+	//readData("original", this, true);
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -221,10 +221,10 @@ void Game::exampleInit() {
 			if (type == 0) 
 				object = new ShooterAlien(position, type, textures[alien],this, mothership);
 			else 
-				object = new Alien(position, type, textures[alien], this);
+				object = new Alien(position, type, textures[alien], this, mothership);
 
 			addObject(object);
-			//mothership->addAlienCount();
+			mothership->addAlienCount();
 		}
 	}
 
