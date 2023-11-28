@@ -13,12 +13,14 @@
 
 using namespace std;
 
-struct sprite {
-	const std::string name;
+/// estructura para las texturas
+struct sprite { 
+	std::string name;
 	int rows;
 	int cols;
 };
 
+/// array de estructuras con las texturas que queremos usar
 const sprite sprites[NUM_TEXTURES] { 
 	sprite {"stars", 1, 1},
 	sprite {"spaceship", 1, 1},
@@ -27,7 +29,8 @@ const sprite sprites[NUM_TEXTURES] {
 	sprite {"ufo", 1, 2}
 };
 
-Game::Game() : randomGenerator(time(nullptr)) {
+/// constructora de Game, inicializa las texturas, SDL y renderer
+Game::Game() : randomGenerator(time(nullptr)) { 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("SPACE INVADERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -39,7 +42,8 @@ Game::Game() : randomGenerator(time(nullptr)) {
 	SDL_RenderClear(renderer);
 }
 
-Game::~Game() {
+/// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
+Game::~Game() { 
 	for (const auto i : textures)
 		delete i;
 	for (const auto i : sceneObjs)
@@ -51,9 +55,11 @@ Game::~Game() {
 	SDL_Quit();
 }
 
-/// GAME LOGIC BLOCK
+/// GAME LOGIC BLOCK:
+/// muestra el menú inicial e inicializa los GameObjects y el tablero acorde a él, después va el bucle principal del juego
+/// con llamadas a los métodos principales, gestiona el framerate y tras acabar el bucle ppal la puntuación por consola*/
 void Game::run()
-{	
+{ 
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
@@ -75,8 +81,10 @@ void Game::run()
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
 
+/// recorre los objetos de escena y si alguno ha muerto, estará en la lista de objetos a borrar
+///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void Game::update()
-{ // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
+{ 
 	for (const auto i : sceneObjs) 
 		i->update(); //algo hace un acceso que no deberia
 	for (const auto i : deleteObjs)
@@ -85,20 +93,9 @@ void Game::update()
 		delete i;
 	}
 	deleteObjs.clear();
-
-	/// VERSION ANTIGUA:
-	// No está toodo de la version antigua porque lo he movido ya sea a alien o a mothership y soy idiota perdon
-	/*		
-	if (alienUpdateTimer <= 0)
-	{
-		mothership->cannotMove();
-		alienUpdateTimer = ALIEN_REFRESH_RATE;
-	}
-	else 
-		alienUpdateTimer--;
-	*/
 }
 
+/// le aplica al renderer el fondo, la textura de cada objeto de escena y el infobar, y lo presenta en pantalla
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
@@ -110,6 +107,10 @@ void Game::render() const
 }
 
 /// INPUT BLOCK
+///	gestiona los diferentes inputs que puede haber:
+///	de Cannon (en su propio método, mov lateral y disparar),
+///	de guardado (G),
+///	y de salida 
 void Game::handleEvents()
 {
 	SDL_Event event;
@@ -127,6 +128,7 @@ void Game::handleEvents()
 }
 
 /// INITIALIZATION BLOCK
+///	Muestra por consola diferentes mensajes para cargar o no un archivo guardado, un mapa o el tablero ejemplo
 void Game::startMenu() {
 	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
 	char read;
@@ -164,6 +166,7 @@ void Game::startMenu() {
 	}
 }
 
+/// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
 void Game::exampleInit() {
 	auto it = sceneObjs.begin();
 	Point2D<> position;
@@ -212,6 +215,9 @@ void Game::exampleInit() {
 	addObject(object);
 }
 
+/// método para simplificar la generacion de objetos y los métodos en los que se generan las entidades de los tableros
+///	puesto que se llama muchas veces a estas líneas de manera conjunta,
+///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectángulo inicialmente
 void Game::addObject(SceneObject*& object)
 { // método para simplificar las inicializaciones del tablero 
 	sceneObjs.push_back(object);
@@ -221,6 +227,7 @@ void Game::addObject(SceneObject*& object)
 }
 
 /// DATA MANAGEMENT BLOCK
+///	invoca el método save() de cada objeto y guarda en el stream que se le proporciona sus datos
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
@@ -230,6 +237,9 @@ void Game::saveData(const std::string& saveFileName) const {
 	out.close();
 }
 
+/// lee y añade al juego las diferentes entidades del archivo proporcionado, ya sea mapa o partida guardada
+///	para gestionar esto último se utiliza un bool que indica si es mapa o no, para determinar la raíz de directorio
+///	que le corresponde
 void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	string fileroot;
 	if (!isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
