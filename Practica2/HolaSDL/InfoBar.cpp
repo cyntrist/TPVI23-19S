@@ -27,7 +27,7 @@ void InfoBar::render() const
 	}
 	else
 	{
-		SDL_Surface* textSurface = TTF_RenderText_Solid(font, "HELLOOOO", color); // texto de score
+		SDL_Surface* textSurface = TTF_RenderText_Solid(font, std::to_string(points).c_str(), color); // texto de score
 		SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_Rect scoreRect {
 			WIN_WIDTH/2,
