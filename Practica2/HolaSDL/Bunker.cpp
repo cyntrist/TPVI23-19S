@@ -21,5 +21,7 @@ void Bunker::update() {
 /// metodo para guardar sus datos en el stream proporcionado
 void Bunker::save(std::ostream& os) const 
 {
-	os << "4 " << position.getX() << " " << position.getY() << " " << lives << std::endl;
+	os << "4 ";
+	SceneObject::save(os);
+	os << lives << std::endl;
 }

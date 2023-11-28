@@ -47,5 +47,5 @@ bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 /// guarda en el stream proporcionado sus datos basicos
 void SceneObject::save(std::ostream& os) const
 {
-	os << position.getX() << " " << position.getY() << " " << std::endl;
+	os << position.getX() << " " << position.getY() << " ";
 }

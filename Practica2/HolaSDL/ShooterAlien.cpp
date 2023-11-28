@@ -14,7 +14,9 @@ ShooterAlien::ShooterAlien(const Point2D<>& position, int type, Texture* texture
 /// metodo para guardar sus datos en el stream proporcionado
 void ShooterAlien::save(std::ostream& os) const 
 {
-	os << "2 " << position.getX() << " " << position.getY() << " " << type << " " << reloadTime << std::endl;
+	os << "2 ";
+	SceneObject::save(os);
+	os << type << " " << reloadTime << std::endl;
 }
 
 /// descuenta el timer hasta que dispara en intervalos aleatorios, ademas de que invoca al update de su padre Alien para movimientos

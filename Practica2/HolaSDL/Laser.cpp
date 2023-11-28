@@ -33,7 +33,9 @@ void Laser::render() const
 /// metodo para guardar sus datos en el stream proporcionado
 void Laser::save(std::ostream& os) const 
 {
-	os << "6 " << position.getX() << " " << position.getY() << " " << color << std::endl;
+	os << "6 ";
+	SceneObject::save(os);
+	os << color << std::endl;
 }
 
 /// avisa al game de que ha muerto si tiene interseccion con otros objetos,
@@ -41,7 +43,7 @@ void Laser::save(std::ostream& os) const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->damage(this) || lives <= 0 || position.getY() - height < 0 || position.getY() > WIN_HEIGHT)
+	if (game->damage(this) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
 		game->hasDied(iterator);
 }
 

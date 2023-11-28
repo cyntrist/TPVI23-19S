@@ -38,7 +38,9 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 /// metodo para guardar sus datos en el stream proporcionado
 void Ufo::save(std::ostream& os) const 
 { // no tiene sentido imprimir la altura dos veces, pero como en los mapas lo hace pues lo hago aqui tambien 
-	os << "5 " << position.getX() << " " << position.getY() << " " << position.getY() << " " << state << " " << hiddenTimer << std::endl;
+	os << "5 ";
+	SceneObject::save(os);
+	os << position.getY() << " " << state << " " << hiddenTimer << std::endl;
 }
 
 /// maquina de estados, actualiza el rectangulo y si esta visible se mueve
@@ -83,5 +85,4 @@ void Ufo::update()
 	default: // nunca se puede dar?? pero lo contemplo por si acaso
 		break;
 	}
-
-}
+} 

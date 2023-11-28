@@ -62,5 +62,7 @@ bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
 /// metodo para guardar sus datos en el stream proporcionado
 void Cannon::save(std::ostream& os) const 
 {
-	os << "0 " << position.getX() << " " << position.getY() << " " << lives << " " << startTime << std::endl;
+	os << "0 ";
+	SceneObject::save(os);
+	os << lives << " " << startTime << std::endl;
 }
