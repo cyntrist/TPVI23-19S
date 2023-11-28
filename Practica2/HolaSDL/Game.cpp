@@ -179,9 +179,9 @@ void Game::exampleInit() {
 			type++;
 		for (int j = 0; j < 11; j++)
 		{
-			position = Point2D<>((textures[alien]->getFrameWidth() + 3) * j + 136,
+			position = Point2D<>((textures[alien]->getFrameWidth() + 3) * j + 130,
 			                     (textures[alien]->getFrameHeight() + 3) * i + 32);
-			//+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
+			//+130 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
 			if (type == 0) 
 				object = new ShooterAlien(position, type, textures[alien],this, mothership);
 			else 
@@ -312,7 +312,10 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> color;
 			position = Point2D<>(x, y);
-			auto speed = Vector2D<int>(0, -LASER_MOV_SPEED);
+			int direction = 1;
+			if (color == 'r')
+				direction = -1;
+			auto speed = Vector2D<int>(0, direction * LASER_MOV_SPEED);
 			object = new Laser(position, speed, color, this);
 			break;
 		}

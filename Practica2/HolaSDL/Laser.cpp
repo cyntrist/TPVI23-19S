@@ -3,6 +3,8 @@
 #include "Game.h"
 
 Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, Game* g) {
+	width = LASER_WIDTH;
+	height = LASER_HEIGHT;
 	lives = 1;
 	position = p;
 	speed = s;
@@ -39,9 +41,8 @@ void Laser::save(std::ostream& os) const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->damage(this) || lives <= 0)
+	if (game->damage(this) || lives <= 0 || position.getY() - height < 0 || position.getY() > WIN_HEIGHT)
 		game->hasDied(iterator);
-	// || position.getY() - height < 0 || position.getY() + height > WIN_HEIGHT
 }
 
 /// gestiona la interseccion entre su rectangulo y otro

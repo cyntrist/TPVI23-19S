@@ -4,7 +4,7 @@
 Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
 	: SceneObject(p, 1, t, g)
 {
-	iniPos = position; // guarda referencia a la posicion incial para poder volver en el futuro
+	iniPos = Point2D<>(WIN_WIDTH, position.getY()); // guarda referencia a la posicion incial para poder volver en el futuro
 	direction = d ? 1 : -1;
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
@@ -38,7 +38,7 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 /// metodo para guardar sus datos en el stream proporcionado
 void Ufo::save(std::ostream& os) const 
 { // no tiene sentido imprimir la altura dos veces, pero como en los mapas lo hace pues lo hago aqui tambien 
-	os << "5 " << position.getX() << " " << position.getY() << " " << position.getY() << " " << (int)state << " " << hiddenTimer << std::endl;
+	os << "5 " << position.getX() << " " << position.getY() << " " << position.getY() << " " << state << " " << hiddenTimer << std::endl;
 }
 
 /// maquina de estados, actualiza el rectangulo y si esta visible se mueve
