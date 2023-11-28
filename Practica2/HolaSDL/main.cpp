@@ -8,7 +8,14 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[])
 {
-	auto game = Game();
-	game.run();
+	try
+	{
+		auto game = Game();
+		game.run();
+	}
+	catch (...)
+	{
+		
+	}
 	return 0;
 }

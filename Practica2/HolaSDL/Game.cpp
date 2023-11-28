@@ -78,7 +78,10 @@ void Game::update()
 	for (const auto i : sceneObjs) 
 		i->update(); //algo hace un acceso que no deberia
 	for (const auto i : deleteObjs)
+	{
 		sceneObjs.erase(i->getIterator());
+		delete i;
+	}
 	deleteObjs.clear();
 
 	/// VERSION ANTIGUA:
