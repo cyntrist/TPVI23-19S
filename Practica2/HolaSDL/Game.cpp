@@ -312,13 +312,17 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 }
 
 /// GAME COLLISIONS BLOCK
+///	genera un laser en la posicion, velocidad y color dados y lo añade a la escena
 void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, const char friendly)
 { 
 	SceneObject* pLaser = new Laser(pos, speed, friendly, this);
 	addObject(pLaser);
 }
 
-bool Game::collisions(Laser* laser) const
+/// gestiona las colisiones entre el laser dado y cada objeto en la escena
+///	devuelve true si ha colisionado con algo y se invocarán a los métodos
+/// correspondientes
+bool Game::damage(Laser* laser) const
 {
 	for (auto const i : sceneObjs)
 		if (i->hit(laser->getRect(), laser->getColor()))

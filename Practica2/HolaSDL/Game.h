@@ -58,7 +58,7 @@ public:
 	void update();
 	void endGame() { exit = true; }
 	void fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly);
-	bool collisions(Laser* laser) const;
+	bool damage(Laser* laser) const;
 	void addObject(SceneObject*& object);
 	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
 		deleteObjs.push_back(*iterator);
