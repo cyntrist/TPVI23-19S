@@ -34,6 +34,7 @@ const sprite sprites[NUM_TEXTURES] {
 /// constructora de Game, inicializa las texturas, SDL y renderer
 Game::Game() : randomGenerator(time(nullptr)) { 
 	SDL_Init(SDL_INIT_EVERYTHING);
+	TTF_Init();
 	window = SDL_CreateWindow("SPACE INVADERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
