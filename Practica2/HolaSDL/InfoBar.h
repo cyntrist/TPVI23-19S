@@ -6,7 +6,7 @@
 #include <string>
 class Game;
 
-const std::string FONT_ROOT = "fonts\\font.ttf";
+const std::string FONT_ROOT = "..\\fonts\\font.ttf";
 
 class InfoBar : public GameObject
 {
