@@ -10,7 +10,7 @@ using uint = unsigned int;
 
 class Alien : public SceneObject
 {
-private:
+protected:
 	int type;
 	int state = 0; // estado de animacion
 	Mothership* mothership;
@@ -21,6 +21,7 @@ public:
 	Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
 	void update() override;
 	void render() const override;
+	void save(std::ostream& os) const override;
 	void down();
 	int getType() const { return type; }
 	bool hit(SDL_Rect* otherRect, char friendly) override;

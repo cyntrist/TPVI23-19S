@@ -2,7 +2,7 @@
 #include "Laser.h"
 #include "Game.h"
 
-Laser::Laser(Point2D<>& p, Vector2D<>& s, char c, Game* g) {
+Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, Game* g) {
 	lives = 1;
 	position = p;
 	speed = s;
@@ -28,13 +28,20 @@ void Laser::render() const
 	SDL_RenderFillRect(game->getRenderer(), &rect);
 }
 
+/// metodo para guardar sus datos en el stream proporcionado
+void Laser::save(std::ostream& os) const 
+{
+	os << "6 " << position.getX() << " " << position.getY() << " " << color << std::endl;
+}
+
 /// avisa al game de que ha muerto si tiene interseccion con otros objetos,
 /// no le quedan vidas o si se sale por los bordes de la ventana
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->damage(this) || lives <= 0 || position.getY() - height < 0 || position.getY() + height > WIN_HEIGHT)
+	if (game->damage(this) || lives <= 0)
 		game->hasDied(iterator);
+	// || position.getY() - height < 0 || position.getY() + height > WIN_HEIGHT
 }
 
 /// gestiona la interseccion entre su rectangulo y otro

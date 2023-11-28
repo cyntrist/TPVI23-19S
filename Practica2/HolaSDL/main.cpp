@@ -15,12 +15,11 @@ int main(int argc, char* argv[])
 	}
 	catch(const std::string& ex)
 	{
-		// 		exampleInit(); 
 		std::cout << "ERROR: " << ex << std::endl;
 	}
 	catch (...)
 	{
-		std::cout << "ERROR: Excepcion no definida." << std::endl;
+		std::cout << "ERROR: Exception not defined." << std::endl;
 	}
 	return 0;
 }

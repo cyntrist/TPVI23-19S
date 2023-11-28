@@ -6,8 +6,6 @@ Mothership::Mothership(int direction, int alienCount, int state, int level, Game
 : GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level), movementTimer(movementTimer) { }
 
 bool Mothership::cannotMove() {
-	// todo: casi todo XD
-	/// VERSION ANTIGUA:
 	/* copiado tal cual de game
 	bool cantMove = false;
 	int i = 0;
@@ -45,3 +43,11 @@ bool Mothership::haveLanded()
 	game->endGame();
 	return true;
 }
+
+/*
+/// metodo para guardar sus datos en el stream proporcionado
+void Mothership::save(std::ostream& os) const 
+{
+	os << "3 0 0 " << state << " " << level << " " << movementTimer << std::endl;
+}
+*/

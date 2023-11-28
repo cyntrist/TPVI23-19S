@@ -35,6 +35,12 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 	return false; 
 }
 
+/// metodo para guardar sus datos en el stream proporcionado
+void Ufo::save(std::ostream& os) const 
+{ // no tiene sentido imprimir la altura dos veces, pero como en los mapas lo hace pues lo hago aqui tambien 
+	os << "5 " << position.getX() << " " << position.getY() << " " << position.getY() << " " << (int)state << " " << hiddenTimer << std::endl;
+}
+
 /// maquina de estados, actualiza el rectangulo y si esta visible se mueve
 ///	si esta visible y ha sido destruido cambia su estado acorde a ello y el render realiza la animacion
 ///	tambien reestablece su vida
@@ -46,7 +52,7 @@ void Ufo::update()
 	switch (state)
 	{
 	case visible:
-		position = position + Vector2D<>(direction * UFO_MOV_SPEED, 0); //movimiento de los aliens
+		position = position + Vector2D<int>(direction * UFO_MOV_SPEED, 0); //movimiento de los aliens
 		if (getPosition().getX() + width < 0)
 			state = hidden;
 		if (lives <= 0)
@@ -74,5 +80,8 @@ void Ufo::update()
 		}
 		else hiddenTimer--;
 		break;
+	default: // nunca se puede dar?? pero lo contemplo por si acaso
+		break;
 	}
+
 }

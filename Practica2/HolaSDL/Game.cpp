@@ -120,6 +120,7 @@ void Game::handleEvents()
 		{
 			saveData("save");
 			endGame();
+			std::cout << "Saved game" << std::endl;
 		}
 		else if (cannon != nullptr) 
 			cannon->handleEvent(event);
@@ -178,7 +179,9 @@ void Game::exampleInit() {
 			type++;
 		for (int j = 0; j < 11; j++)
 		{
-			position = Point2D<>((textures[alien]->getFrameWidth() + 3) * j + 136, (textures[alien]->getFrameHeight() + 3) * i + 32); //+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
+			position = Point2D<>((textures[alien]->getFrameWidth() + 3) * j + 136,
+			                     (textures[alien]->getFrameHeight() + 3) * i + 32);
+			//+136 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
 			if (type == 0) 
 				object = new ShooterAlien(position, type, textures[alien],this, mothership);
 			else 
@@ -192,13 +195,15 @@ void Game::exampleInit() {
 	// bunkers
 	for (uint i = 1; i < 5; i++)
 	{
-		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
+		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2,
+		                     WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
 		object = new Bunker(position, 4, textures[bunker], this);
 		addObject(object);
 	}
 
 	// cannon
-	position = Point2D<>(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
+	position = Point2D<>(WIN_WIDTH / 2 - textures[spaceship]->getFrameWidth() / 2,
+	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - textures[spaceship]->getFrameHeight());
 	auto* newCannon = new Cannon(position, textures[spaceship], this, 3);
 	sceneObjs.push_back(newCannon);
 	it = --sceneObjs.end();
@@ -233,6 +238,7 @@ void Game::saveData(const std::string& saveFileName) const {
 		throw "Could not find the specified save file"s;
 	for (const auto i : sceneObjs)
 		i->save(out);
+	out << "7 " << playerPoints << endl;
 	out.close();
 }
 
@@ -285,9 +291,8 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			alienCount++;
 			break;
 		case 3: // mothership
-			cin >> x >> y;
+			cin >> x >> y; // para gastarlos
 			cin >> state >> level >> timer;
-			position = Point2D<>(x, y);
 			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // NO PARA DE DARME ERRORES MOTHERSHIP QUE ESTÁ PRACTICAMENTE VACIA NO SE QUE LE PASA!!!
 			break;
 		case 4: // bunker
@@ -307,7 +312,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> color;
 			position = Point2D<>(x, y);
-			auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
+			auto speed = Vector2D<int>(0, -LASER_MOV_SPEED);
 			object = new Laser(position, speed, color, this);
 			break;
 		}
@@ -326,7 +331,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 
 /// GAME COLLISIONS BLOCK:
 ///	genera un laser en la posicion, velocidad y color dados y lo añade a la escena
-void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, const char friendly)
+void Game::fireLaser(Point2D<>&pos, Vector2D<int>&speed, const char friendly)
 { 
 	SceneObject* pLaser = new Laser(pos, speed, friendly, this);
 	addObject(pLaser);

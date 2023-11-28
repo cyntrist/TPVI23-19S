@@ -11,4 +11,5 @@ public:
 	Bunker(const Point2D<>& position, int lives, Texture* texture, Game* game);
 	void render() const override;
 	void update() override;
+	void save(std::ostream& os) const override;
 };

@@ -9,10 +9,10 @@ private:
 public:
 	Vector2D() : x(0), y(0) { }
 	Vector2D(T x, T y) : x(x), y(y) { }
-	double getX() const {
+	T getX() const {
 		return x;
 	}
-	double getY() const {
+	T getY() const {
 		return y;
 	}
 	Vector2D operator+(const Vector2D& v) const {
@@ -42,5 +42,5 @@ public:
 	}
 };
 
-template <class T = double>
+template <class T = int>
 using Point2D = Vector2D<T>;

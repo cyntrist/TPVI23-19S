@@ -19,11 +19,11 @@ void Cannon::update()
 		game->endGame(); //asumo que solo va a haber un cannon
 	}
 
-	position = position + Vector2D<>(CANNON_MOV_SPEED * movement, 0);
+	position = position + Vector2D<int>(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
-		position = Vector2D<>(0, position.getY());
+		position = Point2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
-		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
+		position  = Vector2D<int>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
 	updateRect();
 }
 
@@ -39,8 +39,8 @@ void Cannon::handleEvent(const SDL_Event& event)
 			movement = -1; // movimiento izq
 		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
 		{ // disparar si han pasado suficientes ticks
-			Point2D<> pos(position.getX() + (texture->getFrameWidth() /* - LASER_WIDTH*/) / 2, position.getY() - texture->getFrameHeight());
-			Vector2D<> speed(0, -LASER_MOV_SPEED);
+			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
+			Vector2D<int> speed(0, -LASER_MOV_SPEED);
 			game->fireLaser(pos, speed, 'r');
 			startTime = SDL_GetTicks(); // se resetea el timer a 0
 		}
@@ -59,3 +59,8 @@ bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
 	return false;
 }
 
+/// metodo para guardar sus datos en el stream proporcionado
+void Cannon::save(std::ostream& os) const 
+{
+	os << "0 " << position.getX() << " " << position.getY() << " " << lives << " " << startTime << std::endl;
+}

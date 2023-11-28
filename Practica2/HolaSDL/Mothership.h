@@ -4,7 +4,7 @@
 class Alien;
 class Game;
 
-//enum state {}; // ...????? lo del enum c�clico... jiji
+//enum state {}; // ...????? lo del enum ciclico... jiji
 
 class Mothership final : public GameObject
 {
@@ -19,7 +19,7 @@ public:
 	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
 	void update() override {} 
 	void render() const override {} 
-	void save(std::ostream& os) const override {}
+	void save(std::ostream& os) const override {};
 	bool shouldMove() { return false;}
 	bool cannotMove();
 	void alienDied() {}
@@ -30,6 +30,6 @@ public:
 	int getAlienCount() const { return alienCount; }
 	//setters
 	void setDirection(int value) { direction = value; }
-	void setAlienCount(int value) { alienCount = value; }
-	void addAlienCount() { alienCount++; }
+	//void setAlienCount(int value) { alienCount = value; }
+	//void addAlienCount() { alienCount++; }
 	};

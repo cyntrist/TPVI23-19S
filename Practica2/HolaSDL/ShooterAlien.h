@@ -11,4 +11,5 @@ public:
 	ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
 	ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership, int reloadTime);
 	void update() override;
+	void save(std::ostream& os) const override;
 };

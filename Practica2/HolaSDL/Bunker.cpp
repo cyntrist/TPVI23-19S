@@ -17,3 +17,9 @@ void Bunker::update() {
 		game->hasDied(iterator);
 	updateRect();
 }
+
+/// metodo para guardar sus datos en el stream proporcionado
+void Bunker::save(std::ostream& os) const 
+{
+	os << "4 " << position.getX() << " " << position.getY() << " " << lives << std::endl;
+}

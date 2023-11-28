@@ -6,9 +6,9 @@
 #include <array>
 #include <list>
 #include <random>
-#include "Mothership.h"
 #include "Laser.h"
 #include "SceneObject.h"
+class Mothership;
 
 using uint = unsigned int;
 
@@ -36,7 +36,7 @@ private:
 	std::list<SceneObject*> sceneObjs;
 	std::list<SceneObject*> deleteObjs;
 	InfoBar* infoBar;
-	Mothership* mothership;
+	Mothership* mothership = nullptr;
 	Cannon* cannon;
 	bool exit = false;
 	int movDir = 1;
@@ -57,7 +57,7 @@ public:
 	void handleEvents();
 	void update();
 	void endGame() { exit = true; }
-	void fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly);
+	void fireLaser(Point2D<>&pos, Vector2D<int>&speed, char friendly);
 	bool damage(Laser* laser) const;
 	void addObject(SceneObject*& object);
 	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
@@ -65,7 +65,7 @@ public:
 	}
 	static void addScore(const int value) {
 		playerPoints += value;
-		std::cout << "PLAYER SCORE: " << getScore() << std::endl; 
+		std::cout << "PLAYER SCORE: " << getScore() << std::endl;  // linea a borrar cuando se implemente infobar
 	}
 	// getters
 	int getDirection() const { return movDir; }

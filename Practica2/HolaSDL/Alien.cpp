@@ -26,7 +26,7 @@ void Alien::update()
 
 void Alien::down()
 {
-	position = position + Vector2D<>(0, ALIEN_MOV_SPEED);
+	position = position + Vector2D<int>(0, ALIEN_MOV_SPEED);
 }
 
 /// añade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
@@ -39,4 +39,10 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 		return true;
 	}
 	return false;
+}
+
+/// metodo para guardar sus datos en el stream proporcionado
+void Alien::save(std::ostream& os) const 
+{
+	os << "1 " << position.getX() << " " << position.getY() << " " << type << std::endl;
 }

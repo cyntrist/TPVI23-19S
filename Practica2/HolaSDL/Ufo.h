@@ -23,4 +23,5 @@ public:
 	void render() const override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
 	void update() override;
+	void save(std::ostream& os) const override;
 };
