@@ -2,6 +2,7 @@
 #include "texture.h"
 #include "Vector2D.h"
 #include "GameObject.h"
+#include <SDL_ttf.h>
 class Game;
 
 class InfoBar : public GameObject
@@ -11,6 +12,7 @@ private:
 	Texture* texture = nullptr;
 	int padding;
 	int points;
+	TTF_Font *font = NULL;
 
 public:
 	InfoBar() = default;
