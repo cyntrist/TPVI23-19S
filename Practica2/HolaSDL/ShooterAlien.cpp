@@ -4,12 +4,14 @@
 ShooterAlien::ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 : Alien(position, type, texture, game, mothership), reloadTime(0) { }
 
+/// constructora con sobrecarga de reloadTime especifico
 ShooterAlien::ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership, int reloadTime)
 : ShooterAlien(position, type, texture, game, mothership)
 {
 	this->reloadTime = reloadTime;
 }
 
+/// descuenta el timer hasta que dispara en intervalos aleatorios, ademas de que invoca al update de su padre Alien para movimientos
 void ShooterAlien::update()
 {
 	if (reloadTime <= 0)

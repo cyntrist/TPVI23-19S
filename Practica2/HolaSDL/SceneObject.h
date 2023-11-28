@@ -17,7 +17,7 @@ protected:
 	std::list<SceneObject*>::iterator iterator;
 public:
 	// constructor
-	SceneObject();
+	SceneObject() = default;
 	SceneObject(Point2D<> position, int lives, Texture* texture, Game* game);
 	// getters
 	Point2D<> getPosition() const { return position; }

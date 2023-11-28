@@ -17,14 +17,14 @@ class Mothership final : public GameObject
 public:
 	Mothership() = default;
 	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
-	void update() override {} // para que no se queje por ser abstracta pura
-	void render() const override {} // para que no se queje por ser abstracta pura
+	void update() override {} 
+	void render() const override {} 
 	void save(std::ostream& os) const override {}
 	bool shouldMove() { return false;}
 	bool cannotMove();
 	void alienDied() {}
 	bool alienLanded(const Alien*& alien);
-	bool haveLanded(); // ??????? no se si es que en el enunciado se equivoca y lo llama de dos maneras distintas pero se supone que hay dos metodos
+	bool haveLanded();
 	// getters
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }

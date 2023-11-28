@@ -9,8 +9,8 @@ protected:
 public:
 	GameObject() = default;
 	GameObject(Game* game) : game(game) { }
-	virtual Game* getGame() { return game; }
-	virtual ~GameObject() = default;
+	virtual Game* getGame() { return game; } 
+	virtual ~GameObject() = default; // destructora 
 	virtual void render() const = 0; // para renderizra sprites enteros
 	virtual void render(int row, int col) const { } // para renderizar frames concretos
 	virtual void update() = 0; // update de cada objeto

@@ -5,9 +5,13 @@
 Cannon::Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives)
 	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS), cannonLives(lives) { }
 
+/// constructora sobrecargada con el tiempo preciso
 Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
 	: Cannon(_position, _texture, _game, _lives) { startTime = _startTime; }
 
+
+/// avisa a game si ha muerto para ser borrado y actualiza su posicion segun la direccion,
+///	sin salirse de la pantalla, actualizando su rectangulo
 void Cannon::update()
 {
 	if (lives <= 0) {
@@ -23,6 +27,7 @@ void Cannon::update()
 	updateRect();
 }
 
+/// gestiona el movimiento lateral y el disparo segun las teclas pulsadas
 void Cannon::handleEvent(const SDL_Event& event)
 {
 	const auto elapsedTime = SDL_GetTicks() - startTime; 
@@ -44,6 +49,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		movement = 0; // se para
 }
 
+/// gestiona si intersecta con otro objeto
 bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'b')
 	{ 

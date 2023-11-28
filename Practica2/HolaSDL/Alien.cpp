@@ -29,6 +29,7 @@ void Alien::down()
 	position = position + Vector2D<>(0, ALIEN_MOV_SPEED);
 }
 
+/// añade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{

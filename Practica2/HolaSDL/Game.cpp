@@ -81,7 +81,7 @@ void Game::run()
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
 
-/// recorre los objetos de escena y si alguno ha muerto, estará en la lista de objetos a borrar
+/// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estará en la lista de objetos a borrar
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void Game::update()
 { 
@@ -127,7 +127,7 @@ void Game::handleEvents()
 	}
 }
 
-/// INITIALIZATION BLOCK
+/// INITIALIZATION BLOCK:
 ///	Muestra por consola diferentes mensajes para cargar o no un archivo guardado, un mapa o el tablero ejemplo
 void Game::startMenu() {
 	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
@@ -226,7 +226,7 @@ void Game::addObject(SceneObject*& object)
 	object->updateRect();
 }
 
-/// DATA MANAGEMENT BLOCK
+/// DATA MANAGEMENT BLOCK:
 ///	invoca el método save() de cada objeto y guarda en el stream que se le proporciona sus datos
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
@@ -311,7 +311,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	in.close();
 }
 
-/// GAME COLLISIONS BLOCK
+/// GAME COLLISIONS BLOCK:
 ///	genera un laser en la posicion, velocidad y color dados y lo añade a la escena
 void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, const char friendly)
 { 
@@ -330,6 +330,7 @@ bool Game::damage(Laser* laser) const
 	return false;
 }
 
+/// devuelve un número aleatorio entre min y max
 int Game::getRandomRange(int min, int max) {
 	return uniform_int_distribution<>(min, max)(randomGenerator);
 }

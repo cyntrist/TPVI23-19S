@@ -9,17 +9,21 @@ Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
 }
+
+/// constructora con sobrecarga hiddenTimer específico
 Ufo::Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state, int hT)
 	: Ufo(position, texture, game, direction, state)
 {
 	hiddenTimer = hT;
 }
 
+/// renderiza su frame segun el estado en el que esta, sin salirse 
 void Ufo::render() const
 {
 	texture->renderFrame(rect, 0, std::min(state, texture->getNumColumns()));
 }
 
+/// si no esta destruido, gestiona la interseccion entre su rectangulo y otro, y añade la puntuacion predefinida
 bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
@@ -31,8 +35,13 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 	return false; 
 }
 
+/// maquina de estados, actualiza el rectangulo y si esta visible se mueve
+///	si esta visible y ha sido destruido cambia su estado acorde a ello y el render realiza la animacion
+///	tambien reestablece su vida
+///	destroyed y hidden tienen sus respectivos contadores de tiempo para animarlos o hacerlos desaparecer
+///	un intervalo aleatorio, respectivamente ademas de devolverlo a su posicion inicial
 void Ufo::update()
-{ // todo: todo XD
+{ 
 	updateRect();
 	switch (state)
 	{

@@ -1,32 +1,22 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject() : GameObject(nullptr)
-{
-	position = Point2D<>(0, 0);
-	lives = 0;
-	texture = nullptr;
-	width = 0;
-	height = 0;
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = 0;
-	rect.h = 0;
-}
-
-SceneObject::SceneObject(Point2D<> position, int lives, Texture* texture, Game* g)
-: GameObject(g), position(position), lives(lives), texture(texture)
+/// constructora
+SceneObject::SceneObject(Point2D<> position, int lives, Texture* texture, Game* game)
+: GameObject(game), position(position), lives(lives), texture(texture)
 {
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
 }
 
-void SceneObject::render() const  // renderizar sprite
+/// renderiza sprite entero
+void SceneObject::render() const  
 {
 	texture->render(rect);
 }
 
-void SceneObject::updateRect() // actualizar la posicion del rectangulo
+/// actualiza la posicion del rectangulo
+void SceneObject::updateRect() 
 {
 	rect.x = position.getX();
 	rect.y = position.getY();
@@ -34,11 +24,16 @@ void SceneObject::updateRect() // actualizar la posicion del rectangulo
 	rect.h = texture->getFrameHeight();
 }
 
+/// actualiza el rectangulo en base a la posicion actual
 void SceneObject::update() 
 {
-	updateRect(); // actualiza el rectangulo en base a la posicion actual
+	updateRect();
+	if (lives <= 0)
+		game->hasDied(iterator);
 }
 
+
+/// devuelve bool si hay interseccion entre su rectangulo y el otro
 bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect))
@@ -49,6 +44,7 @@ bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
 	return false;
 }
 
+/// guarda en el stream proporcionado sus datos basicos
 void SceneObject::save(std::ostream& os) const
 {
 	os << position.getX() << " " << position.getY() << " " << std::endl;

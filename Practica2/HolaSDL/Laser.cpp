@@ -2,9 +2,6 @@
 #include "Laser.h"
 #include "Game.h"
 
-/*Laser::Laser(Point2D<>& position, Vector2D<>& speed, char color, Game* game)
-: SceneObject(position, 1, nullptr, game), speed(speed), color(color) { } //POR ESTO PETAAAAAAAAAAAAAAAAAAAA SE LLAMA AL CONSTRUCTOR DE SCENEOBJECT Y CON LA TEXTURA A NULLPTR, ENTONCES CUANDO ESTE INTENTA SETEAR LA WIDTH Y HEIGHT NO PUEDE AAAAAAAAAAAAAAAAAAAAAAAAA (son las 5 y de repente me ha venido la inspiracion)*/
-
 Laser::Laser(Point2D<>& p, Vector2D<>& s, char c, Game* g) {
 	lives = 1;
 	position = p;
@@ -13,6 +10,7 @@ Laser::Laser(Point2D<>& p, Vector2D<>& s, char c, Game* g) {
 	game = g;
 }
 
+/// actualiza su rectangulo
 void Laser::updateRect()
 {
 	rect.x = position.getX();
@@ -21,6 +19,7 @@ void Laser::updateRect()
 	rect.h = LASER_HEIGHT;
 }
 
+/// crea un rectangulo del color especificado en su SDL_rect
 void Laser::render() const 
 {
 	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 255, 255);
@@ -29,16 +28,16 @@ void Laser::render() const
 	SDL_RenderFillRect(game->getRenderer(), &rect);
 }
 
+/// avisa al game de que ha muerto si tiene interseccion con otros objetos,
+/// no le quedan vidas o si se sale por los bordes de la ventana
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->damage(this) || lives <= 0)
+	if (game->damage(this) || lives <= 0 || position.getY() - height < 0 || position.getY() + height > WIN_HEIGHT)
 		game->hasDied(iterator);
-
-	//if (position.getY() < 0) return false;  // si se sale por arriba
 }
 
-
+/// gestiona la interseccion entre su rectangulo y otro
 bool Laser::hit(SDL_Rect* otherRect, char friendly) {
 	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
 	{
