@@ -27,11 +27,11 @@ bool Mothership::cannotMove() {
 	return false;
 }
 
-void Mothership::update()
-{
-	//if (alienCount <= 0) game->endGame();
-	// ...
-}
+//void Mothership::update()
+//{
+//	//if (alienCount <= 0) game->endGame();
+//	// ...
+//}
 
 bool Mothership::alienLanded(const Alien*& alien) // se me ocurre, no se
 {

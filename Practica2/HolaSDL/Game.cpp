@@ -125,12 +125,12 @@ void Game::handleEvents()
 	}
 }
 
-
 /// INITIALIZATION BLOCK
 void Game::startMenu() {
 	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
 	char read;
 	cin >> read;
+	//read = std::tolower(read);
 	while (read != 'y' && read != 'n')
 	{
 		cout << "Input a valid command (y/n)\n";
@@ -142,6 +142,7 @@ void Game::startMenu() {
 	{
 		cout << "CARGAR MAPA? y/n\n";
 		cin >> read;
+		//read = std::tolower(read);
 		while (read != 'y' && read != 'n')
 		{
 			cout << "Input a valid command (y/n)\n";
@@ -163,10 +164,10 @@ void Game::startMenu() {
 }
 
 void Game::exampleInit() {
-	// aliens
 	auto it = sceneObjs.begin();
 	Point2D<> position;
 	SceneObject* object;
+	// aliens
 	int type = 0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -180,23 +181,17 @@ void Game::exampleInit() {
 			else 
 				object = new Alien(position, type, textures[alien], this);
 
-			sceneObjs.push_back(object);
-			it = --sceneObjs.end();
-			object->setIterator(it);
-			object->updateRect();
+			addObject(object);
 			mothership->addAlienCount();
 		}
 	}
 
 	// bunkers
-	for (uint i = 1; i < 5; i++)
+	for (uint i = 0; i < 4; i++)
 	{
 		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
 		object = new Bunker(position, 3, textures[bunker], this);
-		sceneObjs.push_back(object);
-		it = --sceneObjs.end();
-		object->setIterator(it);
-		object->updateRect();
+		addObject(object);
 	}
 
 	// cannon
@@ -206,17 +201,23 @@ void Game::exampleInit() {
 	it = --sceneObjs.end();
 	newCannon->setIterator(it);
 	newCannon->updateRect();
+	//object = static_cast<SceneObject*>(newCannon); // para probar el static casting porque estoy SUPER SUPER ultra mega segura de que puedo hacerlo
+	//addObject(object);
 	cannon = newCannon;
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2); 
 	object = new Ufo(position, textures[ufos], this, false, visible);
+	addObject(object);
+}
+
+void Game::addObject(SceneObject*& object)
+{ // método para simplificar las inicializaciones del tablero 
 	sceneObjs.push_back(object);
-	it = --sceneObjs.end();
+	const auto it = --sceneObjs.end();
 	object->setIterator(it);
 	object->updateRect();
 }
-
 
 /// DATA MANAGEMENT BLOCK
 void Game::saveData(const std::string& saveFileName) const {
@@ -296,18 +297,15 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	}
 	if (object != nullptr)
 	{
-		sceneObjs.push_back(object);
-		object->updateRect();
-			if (it != sceneObjs.end())
-				object->setIterator(++it);
+		addObject(object);
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();
 }
 
 /// GAME COLLISIONS BLOCK
-void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly)
-{ //Esto peta
+void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, const char friendly)
+{ 
 	auto* pLaser = new Laser(pos, speed, friendly, this);
 	sceneObjs.push_back(pLaser);
 	const auto it = --sceneObjs.end();

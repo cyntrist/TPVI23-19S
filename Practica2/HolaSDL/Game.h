@@ -59,8 +59,11 @@ public:
 	void endGame() { exit = true; }
 	void fireLaser(Point2D<>&pos, Vector2D<>&speed, char friendly);
 	bool collisions(Laser* laser) const;
-	static void addScore(const int value)
-	{
+	void addObject(SceneObject*& object);
+	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
+		deleteObjs.push_back(*iterator);
+	}
+	static void addScore(const int value) {
 		playerPoints += value;
 		std::cout << "PLAYER SCORE: " << getScore() << std::endl; 
 	}
@@ -70,8 +73,5 @@ public:
 	int getRandomRange(int min, int max);
 	static int getScore() { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
-	void hasDied(std::list<SceneObject*>::iterator& iterator) {
-		deleteObjs.push_back(*iterator);
-	}
 };
 
