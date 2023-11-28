@@ -21,22 +21,15 @@ void InfoBar::render() const
 	}
 
 	/// BLOQUE DE SCORE
-	if (font == NULL)
-	{
-		//std::cout << "FONT NOT FOUND! AT: " << FONT_ROOT << " from " << SDL_GetBasePath() << std::endl;
-	}
-	else
-	{
-		SDL_Surface* textSurface = TTF_RenderText_Solid(font, std::to_string(points).c_str(), color); // texto de score
-		SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-		SDL_Rect scoreRect {
-			WIN_WIDTH/2,
-			WIN_HEIGHT/2,
-			textSurface->w,
-			textSurface->h
-		};
-		SDL_RenderCopy(renderer, scoreTexture, nullptr, &scoreRect);
-	}
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, std::to_string(points).c_str(), color); // texto de score
+	SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	const SDL_Rect scoreRect {
+		WIN_WIDTH - textSurface->w - padding,
+		WIN_HEIGHT - textSurface->h - padding,
+		textSurface->w,
+		textSurface->h
+	};
+	SDL_RenderCopy(renderer, scoreTexture, nullptr, &scoreRect);
 }
 
 void InfoBar::update()
