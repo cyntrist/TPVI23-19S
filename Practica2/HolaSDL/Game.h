@@ -66,7 +66,6 @@ public:
 	}
 	void addScore(const int value) {
 		playerPoints += value;
-		std::cout << "PLAYER SCORE: " << getScore() << std::endl;  // linea a borrar cuando se implemente infobar
 	}
 	void emptyGame();
 	// getters
