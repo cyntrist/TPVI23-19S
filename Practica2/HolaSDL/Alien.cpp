@@ -44,5 +44,7 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 /// metodo para guardar sus datos en el stream proporcionado
 void Alien::save(std::ostream& os) const 
 {
-	os << "1 " << position.getX() << " " << position.getY() << " " << type << std::endl;
+	os << "1 " << std::endl;
+	SceneObject::save(os);
+	os << type << std::endl;
 }
