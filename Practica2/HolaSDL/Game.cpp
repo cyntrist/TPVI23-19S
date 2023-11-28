@@ -191,7 +191,7 @@ void Game::exampleInit() {
 	for (uint i = 0; i < 4; i++)
 	{
 		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
-		object = new Bunker(position, 3, textures[bunker], this);
+		object = new Bunker(position, 4, textures[bunker], this);
 		addObject(object);
 	}
 
@@ -245,21 +245,20 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	int read, x, y, lives, timer, type, state, level;
 	int alienCount = 0;
 	char color;
-	Vector2D<> speed;
-	SceneObject* object = nullptr; // para simplificar, espero saber usarlo
+	SceneObject* object = nullptr; // para simplificar
 	while (cin >> read) {
 		cin >> x >> y;
 		auto position  = Point2D<>(x, y);
 		switch (read)
 		{
 		case 0: // cannon
-			{
-				cin >> lives >> timer;
-				auto* newCannon = new Cannon(position, textures[spaceship], juego, lives, timer);
-				cannon = newCannon;
-				object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
-				break;
-			}
+		{
+			cin >> lives >> timer;
+			auto* newCannon = new Cannon(position, textures[spaceship], juego, lives, timer);
+			cannon = newCannon;
+			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
+			break;
+		}
 		case 1: // alien
 			cin >> type;
 			object = new Alien(position, type, textures[alien], this, mothership);
@@ -272,7 +271,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		case 3: // mothership
 			cin>> state >> level >> timer;
-			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
+			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // NO PARA DE DARME ERRORES MOTHERSHIP QUE ESTÁ PRACTICAMENTE VACIA NO SE QUE LE PASA!!!
 			break;
 		case 4: // bunker
 			cin >> lives;
@@ -283,10 +282,12 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			object = new Ufo(position, textures[ufos], this, false, state, timer);
 			break;
 		case 6: // laser
+		{
 			cin >> color;
-			speed = Vector2D<>(0, -LASER_MOV_SPEED);
+			auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
 			object = new Laser(position, speed, color, this);
 			break;
+		}
 		case 7: // score
 			playerPoints = x;
 			break;
@@ -296,7 +297,6 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 		if (object != nullptr)
 			addObject(object);
 	}
-
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();
 }
@@ -304,11 +304,8 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 /// GAME COLLISIONS BLOCK
 void Game::fireLaser(Point2D<>&pos, Vector2D<>&speed, const char friendly)
 { 
-	auto* pLaser = new Laser(pos, speed, friendly, this);
-	sceneObjs.push_back(pLaser);
-	const auto it = --sceneObjs.end();
-	pLaser->setIterator(it);
-	pLaser->updateRect();
+	SceneObject* pLaser = new Laser(pos, speed, friendly, this);
+	addObject(pLaser);
 }
 
 bool Game::collisions(Laser* laser) const

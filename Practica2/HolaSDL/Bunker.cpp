@@ -7,7 +7,7 @@ Bunker::Bunker(const Point2D<>& position, int lives, Texture* texture, Game* gam
 
 void Bunker::render() const
 {
-	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - lives - 1);
+	texture->renderFrame(rect, texture->getNumRows() - 1, std::clamp(texture->getNumColumns() - lives, 0, texture->getNumColumns() - 1));
 }
 
 void Bunker::update() {
