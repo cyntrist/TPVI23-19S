@@ -37,6 +37,7 @@ private:
 	std::list<SceneObject*> deleteObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
+	Cannon* cannon;
 	bool exit = false;
 	int movDir = 1;
 	uint32_t startTime, frameTime;

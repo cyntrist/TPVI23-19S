@@ -45,7 +45,7 @@ Game::~Game() {
 	for (const auto i : sceneObjs)
 		delete i;
 	delete mothership;
-	//delete infoBar;
+	delete infoBar;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -54,7 +54,7 @@ Game::~Game() {
 void Game::run()
 {	
 	//startMenu();
-	//infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
+	infoBar = new InfoBar(Point2D<double>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	exampleInit(); //ejemplo de 4x11
 	startTime = SDL_GetTicks();
@@ -75,9 +75,9 @@ void Game::run()
 
 void Game::update()
 { // si los updates de cada elemento en cada vector dan falso se borra ese elemento y no se avanza el contador
-	for (auto i : sceneObjs) 
+	for (const auto i : sceneObjs) 
 		i->update(); //algo hace un acceso que no deberia
-	for (auto i : deleteObjs)
+	for (const auto i : deleteObjs)
 		sceneObjs.erase(i->getIterator());
 	deleteObjs.clear();
 
@@ -91,10 +91,6 @@ void Game::update()
 	}
 	else 
 		alienUpdateTimer--;
-	
-
-	if (aliens.empty() || cannons.empty())
-		exit = true;
 	*/
 }
 
@@ -104,7 +100,7 @@ void Game::render() const
 	textures[stars]->render(); // el fondo!!!!!! :-)
 	for (const auto i : sceneObjs) // los objetos
 		i->render();
-	//infoBar->render();
+	infoBar->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -119,21 +115,8 @@ void Game::handleEvents()
 			saveData("save");
 			endGame();
 		}
-		else
-		{
-			for (const auto i : sceneObjs)
-			{ // funciona directamente poniendo i->handleEvent()... pero por qué? lo unico que entiendo es que es mejor hacer este casting pero no se...
-				auto* cannon = dynamic_cast<Cannon*>(i); // hacer atributo el cannon
-				if (cannon != nullptr) 
-					cannon->handleEvent(event);
-			}
-			// tambien funciona:
-			/*
-			for (const auto i : sceneObjs) {
-				i->handleEvent(event);
-			}
-			*/
-		}
+		else if (cannon != nullptr) 
+			cannon->handleEvent(event);
 	}
 }
 
@@ -147,10 +130,7 @@ void Game::startMenu() {
 		cin >> read;
 	}
 	if (read == 'y')
-	{
-		//readData("save", this, false);
-
-	}
+		readData("save", this, false);
 	else
 	{
 		cout << "CARGAR MAPA? y/n\n";
@@ -165,7 +145,7 @@ void Game::startMenu() {
 			cout << "Nombre del mapa:\n";
 			std::string mapName;
 			cin >> mapName;
-			//readData(mapName, this, true);
+			readData(mapName, this, true);
 		}
 		else
 		{
@@ -206,7 +186,6 @@ void Game::exampleInit() {
 		}
 	}
 
-
 	// bunkers
 	for (uint i = 1; i < 5; i++)
 	{
@@ -224,6 +203,7 @@ void Game::exampleInit() {
 	pCannon->updateRect();
 	it = --sceneObjs.end();
 	pCannon->setIterator(it);
+	cannon = pCannon;
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	const Point2D<double> posUfo(WIN_WIDTH, WIN_HEIGHT / 2); 
@@ -236,10 +216,8 @@ void Game::exampleInit() {
 
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
-
 	if (out.fail())
 		throw "Could not read the specified file"s;
-
 	for (const auto i : sceneObjs)
 		i->save(out);
 	out.close();
@@ -266,6 +244,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	int read, x, y, lives, timer, type, state, level;
 	int alienCount = 0;
 	char color;
+	Vector2D<> speed;
 	SceneObject* object = nullptr; // para simplificar, espero saber usarlo
 	while (cin >> read) {
 		cin >> x >> y;
@@ -288,7 +267,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		case 3: // mothership
 			cin>> state >> level >> timer;
-			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
+			mothership = new Mothership(-1, alienCount, state, level, this, timer); // *********
 			break;
 		case 4: // bunker
 			cin >> y >> lives;
@@ -299,9 +278,9 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			object = new Ufo(position, textures[ufos], this, false, state, timer);
 			break;
 		case 6: // laser
-			//cin >> color;
-			//auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
-			//object = new Laser(position, speed, color, this);
+			cin >> color;
+			speed = Vector2D<>(0, -LASER_MOV_SPEED);
+			object = new Laser(position, speed, color, this);
 			break;
 		case 7: // score
 			playerPoints = x;
