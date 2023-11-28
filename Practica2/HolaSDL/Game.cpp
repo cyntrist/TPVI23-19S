@@ -4,6 +4,8 @@
 #include <filesystem>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <string>
+
 #include "Laser.h"
 #include "Alien.h"
 #include "Bunker.h"
@@ -126,7 +128,7 @@ void Game::handleEvents()
 				std::cin >> k;
 				if (isdigit(k))
 				{
-					saveData("save" + k);
+					saveData("save" + std::to_string(k - '0'));
 					endGame();
 					std::cout << "Saved game." << std::endl;
 				}
@@ -140,7 +142,7 @@ void Game::handleEvents()
 				if (isdigit(k))
 				{
 					sceneObjs.clear();
-					readData("save" + k, this, false);
+					readData("save" + std::to_string(k - '0'), this, false);
 					std::cout << "Loaded game." << std::endl;
 				}
 				else std::cout << "Invalid number.";
@@ -175,41 +177,6 @@ void Game::startMenu() {
 		cout << "CARGANDO EJEMPLO\n";
 		exampleInit();
 	}
-	/*
-	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
-	char read;
-	cin >> read;
-	//read = std::tolower(read);
-	while (read != 'y' && read != 'n')
-	{
-		cout << "Input a valid command (y/n)\n";
-		cin >> read;
-	}
-	if (read == 'y')
-		readData("save", this, false);
-	else
-	{
-		cout << "CARGAR MAPA? y/n\n";
-		cin >> read;
-		//read = std::tolower(read);
-		while (read != 'y' && read != 'n')
-		{
-			cout << "Input a valid command (y/n)\n";
-			cin >> read;
-		}
-		if (read == 'y')
-		{
-			cout << "Nombre del mapa:\n";
-			std::string mapName;
-			cin >> mapName;
-			readData(mapName, this, true);
-		}
-		else
-		{
-			cout << "CARGANDO EJEMPLO\n";
-			exampleInit();
-		}
-	}*/
 }
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
