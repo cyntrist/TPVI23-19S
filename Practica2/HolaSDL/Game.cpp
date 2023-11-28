@@ -153,6 +153,8 @@ void Game::handleEvents()
 			}
 			else if (key == SDLK_m)
 			{
+				cout << "Map name: ";
+				std::string mapName;
 				cin >> mapName;
 				emptyGame();
 				readData(mapName, this, true);
