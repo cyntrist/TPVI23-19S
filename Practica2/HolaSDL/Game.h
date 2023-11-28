@@ -42,7 +42,7 @@ private:
 	bool exit = false;
 	int movDir = 1;
 	uint32_t startTime, frameTime;
-	int playerPoints = 0; // inline para prevenir errores de compilacion por estar definido en el header
+	int playerPoints = 0; 
 	inline static int alienUpdateTimer = ALIEN_REFRESH_RATE; // inline para prevenir errores de compilacion por estar definido en el header
 	std::mt19937_64 randomGenerator;
 
@@ -68,6 +68,7 @@ public:
 		playerPoints += value;
 		std::cout << "PLAYER SCORE: " << getScore() << std::endl;  // linea a borrar cuando se implemente infobar
 	}
+	void emptyGame();
 	// getters
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }

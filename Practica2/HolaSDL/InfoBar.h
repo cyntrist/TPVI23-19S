@@ -12,7 +12,7 @@ private:
 	Texture* texture = nullptr;
 	int padding;
 	int points;
-	TTF_Font *font = NULL;
+	TTF_Font* font = NULL;
 
 public:
 	InfoBar() = default;

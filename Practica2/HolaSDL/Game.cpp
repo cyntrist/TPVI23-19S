@@ -117,20 +117,65 @@ void Game::handleEvents()
 	while (SDL_PollEvent(&event) && !exit)
 	{
 		if (event.type == SDL_QUIT) exit = true;
-		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
+		else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_l))
 		{
-			saveData("save");
-			endGame();
-			std::cout << "Saved game" << std::endl;
+			if (event.key.keysym.sym == SDLK_s) // guardar
+			{
+				std::cout << "Input save slot to save to: " << std::endl;
+				char k;
+				std::cin >> k;
+				if (isdigit(k))
+				{
+					saveData("save" + k);
+					endGame();
+					std::cout << "Saved game." << std::endl;
+				}
+				else std::cout << "Invalid number.";
+			}
+			else if (event.key.keysym.sym == SDLK_l)
+			{
+				std::cout << "Input save slot to load: " << std::endl;
+				char k;
+				std::cin >> k;
+				if (isdigit(k))
+				{
+					sceneObjs.clear();
+					readData("save" + k, this, false);
+					std::cout << "Loaded game." << std::endl;
+				}
+				else std::cout << "Invalid number.";
+			}
 		}
 		else if (cannon != nullptr) 
-			cannon->handleEvent(event);
+				cannon->handleEvent(event);
 	}
 }
 
 /// INITIALIZATION BLOCK:
 ///	Muestra por consola diferentes mensajes para cargar o no un archivo guardado, un mapa o el tablero ejemplo
 void Game::startMenu() {
+	char read;
+	cout << "CARGAR MAPA? y/n\n";
+	cin >> read;
+	read = std::tolower(read);
+	while (read != 'y' && read != 'n')
+	{
+		cout << "Input a valid command (y/n)\n";
+		cin >> read;
+	}
+	if (read == 'y')
+	{
+		cout << "Nombre del mapa:\n";
+		std::string mapName;
+		cin >> mapName;
+		readData(mapName, this, true);
+	}
+	else
+	{
+		cout << "CARGANDO EJEMPLO\n";
+		exampleInit();
+	}
+	/*
 	cout << "CARGAR ARCHIVO DE GUARDADO? y/n\n";
 	char read;
 	cin >> read;
@@ -164,7 +209,7 @@ void Game::startMenu() {
 			cout << "CARGANDO EJEMPLO\n";
 			exampleInit();
 		}
-	}
+	}*/
 }
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
@@ -229,6 +274,11 @@ void Game::addObject(SceneObject*& object)
 	const auto it = --sceneObjs.end();
 	object->setIterator(it);
 	object->updateRect();
+}
+
+void Game::emptyGame()
+{
+	sceneObjs.clear();
 }
 
 /// DATA MANAGEMENT BLOCK:
