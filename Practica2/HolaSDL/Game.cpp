@@ -63,7 +63,7 @@ Game::~Game() {
 void Game::run()
 { 
 	//startMenu();
-	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
+	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
 	mothership = new Mothership(); // ...
 	//exampleInit(); //ejemplo de 4x11
 	readData("original", this, true);

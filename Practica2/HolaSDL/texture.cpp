@@ -82,6 +82,6 @@ Texture::renderFrame(const SDL_Rect& rect,
                      const SDL_Point* center,
                      SDL_RendererFlip flip) const
 {
-	SDL_Rect origin{ col * frameWidth, row * frameHeight, frameWidth, frameHeight };
+	SDL_Rect origin { col * frameWidth, row * frameHeight, frameWidth, frameHeight };
 	SDL_RenderCopyEx(renderer, texture, &origin, &rect, angle, center, flip);
 }
