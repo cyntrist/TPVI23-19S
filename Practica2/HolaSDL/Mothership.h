@@ -6,7 +6,7 @@ class Game;
 
 //enum state {}; // ...????? lo del enum ciclico... jiji
 
-class Mothership final : public GameObject
+class Mothership : public GameObject
 {
 	int direction;
 	int alienCount;

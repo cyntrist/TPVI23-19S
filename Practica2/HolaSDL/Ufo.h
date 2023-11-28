@@ -8,7 +8,7 @@ constexpr int ANIMATION_DURATION = 10, // los frames que dura destruido
 
 enum states { visible, destroyed, hidden };
 
-class Ufo final: public SceneObject 
+class Ufo : public SceneObject 
 {
 	int direction;
 	int state;

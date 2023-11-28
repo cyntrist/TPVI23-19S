@@ -8,6 +8,7 @@
 #include <random>
 #include "Laser.h"
 #include "SceneObject.h"
+#include "Cannon.h"
 class Mothership;
 
 using uint = unsigned int;
@@ -41,7 +42,7 @@ private:
 	bool exit = false;
 	int movDir = 1;
 	uint32_t startTime, frameTime;
-	inline static int playerPoints = 0; // inline para prevenir errores de compilacion por estar definido en el header
+	int playerPoints = 0; // inline para prevenir errores de compilacion por estar definido en el header
 	inline static int alienUpdateTimer = ALIEN_REFRESH_RATE; // inline para prevenir errores de compilacion por estar definido en el header
 	std::mt19937_64 randomGenerator;
 
@@ -63,7 +64,7 @@ public:
 	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
 		deleteObjs.push_back(*iterator);
 	}
-	static void addScore(const int value) {
+	void addScore(const int value) {
 		playerPoints += value;
 		std::cout << "PLAYER SCORE: " << getScore() << std::endl;  // linea a borrar cuando se implemente infobar
 	}
@@ -71,7 +72,8 @@ public:
 	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);
-	static int getScore() { return playerPoints; }
+	int getScore() { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
+	Cannon* getCannon() const { return cannon; }
 };
 

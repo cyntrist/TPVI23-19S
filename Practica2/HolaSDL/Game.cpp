@@ -91,6 +91,7 @@ void Game::update()
 		sceneObjs.erase(i->getIterator());
 		delete i;
 	}
+	infoBar->update();
 	deleteObjs.clear();
 }
 

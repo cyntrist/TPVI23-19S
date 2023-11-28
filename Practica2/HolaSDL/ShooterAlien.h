@@ -2,7 +2,7 @@
 #include "Alien.h"
 class Game;
 
-class ShooterAlien final : public Alien
+class ShooterAlien : public Alien
 {
 private:
 	int reloadTime;

@@ -34,7 +34,7 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{
 		const int score = 30 - type * 10;
-		Game::addScore(score);
+		game->addScore(score);
 		game->hasDied(iterator);
 		return true;
 	}
