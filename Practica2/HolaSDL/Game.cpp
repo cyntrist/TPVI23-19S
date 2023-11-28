@@ -60,11 +60,10 @@ Game::~Game() {
 /// con llamadas a los métodos principales, gestiona el framerate y tras acabar el bucle ppal la puntuación por consola*/
 void Game::run()
 { 
-	//startMenu();
+	startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this);
 	mothership = new Mothership(); // ...
 	//exampleInit(); //ejemplo de 4x11
-	readData("lluvia", this, true);
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -186,12 +185,12 @@ void Game::exampleInit() {
 				object = new Alien(position, type, textures[alien], this);
 
 			addObject(object);
-			mothership->addAlienCount();
+			//mothership->addAlienCount();
 		}
 	}
 
 	// bunkers
-	for (uint i = 0; i < 4; i++)
+	for (uint i = 1; i < 5; i++)
 	{
 		position = Point2D<>(WIN_WIDTH * i / 5 - textures[bunker]->getFrameWidth() / 2, WIN_HEIGHT - WIN_HEIGHT / 4.0 - textures[bunker]->getFrameHeight());
 		object = new Bunker(position, 4, textures[bunker], this);
@@ -255,51 +254,65 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	int read, x, y, lives, timer, type, state, level;
 	int alienCount = 0;
 	char color;
-	SceneObject* object = nullptr; // para simplificar
+	Point2D<> position;
+	SceneObject* object; // para simplificar
 	while (cin >> read) {
-		cin >> x >> y;
-		auto position  = Point2D<>(x, y);
+		object = nullptr;
 		switch (read)
 		{
 		case 0: // cannon
 		{
+			cin >> x >> y;
 			cin >> lives >> timer;
+			position  = Point2D<>(x, y);
 			auto* newCannon = new Cannon(position, textures[spaceship], juego, lives, timer);
 			cannon = newCannon;
 			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
 			break;
 		}
 		case 1: // alien
+			cin >> x >> y;
 			cin >> type;
+			position = Point2D<>(x, y);
 			object = new Alien(position, type, textures[alien], this, mothership);
 			alienCount++;
 			break;
 		case 2: // shooter alien
+			cin >> x >> y;
 			cin >> type >> timer;
-			object = new ShooterAlien(position, type, textures[alien], this, mothership);
+			position = Point2D<>(x, y);
+			object = new ShooterAlien(position, type, textures[alien], this, mothership, timer);
 			alienCount++;
 			break;
 		case 3: // mothership
-			cin>> state >> level >> timer;
+			cin >> x >> y;
+			cin >> state >> level >> timer;
+			position = Point2D<>(x, y);
 			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // NO PARA DE DARME ERRORES MOTHERSHIP QUE ESTÁ PRACTICAMENTE VACIA NO SE QUE LE PASA!!!
 			break;
 		case 4: // bunker
+			cin >> x >> y;
 			cin >> lives;
+			position = Point2D<>(x, y);
 			object = new Bunker(position, lives, textures[bunker], this);
 			break;
 		case 5: // ufo
+			cin >> x >> y;
 			cin >> y >> state >> timer;
+			position = Point2D<>(x, y);
 			object = new Ufo(position, textures[ufos], this, false, state, timer);
 			break;
 		case 6: // laser
 		{
+			cin >> x >> y;
 			cin >> color;
+			position = Point2D<>(x, y);
 			auto speed = Vector2D<>(0, -LASER_MOV_SPEED);
 			object = new Laser(position, speed, color, this);
 			break;
 		}
 		case 7: // score
-			playerPoints = x;
+			cin >> playerPoints;
 			break;
 		default: // nada
 			break;

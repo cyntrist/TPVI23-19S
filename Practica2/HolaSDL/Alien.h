@@ -24,4 +24,5 @@ public:
 	void down();
 	int getType() const { return type; }
 	bool hit(SDL_Rect* otherRect, char friendly) override;
+	void setMothership(Mothership* _mothership) { mothership = _mothership; }
 };

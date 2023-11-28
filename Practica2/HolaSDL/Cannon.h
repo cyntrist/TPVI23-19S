@@ -6,7 +6,7 @@
 class Game; // para evitar dependencia circular (la l�nea de arriba)
 
 using uint = unsigned int;
-constexpr int TIMERMS = 500; // ticks entre disparo y disparo
+constexpr int TIMERMS = 100; // ticks entre disparo y disparo
 
 class Cannon final : public SceneObject
 {
@@ -19,7 +19,7 @@ public:
 	Cannon(const Point2D<>& position, Texture* texture, Game* game);
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int startTime);
-	void handleEvent(const SDL_Event& event) override;
+	void handleEvent(const SDL_Event& event);
 	void update() override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
 };

@@ -33,7 +33,6 @@ public:
 	void render() const override;
 	void save(std::ostream& os) const override;
 	void update() override;
-	virtual void handleEvent(const SDL_Event& event) {}
 	virtual void updateRect();
 	virtual bool hit(SDL_Rect* otherRect, char friendly);
 };
