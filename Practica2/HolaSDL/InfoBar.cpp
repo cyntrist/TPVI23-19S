@@ -30,6 +30,8 @@ void InfoBar::render() const
 		textSurface->h
 	};
 	SDL_RenderCopy(renderer, scoreTexture, nullptr, &scoreRect);
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(scoreTexture);
 }
 
 void InfoBar::update()
