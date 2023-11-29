@@ -35,6 +35,7 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 		const int score = 30 - type * 10;
 		game->addScore(score);
 		mothership->alienDied();
+		std::cout << mothership << std::endl << mothership->getAlienCount() << std::endl;
 		game->hasDied(iterator);
 		return true;
 	}
