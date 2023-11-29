@@ -13,16 +13,17 @@ class Mothership : public GameObject
 	int state;
 	int level;
 	int movementTimer;
+	bool switchDir;
 
 public:
 	Mothership() = default;
 	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
-	void update() override {} 
+	void update() override;
 	void render() const override {} 
 	void save(std::ostream& os) const override {};
 	bool shouldMove();
-	bool cannotMove();
-	void alienDied() { alienCount--; std::cout << alienCount << std::endl; }
+	void cannotMove();
+	void alienDied() { alienCount--; }
 	bool alienLanded(const Alien*& alien);
 	bool haveLanded();
 	// getters
@@ -31,5 +32,5 @@ public:
 	//setters
 	void setDirection(int value) { direction = value; }
 	//void setAlienCount(int value) { alienCount = value; }
-	void addAlienCount() { alienCount++; std::cout << alienCount << std::endl; }
+	void addAlienCount() { alienCount++; }
 	};

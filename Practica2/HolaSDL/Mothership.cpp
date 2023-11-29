@@ -6,10 +6,11 @@ Mothership::Mothership(int direction, int alienCount, int state, int level, Game
 : GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level), movementTimer(movementTimer) { }
 
 bool Mothership::shouldMove() {
-	return true;
+	return movementTimer == ALIEN_REFRESH_RATE;
 }
 
-bool Mothership::cannotMove() {
+void Mothership::cannotMove() {
+	switchDir = true;
 	/* copiado tal cual de game
 	bool cantMove = false;
 	int i = 0;
@@ -26,14 +27,21 @@ bool Mothership::cannotMove() {
 		direction = -direction;
 	return cantMove;
 	*/
-	return false;
 }
 
-//void Mothership::update()
-//{
-//	//if (alienCount <= 0) game->endGame();
-//	// ...
-//}
+void Mothership::update()
+{
+	if (movementTimer < ALIEN_REFRESH_RATE)
+		movementTimer++;
+	else
+		movementTimer = 0;
+
+	if (switchDir)
+	{
+		direction = -direction;
+		switchDir = false;
+	}
+}
 
 bool Mothership::alienLanded(const Alien*& alien) // se me ocurre, no se
 {

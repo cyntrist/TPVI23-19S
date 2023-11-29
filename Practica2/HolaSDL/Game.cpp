@@ -65,7 +65,8 @@ void Game::run()
 { 
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
-	mothership = new Mothership(); // ...
+	mothership = new Mothership(1, 0, 0, 0, this, 0); // ...
+    //mothership = new Mothership();
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
 	readData("map" + std::to_string(mapLevel), this, true);
@@ -94,7 +95,9 @@ void Game::run()
 /// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estará en la lista de objetos a borrar
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void Game::update()
-{ 
+{
+	mothership->update(); //si no puede tener un update no tengo ni idea de nada
+
 	for (const auto i : sceneObjs) 
 		i->update(); //algo hace un acceso que no deberia
 	for (const auto i : deleteObjs)
