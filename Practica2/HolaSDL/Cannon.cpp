@@ -20,6 +20,7 @@ Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _
 
 /// avisa a game si ha muerto para ser borrado y actualiza su posicion segun la direccion,
 ///	sin salirse de la pantalla, actualizando su rectangulo
+///	tambien contempla si es invencible y rebaja su temporizador, ademas del de disparo
 void Cannon::update()
 {
 	if (lives <= 0) {
