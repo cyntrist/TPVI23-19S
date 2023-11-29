@@ -81,7 +81,6 @@ void Game::run()
 			startTime = SDL_GetTicks();
 		}
 		render();
-		
 		if (mothership->getAlienCount() <= 0)
 		{
 			emptyLists();
