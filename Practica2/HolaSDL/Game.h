@@ -23,7 +23,8 @@ constexpr double FRAME_RATE = 60,
 				CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
 				LASER_MOV_SPEED = 0.5 * TIME_BETWEEN_FRAMES;
 constexpr int ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
-			INFOBAR_PADDING = 10; // espacio entre iconos del infobar
+			  INFOBAR_PADDING = 10, // espacio entre iconos del infobar
+			  LEVEL_NUMBER = 4; // cantidad de niveles de juego que hay
 const std::string TEXTURE_ROOT = "..\\images\\",
 				 MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 				 SAVE_FILE_ROOT = "..\\";
@@ -39,12 +40,14 @@ private:
 	InfoBar* infoBar;
 	Mothership* mothership = nullptr;
 	Cannon* cannon;
-	bool exit = false;
-	int movDir = 1;
-	uint32_t startTime, frameTime;
-	int playerPoints = 0; 
-	inline static int alienUpdateTimer = ALIEN_REFRESH_RATE; // inline para prevenir errores de compilacion por estar definido en el header
 	std::mt19937_64 randomGenerator;
+
+
+	bool exit = false; // game over
+	uint32_t startTime, frameTime; // contadores de tiempo para ticks de framerate
+	int playerPoints = 0; // score del jugador
+	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no debería salirse por encima de LEVEL_NUMBER con los mapas actuales
+	inline static int alienUpdateTimer = ALIEN_REFRESH_RATE; // inline para prevenir errores de compilacion por estar definido en el header
 
 	void startMenu();
 	void exampleInit();
@@ -67,9 +70,8 @@ public:
 	void addScore(const int value) {
 		playerPoints += value;
 	}
-	void emptyGame();
+	void emptyLists();
 	// getters
-	int getDirection() const { return movDir; }
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);
 	int getScore() { return playerPoints; }

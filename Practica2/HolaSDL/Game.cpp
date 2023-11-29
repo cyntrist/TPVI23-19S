@@ -66,8 +66,9 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
 	mothership = new Mothership(); // ...
-	exampleInit(); //ejemplo de 4x11
-	//readData("original", this, true);
+	//exampleInit(); //ejemplo de 4x11
+	emptyLists();
+	readData("map" + std::to_string(mapLevel), this, true);
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -80,6 +81,13 @@ void Game::run()
 			startTime = SDL_GetTicks();
 		}
 		render();
+		
+		if (mothership->getAlienCount() <= 0)
+		{
+			emptyLists();
+			mapLevel = mapLevel % LEVEL_NUMBER;
+			readData("map" + std::to_string(++mapLevel), this, true);
+		}
 	}
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
@@ -146,7 +154,7 @@ void Game::handleEvents()
 				std::cin >> k;
 				if (isdigit(k))
 				{
-					emptyGame();
+					emptyLists();
 					readData("save" + std::to_string(k - '0'), this, false);
 					std::cout << "Loaded game." << std::endl;
 				}
@@ -157,7 +165,7 @@ void Game::handleEvents()
 				cout << "Map name: ";
 				std::string mapName;
 				cin >> mapName;
-				emptyGame();
+				emptyLists();
 				readData(mapName, this, true);
 			}
 		}
@@ -267,8 +275,8 @@ void Game::addObject(SceneObject*& object)
 	object->updateRect();
 }
 
-/// metodo para vaciar todos los objetos y liberar su memoria, usado previo a cargar partida o mapa
-void Game::emptyGame()
+/// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
+void Game::emptyLists()
 {
 	for (const auto i : sceneObjs)
 		delete i;
@@ -329,14 +337,16 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> type;
 			position = Point2D<>(x, y);
 			object = new Alien(position, type, textures[alien], this, mothership);
-			alienCount++;
+			mothership->addAlienCount();
+			//alienCount++;
 			break;
 		case 2: // shooter alien
 			cin >> x >> y;
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
 			object = new ShooterAlien(position, type, textures[alien], this, mothership, timer);
-			alienCount++;
+			mothership->addAlienCount();
+			//alienCount++;
 			break;
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
