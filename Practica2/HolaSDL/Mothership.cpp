@@ -1,3 +1,4 @@
+#include "checkML.h"
 #include "Mothership.h"
 #include "Alien.h"
 #include "Game.h"
@@ -11,22 +12,6 @@ bool Mothership::shouldMove() {
 
 void Mothership::cannotMove() {
 	switchDir = true;
-	/* copiado tal cual de game
-	bool cantMove = false;
-	int i = 0;
-	while (i < aliens.size() && !cantMove) {
-		if (aliens[i]->getPos().getX() <= 0 || aliens[i]->getPos().getX() >= WIN_WIDTH - textures[alien]->getFrameWidth())
-		{
-			cantMove = true;
-			for (const auto i : aliens) i->down();
-		}
-		else
-			i++;
-	}
-	if (cantMove)
-		direction = -direction;
-	return cantMove;
-	*/
 }
 
 void Mothership::update()

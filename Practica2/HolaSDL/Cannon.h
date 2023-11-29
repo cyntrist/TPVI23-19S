@@ -5,7 +5,8 @@
 //#include "Game.h"
 class Game; // para evitar dependencia circular (la l�nea de arriba)
 
-constexpr int TIMER = 100; // duracion del cooldown y factor de invencibilidad
+constexpr int SHOOT_TIMER = 10, // duracion del cooldown 
+			  INVENCIBILITY_TIMER = 300; // duracion de la invencibilidad
 
 class Cannon : public SceneObject
 {
