@@ -17,9 +17,10 @@ private:
 public:
 	Cannon() = default;
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
-	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int startTime);
+	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int shootTimer);
 	void handleEvent(const SDL_Event& event);
 	void update() override;
 	void save(std::ostream& os) const override;
 	bool hit(SDL_Rect* otherRect, char friendly) override;
+	void setInvincible(bool value) { invincible = value; }
 };

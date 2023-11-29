@@ -29,6 +29,7 @@ bool Ufo::hit(SDL_Rect* otherRect, char friendly)
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
 		game->addScore(SCORE_POINTS);
+		game->getCannon()->setInvincible(true);
 		lives--;
 		return true;
 	} 
