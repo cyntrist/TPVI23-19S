@@ -4,7 +4,10 @@
 #include "Mothership.h"
 
 Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership)
-	: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
+	: SceneObject(position, 1, texture, game), type(type), mothership(mothership)
+{
+	this->position = Point2D<>(position.getX(), position.getY() + texture->getFrameHeight() * mothership->getLevel());
+}
 
 void Alien::render() const
 {
@@ -25,7 +28,7 @@ void Alien::update()
 
 void Alien::down()
 {
-	position = position + Vector2D<int>(0, ALIEN_MOV_SPEED);
+	position = position + Vector2D(0, ALIEN_MOV_SPEED);
 }
 
 /// añade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
@@ -35,7 +38,6 @@ bool Alien::hit(SDL_Rect* otherRect, char friendly){
 		const int score = 30 - type * 10;
 		game->addScore(score);
 		mothership->alienDied();
-		std::cout << mothership << std::endl << mothership->getAlienCount() << std::endl;
 		game->hasDied(iterator);
 		return true;
 	}

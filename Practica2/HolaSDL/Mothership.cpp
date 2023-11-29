@@ -15,6 +15,7 @@ bool Mothership::shouldMove() const {
 /// metodo para avisar a la madre nodriza de que se ha llegado al límite y ha de cambiar la direccion de movimiento
 void Mothership::cannotMove() {
 	switchDir = true;
+	level++;
 }
 
 ///

@@ -8,12 +8,12 @@ class Game;
 
 class Mothership : public GameObject
 {
-	int direction;
-	int alienCount;
-	int state;
-	int level;
-	int movementTimer;
-	bool switchDir;
+	int direction; // direccion de movimiento de los aliens
+	int alienCount; // numero de aliens
+	int state; 
+	int level; // nivel de bajada de los aliens
+	int movementTimer; // temporizador de movimento de los aliens
+	bool switchDir; // si ha de cambiar la direccion
 
 public:
 	Mothership() = default;
@@ -29,6 +29,7 @@ public:
 	// getters
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
+	int getLevel() const { return level; }
 	//setters
 	void setDirection(int value) { direction = value; }
 	//void setAlienCount(int value) { alienCount = value; }

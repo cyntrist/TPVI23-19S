@@ -354,10 +354,8 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y; // para gastarlos
 			cin >> state >> level >> timer;
 			//mothership = new Mothership(1, 0, 0, 0, this, 0);
-			std::cout << alienCount << std::endl;
 			delete mothership;
 			mothership = new Mothership(1, alienCount, state, level, this, timer);
-			std::cout << mothership << std::endl;
 			break;
 		case 4: // bunker
 			cin >> x >> y;
@@ -393,7 +391,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			addObject(object);
 	}
 
-	/// manera guarrilla de actualizar la referencia a mothership de los aliens leidos
+	/// manera feilla de actualizar la referencia a mothership de los aliens leidos
 	for (const auto i : sceneObjs)
 	{
 		auto* alien = dynamic_cast<Alien*>(i); // si es shoo
