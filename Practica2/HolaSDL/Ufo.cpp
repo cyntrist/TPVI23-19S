@@ -4,7 +4,8 @@
 Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
 	: SceneObject(p, 1, t, g)
 {
-	iniPos = Point2D<>(WIN_WIDTH, position.getY()); // guarda referencia a la posicion incial para poder volver en el futuro
+	//iniPos = Point2D<>(WIN_WIDTH, position.getY()); // guarda referencia a la posicion incial para poder volver en el futuro
+	iniPos = p;
 	direction = d ? 1 : -1;
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
@@ -55,9 +56,15 @@ void Ufo::update()
 	switch (state)
 	{
 	case visible:
-		position = position + Vector2D<int>(direction * UFO_MOV_SPEED, 0); //movimiento de los aliens
+		if (hiddenTimer <= 0)
+		{
+			position = position + Vector2D(direction * UFO_MOV_SPEED, 0); 
+		}
+		else hiddenTimer--;
+		
 		if (getPosition().getX() + width < 0)
 			state = hidden;
+
 		if (lives <= 0)
 		{
 			state = destroyed;

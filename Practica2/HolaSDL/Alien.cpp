@@ -14,8 +14,8 @@ void Alien::render() const
 }
 
 void Alien::update()
-{ //ni idea de si esto es mejor separarlo en varios metodos y dejar el update como solo llamadas a esos metodos
-	if (mothership->shouldMove()) // he puesto esto por ejemplo, pero ni idea poruqe esta sin hacer XD
+{ 
+	if (mothership->shouldMove()) 
 	{
 		position = position + Vector2D<>(mothership->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion

@@ -21,7 +21,7 @@ public:
 	void update() override;
 	void render() const override {} 
 	void save(std::ostream& os) const override {};
-	bool shouldMove();
+	bool shouldMove() const;
 	void cannotMove();
 	void alienDied() { alienCount--; }
 	bool alienLanded(const Alien*& alien);
