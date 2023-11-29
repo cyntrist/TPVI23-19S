@@ -3,11 +3,11 @@
 #include "Game.h"
 
 Cannon::Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives)
-	: SceneObject(position, lives, texture, game), movement(0), startTime(TIMERMS), cannonLives(lives) { }
+	: SceneObject(position, lives, texture, game), movement(0), shootTimer(TIMERMS) { }
 
 /// constructora sobrecargada con el tiempo preciso
-Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _lives, int _startTime)
-	: Cannon(_position, _texture, _game, _lives) { startTime = _startTime; }
+Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _lives, int _shootTimer)
+	: Cannon(_position, _texture, _game, _lives) { shootTimer = _shootTimer; }
 
 
 /// avisa a game si ha muerto para ser borrado y actualiza su posicion segun la direccion,
@@ -30,19 +30,20 @@ void Cannon::update()
 /// gestiona el movimiento lateral y el disparo segun las teclas pulsadas
 void Cannon::handleEvent(const SDL_Event& event)
 {
-	const auto elapsedTime = SDL_GetTicks() - startTime; 
+	SDL_Keycode key = event.key.keysym.sym;
+	const auto elapsedTime = SDL_GetTicks() - shootTimer; 
 	if (event.type == SDL_KEYDOWN)
 	{ // input general
-		if (event.key.keysym.sym == SDLK_RIGHT)
+		if (key == SDLK_RIGHT)
 			movement = 1; // movimiento der
-		else if (event.key.keysym.sym == SDLK_LEFT)
+		else if (key == SDLK_LEFT)
 			movement = -1; // movimiento izq
-		else if (event.key.keysym.sym == SDLK_SPACE && elapsedTime >= TIMERMS)
+		else if (key == SDLK_SPACE && elapsedTime >= TIMERMS)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D<int> speed(0, -LASER_MOV_SPEED);
 			game->fireLaser(pos, speed, 'r');
-			startTime = SDL_GetTicks(); // se resetea el timer a 0
+			shootTimer = SDL_GetTicks(); // se resetea el timer a 0
 		}
 	}
 	else if (event.type == SDL_KEYUP)
@@ -64,5 +65,5 @@ void Cannon::save(std::ostream& os) const
 {
 	os << "0 ";
 	SceneObject::save(os);
-	os << lives << " " << startTime << std::endl;
+	os << lives << " " << shootTimer << std::endl;
 }

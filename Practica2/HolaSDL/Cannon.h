@@ -12,11 +12,9 @@ class Cannon : public SceneObject
 {
 private:
 	int movement; // direccion de movimiento
-	uint startTime; // para el cooldown del cannon
-	int cannonLives = lives; // para el infobar, pero creo que se puede implementar con las vidas normales
+	uint shootTimer; // para el cooldown del cannon
 public:
 	Cannon() = default;
-	Cannon(const Point2D<>& position, Texture* texture, Game* game);
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int startTime);
 	void handleEvent(const SDL_Event& event);
