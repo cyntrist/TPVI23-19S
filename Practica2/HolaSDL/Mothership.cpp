@@ -14,8 +14,11 @@ bool Mothership::shouldMove() const {
 
 /// metodo para avisar a la madre nodriza de que se ha llegado al límite y ha de cambiar la direccion de movimiento
 void Mothership::cannotMove() {
-	switchDir = true;
-	level++;
+	if (!switchDir)
+	{
+		switchDir = true;
+		level++;
+	}
 }
 
 ///
@@ -26,7 +29,7 @@ void Mothership::update()
 	else
 		movementTimer = 0;
 
-	if (switchDir)
+	if (shouldMove() && switchDir)
 	{
 		direction = -direction;
 		switchDir = false;
@@ -34,7 +37,7 @@ void Mothership::update()
 }
 
 /// metodo para comprobar si el alien en concreto ha aterrizado
-bool Mothership::alienLanded(const Alien*& alien) 
+bool Mothership::alienLanded(Alien* alien) 
 {
 	if (alien->getPosition().getY() >= WIN_HEIGHT*3/4)
 	{
@@ -45,7 +48,7 @@ bool Mothership::alienLanded(const Alien*& alien)
 }
 
 /// metodo para avisar al juego de que los aliens han ganado
-bool Mothership::haveLanded()
+bool Mothership::haveLanded() const 
 { 
 	game->endGame();
 	return true;

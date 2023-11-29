@@ -10,11 +10,11 @@ enum states { visible, destroyed, hidden };
 
 class Ufo : public SceneObject 
 {
-	int direction;
-	int state;
-	int animationTimer = ANIMATION_DURATION;
-	int hiddenTimer;
-	Point2D<> iniPos;
+	int direction; // direccion que sigue (usualmente va a ser a la izq (-1))
+	int state; // estado del ufo
+	int animationTimer = ANIMATION_DURATION; // temporizador de duracion de explosion al eliminarlo
+	int hiddenTimer; // duracion aleatoria que tarda en reaparecer
+	Point2D<> iniPos; // posicion inicial a la que devolverlo cuando se sale por la izq o es destruido
 
 public:
 	Ufo() = default;

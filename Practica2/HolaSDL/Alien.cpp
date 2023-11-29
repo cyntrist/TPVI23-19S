@@ -6,7 +6,7 @@
 Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 	: SceneObject(position, 1, texture, game), type(type), mothership(mothership)
 {
-	this->position = Point2D<>(position.getX(), position.getY() + texture->getFrameHeight() * mothership->getLevel());
+	descent = position.getY();
 }
 
 void Alien::render() const
@@ -15,20 +15,20 @@ void Alien::render() const
 }
 
 void Alien::update()
-{ 
+{
+	mothership->alienLanded(this);
+
 	if (mothership->shouldMove()) 
 	{
 		position = position + Vector2D<>(mothership->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
 		updateRect();
 	}
+
 	if (position.getX() <= 0 || position.getX() >= WIN_WIDTH - texture->getFrameWidth())
 		mothership->cannotMove();
-}
 
-void Alien::down()
-{
-	position = position + Vector2D(0, ALIEN_MOV_SPEED);
+	position = Point2D<>(position.getX(), descent + ALIEN_MOV_SPEED * mothership->getLevel()); // descenso
 }
 
 /// añade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo

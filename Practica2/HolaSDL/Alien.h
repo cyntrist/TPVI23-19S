@@ -11,9 +11,10 @@ using uint = unsigned int;
 class Alien : public SceneObject
 {
 protected:
-	int type;
+	int type; // que tipo de alien son
 	int state = 0; // estado de animacion
-	Mothership* mothership;
+	Mothership* mothership; // referencia a la madre nodriza
+	int descent; // posicion en el eje y inicial para luego calcular el descenso segun el level de la nave nodriza
 
 public:
 	Alien() = default;
@@ -21,7 +22,6 @@ public:
 	void update() override;
 	void render() const override;
 	void save(std::ostream& os) const override;
-	void down();
 	int getType() const { return type; }
 	bool hit(SDL_Rect* otherRect, char friendly) override;
 	void setMothership(Mothership* _mothership) { mothership = _mothership; }

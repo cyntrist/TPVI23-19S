@@ -11,7 +11,7 @@ constexpr char FRIENDLY_CHAR = 'r';
 class Laser : public SceneObject
 {
 private:
-	Vector2D<int> speed;
+	Vector2D<> speed;
 	char color;
 
 public:

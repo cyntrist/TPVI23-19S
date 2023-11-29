@@ -4,7 +4,7 @@
 #include "Alien.h"
 class Game;
 
-//enum state {}; // ...????? lo del enum ciclico... jiji
+//enum states {}; // ...????? lo del enum ciclico... jiji
 
 class Mothership : public GameObject
 {
@@ -24,14 +24,13 @@ public:
 	bool shouldMove() const;
 	void cannotMove();
 	void alienDied() { alienCount--; }
-	bool alienLanded(const Alien*& alien);
-	bool haveLanded();
+	bool alienLanded(Alien* alien);
+	bool haveLanded() const;
 	// getters
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
 	int getLevel() const { return level; }
 	//setters
 	void setDirection(int value) { direction = value; }
-	//void setAlienCount(int value) { alienCount = value; }
 	void addAlienCount() { alienCount++; }
 	};
