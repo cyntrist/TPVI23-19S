@@ -24,7 +24,7 @@ public:
 	bool shouldMove() const;
 	void cannotMove();
 	void alienDied() { alienCount--; }
-	bool alienLanded(Alien* alien);
+	void alienLanded(const Alien* alien) const;
 	bool haveLanded() const;
 	// getters
 	int getDirection() const { return direction; }

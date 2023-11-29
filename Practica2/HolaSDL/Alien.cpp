@@ -14,6 +14,11 @@ void Alien::render() const
 	texture->renderFrame(rect, type, state);
 }
 
+
+/// primero comprueba si ha aterrizado a traves de la madre nodriza
+///	luego se mueve si la madre nodriza lo asegura
+///	comprueba y avisa a la madre nodriza de que ha llegado a un extremo
+///	y finalmente actualiza su posicion de descenso segun el nivel que diga la madre nodriza
 void Alien::update()
 {
 	mothership->alienLanded(this);

@@ -11,7 +11,6 @@ bool Mothership::shouldMove() const {
 	return movementTimer == ALIEN_REFRESH_RATE;
 }
 
-
 /// metodo para avisar a la madre nodriza de que se ha llegado al límite y ha de cambiar la direccion de movimiento
 void Mothership::cannotMove() {
 	if (!switchDir)
@@ -21,7 +20,7 @@ void Mothership::cannotMove() {
 	}
 }
 
-///
+/// actualiza el temporizador y cambia la direccion si hace falta
 void Mothership::update()
 {
 	if (movementTimer < ALIEN_REFRESH_RATE)
@@ -37,14 +36,12 @@ void Mothership::update()
 }
 
 /// metodo para comprobar si el alien en concreto ha aterrizado
-bool Mothership::alienLanded(Alien* alien) 
+void Mothership::alienLanded(const Alien* alien) const
 {
 	if (alien->getPosition().getY() >= WIN_HEIGHT*3/4)
 	{
 		haveLanded();
-		return true;
 	}
-	return false;
 }
 
 /// metodo para avisar al juego de que los aliens han ganado
@@ -53,7 +50,6 @@ bool Mothership::haveLanded() const
 	game->endGame();
 	return true;
 }
-
 
 /// metodo para guardar sus datos en el stream proporcionado
 void Mothership::save(std::ostream& os) const 

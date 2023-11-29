@@ -5,9 +5,10 @@
 InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, Game* game, SDL_Renderer* renderer)
 	: GameObject(game), position(position), cannonTexture(texture), padding(padding), renderer(renderer) { }
 
+/// Renderiza las vidas en la esquina inferior izquierda y el score en la esquina inferior derecha con el padding acorde
 void InfoBar::render() const
 {
-	/// BLOQUE DE CANNONS
+	/// BLOQUE DE VIDAS
 	SDL_Rect livesRect {
 		position.getX() + padding,
 		position.getY() - padding,
@@ -34,6 +35,7 @@ void InfoBar::render() const
 	SDL_DestroyTexture(scoreTexture);
 }
 
+/// actualiza el score
 void InfoBar::update()
 {
 	points = game->getScore();
