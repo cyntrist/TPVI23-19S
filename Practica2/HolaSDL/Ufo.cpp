@@ -56,10 +56,8 @@ void Ufo::update()
 	switch (state)
 	{
 	case visible:
-		if (hiddenTimer <= 0)
-		{
+		if (hiddenTimer <= 0) // esta comprobacion para cuando se leen de archivo con estado 0 (visible) y espera concretas
 			position = position + Vector2D(direction * UFO_MOV_SPEED, 0); 
-		}
 		else hiddenTimer--;
 		
 		if (getPosition().getX() + width < 0)

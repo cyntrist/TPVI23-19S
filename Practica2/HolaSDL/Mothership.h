@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Vector2D.h"
-class Alien;
+#include "Alien.h"
 class Game;
 
 //enum state {}; // ...????? lo del enum ciclico... jiji
@@ -20,7 +20,7 @@ public:
 	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
 	void update() override;
 	void render() const override {} 
-	void save(std::ostream& os) const override {};
+	void save(std::ostream& os) const override;
 	bool shouldMove() const;
 	void cannotMove();
 	void alienDied() { alienCount--; }

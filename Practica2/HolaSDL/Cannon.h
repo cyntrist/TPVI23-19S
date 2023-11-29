@@ -3,7 +3,7 @@
 #include "texture.h"
 #include "Vector2D.h"
 //#include "Game.h"
-class Game; // para evitar dependencia circular (la l�nea de arriba)
+class Game; // para evitar dependencia circular (la linea de arriba)
 
 constexpr int SHOOT_TIMER = 10, // duracion del cooldown 
 			  INVENCIBILITY_TIMER = 300; // duracion de la invencibilidad

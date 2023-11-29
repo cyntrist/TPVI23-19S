@@ -65,7 +65,7 @@ void Game::run()
 { 
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
-	mothership = new Mothership(1, 0, 0, 0, this, 0); // ...
+	mothership = new Mothership(1, 0, 0, 0, this, 0);
     //mothership = new Mothership();
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
@@ -340,7 +340,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			position = Point2D<>(x, y);
 			object = new Alien(position, type, textures[alien], this, mothership);
 			mothership->addAlienCount();
-			//alienCount++;
+			alienCount++;
 			break;
 		case 2: // shooter alien
 			cin >> x >> y;
@@ -348,12 +348,12 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			position = Point2D<>(x, y);
 			object = new ShooterAlien(position, type, textures[alien], this, mothership, timer);
 			mothership->addAlienCount();
-			//alienCount++;
+			alienCount++;
 			break;
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
 			cin >> state >> level >> timer;
-			//mothership = new Mothership(-1, alienCount, state, level, this, timer); // NO PARA DE DARME ERRORES MOTHERSHIP QUE ESTÁ PRACTICAMENTE VACIA NO SE QUE LE PASA!!!
+			mothership = new Mothership(-1, alienCount, state, level, this, timer); // NO PARA DE DARME ERRORES MOTHERSHIP QUE ESTÁ PRACTICAMENTE VACIA NO SE QUE LE PASA!!!
 			break;
 		case 4: // bunker
 			cin >> x >> y;
@@ -375,7 +375,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			int direction = 1;
 			if (color == 'r')
 				direction = -1;
-			auto speed = Vector2D<int>(0, direction * LASER_MOV_SPEED);
+			auto speed = Vector2D(0, direction * LASER_MOV_SPEED);
 			object = new Laser(position, speed, color, this);
 			break;
 		}

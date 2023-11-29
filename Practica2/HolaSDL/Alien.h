@@ -3,7 +3,7 @@
 #include "SceneObject.h"
 #include "texture.h"
 #include "Vector2D.h"
-#include "Mothership.h"
+class Mothership;
 class Game;
 
 using uint = unsigned int;

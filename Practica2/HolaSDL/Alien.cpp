@@ -1,9 +1,7 @@
 #include "checkML.h"
 #include "Alien.h"
 #include "Game.h"
-
-//Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game)
-//	: SceneObject(position, 1, texture, game), type(type) { }
+#include "Mothership.h"
 
 Alien::Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership)
 	: SceneObject(position, 1, texture, game), type(type), mothership(mothership) { }
