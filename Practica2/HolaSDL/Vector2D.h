@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-template <class T = double>
+template <class T = int>
 class Vector2D {
 private:
 	T x;

@@ -31,6 +31,8 @@ public:
 	int getNumRows() const;
 	/// Number of frames in each column
 	int getNumColumns() const;
+	/// Texture
+	SDL_Texture* getTexture() const;
 
 	/// Render the whole picture filling the entire screen
 	void render() const;
@@ -75,6 +77,12 @@ inline int
 Texture::getNumColumns() const
 {
 	return ncolumns;
+}
+
+inline SDL_Texture*
+Texture::getTexture() const
+{
+	return texture;
 }
 
 #endif // TEXTURE_H

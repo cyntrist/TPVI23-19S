@@ -5,14 +5,15 @@
 //#include "Game.h"
 class Game; // para evitar dependencia circular (la l�nea de arriba)
 
-using uint = unsigned int;
-constexpr int TIMERMS = 100; // ticks entre disparo y disparo
+constexpr int TIMER = 100; // duracion del cooldown y factor de invencibilidad
 
 class Cannon : public SceneObject
 {
 private:
 	int movement; // direccion de movimiento
-	uint shootTimer; // para el cooldown del cannon
+	int shootTimer; // para el cooldown del cannon
+	int invincibleTimer; // duracion de invencibilidad
+	bool invincible = false; // si es invencible ahora
 public:
 	Cannon() = default;
 	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
