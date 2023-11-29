@@ -85,6 +85,7 @@ void Game::run()
 		if (mothership->getAlienCount() <= 0)
 		{
 			emptyLists();
+			mothership->resetLevel();
 			mapLevel = mapLevel % LEVEL_NUMBER;
 			readData("map" + std::to_string(++mapLevel), this, true);
 		}

@@ -26,6 +26,7 @@ public:
 	void alienDied() { alienCount--; }
 	void alienLanded(const Alien* alien) const;
 	bool haveLanded() const;
+	void resetLevel() { level = 0; }
 	// getters
 	int getDirection() const { return direction; }
 	int getAlienCount() const { return alienCount; }
