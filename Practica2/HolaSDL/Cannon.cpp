@@ -75,10 +75,13 @@ void Cannon::handleEvent(const SDL_Event& event)
 
 /// gestiona si intersecta con otro objeto
 bool Cannon::hit(SDL_Rect* otherRect, char friendly) {
-	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'b' && !invincible)
-	{ 
-		lives--;
-		invincible = true;
+	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'b')
+	{
+		if (!invincible)
+		{
+			lives--;
+			invincible = true;
+		}
 		return true;
 	}
 	return false;
