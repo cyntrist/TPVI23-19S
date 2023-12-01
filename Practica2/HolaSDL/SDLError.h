@@ -3,6 +3,7 @@
 
 class SDLError : public InvadersError
 {
-
+public: 
+    SDLError(const std::string& message);
 };
 

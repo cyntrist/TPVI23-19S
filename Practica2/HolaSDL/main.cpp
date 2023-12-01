@@ -4,6 +4,12 @@
 #include "SDL.h"
 #include "Game.h"
 
+#include "InvadersError.h"
+#include "FileNotFoundError.h"
+#include "SDLError.h"
+#include "FileFormatError.h" 
+
+
 using uint = unsigned int;
 
 int main(int argc, char* argv[])
@@ -12,6 +18,10 @@ int main(int argc, char* argv[])
 	{
 		auto game = Game();
 		game.run();
+	}
+	catch(FileFormatError& error)
+    {
+		std::cout << error.what() << std::endl;
 	}
 	catch(const std::string& ex)
 	{

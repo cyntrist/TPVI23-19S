@@ -13,6 +13,11 @@
 #include "Mothership.h"
 #include "Ufo.h"
 
+#include "InvadersError.h"
+#include "FileNotFoundError.h"
+#include "SDLError.h"
+#include "FileFormatError.h" 
+
 using namespace std;
 
 /// estructura para las texturas
@@ -69,7 +74,8 @@ void Game::run()
     //mothership = new Mothership();
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
-	readData("map" + std::to_string(mapLevel), this, true);
+    readData("map" + std::to_string(mapLevel), this, true);
+
 	startTime = SDL_GetTicks();
 
 	while (!exit)
@@ -311,9 +317,9 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	std::ifstream in(fileroot);
 	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 	if (in.fail())
-		throw "Could not read the specified data file at "s + fileroot ;
+		throw FileNotFoundError("Could not read the specified data file at "s + fileroot) ;
 	if (in.peek() == std::ifstream::traits_type::eof())
-		throw "Empty save file, loading example\n"s;
+		throw FileFormatError("Empty save file, loading example\n"s);
 
 	auto it = sceneObjs.begin();
 	int read, x, y, lives, timer, type, state, level;
