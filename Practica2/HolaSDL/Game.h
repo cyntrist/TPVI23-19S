@@ -29,7 +29,7 @@ constexpr int	WIN_WIDTH = 800, // ancho de la ventana de juego
 const std::string TEXTURE_ROOT = "..\\images\\",
 				  MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 				  SAVE_FILE_ROOT = "..\\";
-enum TextureName { stars, spaceship, bunker, alien, ufos};
+const enum TextureName { stars, spaceship, bunker, alien, ufos};
 
 class Game {
 private:

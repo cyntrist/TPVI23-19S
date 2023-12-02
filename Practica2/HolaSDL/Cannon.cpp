@@ -44,13 +44,16 @@ void Cannon::update()
 		{
 			invincibleTimer = INVENCIBILITY_TIMER;
 			invincible = false;
-			SDL_SetTextureColorMod(texture->getTexture(), 255, 255, 255);
 		} 
 		else
 		{
 			SDL_SetTextureColorMod(texture->getTexture(), 255, 180, 50);
 			invincibleTimer--;
 		}
+	}
+	else
+	{
+		SDL_SetTextureColorMod(texture->getTexture(), 255, 255, 255);
 	}
 }
 

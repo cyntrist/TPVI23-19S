@@ -90,6 +90,7 @@ void Game::run()
 			mothership->resetLevel();
 			mapLevel = mapLevel % LEVEL_NUMBER;
 			readData("map" + std::to_string(++mapLevel), this, true);
+			cannon->setInvincible(false);
 		}
 	}
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
