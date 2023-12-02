@@ -19,13 +19,13 @@ int main(int argc, char* argv[])
 		auto game = Game();
 		game.run();
 	}
-	catch(FileFormatError& error)
+	catch(FileNotFoundError& fileError)
     {
-		std::cout << error.what() << std::endl;
+		std::cout << fileError.what() << std::endl;
 	}
-	catch(const std::string& ex)
+	catch(SDLError& SDLError)
 	{
-		std::cout << "ERROR: " << ex << std::endl;
+		std::cout << SDLError.what() << std::endl;
 	}
 	catch (...)
 	{
