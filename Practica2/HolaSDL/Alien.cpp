@@ -14,7 +14,6 @@ void Alien::render() const
 	texture->renderFrame(rect, type, state);
 }
 
-
 /// primero comprueba si ha aterrizado a traves de la madre nodriza
 ///	luego se mueve si la madre nodriza lo asegura
 ///	comprueba y avisa a la madre nodriza de que ha llegado a un extremo
@@ -36,7 +35,7 @@ void Alien::update()
 	position = Point2D<>(position.getX(), descent + ALIEN_MOV_SPEED * mothership->getLevel()); // descenso
 }
 
-/// añade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
+/// anyade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
 bool Alien::hit(SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{

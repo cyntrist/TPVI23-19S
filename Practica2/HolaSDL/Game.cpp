@@ -13,7 +13,6 @@
 #include "Mothership.h"
 #include "Ufo.h"
 
-#include "InvadersError.h"
 #include "FileNotFoundError.h"
 #include "SDLError.h"
 #include "FileFormatError.h" 
@@ -71,13 +70,10 @@ void Game::run()
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0,WIN_HEIGHT - textures[spaceship]->getFrameHeight()), textures[spaceship], INFOBAR_PADDING, this, renderer);
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
-    //mothership = new Mothership();
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
     readData("map" + std::to_string(mapLevel), this, true);
-
 	startTime = SDL_GetTicks();
-
 	while (!exit)
 	{
 		handleEvents();
@@ -103,10 +99,9 @@ void Game::run()
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void Game::update()
 {
-	mothership->update(); //si no puede tener un update no tengo ni idea de nada
-
+	mothership->update();
 	for (const auto i : sceneObjs) 
-		i->update(); //algo hace un acceso que no deberia
+		i->update(); 
 	for (const auto i : deleteObjs)
 	{
 		sceneObjs.erase(i->getIterator());
@@ -360,7 +355,6 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
 			cin >> state >> level >> timer;
-			//mothership = new Mothership(1, 0, 0, 0, this, 0);
 			delete mothership;
 			mothership = new Mothership(1, alienCount, state, level, this, timer);
 			break;
