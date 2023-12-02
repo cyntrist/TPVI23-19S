@@ -300,7 +300,7 @@ void Game::emptyLists()
 void Game::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
-		throw "Could not find the specified save file"s;
+		throw FileNotFoundError("Could not read the save file called "s + saveFileName);
 	for (const auto i : sceneObjs)
 		i->save(out);
 	out << "7 " << playerPoints << endl;
@@ -319,7 +319,7 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 	if (in.fail())
 		throw FileNotFoundError("Could not read the specified data file at "s + fileroot) ;
 	if (in.peek() == std::ifstream::traits_type::eof())
-		throw FileFormatError("Empty save file, loading example\n"s);
+		throw FileFormatError("Empty data file: "s + fileroot);
 
 	auto it = sceneObjs.begin();
 	int read, x, y, lives, timer, type, state, level;

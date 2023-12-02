@@ -27,6 +27,10 @@ int main(int argc, char* argv[])
 	{
 		std::cout << SDLError.what() << std::endl;
 	}
+	catch (FileFormatError& fileError)
+	{
+		std::cout << fileError.what() << std::endl;
+	}
 	catch (...)
 	{
 		std::cout << "ERROR: Exception not defined." << std::endl;
