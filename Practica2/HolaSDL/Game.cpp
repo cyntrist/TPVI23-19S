@@ -44,7 +44,7 @@ Game::Game() : randomGenerator(time(nullptr)) {
 			WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
-		throw "Error loading SDL window or renderer"s; 
+		throw SDLError("Error loading SDL window or renderer. "s + SDL_GetError());
 	for (int i = 0; i < NUM_TEXTURES; i++)
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
