@@ -154,7 +154,7 @@ void Game::handleEvents()
 					endGame();
 					std::cout << "Saved game." << std::endl;
 				}
-				else std::cout << "Invalid number.";
+				else std::cout << "Invalid number, resuming game." << std::endl;
 			}
 			else if (key == SDLK_l)
 			{
@@ -167,7 +167,7 @@ void Game::handleEvents()
 					readData("save" + std::to_string(k - '0'), this, false);
 					std::cout << "Loaded game." << std::endl;
 				}
-				else std::cout << "Invalid number.";
+				else std::cout << "Invalid number, resuming game." << std::endl;
 			}
 			else if (key == SDLK_m)
 			{
