@@ -36,7 +36,7 @@ void Alien::update()
 }
 
 /// anyade la puntuacion al jugador acorde a su tipo y devuelve verdadero si hay interseccion con otro rectangulo
-bool Alien::hit(SDL_Rect* otherRect, char friendly){
+bool Alien::hit(const SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{
 		const int score = 30 - type * 10;

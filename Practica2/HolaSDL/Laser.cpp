@@ -48,7 +48,7 @@ void Laser::update() {
 }
 
 /// gestiona la interseccion entre su rectangulo y otro
-bool Laser::hit(SDL_Rect* otherRect, char friendly) {
+bool Laser::hit(const SDL_Rect* otherRect, char friendly) {
 	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
 	{
 		lives--;

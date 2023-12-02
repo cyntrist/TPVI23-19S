@@ -21,7 +21,7 @@ public:
 	Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state);
 	Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state, int hT);
 	void render() const override;
-	bool hit(SDL_Rect* otherRect, char friendly) override;
+	bool hit(const SDL_Rect* otherRect, char friendly) override;
 	void update() override;
 	void save(std::ostream& os) const override;
 };

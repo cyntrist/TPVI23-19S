@@ -22,5 +22,5 @@ public:
 	void render() const override;
 	void save(std::ostream& os) const override;
 	char getColor() const { return color; }
-	bool hit(SDL_Rect* otherRect, char friendly) override;
+	bool hit(const SDL_Rect* otherRect, char friendly) override;
 };

@@ -74,7 +74,7 @@ public:
 	// getters
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
 	int getRandomRange(int min, int max);
-	int getScore() { return playerPoints; }
+	int getScore() const { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Cannon* getCannon() const { return cannon; }
 };

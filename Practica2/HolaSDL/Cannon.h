@@ -22,6 +22,6 @@ public:
 	void handleEvent(const SDL_Event& event);
 	void update() override;
 	void save(std::ostream& os) const override;
-	bool hit(SDL_Rect* otherRect, char friendly) override;
+	bool hit(const SDL_Rect* otherRect, char friendly) override;
 	void setInvincible(bool value) { invincible = value; }
 };

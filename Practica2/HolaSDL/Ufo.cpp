@@ -25,7 +25,7 @@ void Ufo::render() const
 }
 
 /// si no esta destruido, gestiona la interseccion entre su rectangulo y otro, y añade la puntuacion predefinida
-bool Ufo::hit(SDL_Rect* otherRect, char friendly)
+bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{

@@ -25,8 +25,8 @@ public:
 	int getHeight() const { return height; }
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
-	SDL_Rect* getRect() { return &rect; }
-	std::list<SceneObject*>::iterator getIterator() { return iterator;}
+	const SDL_Rect* getRect() const { return &rect; }
+	std::list<SceneObject*>::iterator getIterator() const { return iterator;}
 	// setter
 	void setIterator(const std::list<SceneObject*>::iterator& value) { iterator = value; }
 	// methods
@@ -34,5 +34,5 @@ public:
 	void save(std::ostream& os) const override;
 	void update() override;
 	virtual void updateRect();
-	virtual bool hit(SDL_Rect* otherRect, char friendly);
+	virtual bool hit(const SDL_Rect* otherRect, char friendly);
 };

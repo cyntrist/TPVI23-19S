@@ -23,6 +23,6 @@ public:
 	void render() const override;
 	void save(std::ostream& os) const override;
 	int getType() const { return type; }
-	bool hit(SDL_Rect* otherRect, char friendly) override;
+	bool hit(const SDL_Rect* otherRect, char friendly) override;
 	void setMothership(Mothership* _mothership) { mothership = _mothership; }
 };

@@ -34,7 +34,7 @@ void SceneObject::update()
 
 
 /// devuelve bool si hay interseccion entre su rectangulo y el otro
-bool SceneObject::hit(SDL_Rect* otherRect, char friendly)
+bool SceneObject::hit(const SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect))
 	{
