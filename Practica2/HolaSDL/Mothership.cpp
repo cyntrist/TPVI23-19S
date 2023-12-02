@@ -4,7 +4,7 @@
 #include "Game.h"
 
 Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer)
-: GameObject(game), direction(direction), alienCount(alienCount), state(state), level(level), movementTimer(movementTimer) { }
+: GameObject(game), direction(direction), alienCount(alienCount), level(level), movementTimer(movementTimer) { }
 
 /// metodo para comprobar si es momento de moverse
 bool Mothership::shouldMove() const {
@@ -51,5 +51,5 @@ void Mothership::haveLanded() const
 /// metodo para guardar sus datos en el stream proporcionado
 void Mothership::save(std::ostream& os) const 
 {
-	os << "3 0 0 " << state << " " << level << " " << movementTimer << std::endl;
+	os << "3 0 0 " << " " << level << " " << movementTimer << std::endl;
 }
