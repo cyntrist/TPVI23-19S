@@ -51,5 +51,5 @@ void Mothership::haveLanded() const
 /// metodo para guardar sus datos en el stream proporcionado
 void Mothership::save(std::ostream& os) const 
 {
-	os << "3 0 0 " << " " << level << " " << movementTimer << std::endl;
+	os << "3 0 0 " << level << " " << movementTimer << std::endl;
 }
