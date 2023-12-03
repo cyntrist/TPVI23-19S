@@ -24,14 +24,14 @@ void Alien::update()
 
 	if (mothership->shouldMove()) 
 	{
-		position = position + Vector2D<>(mothership->getDirection() * ALIEN_MOV_SPEED, 0); //movimiento de los aliens
+		position = position + Vector2D<>(mothership->getDirection() * ALIEN_MOV_SPEED * speed, 0); //movimiento de los aliens
 		state = (state + 1) % 2; // animacion
 		updateRect();
 	}
 
 	if (position.getX() <= 0 || position.getX() >= WIN_WIDTH - texture->getFrameWidth())
 		mothership->cannotMove();
-
+	speed = mothership->getLevel()/5 + 1;
 	position = Point2D<>(position.getX(), descent + ALIEN_MOV_SPEED * mothership->getLevel()); // descenso
 }
 

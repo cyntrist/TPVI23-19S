@@ -15,7 +15,7 @@ protected:
 	int state = 0; // estado de animacion
 	Mothership* mothership; // referencia a la madre nodriza
 	int descent; // posicion en el eje y inicial para luego calcular el descenso segun el level de la nave nodriza
-
+	int speed = 1; 
 public:
 	Alien() = default;
 	Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
