@@ -69,18 +69,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bunker.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InfoBar.cpp" />
     <ClCompile Include="InvadersError.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="Mothership.h" />
+    <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="Reward.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
@@ -89,16 +98,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Bunker.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="EndState.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="gameList.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="InfoBar.h" />
     <ClInclude Include="InvadersError.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="PauseState.h" />
+    <ClInclude Include="PlayState.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="ShooterAlien.h" />

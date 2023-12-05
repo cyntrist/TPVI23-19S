@@ -331,9 +331,8 @@ void Game::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> lives >> timer;
 			position  = Point2D<>(x, y);
-			auto* newCannon = new Cannon(position, textures[spaceship], juego, lives, timer);
-			cannon = newCannon;
-			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
+			cannon = new Cannon(position, textures[spaceship], juego, lives, timer);
+			object = cannon;
 			break;
 		}
 		case 1: // alien
