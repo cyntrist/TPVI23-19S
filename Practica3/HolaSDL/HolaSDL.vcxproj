@@ -80,6 +80,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="InfoBar.cpp" />
     <ClCompile Include="InvadersError.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="gameList.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="InfoBar.h" />
     <ClInclude Include="InvadersError.h" />
     <ClInclude Include="Laser.h" />
