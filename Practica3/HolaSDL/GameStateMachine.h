@@ -11,6 +11,6 @@ public:
     void replaceState(GameState*);
     void popState();
     void update();
-    void render(); const
+    void render() const;
     void handleEvent(const SDL_Event&);
 };
