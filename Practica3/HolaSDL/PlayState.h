@@ -14,15 +14,13 @@ protected:
 	std::mt19937_64 randomGenerator;
 public:
     PlayState() : randomGenerator(time(nullptr)) {}
+	void addObject(SceneObject*& object);
+    void PlayState::emptyLists();
     bool damage(const SDL_Rect*& rect, char friendly) const;
     int getRandomRange(int min, int max);
-    void hasDied(GameList<SceneObject*>::anchor anchor)
+    void hasDied(GameList<SceneObject>::anchor anchor)
     {
-	    //deleteObjs.push_back(anchor);
+	    //deleteObjs.push_back();
     };
-    /* VERSION ANTIGUA:
-	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
-		deleteObjs.push_back(*iterator);
-	} */
 };
 

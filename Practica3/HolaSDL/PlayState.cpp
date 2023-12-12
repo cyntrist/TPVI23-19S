@@ -2,6 +2,17 @@
 #include "PlayState.h"
 #include "Game.h"
 
+/// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
+void PlayState::emptyLists()
+{
+	for (const auto i : sceneObjs)
+		delete i;
+	sceneObjs.clear();
+	for (const auto i : deleteObjs)
+		delete i;
+	deleteObjs.clear();
+}
+
 /// gestiona las colisiones entre el laser dado y cada objeto en la escena
 ///	devuelve true si ha colisionado con algo y se invocarán a los métodos
 /// correspondientes

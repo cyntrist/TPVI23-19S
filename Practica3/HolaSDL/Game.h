@@ -29,7 +29,7 @@ constexpr int	WIN_WIDTH = 800, // ancho de la ventana de juego
 const std::string TEXTURE_ROOT = "..\\images\\",
 				  MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 				  SAVE_FILE_ROOT = "..\\";
-const enum TextureName { stars, spaceship, bunker, alien, ufos};
+enum TextureName { stars, spaceship, bunker, alien, ufos};
 
 class Game {
 private:
@@ -61,8 +61,6 @@ public:
 	void handleEvents();
 	void update();
 	void endGame() { exit = true; }
-	void fireLaser(Point2D<>&pos, Vector2D<int>&speed, char friendly);
-	bool damage(const SDL_Rect*& rect, char friendly) const;
 	void addObject(SceneObject*& object);
 	void addScore(const int value) {
 		playerPoints += value;
@@ -70,7 +68,6 @@ public:
 	void emptyLists();
 	// getters
 	int getAlienUpdateTimer() const { return alienUpdateTimer; }
-	int getRandomRange(int min, int max);
 	int getScore() const { return playerPoints; }
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Cannon* getCannon() const { return cannon; }

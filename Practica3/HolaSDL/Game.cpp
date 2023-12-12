@@ -279,16 +279,7 @@ void Game::addObject(SceneObject*& object)
 	object->updateRect();
 }
 
-/// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
-void Game::emptyLists()
-{
-	for (const auto i : sceneObjs)
-		delete i;
-	sceneObjs.clear();
-	for (const auto i : deleteObjs)
-		delete i;
-	deleteObjs.clear();
-}
+
 
 /// DATA MANAGEMENT BLOCK:
 ///	invoca el método save() de cada objeto y guarda en el stream que se le proporciona sus datos
