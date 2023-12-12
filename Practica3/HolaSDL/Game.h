@@ -62,11 +62,8 @@ public:
 	void update();
 	void endGame() { exit = true; }
 	void fireLaser(Point2D<>&pos, Vector2D<int>&speed, char friendly);
-	bool damage(Laser* laser) const;
+	bool damage(const SDL_Rect*& rect, char friendly) const;
 	void addObject(SceneObject*& object);
-	void hasDied(const std::list<SceneObject*>::iterator& iterator) {
-		deleteObjs.push_back(*iterator);
-	}
 	void addScore(const int value) {
 		playerPoints += value;
 	}
