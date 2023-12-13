@@ -268,19 +268,6 @@ void Game::exampleInit() {
 	addObject(object);
 }
 
-/// método para simplificar la generacion de objetos y los métodos en los que se generan las entidades de los tableros
-///	puesto que se llama muchas veces a estas líneas de manera conjunta,
-///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectángulo inicialmente
-void Game::addObject(SceneObject*& object)
-{ // método para simplificar las inicializaciones del tablero 
-	sceneObjs.push_back(object);
-	const auto it = --sceneObjs.end();
-	object->setIterator(it);
-	object->updateRect();
-}
-
-
-
 /// DATA MANAGEMENT BLOCK:
 ///	invoca el método save() de cada objeto y guarda en el stream que se le proporciona sus datos
 void Game::saveData(const std::string& saveFileName) const {

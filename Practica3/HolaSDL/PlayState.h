@@ -15,10 +15,10 @@ protected:
 public:
     PlayState() : randomGenerator(time(nullptr)) {}
 	void addObject(SceneObject*& object);
-    void PlayState::emptyLists();
+    void emptyLists();
     bool damage(const SDL_Rect*& rect, char friendly) const;
     int getRandomRange(int min, int max);
-    void hasDied(GameList<SceneObject>::anchor anchor)
+    void hasDied(GameList<GameObject, true>::anchor anchor) override
     {
 	    //deleteObjs.push_back();
     };
