@@ -8,8 +8,8 @@ class Game;
 class PlayState : public GameState
 {
 protected:
-    GameList<SceneObject*> sceneObjs;
-    GameList<SceneObject*> deleteObjs;
+    GameList<SceneObject> sceneObjs;
+    GameList<SceneObject> deleteObjs;
     Cannon* cannon;
 	std::mt19937_64 randomGenerator;
 public:
