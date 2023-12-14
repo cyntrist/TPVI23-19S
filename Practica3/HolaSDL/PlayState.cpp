@@ -187,14 +187,9 @@ void PlayState::exampleInit() {
 	texture = game->getTexture(spaceship);
 	position = Point2D<>(WIN_WIDTH / 2 - texture->getFrameWidth() / 2,
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
-	auto* newCannon = new Cannon(position, texture, game, 3);
-	sceneObjs.push_back(newCannon);
-	it = --sceneObjs.end();
-	newCannon->setIterator(it);
-	newCannon->updateRect();
-	//object = static_cast<SceneObject*>(newCannon); // para probar el static casting porque estoy SUPER SUPER ultra mega segura de que puedo hacerlo
-	//addObject(object);
-	cannon = newCannon;
+	cannon = new Cannon(position, texture, game, 3);
+	object = cannon;
+	addObject(object);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
@@ -231,10 +226,10 @@ void PlayState::addObject(SceneObject* object)
 /// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
 void PlayState::emptyLists()
 {
-	for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	/*
+	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
 	for (auto i : sceneObjs)
-		sceneObjs.erase(i.getIterator());
+		sceneObjs.erase(i.getAnchor());
+	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
 	*/
@@ -312,8 +307,9 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
 			cin >> state >> level >> timer;
-			delete mothership;
-			mothership = new Mothership(1, alienCount, state, level, game, timer);
+			//mothership.setState(state);
+			mothership->setLevel(level);
+			mothership->setTimer(timer);
 			break;
 		case 4: // bunker
 			cin >> x >> y;
@@ -347,14 +343,6 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 		}
 		if (object != nullptr)
 			addObject(object);
-	}
-
-	/// manera feilla de actualizar la referencia a mothership de los aliens leidos
-	for (auto i : sceneObjs)
-	{
-		auto* alien = dynamic_cast<Alien*>(i); // si es shoo
-		if (alien != nullptr)
-			alien->setMothership(mothership);
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();

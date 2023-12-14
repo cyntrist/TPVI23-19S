@@ -32,6 +32,8 @@ public:
 	int getAlienCount() const { return alienCount; }
 	int getLevel() const { return level; }
 	//setters
+	void setLevel(int value) { level = value; }
+	void setTimer(int timer) { movementTimer = timer; }
 	void setDirection(int value) { direction = value; }
 	void addAlienCount() { alienCount++; }
 	};

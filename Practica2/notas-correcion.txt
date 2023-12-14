@@ -1,12 +1,12 @@
-// metodo load
+// metodo load [...]
 load -> como save por metodo (construcor recibe stream, delegando en el sceneobject justo como save)
 
-// evitar static cast
+// evitar static cast [HECHO]
 cannon = new cannon
 object = cannon;
 
 
-//add object en vez de fire laser para que sea más genérico
+//add object en vez de fire laser para que sea más genérico [HECHO]
 
-// direccion que fuera un vector (con velocidad hacia abajo)
+// direccion que fuera un vector (con velocidad hacia abajo) [...]
 enum ciclico izq abajo derecha abj etc
