@@ -24,7 +24,7 @@ public:
 	int getHeight() const { return height; }
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
-	const SDL_Rect* getRect() const { return &rect; }
+	SDL_Rect* getRect() { return &rect; }
 	GameList<SceneObject>::anchor getAnchor() const { return anchor; }
 	// methods
 	void render() const override;

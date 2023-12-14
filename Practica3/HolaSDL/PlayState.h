@@ -50,7 +50,7 @@ public:
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(GameList<SceneObject>::anchor anchor)
+	void hasDied(const GameList<SceneObject>::anchor& anchor)
     {
 		sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }
@@ -63,7 +63,7 @@ public:
 		playerPoints += value;
 	}
 	void emptyLists();
-    bool damage(const SDL_Rect*& rect, char friendly) const;
+    bool damage(SDL_Rect* rect, char friendly) const;
 
 	// getters
 	int getScore() const

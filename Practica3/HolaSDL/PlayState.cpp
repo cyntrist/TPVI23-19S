@@ -238,7 +238,7 @@ void PlayState::emptyLists()
 /// gestiona las colisiones entre el laser dado y cada objeto en la escena
 ///	devuelve true si ha colisionado con algo y se invocaran a los metodos
 /// correspondientes
-bool PlayState::damage(const SDL_Rect*& rect, char friendly)  const 
+bool PlayState::damage(SDL_Rect* rect, char friendly) const 
 {
 	//std::any_of(sceneObjs.begin(), sceneObjs.end(),);
 	for (auto i : sceneObjs)

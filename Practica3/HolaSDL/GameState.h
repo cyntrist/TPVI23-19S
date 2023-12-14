@@ -23,14 +23,14 @@ public:
     virtual void handleEvent(const SDL_Event&) {}
     virtual void addEventListener() {}
     virtual void save(std::ostream&) const {}
-    virtual void hasDied(GameList<GameObject, true>::anchor anchor)
+    virtual void hasDied(const GameList<GameObject, true>::anchor& anchor)
     {
 	    gameObjects.erase(anchor);
-    };
-	virtual void addGameObject(GameObject*)
+    }
+	virtual void addGameObject(GameObject* object)
 	{
-		
-	};
+		gameObjects.push_back(object);
+	}
     virtual bool onEnter()
     {
     	std::cout << "Entering " << stateID << std::endl; return true;

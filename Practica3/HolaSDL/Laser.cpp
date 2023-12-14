@@ -45,8 +45,7 @@ void Laser::save(std::ostream& os) const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	auto* rect = getRect();
-	if (playState->damage(rect, color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
+	if (playState->damage(getRect(), color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
 		playState->hasDied(anchor);
 }
 
