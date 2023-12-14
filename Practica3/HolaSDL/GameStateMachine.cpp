@@ -36,15 +36,15 @@ void GameStateMachine::replaceState(GameState *state)
 
 void GameStateMachine::update()
 {
-	stateStack.top->update();
+	stateStack.top()->update();
 }
 
 void GameStateMachine::render() const
 {
-	stateStack.top->render();
+	stateStack.top()->render();
 }
 
 void GameStateMachine::handleEvent(const SDL_Event& event)
 {
-	stateStack.top->handleEvent(event);
+	stateStack.top()->handleEvent(event);
 }

@@ -28,22 +28,20 @@ class PlayState : public GameState
 {
 protected:
     GameList<SceneObject> sceneObjs;
-    //GameList<SceneObject> deleteObjs; // segun entiendo la lista de tobeerased esta en el propio gamelist y solo hay que hacer erase?
 	InfoBar* infoBar;
 	Mothership* mothership;
 	Cannon* cannon;
 	std::mt19937_64 randomGenerator;
-
 	bool exit = false; // game over
 	uint32_t startTime, frameTime; // contadores de tiempo para ticks de framerate
 	int playerPoints = 0; // score del jugador
-	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no debería salirse por encima de LEVEL_NUMBER con los mapas actuales
+	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no deberia salirse por encima de LEVEL_NUMBER con los mapas actuales
 
 	void exampleInit();
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-    PlayState() : randomGenerator(time(nullptr)) { }
+    PlayState() : randomGenerator(time(nullptr)) { 	stateID = "PLAY"; }
 	//~PlayState();
 	void addEventListener() override;
 	void addSceneObject(SceneObject* object);

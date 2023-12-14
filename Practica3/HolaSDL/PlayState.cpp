@@ -216,9 +216,7 @@ void PlayState::saveData(const std::string& saveFileName) const {
 ///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectangulo inicialmente
 void PlayState::addSceneObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
-	const auto it = sceneObjs.end();
-	//sceneObjs.push_back(object);
-	//object->setAnchor(it);
+	sceneObjs.push_back(object);
 	object->updateRect();
 }
 
@@ -227,8 +225,8 @@ void PlayState::addSceneObject(SceneObject* object)
 void PlayState::emptyLists()
 {
 	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	/*for (auto i : sceneObjs)
-		sceneObjs.erase(i.getAnchor());*/
+	for (auto i : sceneObjs)
+		sceneObjs.erase(i.getAnchor());
 	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
