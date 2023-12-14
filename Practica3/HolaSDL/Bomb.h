@@ -2,5 +2,7 @@
 #include "SceneObject.h"
 class Bomb : public SceneObject
 {
+public:
+	Bomb() = default;
 };
 

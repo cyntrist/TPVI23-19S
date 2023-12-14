@@ -42,7 +42,8 @@ void Laser::save(std::ostream& os) const
 
 /// avisa al game de que ha muerto si tiene interseccion con otros objetos,
 /// no le quedan vidas o si se sale por los bordes de la ventana
-void Laser::update() {
+void Laser::update()
+{
 	position = position + speed;
 	updateRect();
 	if (playState->damage(getRect(), color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
@@ -50,7 +51,8 @@ void Laser::update() {
 }
 
 /// gestiona la interseccion entre su rectangulo y otro
-bool Laser::hit(const SDL_Rect* otherRect, char friendly) {
+bool Laser::hit(const SDL_Rect* otherRect, char friendly)
+{
 	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
 	{
 		lives--;

@@ -59,3 +59,12 @@ Game::~Game() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
+
+void Game::run()
+{
+	while (!exit)
+	{
+		stateMachine->render();
+		stateMachine->update();
+	}
+}
