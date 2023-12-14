@@ -24,7 +24,7 @@ public:
     virtual void addEventListener() {}
     virtual void save(std::ostream&) const {}
     virtual void hasDied(const GameList<GameObject, true>::anchor& anchor)
-    {
+     {
 	    gameObjects.erase(anchor);
     }
 	virtual void addGameObject(GameObject* object)

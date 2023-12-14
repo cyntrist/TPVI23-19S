@@ -7,7 +7,7 @@ class GameObject
 {
 protected:
 	GameState* gameState = nullptr;
-	GameList<GameObject>::anchor anchor; // interador identificador
+	GameList<GameObject, true>::anchor anchor; // interador identificador
 public:
 	GameObject() = default;
 	GameObject(GameState* gameState) : gameState(gameState) { }
@@ -17,6 +17,6 @@ public:
 	virtual void render(int row, int col) const { } // para renderizar frames concretos
 	virtual void update() = 0; // update de cada objeto
 	virtual void save(std::ostream& os) const = 0; 
-	GameList<GameObject>::anchor getAnchor() const { return anchor; }
-	void setListAnchor(GameList<GameObject>::anchor value) { anchor = value; }
+	GameList<GameObject, true>::anchor getAnchor() const { return anchor; }
+	void setListAnchor(GameList<GameObject, true>::anchor value) { anchor = value; }
 };

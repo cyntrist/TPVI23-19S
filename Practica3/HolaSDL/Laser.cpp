@@ -46,7 +46,7 @@ void Laser::update() {
 	position = position + speed;
 	updateRect();
 	if (playState->damage(getRect(), color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
-		playState->hasDied(anchor);
+		playState->hasDied(sceneObjsAnchor);
 }
 
 /// gestiona la interseccion entre su rectangulo y otro

@@ -30,7 +30,7 @@ void SceneObject::update()
 {
 	updateRect();
 	if (lives <= 0)
-		playState->hasDied(anchor);
+		playState->hasDied(sceneObjsAnchor);
 }
 
 

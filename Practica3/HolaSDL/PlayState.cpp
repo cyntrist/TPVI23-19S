@@ -226,7 +226,7 @@ void PlayState::emptyLists()
 {
 	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
 	for (auto i : sceneObjs)
-		sceneObjs.erase(i.getAnchor());
+		sceneObjs.erase(i.getSceneObjsAnchor());
 	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
