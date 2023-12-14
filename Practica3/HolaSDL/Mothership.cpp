@@ -1,8 +1,8 @@
 #include "checkML.h"
 #include "Mothership.h"
 #include "Alien.h"
-#include "Game.h"
 #include "PlayState.h"
+
 Mothership::Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer)
 : GameObject(gameState), direction(direction), alienCount(alienCount), level(level), movementTimer(movementTimer) { }
 

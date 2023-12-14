@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Vector2D.h"
-#include "Alien.h"
+class Alien;
 class Game;
 
 //enum states {}; // no hemos usado un enum ciclico al final
