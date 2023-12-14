@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "gameList.h"
 #include "GameObject.h"
 #include "EventHandler.h"
@@ -11,17 +12,27 @@ protected:
     Game* game = nullptr;
     GameList<GameObject, true> gameObjects;
     std::list<EventHandler*> eventHandlers;
+    std::string stateID;
+
 public:
+    GameState() = default;
+    virtual ~GameState() = default;
     virtual void update() = 0;
     virtual void render() const = 0;
-    virtual void handleEvent(const SDL_Event&) = 0;
-    virtual void addEventListener() = 0;
-    virtual void addGameObject(GameObject*);
-    virtual void save(std::ostream&) const = 0;
-    virtual void hasDied(GameList<GameObject, true>::anchor) = 0;
-    virtual bool onEnter();
-	virtual bool onExit();
-	virtual std::string getStateID() const = 0;
+    virtual void handleEvent(const SDL_Event&);
+    virtual void addEventListener();
+    virtual void save(std::ostream&) const;
+    virtual void hasDied(GameList<GameObject, true>::anchor);
+	virtual void addGameObject(GameObject*);
+    virtual bool onEnter()
+    {
+    	std::cout << "Entering " << stateID << std::endl; return true;
+    } 
+	virtual bool onExit()
+    {
+	    std::cout << "Exiting " << stateID << std::endl; return true;
+    }
+    virtual std::string getStateID() const { return stateID; }
     Game* getGame() const { return game; }
 };
 
