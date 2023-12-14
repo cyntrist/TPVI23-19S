@@ -45,6 +45,7 @@ Game::Game() {
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
 Game::~Game() {
+	delete stateMachine;
 	for (const auto i : textures)
 		delete i;
 	SDL_DestroyRenderer(renderer);
