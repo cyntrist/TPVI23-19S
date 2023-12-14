@@ -24,7 +24,7 @@ public:
     virtual void addEventListener();
     virtual void save(std::ostream&) const;
     virtual void hasDied(GameList<GameObject, true>::anchor);
-	//virtual void addGameObject(GameObject*);
+	virtual void addGameObject(GameObject*);
     virtual bool onEnter()
     {
     	std::cout << "Entering " << stateID << std::endl; return true;

@@ -30,9 +30,9 @@ PlayState::~PlayState()
 void PlayState::run()
 { 
 	//startMenu();
-	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
-	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
-	mothership = new Mothership(1, 0, 0, 0, this, 0);
+	/*infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
+	                      game->getTexture(spaceship), INFOBAR_PADDING, game, game->getRenderer());
+	mothership = new Mothership(1, 0, 0, 0, game, 0);*/
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
     readData("map" + std::to_string(mapLevel), game, true);
