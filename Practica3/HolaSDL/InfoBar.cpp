@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "InfoBar.h"
 
+#include "PlayState.h"
+
 InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, GameState* gameState, SDL_Renderer* renderer)
 	: GameObject(gameState), position(position), cannonTexture(texture), padding(padding), renderer(renderer) { }
 

@@ -1,12 +1,10 @@
 #pragma once
 #include <SDL_rect.h>
-#include <iterator>
-#include <list>
 #include "GameObject.h"
 #include "texture.h"
 #include "Vector2D.h"
+class PlayState;
 class Game;
-
 class SceneObject : public GameObject
 {
 protected:
@@ -14,11 +12,12 @@ protected:
 	int width, height, lives;	
 	Texture* texture; // no se si va en esta clase pero es lo que m�s sentido me parece que tiene?
 	SDL_Rect rect; // idem
-	GameList<SceneObject>::anchor anchor; // interador identificador
+	GameList<GameObject>::anchor anchor; // interador identificador
+	PlayState* playState; // para acceder a los métodos únicos de PlayState
 public:
 	// constructor
 	SceneObject() = default;
-	SceneObject(Point2D<> position, int lives, Texture* texture, GameState* gameState);
+	SceneObject(Point2D<> position, int lives, Texture* texture, PlayState* playState);
 	// getters
 	Point2D<> getPosition() const { return position; }
 	int getWidth() const { return width; }
@@ -26,9 +25,12 @@ public:
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
 	const SDL_Rect* getRect() const { return &rect; }
-	GameList<SceneObject>::anchor getAnchor() const { return anchor;}
+	GameList<GameObject>::anchor getAnchor() const { return anchor;}
 	// setter
-	void setListAnchor(const GameList<SceneObject>::anchor& value) { anchor = value; }
+	void setListAnchor(GameList<GameObject>::anchor value)
+	{
+		//anchor = value;
+	}
 	// methods
 	void render() const override;
 	void save(std::ostream& os) const override;

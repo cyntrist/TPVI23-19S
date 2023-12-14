@@ -1,10 +1,8 @@
 #include "checkML.h"
 #include "PlayState.h"
-#include "checkML.h"
 #include <fstream>
 #include <filesystem>
 #include <SDL.h>
-#include <SDL_image.h>
 #include <string>
 #include "Laser.h"
 #include "Alien.h"
@@ -13,26 +11,28 @@
 #include "Mothership.h"
 #include "Ufo.h"
 #include "FileNotFoundError.h"
-#include "SDLError.h"
 #include "FileFormatError.h"
-#include "Game.cpp"
+#include "Game.h"
+#include "SceneObject.h"
+#include "Cannon.h"
 using namespace std;
 
+/*
 PlayState::~PlayState()
 {
 	delete mothership;
 	delete infoBar;
 }
+*/
 
 /// GAME LOGIC BLOCK:
 /// muestra el menú inicial e inicializa los GameObjects y el tablero acorde a él, después va el bucle principal del juego
 /// con llamadas a los métodos principales, gestiona el framerate y tras acabar el bucle ppal la puntuación por consola*/
 void PlayState::run()
 { 
-	//startMenu();
-	/*infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
-	                      game->getTexture(spaceship), INFOBAR_PADDING, game, game->getRenderer());
-	mothership = new Mothership(1, 0, 0, 0, game, 0);*/
+	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
+	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
+	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
     readData("map" + std::to_string(mapLevel), game, true);
@@ -140,7 +140,7 @@ void PlayState::handleEvent(const SDL_Event& event)
 			}
 		}
 		else if (cannon != nullptr) 
-				cannon->handleEvent(event);
+			cannon->handleEvent(event);
 	}
 }
 
@@ -168,7 +168,7 @@ void PlayState::exampleInit() {
 			else 
 				object = new Alien(position, type, texture, game, mothership);*/
 
-			//addObject(object);
+			//addSceneObject(object);
 			mothership->addAlienCount();
 		}
 	}
@@ -179,23 +179,23 @@ void PlayState::exampleInit() {
 	{
 		position = Point2D<>(WIN_WIDTH * i / 5 - texture->getFrameWidth() / 2,
 		                     WIN_HEIGHT - WIN_HEIGHT / 4.0 - texture->getFrameHeight());
-		//object = new Bunker(position, 4, texture, game);
-		//addObject(object);
+		object = new Bunker(position, 4, texture, this);
+		addSceneObject(object);
 	}
 
 	// cannon
 	texture = game->getTexture(spaceship);
 	position = Point2D<>(WIN_WIDTH / 2 - texture->getFrameWidth() / 2,
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
-	/*cannon = new Cannon(position, texture, game, 3);
-	object = cannon;*/
-	//addObject(object);
+	cannon = new Cannon(position, texture, this, 3);
+	object = cannon;
+	addSceneObject(object);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
 	texture = game->getTexture(ufos);
-	/*object = new Ufo(position, texture, game, false, visible);
-	addObject(object);*/
+	object = new Ufo(position, texture, this, false, visible);
+	addSceneObject(object);
 }
 
 /// DATA MANAGEMENT BLOCK:
@@ -214,10 +214,10 @@ void PlayState::saveData(const std::string& saveFileName) const {
 /// metodo para simplificar la generacion de objetos y los metodos en los que se generan las entidades de los tableros
 ///	puesto que se llama muchas veces a estas lineas de manera conjunta,
 ///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectangulo inicialmente
-void PlayState::addObject(SceneObject* object)
+void PlayState::addSceneObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
 	const auto it = sceneObjs.end();
-	sceneObjs.push_back(object);
+	//sceneObjs.push_back(object);
 	//object->setAnchor(it);
 	object->updateRect();
 }
@@ -254,7 +254,7 @@ int PlayState::getRandomRange(int min, int max) {
 	return std::uniform_int_distribution<>(min, max)(randomGenerator);
 }
 
-/// lee y añade al juego las diferentes entidades del archivo proporcionado, ya sea mapa o partida guardada
+/// lee y anyade al juego las diferentes entidades del archivo proporcionado, ya sea mapa o partida guardada
 ///	para gestionar esto último se utiliza un bool que indica si es mapa o no, para determinar la raíz de directorio
 ///	que le corresponde
 void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
@@ -283,16 +283,15 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> lives >> timer;
 			position  = Point2D<>(x, y);
-			/*auto* newCannon = new Cannon(position, game->getTexture(spaceship), juego, lives, timer);
-			cannon = newCannon;
-			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia*/
+			cannon = new Cannon(position, game->getTexture(spaceship), this, lives, timer);
+			object = cannon;
 			break;
 		}
 		case 1: // alien
 			cin >> x >> y;
 			cin >> type;
 			position = Point2D<>(x, y);
-			//object = new Alien(position, type, game->getTexture(alien), game, mothership);
+			object = new Alien(position, type, game->getTexture(alien), this, mothership);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
@@ -300,7 +299,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
-			//object = new ShooterAlien(position, type, game->getTexture(alien), game, mothership, timer);
+			object = new ShooterAlien(position, type, game->getTexture(alien), this, mothership, timer);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
@@ -315,13 +314,13 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> lives;
 			position = Point2D<>(x, y);
-			//object = new Bunker(position, lives, game->getTexture(bunker), game);
+			object = new Bunker(position, lives, game->getTexture(bunker), this);
 			break;
 		case 5: // ufo
 			cin >> x >> y;
 			cin >> y >> state >> timer;
 			position = Point2D<>(x, y);
-			//object = new Ufo(position, game->getTexture(ufos), game, false, state, timer);
+			object = new Ufo(position, game->getTexture(ufos), this, false, state, timer);
 			break;
 		case 6: // laser
 		{
@@ -332,7 +331,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			if (color == 'r')
 				direction = -1;
 			auto speed = Vector2D(0, direction * LASER_MOV_SPEED);
-			//object = new Laser(position, speed, color, game);
+			object = new Laser(position, speed, color, this);
 			break;
 		}
 		case 7: // score
@@ -342,7 +341,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		}
 		if (object != nullptr)
-			addObject(object);
+			addSceneObject(object);
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();

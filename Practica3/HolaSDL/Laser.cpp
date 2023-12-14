@@ -1,15 +1,16 @@
 #include "checkML.h"
 #include "Laser.h"
 #include "Game.h"
+#include "PlayState.h"
 
-Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, GameState* g) {
+Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, PlayState* ps) {
 	width = LASER_WIDTH;
 	height = LASER_HEIGHT;
 	lives = 1;
 	position = p;
 	speed = s;
 	color = c;
-	gameState = g;
+	playState = ps;
 }
 
 /// actualiza su rectangulo
@@ -44,8 +45,9 @@ void Laser::save(std::ostream& os) const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	/*if (gameState->damage(this) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
-		gameState->hasDied(anchor);*/
+	auto* rect = getRect();
+	if (playState->damage(rect, color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
+		playState->hasDied(anchor);
 }
 
 /// gestiona la interseccion entre su rectangulo y otro

@@ -2,9 +2,9 @@
 #include "Alien.h"
 #include "Game.h"
 #include "Mothership.h"
-
-Alien::Alien(const Point2D<>& position, int type, Texture* texture, GameState* gameState, Mothership* mothership)
-	: SceneObject(position, 1, texture, gameState), type(type), mothership(mothership)
+#include "PlayState.h"
+Alien::Alien(const Point2D<>& position, int type, Texture* texture, PlayState* playState, Mothership* mothership)
+	: SceneObject(position, 1, texture, playState), type(type), mothership(mothership)
 {
 	descent = position.getY();
 }
@@ -39,10 +39,10 @@ void Alien::update()
 bool Alien::hit(const SDL_Rect* otherRect, char friendly){
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r')
 	{
-		const int score = 30 - type * 10;
-		//gameState->addScore(score);
+		int score = 30 - type * 10;
+		playState->addScore(score);
 		mothership->alienDied();
-		//gameState->hasDied(anchor);
+		playState->hasDied(anchor);
 		return true;
 	}
 	return false;

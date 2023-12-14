@@ -3,17 +3,16 @@
 #include "GameState.h"
 #include "SceneObject.h"
 #include <random>
-#include "Cannon.h"
 #include "InfoBar.h"
 #include <array>
 #include <random>
+class SceneObject;
 class Mothership;
-
+class Cannon;
 using uint = unsigned int;
 
 constexpr int	WIN_WIDTH = 800, // ancho de la ventana de juego
 				WIN_HEIGHT = 600, // alto de la ventana de juego
-				NUM_TEXTURES = 5, // cantidad de texturas a cargar
 				FRAME_RATE = 60, // frecuencia de refresco
 				TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE, // tiempo real entre refrescos
 				ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
@@ -24,10 +23,6 @@ constexpr int	WIN_WIDTH = 800, // ancho de la ventana de juego
 				UFO_MOV_SPEED = 0.3 * TIME_BETWEEN_FRAMES, 
 				CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
 				LASER_MOV_SPEED = 0.5 * TIME_BETWEEN_FRAMES;
-const std::string TEXTURE_ROOT = "..\\images\\",
-				  MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
-				  SAVE_FILE_ROOT = "..\\";
-enum TextureName { stars, spaceship, bunker, alien, ufos};
 
 class PlayState : public GameState
 {
@@ -48,18 +43,18 @@ protected:
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-    PlayState() : randomGenerator(time(nullptr)) {}
-	~PlayState();
+    PlayState() : randomGenerator(time(nullptr)) { }
+	//~PlayState();
 	void addEventListener() override;
-	void addObject(SceneObject* object);
+	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(GameList<SceneObject>::anchor anchor) 
+	void hasDied(GameList<GameObject>::anchor anchor)
     {
-		sceneObjs.erase(anchor); // vamos a probar si funciona asi
+		//sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }
 	void endGame()
 	{

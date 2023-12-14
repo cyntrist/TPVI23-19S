@@ -7,6 +7,7 @@
 #include "Laser.h"
 #include "MainMenuState.h"
 #include "SDLError.h"
+#include "PlayState.h"
 
 using namespace std;
 

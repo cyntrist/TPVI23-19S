@@ -1,9 +1,10 @@
 #include "SceneObject.h"
 #include "Game.h"
+#include "PlayState.h"
 
 /// constructora
-SceneObject::SceneObject(Point2D<> position, int lives, Texture* texture, GameState* gameState)
-: GameObject(gameState), position(position), lives(lives), texture(texture)
+SceneObject::SceneObject(Point2D<> position, int lives, Texture* texture, PlayState* playState)
+: GameObject(playState), position(position), lives(lives), texture(texture), playState(playState)
 {
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
@@ -28,8 +29,8 @@ void SceneObject::updateRect()
 void SceneObject::update() 
 {
 	updateRect();
-	/*if (lives <= 0)
-		gameState->hasDied(anchor);*/
+	if (lives <= 0)
+		playState->hasDied(anchor);
 }
 
 

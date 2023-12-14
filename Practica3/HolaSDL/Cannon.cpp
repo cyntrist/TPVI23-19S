@@ -2,32 +2,31 @@
 #include "Cannon.h"
 #include "Game.h"
 #include "Laser.h"
-
-Cannon::Cannon(const Point2D<>& position, Texture* texture, GameState* gameState, int lives)
-	: SceneObject(position, lives, texture, gameState), movement(0), shootTimer(SHOOT_TIMER), invincibleTimer(INVENCIBILITY_TIMER)
+#include "PlayState.h"
+Cannon::Cannon(const Point2D<>& position, Texture* texture, PlayState* _playState, int lives)
+	: SceneObject(position, lives, texture, _playState), movement(0), shootTimer(SHOOT_TIMER), invincibleTimer(INVENCIBILITY_TIMER)
 {
 	SDL_SetTextureBlendMode(texture->getTexture(), SDL_BLENDMODE_ADD);
 }
 
 /// constructora sobrecargada con el tiempo preciso
-Cannon::Cannon(const Point2D<>& _position, Texture* _texture, GameState* _game, int _lives, int _shootTimer)
-	: Cannon(_position, _texture, _game, _lives)
+Cannon::Cannon(const Point2D<>& _position, Texture* _texture, PlayState* _playState, int _lives, int _shootTimer)
+	: Cannon(_position, _texture, _playState, _lives)
 {
 	shootTimer = _shootTimer;
 	invincibleTimer = INVENCIBILITY_TIMER;
 	SDL_SetTextureBlendMode(texture->getTexture(), SDL_BLENDMODE_ADD);
 }
 
-
 /// avisa a game si ha muerto para ser borrado y actualiza su posicion segun la direccion,
 ///	sin salirse de la pantalla, actualizando su rectangulo
 ///	tambien contempla si es invencible y rebaja su temporizador, ademas del de disparo
 void Cannon::update()
 {
-	/*if (lives <= 0) {
-		gameState->hasDied(anchor);
-		gameState->endGame(); //asumo que solo va a haber un cannon
-	}*/
+	if (lives <= 0) {
+		playState->hasDied(anchor);
+		playState->endGame(); //asumo que solo va a haber un cannon
+	}
 
 	position = position + Vector2D(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
@@ -72,7 +71,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D speed(0, -LASER_MOV_SPEED);
-			//gameState->addGameObject(new Laser(pos, speed, 'r', gameState));
+			playState->addSceneObject(new Laser(pos, speed, 'r', playState));
 			shootTimer = SHOOT_TIMER; // se resetea el timer a 0
 		}
 	}

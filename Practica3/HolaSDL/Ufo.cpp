@@ -1,8 +1,9 @@
 #include "Ufo.h"
 #include "Game.h"
+#include "PlayState.h"
 
-Ufo::Ufo(Point2D<> p, Texture* t, GameState* g, bool d, int s)
-	: SceneObject(p, 1, t, g)
+Ufo::Ufo(Point2D<> p, Texture* t, PlayState* ps, bool d, int s)
+	: SceneObject(p, 1, t, ps)
 {
 	//iniPos = Point2D<>(WIN_WIDTH, position.getY()); // guarda referencia a la posicion incial para poder volver en el futuro
 	iniPos = p;
@@ -12,8 +13,8 @@ Ufo::Ufo(Point2D<> p, Texture* t, GameState* g, bool d, int s)
 }
 
 /// constructora con sobrecarga hiddenTimer específico
-Ufo::Ufo(Point2D<> position, Texture* texture, GameState* game, bool direction, int state, int hT)
-	: Ufo(position, texture, game, direction, state)
+Ufo::Ufo(Point2D<> position, Texture* texture, PlayState* playState, bool direction, int state, int hT)
+	: Ufo(position, texture, playState, direction, state)
 {
 	hiddenTimer = hT;
 }
