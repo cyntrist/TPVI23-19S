@@ -52,9 +52,9 @@ public:
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(GameList<GameObject>::anchor anchor)
+	void hasDied(GameList<SceneObject>::anchor anchor)
     {
-		//sceneObjs.erase(anchor); // vamos a probar si funciona asi
+		sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }
 	void endGame()
 	{

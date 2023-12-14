@@ -33,3 +33,18 @@ void GameStateMachine::replaceState(GameState *state)
 	stateStack.push(state);
 	stateStack.top()->onEnter();
 }
+
+void GameStateMachine::update()
+{
+	stateStack.top->update();
+}
+
+void GameStateMachine::render() const
+{
+	stateStack.top->render();
+}
+
+void GameStateMachine::handleEvent(const SDL_Event& event)
+{
+	stateStack.top->handleEvent(event);
+}
