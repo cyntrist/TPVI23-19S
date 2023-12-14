@@ -20,4 +20,5 @@ public:
     void update();
     void render() const;
     void handleEvent(const SDL_Event&);
+    int getStackSize() { return stateStack.size(); }
 };

@@ -16,7 +16,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;
 	GameStateMachine* stateMachine;
-
+	bool exit;
 public:
 	Game();
 	~Game();

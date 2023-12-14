@@ -41,6 +41,13 @@ Game::Game() {
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
 	stateMachine->replaceState(new MainMenuState());
+	exit = false;
+	while(!exit || stateMachine->getStackSize() > 0)
+	{
+		stateMachine->update();
+		//supongo que aqui va todo lo del handle events con la lista de oyentes y tal
+		stateMachine->render();
+	}
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
