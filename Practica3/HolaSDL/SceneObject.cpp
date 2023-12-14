@@ -28,8 +28,8 @@ void SceneObject::updateRect()
 void SceneObject::update() 
 {
 	updateRect();
-	if (lives <= 0)
-		gameState->hasDied(anchor);
+	/*if (lives <= 0)
+		gameState->hasDied(anchor);*/
 }
 
 

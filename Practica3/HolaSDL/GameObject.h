@@ -1,6 +1,6 @@
 #pragma once
 #include <ostream>
-
+#include "gameList.h"
 #include "GameState.h"
 class Game;
 class GameState;

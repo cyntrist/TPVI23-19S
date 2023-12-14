@@ -24,10 +24,10 @@ Cannon::Cannon(const Point2D<>& _position, Texture* _texture, GameState* _game, 
 ///	tambien contempla si es invencible y rebaja su temporizador, ademas del de disparo
 void Cannon::update()
 {
-	if (lives <= 0) {
+	/*if (lives <= 0) {
 		gameState->hasDied(anchor);
-		//gameState->endGame(); //asumo que solo va a haber un cannon
-	}
+		gameState->endGame(); //asumo que solo va a haber un cannon
+	}*/
 
 	position = position + Vector2D(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
@@ -72,7 +72,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D speed(0, -LASER_MOV_SPEED);
-			gameState->addGameObject(new Laser(pos, speed, 'r', gameState));
+			//gameState->addGameObject(new Laser(pos, speed, 'r', gameState));
 			shootTimer = SHOOT_TIMER; // se resetea el timer a 0
 		}
 	}

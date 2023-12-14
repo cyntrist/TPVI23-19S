@@ -14,7 +14,7 @@ protected:
 	int width, height, lives;	
 	Texture* texture; // no se si va en esta clase pero es lo que m�s sentido me parece que tiene?
 	SDL_Rect rect; // idem
-	GameList<SceneObject*>::anchor anchor; // interador identificador
+	GameList<SceneObject>::anchor anchor; // interador identificador
 public:
 	// constructor
 	SceneObject() = default;
@@ -26,9 +26,9 @@ public:
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
 	const SDL_Rect* getRect() const { return &rect; }
-	GameList<SceneObject*>::anchor getAnchor() const { return anchor;}
+	GameList<SceneObject>::anchor getAnchor() const { return anchor;}
 	// setter
-	void setAnchor(const GameList<SceneObject*>::anchor& value) { anchor = value; }
+	void setListAnchor(const GameList<SceneObject>::anchor& value) { anchor = value; }
 	// methods
 	void render() const override;
 	void save(std::ostream& os) const override;

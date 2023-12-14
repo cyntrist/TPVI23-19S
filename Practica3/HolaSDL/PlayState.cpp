@@ -31,8 +31,8 @@ void PlayState::run()
 { 
 	//startMenu();
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
-	                      game->getTexture(spaceship), INFOBAR_PADDING, game, game->getRenderer());
-	mothership = new Mothership(1, 0, 0, 0, game, 0);
+	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
+	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	//exampleInit(); //ejemplo de 4x11
 	emptyLists();
     readData("map" + std::to_string(mapLevel), game, true);
@@ -168,7 +168,7 @@ void PlayState::exampleInit() {
 			else 
 				object = new Alien(position, type, texture, game, mothership);*/
 
-			addObject(object);
+			//addObject(object);
 			mothership->addAlienCount();
 		}
 	}
@@ -179,8 +179,8 @@ void PlayState::exampleInit() {
 	{
 		position = Point2D<>(WIN_WIDTH * i / 5 - texture->getFrameWidth() / 2,
 		                     WIN_HEIGHT - WIN_HEIGHT / 4.0 - texture->getFrameHeight());
-		object = new Bunker(position, 4, texture, game);
-		addObject(object);
+		//object = new Bunker(position, 4, texture, game);
+		//addObject(object);
 	}
 
 	// cannon
@@ -189,7 +189,7 @@ void PlayState::exampleInit() {
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
 	/*cannon = new Cannon(position, texture, game, 3);
 	object = cannon;*/
-	addObject(object);
+	//addObject(object);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
@@ -218,7 +218,7 @@ void PlayState::addObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
 	const auto it = sceneObjs.end();
 	sceneObjs.push_back(object);
-	object->setAnchor(it);
+	//object->setAnchor(it);
 	object->updateRect();
 }
 
@@ -227,8 +227,8 @@ void PlayState::addObject(SceneObject* object)
 void PlayState::emptyLists()
 {
 	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	for (auto i : sceneObjs)
-		sceneObjs.erase(i.getAnchor());
+	/*for (auto i : sceneObjs)
+		sceneObjs.erase(i.getAnchor());*/
 	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
@@ -315,7 +315,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> lives;
 			position = Point2D<>(x, y);
-			object = new Bunker(position, lives, game->getTexture(bunker), game);
+			//object = new Bunker(position, lives, game->getTexture(bunker), game);
 			break;
 		case 5: // ufo
 			cin >> x >> y;

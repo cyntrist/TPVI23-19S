@@ -2,7 +2,7 @@
 #include "Bunker.h"
 #include "Game.h"
 
-Bunker::Bunker(const Point2D<>& position, int lives, Texture* texture, Game* game)
+Bunker::Bunker(const Point2D<>& position, int lives, Texture* texture, GameState* game)
 	: SceneObject(position, lives, texture, game) { }
 
 /// muestra su frame de textura segun las vidas que le queden, sin salirse 

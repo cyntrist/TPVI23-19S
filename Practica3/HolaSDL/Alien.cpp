@@ -42,7 +42,7 @@ bool Alien::hit(const SDL_Rect* otherRect, char friendly){
 		const int score = 30 - type * 10;
 		//gameState->addScore(score);
 		mothership->alienDied();
-		gameState->hasDied(anchor);
+		//gameState->hasDied(anchor);
 		return true;
 	}
 	return false;

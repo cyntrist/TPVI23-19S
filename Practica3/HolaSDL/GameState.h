@@ -6,6 +6,7 @@
 #include <list>
 #include <SDL_events.h>
 class Game;
+class GameObject; //??? por que esto ha arreglado 90 errores???? en la practica anterior no haciamos esto que yo recuerde
 class GameState
 {
 protected:
@@ -23,7 +24,7 @@ public:
     virtual void addEventListener();
     virtual void save(std::ostream&) const;
     virtual void hasDied(GameList<GameObject, true>::anchor);
-	virtual void addGameObject(GameObject*);
+	//virtual void addGameObject(GameObject*);
     virtual bool onEnter()
     {
     	std::cout << "Entering " << stateID << std::endl; return true;
