@@ -8,8 +8,8 @@ private:
 	int reloadTime;
 public:
 	ShooterAlien() = default;
-	ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
-	ShooterAlien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership, int reloadTime);
+	ShooterAlien(const Point2D<>& position, int type, Texture* texture, GameState* gameState, Mothership* mothership);
+	ShooterAlien(const Point2D<>& position, int type, Texture* texture, GameState* gameState, Mothership* mothership, int reloadTime);
 	void update() override;
 	void save(std::ostream& os) const override;
 };

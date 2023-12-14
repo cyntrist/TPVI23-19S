@@ -16,7 +16,7 @@ private:
 
 public:
 	Laser() = default;
-	Laser(Point2D<>& position, Vector2D<int>& speed, char friendly, Game* game);
+	Laser(Point2D<>& position, Vector2D<int>& speed, char friendly, GameState* gameState);
 	void update() override;
 	void updateRect() override;
 	void render() const override;

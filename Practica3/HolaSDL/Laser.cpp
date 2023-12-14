@@ -24,10 +24,11 @@ void Laser::updateRect()
 /// crea un rectangulo del color especificado en su SDL_rect
 void Laser::render() const 
 {
-	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 255, 255);
+	SDL_Renderer* renderer = gameState->getGame()->getRenderer();
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 	if (color == FRIENDLY_CHAR)
-		SDL_SetRenderDrawColor(game->getRenderer(), 255, 0, 0, 255);
-	SDL_RenderFillRect(game->getRenderer(), &rect);
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 /// metodo para guardar sus datos en el stream proporcionado
@@ -43,8 +44,8 @@ void Laser::save(std::ostream& os) const
 void Laser::update() {
 	position = position + speed;
 	updateRect();
-	if (game->damage(this) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
-		game->hasDied(iterator);
+	if (gameState->damage(this) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
+		gameState->hasDied(anchor);
 }
 
 /// gestiona la interseccion entre su rectangulo y otro

@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "InfoBar.h"
 
-InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, Game* game, SDL_Renderer* renderer)
-	: GameObject(game), position(position), cannonTexture(texture), padding(padding), renderer(renderer) { }
+InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, GameState* gameState, SDL_Renderer* renderer)
+	: GameObject(gameState), position(position), cannonTexture(texture), padding(padding), renderer(renderer) { }
 
 /// Renderiza las vidas en la esquina inferior izquierda y el score en la esquina inferior derecha con el padding acorde
 void InfoBar::render() const
@@ -15,7 +15,7 @@ void InfoBar::render() const
 		cannonTexture->getFrameWidth(),
 		cannonTexture->getFrameHeight()
 	};
-	for (int i = 1; i < game->getCannon()->getLives() + 1; i++)
+	for (int i = 1; i < gameState->getCannon()->getLives() + 1; i++)
 	{
 		cannonTexture->renderFrame(livesRect, cannonTexture->getNumRows() - 1, cannonTexture->getNumColumns() - 1);
 		livesRect.x = cannonTexture->getFrameWidth() * i + padding * (i + 1);
@@ -38,5 +38,5 @@ void InfoBar::render() const
 /// actualiza el score
 void InfoBar::update()
 {
-	points = game->getScore();
+	points = gameState->getScore();
 }

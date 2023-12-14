@@ -17,7 +17,7 @@ class Mothership : public GameObject
 
 public:
 	Mothership() = default;
-	Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer);
+	Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer);
 	void update() override;
 	void render() const override {} 
 	void save(std::ostream& os) const override;

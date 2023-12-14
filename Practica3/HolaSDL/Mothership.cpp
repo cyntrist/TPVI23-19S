@@ -3,8 +3,8 @@
 #include "Alien.h"
 #include "Game.h"
 
-Mothership::Mothership(int direction, int alienCount, int state, int level, Game* game, int movementTimer)
-: GameObject(game), direction(direction), alienCount(alienCount), level(level), movementTimer(movementTimer) { }
+Mothership::Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer)
+: GameObject(gameState), direction(direction), alienCount(alienCount), level(level), movementTimer(movementTimer) { }
 
 /// metodo para comprobar si es momento de moverse
 bool Mothership::shouldMove() const {
@@ -45,7 +45,7 @@ void Mothership::alienLanded(const Alien* alien) const
 /// metodo para avisar al juego de que los aliens han ganado
 void Mothership::haveLanded() const 
 { 
-	game->endGame();
+	gameState->endGame();
 }
 
 /// metodo para guardar sus datos en el stream proporcionado

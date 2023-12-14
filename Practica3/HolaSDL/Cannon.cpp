@@ -1,9 +1,10 @@
 #include "checkML.h"
 #include "Cannon.h"
 #include "Game.h"
+#include "Laser.h"
 
-Cannon::Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives)
-	: SceneObject(position, lives, texture, game), movement(0), shootTimer(SHOOT_TIMER), invincibleTimer(INVENCIBILITY_TIMER)
+Cannon::Cannon(const Point2D<>& position, Texture* texture, GameState* gameState int lives)
+	: SceneObject(position, lives, texture, gameState), movement(0), shootTimer(SHOOT_TIMER), invincibleTimer(INVENCIBILITY_TIMER)
 {
 	SDL_SetTextureBlendMode(texture->getTexture(), SDL_BLENDMODE_ADD);
 }
@@ -24,8 +25,8 @@ Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _
 void Cannon::update()
 {
 	if (lives <= 0) {
-		game->hasDied(iterator);
-		game->endGame(); //asumo que solo va a haber un cannon
+		gameState->hasDied(anchor);
+		gameState->endGame(); //asumo que solo va a haber un cannon
 	}
 
 	position = position + Vector2D(CANNON_MOV_SPEED * movement, 0);
@@ -71,7 +72,7 @@ void Cannon::handleEvent(const SDL_Event& event)
 		{ // disparar si han pasado suficientes ticks
 			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D speed(0, -LASER_MOV_SPEED);
-			game->fireLaser(pos, speed, 'r');
+			gameState->addGameObject(new Laser(pos, speed, 'r', gameState));
 			shootTimer = SHOOT_TIMER; // se resetea el timer a 0
 		}
 	}

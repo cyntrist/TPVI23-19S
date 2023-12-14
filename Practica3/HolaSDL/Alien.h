@@ -18,7 +18,7 @@ protected:
 	int speed = 1; 
 public:
 	Alien() = default;
-	Alien(const Point2D<>& position, int type, Texture* texture, Game* game, Mothership* mothership);
+	Alien(const Point2D<>& position, int type, Texture* texture, GameState* gameState, Mothership* mothership);
 	void update() override;
 	void render() const override;
 	void save(std::ostream& os) const override;

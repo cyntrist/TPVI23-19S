@@ -23,7 +23,7 @@ private:
 
 public:
 	InfoBar() = default;
-	InfoBar(const Point2D<>& position, Texture* texture, int padding, Game* game, SDL_Renderer* renderer);
+	InfoBar(const Point2D<>& position, Texture* texture, int padding, GameState* gameState, SDL_Renderer* renderer);
 	void render() const override;
 	void update() override; 
 	void save(std::ostream& os) const override {}

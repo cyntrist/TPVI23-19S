@@ -17,7 +17,6 @@ int main(int argc, char* argv[])
 	try
 	{
 		auto game = Game();
-		game.run();
 	}
 	catch(FileNotFoundError& fileError)
     {

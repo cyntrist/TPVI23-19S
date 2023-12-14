@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <string>
 #include "Laser.h"
+#include "MainMenuState.h"
 #include "SDLError.h"
 
 using namespace std;
@@ -37,6 +38,8 @@ Game::Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++)
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
+	stateMachine = new GameStateMachine();
+	stateMachine->replaceState(new MainMenuState());
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
