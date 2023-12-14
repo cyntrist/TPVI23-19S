@@ -32,7 +32,6 @@ protected:
 	Mothership* mothership;
 	Cannon* cannon;
 	std::mt19937_64 randomGenerator;
-	bool exit = false; // game over
 	uint32_t startTime, frameTime; // contadores de tiempo para ticks de framerate
 	int playerPoints = 0; // score del jugador
 	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no deberia salirse por encima de LEVEL_NUMBER con los mapas actuales
@@ -41,7 +40,7 @@ protected:
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-    PlayState() : randomGenerator(time(nullptr)) { 	stateID = "PLAY"; }
+    PlayState() : GameState("PLAY"), randomGenerator(time(nullptr)) {}
 	//~PlayState();
 	void addEventListener() override;
 	void addSceneObject(SceneObject* object);

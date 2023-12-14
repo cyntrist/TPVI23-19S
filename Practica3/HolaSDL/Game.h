@@ -16,10 +16,15 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;
 	GameStateMachine* stateMachine;
+<<<<<<< Updated upstream
 	bool exit;
+=======
+	bool exit = false;
+>>>>>>> Stashed changes
 public:
 	Game();
 	~Game();
+	void run();
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Texture* getTexture(TextureName name) const
 	{

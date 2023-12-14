@@ -26,8 +26,9 @@ PlayState::~PlayState()
 */
 
 /// GAME LOGIC BLOCK:
-/// muestra el menú inicial e inicializa los GameObjects y el tablero acorde a él, después va el bucle principal del juego
-/// con llamadas a los métodos principales, gestiona el framerate y tras acabar el bucle ppal la puntuación por consola*/
+/// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
+/// con llamadas a los metodos principales, gestiona el framerate y tras acabar el bucle ppal
+/// la puntuacion por consola*/
 void PlayState::run()
 { 
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
@@ -59,7 +60,7 @@ void PlayState::run()
 	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
 }
 
-/// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estará en la lista de objetos a borrar
+/// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estara en la lista de objetos a borrar
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void PlayState::update()
 {

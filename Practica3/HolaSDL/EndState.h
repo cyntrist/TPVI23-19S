@@ -4,7 +4,8 @@
 
 class EndState : public GameState
 {
-    EndState() { stateID = "End State";  }
+public:
+	EndState() : GameState("END") {}
 	virtual void update() {};
     virtual void render() const {};
 };

@@ -5,9 +5,9 @@
 class MainMenuState : public GameState
 {
 public:
-	MainMenuState() { stateID = "Main Menu"; }
+	MainMenuState() : GameState("MENU") { }
 	~MainMenuState() = default;
-	void update() override {}
-	void render() const override {}
+    void update() override;
+	void render() const override;
 };
 

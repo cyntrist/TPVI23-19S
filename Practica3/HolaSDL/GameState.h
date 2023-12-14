@@ -6,7 +6,7 @@
 #include <list>
 #include <SDL_events.h>
 class Game;
-class GameObject; //??? por que esto ha arreglado 90 errores???? en la practica anterior no haciamos esto que yo recuerde
+class GameObject;
 class GameState
 {
 protected:
@@ -14,9 +14,11 @@ protected:
     GameList<GameObject, true> gameObjects;
     std::list<EventHandler*> eventHandlers;
     std::string stateID;
+	bool exit = false;
 
 public:
     GameState() = default;
+    GameState(std::string);
     virtual ~GameState() = default;
     virtual void update() = 0;
     virtual void render() const = 0;

@@ -3,7 +3,8 @@
 #include "GameState.h"
 class PauseState : public GameState
 {
-    PauseState() { stateID = "Pause State";  }
+public:
+	PauseState() : GameState("PAUSE") {}
 	virtual void update() {};
     virtual void render() {};
 };
