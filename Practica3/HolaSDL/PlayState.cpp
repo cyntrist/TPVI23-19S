@@ -223,7 +223,7 @@ void PlayState::addObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
 	const auto it = sceneObjs.end();
 	sceneObjs.push_back(object);
-	object->setIterator(it);
+	object->setAnchor(it);
 	object->updateRect();
 }
 

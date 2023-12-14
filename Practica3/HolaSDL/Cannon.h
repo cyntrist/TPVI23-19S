@@ -8,7 +8,7 @@ class Game; // para evitar dependencia circular (la linea de arriba)
 constexpr int SHOOT_TIMER = 10, // duracion del cooldown 
 			  INVENCIBILITY_TIMER = 300; // duracion de la invencibilidad
 
-class Cannon : public SceneObject
+class Cannon : public SceneObject, EventHandler
 {
 private:
 	int movement; // direccion de movimiento

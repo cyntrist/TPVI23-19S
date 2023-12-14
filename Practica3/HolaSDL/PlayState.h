@@ -57,9 +57,9 @@ public:
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(GameList<GameObject, true>::anchor anchor) override
+	void hasDied(GameList<SceneObject>::anchor anchor) 
     {
-        //deleteObjs.push_back();
+		sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }
 	void endGame()
 	{
