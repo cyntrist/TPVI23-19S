@@ -163,10 +163,10 @@ void PlayState::exampleInit() {
 			position = Point2D<>((texture->getFrameWidth() + 3) * j + 130,
 			                     (texture->getFrameHeight() + 3) * i + 32);
 			//+130 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			if (type == 0) 
+			/*if (type == 0) 
 				object = new ShooterAlien(position, type, texture, game, mothership);
 			else 
-				object = new Alien(position, type, texture, game, mothership);
+				object = new Alien(position, type, texture, game, mothership);*/
 
 			addObject(object);
 			mothership->addAlienCount();
@@ -187,15 +187,15 @@ void PlayState::exampleInit() {
 	texture = game->getTexture(spaceship);
 	position = Point2D<>(WIN_WIDTH / 2 - texture->getFrameWidth() / 2,
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
-	cannon = new Cannon(position, texture, game, 3);
-	object = cannon;
+	/*cannon = new Cannon(position, texture, game, 3);
+	object = cannon;*/
 	addObject(object);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
 	texture = game->getTexture(ufos);
-	object = new Ufo(position, texture, game, false, visible);
-	addObject(object);
+	/*object = new Ufo(position, texture, game, false, visible);
+	addObject(object);*/
 }
 
 /// DATA MANAGEMENT BLOCK:
@@ -283,16 +283,16 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> lives >> timer;
 			position  = Point2D<>(x, y);
-			auto* newCannon = new Cannon(position, game->getTexture(spaceship), juego, lives, timer);
+			/*auto* newCannon = new Cannon(position, game->getTexture(spaceship), juego, lives, timer);
 			cannon = newCannon;
-			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia
+			object = static_cast<SceneObject*>(newCannon); // porque estoy super super segura de esto (casting ascendente) y asi puedo simplificar con el método addObject y una sola variable sceneobject para toda esta parafernalia*/
 			break;
 		}
 		case 1: // alien
 			cin >> x >> y;
 			cin >> type;
 			position = Point2D<>(x, y);
-			object = new Alien(position, type, game->getTexture(alien), game, mothership);
+			//object = new Alien(position, type, game->getTexture(alien), game, mothership);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
@@ -300,7 +300,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
-			object = new ShooterAlien(position, type, game->getTexture(alien), game, mothership, timer);
+			//object = new ShooterAlien(position, type, game->getTexture(alien), game, mothership, timer);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
@@ -321,7 +321,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> y >> state >> timer;
 			position = Point2D<>(x, y);
-			object = new Ufo(position, game->getTexture(ufos), game, false, state, timer);
+			//object = new Ufo(position, game->getTexture(ufos), game, false, state, timer);
 			break;
 		case 6: // laser
 		{
@@ -332,7 +332,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			if (color == 'r')
 				direction = -1;
 			auto speed = Vector2D(0, direction * LASER_MOV_SPEED);
-			object = new Laser(position, speed, color, game);
+			//object = new Laser(position, speed, color, game);
 			break;
 		}
 		case 7: // score

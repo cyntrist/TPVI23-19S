@@ -1,7 +1,7 @@
 #include "Ufo.h"
 #include "Game.h"
 
-Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
+Ufo::Ufo(Point2D<> p, Texture* t, GameState* g, bool d, int s)
 	: SceneObject(p, 1, t, g)
 {
 	//iniPos = Point2D<>(WIN_WIDTH, position.getY()); // guarda referencia a la posicion incial para poder volver en el futuro
@@ -12,7 +12,7 @@ Ufo::Ufo(Point2D<> p, Texture* t, Game* g, bool d, int s)
 }
 
 /// constructora con sobrecarga hiddenTimer específico
-Ufo::Ufo(Point2D<> position, Texture* texture, Game* game, bool direction, int state, int hT)
+Ufo::Ufo(Point2D<> position, Texture* texture, GameState* game, bool direction, int state, int hT)
 	: Ufo(position, texture, game, direction, state)
 {
 	hiddenTimer = hT;
@@ -29,8 +29,8 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
-		game->addScore(SCORE_POINTS);
-		game->getCannon()->setInvincible(true);
+		//gameState->addScore(SCORE_POINTS);
+		//gameState->getCannon()->setInvincible(true);
 		lives--;
 		return true;
 	} 
@@ -84,7 +84,7 @@ void Ufo::update()
 		{
 			state = visible;
 			position = iniPos;
-			hiddenTimer = game->getRandomRange( 10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
+			//hiddenTimer = game->getRandomRange( 10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
 		}
 		else hiddenTimer--;
 		break;

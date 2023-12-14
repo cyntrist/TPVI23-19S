@@ -5,7 +5,7 @@
 #include "EventHandler.h"
 #include <list>
 #include <SDL_events.h>
-
+class Game;
 class GameState
 {
 protected:

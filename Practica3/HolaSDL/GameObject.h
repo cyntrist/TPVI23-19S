@@ -3,7 +3,7 @@
 
 #include "GameState.h"
 class Game;
-
+class GameState;
 class GameObject
 {
 protected:

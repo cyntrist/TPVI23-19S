@@ -3,14 +3,14 @@
 #include "Game.h"
 #include "Laser.h"
 
-Cannon::Cannon(const Point2D<>& position, Texture* texture, GameState* gameState int lives)
+Cannon::Cannon(const Point2D<>& position, Texture* texture, GameState* gameState, int lives)
 	: SceneObject(position, lives, texture, gameState), movement(0), shootTimer(SHOOT_TIMER), invincibleTimer(INVENCIBILITY_TIMER)
 {
 	SDL_SetTextureBlendMode(texture->getTexture(), SDL_BLENDMODE_ADD);
 }
 
 /// constructora sobrecargada con el tiempo preciso
-Cannon::Cannon(const Point2D<>& _position, Texture* _texture, Game* _game, int _lives, int _shootTimer)
+Cannon::Cannon(const Point2D<>& _position, Texture* _texture, GameState* _game, int _lives, int _shootTimer)
 	: Cannon(_position, _texture, _game, _lives)
 {
 	shootTimer = _shootTimer;
@@ -26,7 +26,7 @@ void Cannon::update()
 {
 	if (lives <= 0) {
 		gameState->hasDied(anchor);
-		gameState->endGame(); //asumo que solo va a haber un cannon
+		//gameState->endGame(); //asumo que solo va a haber un cannon
 	}
 
 	position = position + Vector2D(CANNON_MOV_SPEED * movement, 0);

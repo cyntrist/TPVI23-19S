@@ -17,8 +17,8 @@ private:
 	bool invincible = false; // si es invencible ahora
 public:
 	Cannon() = default;
-	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives);
-	Cannon(const Point2D<>& position, Texture* texture, Game* game, int lives, int shootTimer);
+	Cannon(const Point2D<>& position, Texture* texture, GameState* game, int lives);
+	Cannon(const Point2D<>& position, Texture* texture, GameState* game, int lives, int shootTimer);
 	void handleEvent(const SDL_Event& event);
 	void update() override;
 	void save(std::ostream& os) const override;

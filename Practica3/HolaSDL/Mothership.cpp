@@ -45,7 +45,7 @@ void Mothership::alienLanded(const Alien* alien) const
 /// metodo para avisar al juego de que los aliens han ganado
 void Mothership::haveLanded() const 
 { 
-	gameState->endGame();
+	//gameState->endGame();
 }
 
 /// metodo para guardar sus datos en el stream proporcionado

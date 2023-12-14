@@ -14,7 +14,7 @@ void Bunker::render() const
 /// avisa a game si ha de ser destruido cuando no le quedan vidas
 void Bunker::update() {
 	if (lives <= 0)
-		game->hasDied(iterator);
+		//game->hasDied(iterator);
 	updateRect();
 }
 
