@@ -18,7 +18,7 @@ protected:
 public:
 	// constructor
 	SceneObject() = default;
-	SceneObject(Point2D<> position, int lives, Texture* texture, Game* game);
+	SceneObject(Point2D<> position, int lives, Texture* texture, GameState* gameState);
 	// getters
 	Point2D<> getPosition() const { return position; }
 	int getWidth() const { return width; }

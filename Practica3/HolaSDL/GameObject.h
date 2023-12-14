@@ -1,15 +1,17 @@
 #pragma once
 #include <ostream>
+
+#include "GameState.h"
 class Game;
 
 class GameObject
 {
 protected:
-	Game* game = nullptr;
+	GameState* gameState = nullptr;
 public:
 	GameObject() = default;
-	GameObject(Game* game) : game(game) { }
-	virtual Game* getGame() { return game; } 
+	GameObject(GameState* gameState) : gameState(gameState) { }
+	virtual GameState* getGameState() { return gameState; } 
 	virtual ~GameObject() = default; // destructora 
 	virtual void render() const = 0; // para renderizra sprites enteros
 	virtual void render(int row, int col) const { } // para renderizar frames concretos

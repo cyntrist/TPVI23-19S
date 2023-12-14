@@ -15,8 +15,8 @@ public:
     virtual void update() = 0;
     virtual void render() const = 0;
     virtual void handleEvent(const SDL_Event&) = 0;
-    virtual void addEventListener();
-    virtual void addObject();
+    virtual void addEventListener() = 0;
+    virtual void addObject(GameObject*) = 0;
     virtual void save(std::ostream&) const = 0;
     virtual void hasDied(GameList<GameObject, true>::anchor) = 0;
     virtual bool onEnter() = 0;
