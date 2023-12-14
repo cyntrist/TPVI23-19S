@@ -16,11 +16,11 @@ public:
     virtual void render() const = 0;
     virtual void handleEvent(const SDL_Event&) = 0;
     virtual void addEventListener() = 0;
-    virtual void addObject(GameObject*) = 0;
+    virtual void addGameObject(GameObject*);
     virtual void save(std::ostream&) const = 0;
     virtual void hasDied(GameList<GameObject, true>::anchor) = 0;
-    virtual bool onEnter() = 0;
-	virtual bool onExit() = 0;
+    virtual bool onEnter();
+	virtual bool onExit();
 	virtual std::string getStateID() const = 0;
     Game* getGame() const { return game; }
 };

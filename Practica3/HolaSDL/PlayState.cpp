@@ -219,10 +219,10 @@ void PlayState::saveData(const std::string& saveFileName) const {
 /// metodo para simplificar la generacion de objetos y los metodos en los que se generan las entidades de los tableros
 ///	puesto que se llama muchas veces a estas lineas de manera conjunta,
 ///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectangulo inicialmente
-void PlayState::addObject(GameObject* object) override
-{ // método para simplificar las inicializaciones del tablero 
+void PlayState::addObject(SceneObject* object)
+{ // método para simplificar las inicializaciones del tablero
+	const auto it = sceneObjs.end();
 	sceneObjs.push_back(object);
-	const auto it = --sceneObjs.end();
 	object->setIterator(it);
 	object->updateRect();
 }
@@ -350,7 +350,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	}
 
 	/// manera feilla de actualizar la referencia a mothership de los aliens leidos
-	for (const auto i : sceneObjs)
+	for (auto i : sceneObjs)
 	{
 		auto* alien = dynamic_cast<Alien*>(i); // si es shoo
 		if (alien != nullptr)

@@ -44,7 +44,6 @@ protected:
 	int playerPoints = 0; // score del jugador
 	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no debería salirse por encima de LEVEL_NUMBER con los mapas actuales
 
-	void startMenu();
 	void exampleInit();
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
@@ -52,7 +51,7 @@ public:
     PlayState() : randomGenerator(time(nullptr)) {}
 	~PlayState();
 	void addEventListener() override;
-	void addObject(GameObject* object) override;
+	void addObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;
 	void update() override;
