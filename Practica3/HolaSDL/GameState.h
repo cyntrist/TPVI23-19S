@@ -18,7 +18,7 @@ protected:
 
 public:
     GameState() = default;
-    GameState(std::string);
+    GameState(const std::string& stateID) : stateID(stateID) {}
     virtual ~GameState() = default;
     virtual void update() = 0;
     virtual void render() const = 0;

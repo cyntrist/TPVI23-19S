@@ -65,7 +65,7 @@ void Game::run()
 }
 
 void Game::handleEvents()
-{
+{ // entiendo que a través de esto se escuchará a eventos de cambio de estado que emitan los propios estados
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -82,7 +82,7 @@ void Game::handleEvents()
 					stateMachine->replaceState(new MainMenuState());
 			}
 		}
-		/*
+		/* VERSION ANTIGUA:
 		SDL_Keycode key = event.key.keysym.sym;
 		if (event.type == SDL_QUIT) exit = true;
 		else if (event.type == SDL_KEYDOWN && (key == SDLK_s || key == SDLK_l ||key == SDLK_m))
