@@ -22,6 +22,7 @@ void Button::update()
 		&& mousePos.getY() < position.getY() + texture->getFrameHeight() 
 		&& mousePos.getY() > position.getY())
 	{
+		std::cout << "oleeee";
 		//currentFrame = MOUSE_OVER;
 		if (true) // TheInputHandler::Instance()->getMouseButtonState(LEFT) <-- si click derecho encima
 		{

@@ -26,5 +26,6 @@ public:
 	//Button(...);
 	void render() const override;
 	void update() override;
+	void save(std::ostream& os) const override {}
 };
 
