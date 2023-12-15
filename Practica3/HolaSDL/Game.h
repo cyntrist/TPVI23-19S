@@ -2,10 +2,10 @@
 #include "SDL.h"
 #include "texture.h"
 #include "GameStateMachine.h"
-#include <array>;
+#include <array>
 class Mothership;
 
-constexpr int NUM_TEXTURES = 22; // cantidad de texturas a cargar
+constexpr int NUM_TEXTURES = 18; // cantidad de texturas a cargar
 const std::string TEXTURE_ROOT = "..\\images\\",
 			  MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 			  SAVE_FILE_ROOT = "..\\";
@@ -13,7 +13,7 @@ enum TextureName
 {
 	stars, spaceship, bunker, aliens, ufos, bomb, shield, shield_reward,
 	btn_cargar, btn_continuar, btn_guardar, btn_nueva, btn_salir, btn_volver,
-	codigo, game_over, has_ganado
+	codigo, game_over, has_ganado, menu
 };
 class Game {
 private:
@@ -28,10 +28,7 @@ public:
 	void run();
 	void handleEvents();
 	SDL_Renderer* getRenderer() const { return renderer; }
-	Texture* getTexture(TextureName name) const
-	{
-		return textures[name];
-	}
+	Texture* getTexture(TextureName name) const { return textures[name]; }
 	SDL_Renderer* getRenderer() { return renderer; }
 };
 

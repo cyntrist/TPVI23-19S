@@ -31,12 +31,14 @@ const sprite sprites[NUM_TEXTURES] {
 	sprite {"shield_reward", 1, 1},
 	sprite {"btn_cargar", 1, 1},
 	sprite {"btn_continuar", 1, 1},
+	sprite {"btn_guardar", 1, 1},
 	sprite {"btn_nueva", 1, 1},
 	sprite {"btn_salir", 1, 1},
 	sprite {"btn_volver", 1, 1},
 	sprite {"codigo", 1, 1},
 	sprite {"game_over", 1, 1},
-	sprite {"has_ganado", 1, 1}
+	sprite {"has_ganado", 1, 1},
+	sprite {"menu", 1, 1}
 };
 
 /// constructora de Game, inicializa las texturas, SDL y renderer
@@ -52,7 +54,7 @@ Game::Game() {
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
-	stateMachine->replaceState(new MainMenuState());
+	stateMachine->replaceState(new MainMenuState(textures[menu]));
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
@@ -69,7 +71,9 @@ void Game::run()
 {
 	while (!exit && stateMachine->getStackSize() > 0)
 	{
+		SDL_RenderClear(renderer);
 		stateMachine->render();
+		SDL_RenderPresent(renderer);
 		stateMachine->update();
 		handleEvents();
 	}
@@ -90,7 +94,7 @@ void Game::handleEvents()
 				if (stateMachine->getStateID() == "MENU")
 					stateMachine->replaceState(new PauseState());
 				else
-					stateMachine->replaceState(new MainMenuState());
+					stateMachine->replaceState(new MainMenuState(textures[menu]));
 			}
 		}
 		/* VERSION ANTIGUA:

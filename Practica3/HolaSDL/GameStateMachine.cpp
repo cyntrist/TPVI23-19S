@@ -1,5 +1,11 @@
 #include "GameStateMachine.h"
 
+GameStateMachine::~GameStateMachine()
+{ // si uso el default no borra nada por algun motivo
+    for (int i = 0; i < stateStack.size(); i++)
+        popState();
+}
+
 void GameStateMachine::pushState(GameState* state) 
 {
 	stateStack.push(state);
