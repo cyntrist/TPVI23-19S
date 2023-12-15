@@ -21,6 +21,7 @@ public:
 	Game();
 	~Game();
 	void run();
+	void handleEvents();
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Texture* getTexture(TextureName name) const
 	{

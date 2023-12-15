@@ -6,6 +6,7 @@
 #include <string>
 #include "Laser.h"
 #include "MainMenuState.h"
+#include "PauseState.h"
 #include "SDLError.h"
 #include "PlayState.h"
 
@@ -41,13 +42,6 @@ Game::Game() {
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
 	stateMachine->replaceState(new MainMenuState());
-	exit = false;
-	while(!exit || stateMachine->getStackSize() > 0)
-	{
-		stateMachine->update();
-		//supongo que aqui va todo lo del handle events con la lista de oyentes y tal
-		stateMachine->render();
-	}
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
@@ -62,9 +56,74 @@ Game::~Game() {
 
 void Game::run()
 {
-	while (!exit)
+	while (!exit && stateMachine->getStackSize() > 0)
 	{
 		stateMachine->render();
 		stateMachine->update();
+		handleEvents();
+	}
+}
+
+void Game::handleEvents()
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		SDL_Keycode key = event.key.keysym.sym;
+		if (event.type == SDL_QUIT) 
+			exit = true;
+		else
+		{
+			if (event.type == SDL_KEYDOWN && key == SDLK_s)
+			{
+				if (stateMachine->getStateID() == "MENU")
+					stateMachine->replaceState(new PauseState());
+				else
+					stateMachine->replaceState(new MainMenuState());
+			}
+		}
+		/*
+		SDL_Keycode key = event.key.keysym.sym;
+		if (event.type == SDL_QUIT) exit = true;
+		else if (event.type == SDL_KEYDOWN && (key == SDLK_s || key == SDLK_l ||key == SDLK_m))
+		{
+			if (key == SDLK_s) // guardar
+			{
+				std::cout << "Input save slot to save to: " << std::endl;
+				char k;
+				std::cin >> k;
+				if (isdigit(k))
+				{
+					saveData("save" + std::to_string(k - '0'));
+					endGame();
+					std::cout << "Saved game." << std::endl;
+				}
+				else std::cout << "Invalid number, resuming game." << std::endl;
+			}
+			else if (key == SDLK_l)
+			{
+				std::cout << "Input save slot to load: " << std::endl;
+				char k;
+				std::cin >> k;
+				if (isdigit(k))
+				{
+					emptyLists();
+					readData("save" + std::to_string(k - '0'), this, false);
+					std::cout << "Loaded game." << std::endl;
+				}
+				else std::cout << "Invalid number, resuming game." << std::endl;
+			}
+			else if (key == SDLK_m)
+			{
+				cout << "Map name: ";
+				std::string mapName;
+				cin >> mapName;
+				emptyLists();
+				readData(mapName, this, true);
+			}
+		}
+		else if (cannon != nullptr) 
+				cannon->handleEvent(event);
+		*/
 	}
 }
