@@ -6,16 +6,14 @@
 #include "InfoBar.h"
 #include <array>
 #include <random>
+
+#include "Game.h"
 class SceneObject;
 class Mothership;
 class Cannon;
 using uint = unsigned int;
 
-constexpr int	WIN_WIDTH = 800, // ancho de la ventana de juego
-				WIN_HEIGHT = 600, // alto de la ventana de juego
-				FRAME_RATE = 60, // frecuencia de refresco
-				TIME_BETWEEN_FRAMES = 1000 / FRAME_RATE, // tiempo real entre refrescos
-				ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
+constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
 				INFOBAR_PADDING = 10, // espacio entre iconos del infobar
 				LEVEL_NUMBER = 4, // cantidad de niveles de juego que hay
 				// MOVEMENT SPEEDS

@@ -54,7 +54,7 @@ Game::Game() {
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
-	stateMachine->replaceState(new MainMenuState(this));
+	stateMachine->replaceState(new PauseState(this));
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego

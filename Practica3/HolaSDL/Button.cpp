@@ -16,11 +16,15 @@ void Button::render() const
 
 void Button::update() 
 {
-	Vector2D mousePos; //TheInputHandler::Instance()->getMousePosition(); <-- deberiamos hacer un singleton como este?? XD
-	if	  (mousePos.getX() < position.getX() + texture->getFrameWidth() 
-		&& mousePos.getX() > position.getX()
-		&& mousePos.getY() < position.getY() + texture->getFrameHeight() 
-		&& mousePos.getY() > position.getY())
+
+	//Vector2D mousePos; //TheInputHandler::Instance()->getMousePosition(); <-- deberiamos hacer un singleton como este?? XD
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+
+	if	  (mouseX < position.getX() + texture->getFrameWidth() 
+		&& mouseX > position.getX()
+		&& mouseY < position.getY() + texture->getFrameHeight() 
+		&& mouseY > position.getY())
 	{
 		std::cout << "oleeee";
 		//currentFrame = MOUSE_OVER;
