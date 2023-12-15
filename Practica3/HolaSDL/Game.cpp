@@ -73,9 +73,9 @@ void Game::run()
 	{
 		SDL_RenderClear(renderer);
 		stateMachine->render();
-		SDL_RenderPresent(renderer);
 		stateMachine->update();
 		handleEvents();
+		SDL_RenderPresent(renderer);
 	}
 }
 
