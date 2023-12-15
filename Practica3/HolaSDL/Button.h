@@ -22,7 +22,7 @@ protected:
     Texture* texture;
 	// callback(s)
 public:
-	Button(); //= default;
+	Button(Vector2D<> position, Texture* texture); //= default;
 	//Button(...);
 	void render() const override;
 	void update() override;

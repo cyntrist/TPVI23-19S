@@ -54,7 +54,7 @@ Game::Game() {
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
-	stateMachine->replaceState(new MainMenuState(textures[menu]));
+	stateMachine->replaceState(new MainMenuState(textures[menu], textures[btn_nueva]));
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
@@ -94,7 +94,7 @@ void Game::handleEvents()
 				if (stateMachine->getStateID() == "MENU")
 					stateMachine->replaceState(new PauseState());
 				else
-					stateMachine->replaceState(new MainMenuState(textures[menu]));
+					stateMachine->replaceState(new MainMenuState(textures[menu], textures[btn_nueva]));
 			}
 		}
 		/* VERSION ANTIGUA:

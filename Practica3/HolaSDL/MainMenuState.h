@@ -4,8 +4,9 @@
 class MainMenuState : public GameState
 {
 	Texture* texture;
+	Button* button1;
 public:
-	MainMenuState(Texture*);
+	MainMenuState(Texture* menuTexture, Texture* button1);
 	//~MainMenuState() override = default;
     void update() override;
 	void render() const override;
