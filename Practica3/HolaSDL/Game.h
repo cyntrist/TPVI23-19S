@@ -16,11 +16,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;
 	GameStateMachine* stateMachine;
-<<<<<<< Updated upstream
-	bool exit;
-=======
 	bool exit = false;
->>>>>>> Stashed changes
 public:
 	Game();
 	~Game();
