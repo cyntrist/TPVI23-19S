@@ -4,7 +4,7 @@
 class PauseState : public GameState
 {
 public:
-	PauseState() : GameState("PAUSE") {}
+	PauseState(Game* game) : GameState(game, "PAUSE") {}
 	virtual void update() override {};
     virtual void render() const override {};
 };

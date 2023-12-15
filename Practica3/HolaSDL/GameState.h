@@ -10,7 +10,7 @@ class GameObject;
 class GameState
 {
 protected:
-    Game* game = nullptr;
+    Game* game;
     GameList<GameObject, true> gameObjects;
     std::list<EventHandler*> eventHandlers;
     std::string stateID;
@@ -18,7 +18,7 @@ protected:
 
 public:
     GameState() = default;
-    GameState(const std::string& stateID) : stateID(stateID) {}
+    GameState(Game* game, const std::string& stateID) : game(game), stateID(stateID) {}
     virtual ~GameState() = default;
     virtual void update() = 0;
     virtual void render() const = 0;

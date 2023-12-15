@@ -40,7 +40,7 @@ protected:
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-    PlayState() : GameState("PLAY"), randomGenerator(time(nullptr)) {}
+    PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) {}
 	//~PlayState();
 	void addEventListener() override;
 	void addSceneObject(SceneObject* object);

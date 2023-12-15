@@ -1,6 +1,6 @@
 #include "MainMenuState.h"
 
-MainMenuState::MainMenuState(Texture* menuTexture, Texture* buttonTexture) : GameState("MENU"), texture(menuTexture)
+MainMenuState::MainMenuState(Game* game) : GameState(game, "MENU")
 {
 	
 }
@@ -12,6 +12,5 @@ void MainMenuState::update()
 void MainMenuState::render() const
 {
 	//std::cout << "COJONES";
-	texture->render();
-	button1->render();
+
 }
