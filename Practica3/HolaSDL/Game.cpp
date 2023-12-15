@@ -25,7 +25,18 @@ const sprite sprites[NUM_TEXTURES] {
 	sprite {"spaceship", 1, 1},
 	sprite {"bunker", 1, 4},
 	sprite {"alien", 3, 2},
-	sprite {"ufo", 1, 2}
+	sprite {"ufo", 1, 2},
+	sprite {"bomb", 1, 1},
+	sprite {"shield", 1, 1},
+	sprite {"shield_reward", 1, 1},
+	sprite {"btn_cargar", 1, 1},
+	sprite {"btn_continuar", 1, 1},
+	sprite {"btn_nueva", 1, 1},
+	sprite {"btn_salir", 1, 1},
+	sprite {"btn_volver", 1, 1},
+	sprite {"codigo", 1, 1},
+	sprite {"game_over", 1, 1},
+	sprite {"has_ganado", 1, 1}
 };
 
 /// constructora de Game, inicializa las texturas, SDL y renderer
@@ -69,12 +80,12 @@ void Game::handleEvents()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		SDL_Keycode key = event.key.keysym.sym;
+		SDL_Keycode key = event.key.keysym.sym; 
 		if (event.type == SDL_QUIT) 
 			exit = true;
 		else
 		{
-			if (event.type == SDL_KEYDOWN && key == SDLK_s)
+			if (event.type == SDL_KEYDOWN && key == SDLK_s) // en vez de esto, listeners?
 			{
 				if (stateMachine->getStateID() == "MENU")
 					stateMachine->replaceState(new PauseState());

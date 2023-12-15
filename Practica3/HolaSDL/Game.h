@@ -5,11 +5,16 @@
 #include <array>;
 class Mothership;
 
-constexpr int NUM_TEXTURES = 5; // cantidad de texturas a cargar
+constexpr int NUM_TEXTURES = 22; // cantidad de texturas a cargar
 const std::string TEXTURE_ROOT = "..\\images\\",
 			  MAP_ROOT = R"(..\\maps\\2\\)", // raw string literal
 			  SAVE_FILE_ROOT = "..\\";
-enum TextureName { stars, spaceship, bunker, alien, ufos};
+enum TextureName
+{
+	stars, spaceship, bunker, aliens, ufos, bomb, shield, shield_reward,
+	btn_cargar, btn_continuar, btn_guardar, btn_nueva, btn_salir, btn_volver,
+	codigo, game_over, has_ganado
+};
 class Game {
 private:
 	SDL_Window* window = nullptr;

@@ -91,7 +91,7 @@ void PlayState::render() const
 
 /// INPUT BLOCK
 ///	gestiona los diferentes inputs que puede haber:
-///	de Cannon (en su propio método, mov lateral y disparar),
+///	de Cannon (en su propio metodo, mov lateral y disparar),
 ///	de guardado (S),
 ///	de carga (L),
 ///	de mapa (M)
@@ -154,7 +154,7 @@ void PlayState::exampleInit() {
 
 	// aliens
 	int type = 0;
-	texture = game->getTexture(alien);
+	texture = game->getTexture(aliens);
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 1 || i == 3)
@@ -290,7 +290,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> type;
 			position = Point2D<>(x, y);
-			object = new Alien(position, type, game->getTexture(alien), this, mothership);
+			object = new Alien(position, type, game->getTexture(aliens), this, mothership);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
@@ -298,7 +298,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> x >> y;
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
-			object = new ShooterAlien(position, type, game->getTexture(alien), this, mothership, timer);
+			object = new ShooterAlien(position, type, game->getTexture(aliens), this, mothership, timer);
 			mothership->addAlienCount();
 			alienCount++;
 			break;
