@@ -13,17 +13,24 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 	addEventListener(newGameBtn);
 	newGameBtn->Connect([this](const SDL_Event& arg)
 	{
-	    PauseState* pausa = new PauseState(game);
-	    game->getStateMachine()->pushState(pausa);
+	    PlayState* play = new PlayState(game);
+	    game->getStateMachine()->pushState(play);
 	});
 	Button* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
 	addGameObject(continueGameBtn);
 	addEventListener(continueGameBtn);
-
+	continueGameBtn->Connect([this](const SDL_Event& arg)
+		{
+			PlayState* play = new PlayState(game);
+			game->getStateMachine()->pushState(play);
+		});
 	Button* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), game->getTexture(btn_salir));
 	addGameObject(exitBtn);
 	addEventListener(exitBtn);
-
+	exitBtn->Connect([this](const SDL_Event& arg)
+		{
+			game->exitGame();
+		});
 }
 void MainMenuState::update()
 {

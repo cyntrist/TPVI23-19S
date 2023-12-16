@@ -35,5 +35,6 @@ public:
 	Texture* getTexture(TextureName name) const { return textures[name]; }
 	SDL_Renderer* getRenderer() { return renderer; }
 	GameStateMachine* getStateMachine() { return  stateMachine; }
+	void exitGame() { exit = true; }
 };
 
