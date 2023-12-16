@@ -34,5 +34,6 @@ public:
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Texture* getTexture(TextureName name) const { return textures[name]; }
 	SDL_Renderer* getRenderer() { return renderer; }
+	GameStateMachine* getStateMachine() { return  stateMachine; }
 };
 
