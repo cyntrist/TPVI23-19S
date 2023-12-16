@@ -39,10 +39,13 @@ void Button::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		if (buttonPos == MOUSE_OVER) {
-			/*for (const std::function<void(const SDL_Event&)>& buttonCallback : callbacks)
-				buttonCallback(event);*/
-			std::cout << "olee";
+			for (const SDLCallback& buttonCallback : callbacks)
+				buttonCallback(event);
 		}
 	}
+}
+
+void Button::Connect(SDLCallback newCb) {
+	callbacks.push_back(newCb);
 }
 

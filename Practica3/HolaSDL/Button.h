@@ -8,6 +8,7 @@
 
 
 /// Nuestros botones no tienen hover ni nada asi que no hace falta esto creo
+using SDLCallback = std::function<void(const SDL_Event&)>;
 
 enum button_state
 {
@@ -23,7 +24,8 @@ protected:
     Texture* texture;
 	button_state buttonPos;
 	// callback(s)
-	std::list<std::function<void(const SDL_Event&)>> callbacks;
+	std::list<SDLCallback> callbacks;
+
 public:
 	Button(Vector2D<> position, Texture* texture); //= default;
 	//Button(...);
@@ -31,5 +33,6 @@ public:
 	void update() override;
 	void save(std::ostream& os) const override {}
 	void handleEvent(const SDL_Event& event) override;
+	void Connect(SDLCallback cb);
 };
 
