@@ -26,15 +26,23 @@ void Button::update()
 		&& mouseY < position.getY() + texture->getFrameHeight() 
 		&& mouseY > position.getY())
 	{
-		std::cout << "oleeee";
-		//currentFrame = MOUSE_OVER;
-		if (true) // TheInputHandler::Instance()->getMouseButtonState(LEFT) <-- si click derecho encima
-		{
-			//...
-		}
+		buttonPos = MOUSE_OVER;
 	}
 	else
 	{
-		//m_currentFrame = MOUSE_OUT;
+		buttonPos = MOUSE_OUT;
+	}
+
+}
+
+void Button::handleEvent(const SDL_Event& event)
+{
+	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+		if (buttonPos == MOUSE_OVER) {
+			/*for (const std::function<void(const SDL_Event&)>& buttonCallback : callbacks)
+				buttonCallback(event);*/
+			std::cout << "olee";
+		}
 	}
 }
+

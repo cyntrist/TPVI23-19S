@@ -40,7 +40,7 @@ protected:
 public:
     PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) {}
 	//~PlayState();
-	void addEventListener() override;
+	//void addEventListener() override;
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;

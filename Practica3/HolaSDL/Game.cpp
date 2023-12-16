@@ -54,7 +54,7 @@ Game::Game() {
 	textures[i] = new Texture(renderer, (TEXTURE_ROOT + sprites[i].name + ".png").c_str(), sprites[i].rows, sprites[i].cols);
 	SDL_RenderClear(renderer);
 	stateMachine = new GameStateMachine();
-	stateMachine->replaceState(new PauseState(this));
+	stateMachine->replaceState(new MainMenuState(this));
 }
 
 /// destructora de Game, borra la memoria dinámica, el renderer y la ventana y cierra le juego
@@ -89,13 +89,14 @@ void Game::handleEvents()
 			exit = true;
 		else
 		{
-			if (event.type == SDL_KEYDOWN && key == SDLK_s) // en vez de esto, listeners?
+			/*if (event.type == SDL_KEYDOWN && key == SDLK_s) // en vez de esto, listeners?
 			{
 				if (stateMachine->getStateID() == "MENU")
 					stateMachine->replaceState(new PauseState(this));
 				else
 					stateMachine->replaceState(new MainMenuState(this));
-			}
+			}*/
+			stateMachine->handleEvent(event);
 		}
 		/* VERSION ANTIGUA:
 		SDL_Keycode key = event.key.keysym.sym;

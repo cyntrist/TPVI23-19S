@@ -9,5 +9,6 @@ public:
 	//~MainMenuState() override = default;
     void update() override;
 	void render() const override;
+	void handleEvent(const SDL_Event&) override;
 };
 

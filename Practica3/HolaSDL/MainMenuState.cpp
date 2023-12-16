@@ -10,8 +10,11 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 	Button* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
 	Button* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), game->getTexture(btn_salir));
 	addGameObject(newGameBtn);
+	addEventListener(newGameBtn);
 	addGameObject(continueGameBtn);
+	addEventListener(continueGameBtn);
 	addGameObject(exitBtn);
+	addEventListener(exitBtn);
 }
 void MainMenuState::update()
 {
@@ -26,3 +29,10 @@ void MainMenuState::render() const
 	for (GameObject& i : gameObjects) //no se si el tipo de esto esta bien, pero funciona
 		i.render();
 }
+
+void MainMenuState::handleEvent(const SDL_Event& event)
+{
+	for (EventHandler* i : eventHandlers)
+		i->handleEvent(event);
+}
+
