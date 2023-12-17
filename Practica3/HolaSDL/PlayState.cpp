@@ -261,7 +261,7 @@ void PlayState::emptyLists()
 bool PlayState::damage(SDL_Rect* rect, char friendly) const 
 {
 	//std::any_of(sceneObjs.begin(), sceneObjs.end(),);
-	for (auto i : sceneObjs)
+	for (auto& i : sceneObjs)
 		if (i.hit(rect, friendly))
 			return true;
 	return false;

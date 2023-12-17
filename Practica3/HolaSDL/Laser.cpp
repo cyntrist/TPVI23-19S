@@ -49,13 +49,16 @@ void Laser::update()
 	position = position + speed;
 	updateRect();
 	if (playState->damage(getRect(), color) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
+	{
+		gameState->hasDied(anchor);
 		playState->hasDied(sceneObjsAnchor);
+	}
 }
 
 /// gestiona la interseccion entre su rectangulo y otro
 bool Laser::hit(const SDL_Rect* otherRect, char friendly)
 {
-	if (otherRect != getRect() && SDL_HasIntersection(getRect(), otherRect))
+	if (friendly != color && SDL_HasIntersection(getRect(), otherRect))
 	{
 		lives--;
 		return true;

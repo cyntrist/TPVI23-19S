@@ -24,6 +24,7 @@ Cannon::Cannon(const Point2D<>& _position, Texture* _texture, PlayState* _playSt
 void Cannon::update()
 {
 	if (lives <= 0) {
+		gameState->hasDied(anchor);
 		playState->hasDied(sceneObjsAnchor);
 		playState->endGame(); //asumo que solo va a haber un cannon
 	}
