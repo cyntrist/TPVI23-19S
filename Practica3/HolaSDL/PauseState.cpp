@@ -10,7 +10,7 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(continueGameBtn);
 	continueGameBtn->Connect([this](const SDL_Event& arg)
 		{
-			game->getStateMachine()->popState();
+			//game->getStateMachine()->popState();
 		});
 	auto* loadGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_cargar)->getFrameWidth()) / 2, 200), game->getTexture(btn_cargar));
 	addGameObject(loadGameBtn);
@@ -33,8 +33,8 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(exitBtn);
 	exitBtn->Connect([this](const SDL_Event& arg)
 		{
-			auto* mainMenu = new MainMenuState(game);
-			game->getStateMachine()->replaceState(mainMenu);
+			//auto* mainMenu = new MainMenuState(game);
+			//game->getStateMachine()->replaceState(mainMenu);
 		});
 }
 
