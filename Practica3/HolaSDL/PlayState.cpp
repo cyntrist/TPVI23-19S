@@ -27,7 +27,7 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
 	addGameObject(infoBar);
-	//addGameObject(mothership);
+	addGameObject(mothership);
 }
 
 //PlayState::~PlayState()
