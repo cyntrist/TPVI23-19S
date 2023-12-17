@@ -31,8 +31,8 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 PlayState::~PlayState()
 {
 	delete mothership;
-	//delete infoBar;
-	
+	delete infoBar;
+	GameState::~GameState();
 }
 
 /// GAME LOGIC BLOCK:
