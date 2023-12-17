@@ -8,7 +8,7 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 {
 	menuTexture = game->getTexture(menu);
 
-	Button* newGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_nueva)->getFrameWidth()) / 2, 130), game->getTexture(btn_nueva));
+	auto* newGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_nueva)->getFrameWidth()) / 2, 130), game->getTexture(btn_nueva));
 	addGameObject(newGameBtn);
 	addEventListener(newGameBtn);
 	newGameBtn->Connect([this](const SDL_Event& arg)
@@ -16,7 +16,7 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 			PauseState* pause = new PauseState(game); //sustituir todo esto por lo que sea que haga el boton
 			game->getStateMachine()->pushState(pause);
 		});
-	Button* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
+	auto* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
 	addGameObject(continueGameBtn);
 	addEventListener(continueGameBtn);
 	continueGameBtn->Connect([this](const SDL_Event& arg)
@@ -24,7 +24,7 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 			PauseState* pause = new PauseState(game); //sustituir todo esto por lo que sea que haga el boton
 			game->getStateMachine()->pushState(pause);
 		});
-	Button* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), game->getTexture(btn_salir));
+	auto* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), game->getTexture(btn_salir));
 	addGameObject(exitBtn);
 	addEventListener(exitBtn);
 	exitBtn->Connect([this](const SDL_Event& arg)
