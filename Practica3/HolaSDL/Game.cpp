@@ -72,8 +72,8 @@ void Game::run()
 	while (!exit && stateMachine->getStackSize() > 0)
 	{
 		SDL_RenderClear(renderer);
-		stateMachine->render();
 		stateMachine->update();
+		stateMachine->render();
 		handleEvents();
 		SDL_RenderPresent(renderer);
 	}

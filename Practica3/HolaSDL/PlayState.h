@@ -39,7 +39,7 @@ protected:
 	void saveData(const std::string& saveFileName) const;
 public:
 	PlayState(Game* game);
-	//~PlayState();
+	~PlayState();
 	//void addEventListener() override;
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;

@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "SceneObject.h"
 #include "Cannon.h"
+#include "PauseState.h"
 using namespace std;
 
 PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
@@ -24,13 +25,14 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	startTime = SDL_GetTicks();
 }
 
-/*
+
 PlayState::~PlayState()
 {
 	delete mothership;
-	delete infoBar;
+	//delete infoBar;
+	
 }
-*/
+
 
 /// GAME LOGIC BLOCK:
 /// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
@@ -95,12 +97,10 @@ void PlayState::update()
 /// le aplica al renderer el fondo, la textura de cada objeto de escena y el infobar, y lo presenta en pantalla
 void PlayState::render() const
 {
-	SDL_RenderClear(game->getRenderer());
 	game->getTexture(stars)->render(); // el fondo!!!!!! :-)
 	for (const auto& i : gameObjects) // los objetos
 		i.render();
 	//infoBar->render();
-	SDL_RenderPresent(game->getRenderer());
 }
 
 /// INPUT BLOCK
@@ -114,6 +114,13 @@ void PlayState::handleEvent(const SDL_Event& event)
 {
 	for (auto i : eventHandlers)
 		i->handleEvent(event);
+
+	SDL_Keycode key = event.key.keysym.sym;
+    if (event.type == SDL_KEYDOWN && (key == SDLK_ESCAPE))
+	{
+		PauseState* pause = new PauseState(game);
+		game->getStateMachine()->pushState(pause);
+	}
 	//SDL_PollEvent(&event) && 
 	/*while (!exit)
 	{
