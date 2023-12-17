@@ -11,6 +11,7 @@ Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, PlayState* ps) {
 	speed = s;
 	color = c;
 	playState = ps;
+	gameState = ps;
 }
 
 /// actualiza su rectangulo

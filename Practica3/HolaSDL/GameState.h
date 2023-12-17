@@ -14,7 +14,7 @@ protected:
     GameList<GameObject, true> gameObjects;
     std::list<EventHandler*> eventHandlers;
     std::string stateID;
-	bool exit = false;
+	//bool exit = false;
 
 public:
     GameState() = default;

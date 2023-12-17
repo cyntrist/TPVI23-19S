@@ -17,6 +17,13 @@
 #include "Cannon.h"
 using namespace std;
 
+PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
+{
+	mothership = new Mothership(1, 0, 0, 0, this, 0);
+	exampleInit();
+	startTime = SDL_GetTicks();
+}
+
 /*
 PlayState::~PlayState()
 {
@@ -31,7 +38,7 @@ PlayState::~PlayState()
 /// la puntuacion por consola*/
 void PlayState::run()
 { 
-	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
+	/*infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	//exampleInit(); //ejemplo de 4x11
@@ -57,16 +64,22 @@ void PlayState::run()
 			readData("map" + std::to_string(++mapLevel), game, true);
 		}
 	}
-	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";
+	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";*/
 }
 
 /// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estara en la lista de objetos a borrar
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void PlayState::update()
 {
-	mothership->update();
-	for (auto i : sceneObjs) 
-		i.update();
+
+	frameTime = SDL_GetTicks() - startTime;
+	if (frameTime > TIME_BETWEEN_FRAMES)
+	{
+		mothership->update();
+		for (auto& i : gameObjects)
+			i.update();
+	}
+
 	/*
 	for (auto i : deleteObjs)
 	{
@@ -74,7 +87,7 @@ void PlayState::update()
 		delete i;
 	}
 	*/
-	infoBar->update();
+	//infoBar->update();
 	//deleteObjs.clear();
 }
 
@@ -83,9 +96,9 @@ void PlayState::render() const
 {
 	SDL_RenderClear(game->getRenderer());
 	game->getTexture(stars)->render(); // el fondo!!!!!! :-)
-	for (const auto& i : sceneObjs) // los objetos
+	for (const auto& i : gameObjects) // los objetos
 		i.render();
-	infoBar->render();
+	//infoBar->render();
 	SDL_RenderPresent(game->getRenderer());
 }
 
@@ -98,8 +111,10 @@ void PlayState::render() const
 ///	y de salida 
 void PlayState::handleEvent(const SDL_Event& event)
 {
+	for (auto i : eventHandlers)
+		i->handleEvent(event);
 	//SDL_PollEvent(&event) && 
-	while (!exit)
+	/*while (!exit)
 	{
 		SDL_Keycode key = event.key.keysym.sym;
 		if (event.type == SDL_QUIT) exit = true;
@@ -142,7 +157,7 @@ void PlayState::handleEvent(const SDL_Event& event)
 		}
 		else if (cannon != nullptr) 
 			cannon->handleEvent(event);
-	}
+	}*/
 }
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
@@ -164,12 +179,12 @@ void PlayState::exampleInit() {
 			position = Point2D<>((texture->getFrameWidth() + 3) * j + 130,
 			                     (texture->getFrameHeight() + 3) * i + 32);
 			//+130 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			/*if (type == 0) 
-				object = new ShooterAlien(position, type, texture, game, mothership);
+			if (type == 0) 
+				object = new Alien (position, type, texture, this, mothership);
 			else 
-				object = new Alien(position, type, texture, game, mothership);*/
-
-			//addSceneObject(object);
+				object = new Alien(position, type, texture, this, mothership);
+			addGameObject(object);
+			addSceneObject(object);
 			mothership->addAlienCount();
 		}
 	}
@@ -181,6 +196,7 @@ void PlayState::exampleInit() {
 		position = Point2D<>(WIN_WIDTH * i / 5 - texture->getFrameWidth() / 2,
 		                     WIN_HEIGHT - WIN_HEIGHT / 4.0 - texture->getFrameHeight());
 		object = new Bunker(position, 4, texture, this);
+		addGameObject(object);
 		addSceneObject(object);
 	}
 
@@ -190,12 +206,15 @@ void PlayState::exampleInit() {
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
 	cannon = new Cannon(position, texture, this, 3);
 	object = cannon;
+	addGameObject(object);
 	addSceneObject(object);
+	addEventListener(cannon);
 
 	// el ufo (IMPORTANTE: puede haber varios)
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
 	texture = game->getTexture(ufos);
 	object = new Ufo(position, texture, this, false, visible);
+				addGameObject(object);
 	addSceneObject(object);
 }
 

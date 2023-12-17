@@ -38,7 +38,7 @@ protected:
 	void readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-    PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) {}
+	PlayState(Game* game);
 	//~PlayState();
 	//void addEventListener() override;
 	void addSceneObject(SceneObject* object);
@@ -53,7 +53,7 @@ public:
     }
 	void endGame()
 	{
-		exit = true;
+		game->exitGame();
 	}
 	void addScore(const int value)
 	{

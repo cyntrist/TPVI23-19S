@@ -8,7 +8,7 @@ class Game;
 constexpr int SHOOT_TIMER = 10, // duracion del cooldown 
 			  INVENCIBILITY_TIMER = 300; // duracion de la invencibilidad
 
-class Cannon : public SceneObject
+class Cannon : public SceneObject, public EventHandler
 {
 private:
 	int movement; // direccion de movimiento
@@ -19,7 +19,7 @@ public:
 	Cannon() = default;
 	Cannon(const Point2D<>& position, Texture* texture, PlayState* playState, int lives);
 	Cannon(const Point2D<>& position, Texture* texture, PlayState* playState, int lives, int shootTimer);
-	void handleEvent(const SDL_Event& event);
+	void handleEvent(const SDL_Event& event) override;
 	void update() override;
 	void save(std::ostream& os) const override;
 	bool hit(const SDL_Rect* otherRect, char friendly) override;

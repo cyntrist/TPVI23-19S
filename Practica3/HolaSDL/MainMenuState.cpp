@@ -13,8 +13,8 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 	addEventListener(newGameBtn);
 	newGameBtn->Connect([this](const SDL_Event& arg)
 		{
-			PauseState* pause = new PauseState(game); //sustituir todo esto por lo que sea que haga el boton
-			game->getStateMachine()->pushState(pause);
+			PlayState* play = new PlayState(game); //sustituir todo esto por lo que sea que haga el boton
+			game->getStateMachine()->pushState(play);
 		});
 	auto* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
 	addGameObject(continueGameBtn);
