@@ -6,11 +6,11 @@
 #include "InfoBar.h"
 #include <array>
 #include <random>
-
 #include "Game.h"
 class SceneObject;
 class Mothership;
 class Cannon;
+class Alien;
 using uint = unsigned int;
 
 constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
@@ -25,7 +25,7 @@ constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del 
 class PlayState : public GameState
 {
 protected:
-    GameList<SceneObject> sceneObjs;
+    GameList<SceneObject, true> sceneObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
 	Cannon* cannon;
@@ -47,7 +47,7 @@ public:
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(const GameList<SceneObject>::anchor& anchor)
+	void hasDied(const GameList<SceneObject, true>::anchor& anchor)
     {
 		//sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }

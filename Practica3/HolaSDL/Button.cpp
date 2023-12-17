@@ -9,14 +9,17 @@ Button::Button(Vector2D<>position, Texture* texture) : GameObject(), position(po
 
 void Button::render() const
 {
-	//GameObject::render(); // use the base class drawing
-	SDL_Rect rect = { position.getX(), position.getY(), texture->getFrameWidth(), texture->getFrameHeight() };
+	SDL_Rect rect = {
+		position.getX(),
+		position.getY(),
+		texture->getFrameWidth(),
+		texture->getFrameHeight()
+	};
 	texture->render(rect);
 }
 
 void Button::update() 
 {
-
 	//Vector2D mousePos; //TheInputHandler::Instance()->getMousePosition(); <-- deberiamos hacer un singleton como este?? XD
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
