@@ -18,7 +18,6 @@ void GameStateMachine::popState()
 	{
 		if(stateStack.top()->onExit())
 		{
-			delete stateStack.top();
 			stateStack.pop();
 		}
 	}
@@ -32,7 +31,6 @@ void GameStateMachine::replaceState(GameState *state)
 			return; // si se va a reemplazar con si mismo, no hace nada (vuelve)
 		if (stateStack.top()->onExit())
 		{ // si el estado actual sale
-			delete stateStack.top(); // lo borra
 			stateStack.pop(); // lo borra de la pila
 		}
 	}
