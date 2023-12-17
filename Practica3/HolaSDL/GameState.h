@@ -19,7 +19,7 @@ protected:
 public:
     GameState() = default;
     GameState(Game* game, const std::string& stateID) : game(game), stateID(stateID) {}
-    virtual ~GameState() = default;
+    //virtual ~GameState() = default;
     virtual void update() = 0;
     virtual void render() const = 0;
     virtual void handleEvent(const SDL_Event&) {}

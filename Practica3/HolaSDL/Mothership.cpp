@@ -1,6 +1,5 @@
 #include "checkML.h"
 #include "Mothership.h"
-#include "Alien.h"
 #include "PlayState.h"
 
 Mothership::Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer)
@@ -36,7 +35,7 @@ void Mothership::update()
 }
 
 /// metodo para comprobar si el alien en concreto ha aterrizado
-void Mothership::alienLanded(const Alien* alien) const
+void Mothership::alienLanded(Alien* alien) const
 {
 	if (alien->getPosition().getY() >= WIN_HEIGHT*3/4)
 		haveLanded();

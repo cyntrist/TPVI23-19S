@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Vector2D.h"
-class Alien;
+#include "Alien.h"
 //enum states {}; // no hemos usado un enum ciclico al final
 
 class Mothership : public GameObject
@@ -11,7 +11,7 @@ class Mothership : public GameObject
 	// int state; no hemos usado un enum ciclico al final
 	int level; // nivel de bajada de los aliens
 	int movementTimer; // temporizador de movimento de los aliens
-	bool switchDir; // si ha de cambiar la direccion
+	bool switchDir = false; // si ha de cambiar la direccion
 
 public:
 	Mothership() = default;
@@ -22,7 +22,7 @@ public:
 	bool shouldMove() const;
 	void cannotMove();
 	void alienDied() { alienCount--; }
-	void alienLanded(const Alien* alien) const;
+	void alienLanded(Alien* alien) const;
 	void haveLanded() const;
 	void resetLevel() { level = 0; }
 	// getters

@@ -1,5 +1,6 @@
 #include "ShooterAlien.h"
 #include "Game.h"
+#include "Laser.h"
 #include "PlayState.h"
 
 ShooterAlien::ShooterAlien(const Point2D<>& position, int type, Texture* texture, PlayState* playState, Mothership* mothership)

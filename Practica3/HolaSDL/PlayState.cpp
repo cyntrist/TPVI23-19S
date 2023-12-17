@@ -1,4 +1,5 @@
 #include "checkML.h"
+#include "Mothership.h"
 #include "PlayState.h"
 #include <fstream>
 #include <filesystem>
@@ -8,7 +9,6 @@
 #include "Alien.h"
 #include "Bunker.h"
 #include "ShooterAlien.h"
-#include "Mothership.h"
 #include "Ufo.h"
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
@@ -21,10 +21,12 @@ using namespace std;
 PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
 {
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
+	emptyLists();
 	exampleInit();
 	startTime = SDL_GetTicks();
+	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
+	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
 }
-
 
 PlayState::~PlayState()
 {
@@ -33,18 +35,13 @@ PlayState::~PlayState()
 	
 }
 
-
 /// GAME LOGIC BLOCK:
 /// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
 /// con llamadas a los metodos principales, gestiona el framerate y tras acabar el bucle ppal
 /// la puntuacion por consola*/
 void PlayState::run()
 { 
-	/*infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
-	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
-	mothership = new Mothership(1, 0, 0, 0, this, 0);
-	//exampleInit(); //ejemplo de 4x11
-	emptyLists();
+	/*
     readData("map" + std::to_string(mapLevel), game, true);
 	startTime = SDL_GetTicks();
 	while (!exit)
@@ -100,7 +97,7 @@ void PlayState::render() const
 	game->getTexture(stars)->render(); // el fondo!!!!!! :-)
 	for (const auto& i : gameObjects) // los objetos
 		i.render();
-	//infoBar->render();
+	infoBar->render();
 }
 
 /// INPUT BLOCK

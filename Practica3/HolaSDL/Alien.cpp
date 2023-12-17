@@ -1,6 +1,5 @@
 #include "checkML.h"
 #include "Alien.h"
-#include "Game.h"
 #include "Mothership.h"
 #include "PlayState.h"
 Alien::Alien(const Point2D<>& position, int type, Texture* texture, PlayState* playState, Mothership* mothership)
