@@ -5,7 +5,7 @@
 #include "Vector2D.h"
 class Mothership;
 class Game;
-
+class PlayState;
 using uint = unsigned int;
 
 class Alien : public SceneObject

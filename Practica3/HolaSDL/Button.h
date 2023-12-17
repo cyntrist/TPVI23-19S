@@ -20,15 +20,15 @@ enum button_state
 class Button : public GameObject, public EventHandler
 {
 protected:
-	Vector2D<> position; // creo que deberia heredar de sceneobject, pero si el enunciado dice que no..
+	Vector2D<> position;
     Texture* texture;
 	button_state buttonPos;
 	// callback(s)
 	std::list<SDLCallback> callbacks;
 
 public:
-	Button(Vector2D<> position, Texture* texture); //= default;
-	//Button(...);
+	Button() = default;
+	Button(Vector2D<> position, Texture* texture);
 	void render() const override;
 	void update() override;
 	void save(std::ostream& os) const override {}
