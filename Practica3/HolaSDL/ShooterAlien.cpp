@@ -33,7 +33,6 @@ void ShooterAlien::update()
 		Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() + texture->getFrameHeight());
 		Vector2D<> speed(0, 0.5 * LASER_MOV_SPEED);
 		auto* laser = new Laser(pos, speed, 'b', playState);
-		playState->addGameObject(laser);
 		playState->addSceneObject(laser);
 	}
 	Alien::update();
