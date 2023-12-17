@@ -21,7 +21,7 @@ using namespace std;
 PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
 {
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
-	emptyLists();
+	//emptyLists();
 	exampleInit();
 	startTime = SDL_GetTicks();
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
@@ -29,12 +29,10 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	addGameObject(infoBar);
 }
 
-PlayState::~PlayState()
-{
-	delete mothership;
-	delete infoBar;
-	GameState::~GameState();
-}
+//PlayState::~PlayState()
+//{
+//	GameState::~GameState();
+//}
 
 /// GAME LOGIC BLOCK:
 /// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
@@ -246,13 +244,13 @@ void PlayState::addSceneObject(SceneObject* object)
 void PlayState::emptyLists()
 {
 	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	for (auto i : sceneObjs)
-		sceneObjs.erase(i.getSceneObjsAnchor());
+	//for (auto i : sceneObjs)
+		//sceneObjs.erase(i.getSceneObjsAnchor());
 	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
 	*/
-	sceneObjs.clear();
+	//sceneObjs.clear();
 	//deleteObjs.clear();
 }
 

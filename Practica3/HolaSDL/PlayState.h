@@ -25,7 +25,7 @@ constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del 
 class PlayState : public GameState
 {
 protected:
-    GameList<SceneObject, true> sceneObjs;
+    GameList<SceneObject> sceneObjs;
 	InfoBar* infoBar;
 	Mothership* mothership;
 	Cannon* cannon;
@@ -39,7 +39,7 @@ protected:
 	void saveData(const std::string& saveFileName) const;
 public:
 	PlayState(Game* game);
-	~PlayState();
+	//~PlayState() override;
 	//void addEventListener() override;
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
@@ -47,7 +47,7 @@ public:
 	void update() override;
 	void run();
 	int getRandomRange(int min, int max);
-	void hasDied(const GameList<SceneObject, true>::anchor& anchor)
+	void hasDied(const GameList<SceneObject>::anchor& anchor)
     {
 		//sceneObjs.erase(anchor); // vamos a probar si funciona asi
     }

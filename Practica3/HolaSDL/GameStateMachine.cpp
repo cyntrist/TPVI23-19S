@@ -2,8 +2,8 @@
 
 GameStateMachine::~GameStateMachine()
 { // si uso el default no borra nada por algun motivo
-    for (int i = 0; i < stateStack.size(); i++)
-        popState();
+	while (!stateStack.empty())
+		popState();
 }
 
 void GameStateMachine::pushState(GameState* state) 

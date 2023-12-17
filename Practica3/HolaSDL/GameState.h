@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
 #include "gameList.h"
-#include "GameObject.h"
 #include "EventHandler.h"
 #include <list>
 #include <SDL_events.h>
 class Game;
-class GameObject;
+#include "GameObject.h"
 class GameState
 {
 protected:
@@ -19,9 +18,13 @@ protected:
 public:
     GameState() = default;
     GameState(Game* game, const std::string& stateID) : game(game), stateID(stateID) {}
-    //virtual ~GameState() = default;
+    virtual ~GameState() = default;
     virtual void update() = 0;
-    virtual void render() const = 0;
+    virtual void render() const
+    {
+    	for (auto& i : gameObjects) // los objetos
+			i.render();
+    }
     virtual void handleEvent(const SDL_Event&) {}
     virtual void addEventListener(EventHandler* eventHandler)
     {

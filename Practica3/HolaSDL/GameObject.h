@@ -1,8 +1,8 @@
 #pragma once
 #include <ostream>
-#include "GameState.h"
 class Game;
 class GameState;
+#include "GameList.h"
 class GameObject
 {
 protected:
