@@ -31,6 +31,7 @@ void Laser::render() const
 	if (color == FRIENDLY_CHAR)
 		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	SDL_RenderFillRect(renderer, &rect);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
 /// metodo para guardar sus datos en el stream proporcionado
