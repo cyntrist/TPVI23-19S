@@ -26,6 +26,7 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	startTime = SDL_GetTicks();
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
+	addGameObject(infoBar);
 }
 
 PlayState::~PlayState()
@@ -95,9 +96,7 @@ void PlayState::update()
 void PlayState::render() const
 {
 	game->getTexture(stars)->render(); // el fondo!!!!!! :-)
-	for (const auto& i : gameObjects) // los objetos
-		i.render();
-	infoBar->render();
+	GameState::render();
 }
 
 /// INPUT BLOCK
@@ -188,7 +187,6 @@ void PlayState::exampleInit() {
 				object = new ShooterAlien (position, type, texture, this, mothership);
 			else 
 				object = new Alien(position, type, texture, this, mothership);
-			addGameObject(object);
 			addSceneObject(object);
 			mothership->addAlienCount();
 		}
@@ -201,7 +199,6 @@ void PlayState::exampleInit() {
 		position = Point2D<>(WIN_WIDTH * i / 5 - texture->getFrameWidth() / 2,
 		                     WIN_HEIGHT - WIN_HEIGHT / 4.0 - texture->getFrameHeight());
 		object = new Bunker(position, 4, texture, this);
-		addGameObject(object);
 		addSceneObject(object);
 	}
 
@@ -211,7 +208,6 @@ void PlayState::exampleInit() {
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
 	cannon = new Cannon(position, texture, this, 3);
 	object = cannon;
-	addGameObject(object);
 	addSceneObject(object);
 	addEventListener(cannon);
 
@@ -219,7 +215,6 @@ void PlayState::exampleInit() {
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
 	texture = game->getTexture(ufos);
 	object = new Ufo(position, texture, this, false, visible);
-    addGameObject(object);
 	addSceneObject(object);
 }
 
@@ -241,6 +236,7 @@ void PlayState::saveData(const std::string& saveFileName) const {
 ///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectangulo inicialmente
 void PlayState::addSceneObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
+	addGameObject(object);
 	sceneObjs.push_back(object);
 	object->updateRect();
 }
