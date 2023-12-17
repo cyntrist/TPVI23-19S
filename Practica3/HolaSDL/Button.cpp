@@ -3,9 +3,7 @@
 #include "Vector2D.h"
 
 Button::Button(Vector2D<>position, Texture* texture) : GameObject(), position(position), texture(texture)
-{
-	//m_currentFrame = MOUSE_OUT; // start at frame 0 /// Nuestros botones no tienen hover ni nada asi que no hace falta esto creo
-}
+{ }
 
 void Button::render() const
 {
@@ -42,7 +40,7 @@ void Button::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		if (buttonPos == MOUSE_OVER) {
-			for (const SDLCallback& buttonCallback : callbacks)
+			for (SDLCallback& buttonCallback : callbacks)
 				buttonCallback(event);
 		}
 	}

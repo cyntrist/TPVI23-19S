@@ -19,13 +19,21 @@ public:
     GameState() = default;
     GameState(Game* game, const std::string& stateID) : game(game), stateID(stateID) {}
     virtual ~GameState() = default;
-    virtual void update() = 0;
-    virtual void render() const
+    virtual void update()
     {
     	for (auto& i : gameObjects) // los objetos
+			i.update();
+    }
+    virtual void render() const
+    {
+    	for (const auto& i : gameObjects) // los objetos
 			i.render();
     }
-    virtual void handleEvent(const SDL_Event&) {}
+    virtual void handleEvent(const SDL_Event& event)
+    {
+	    for (EventHandler* i : eventHandlers)
+			i->handleEvent(event);
+    }
     virtual void addEventListener(EventHandler* eventHandler)
     {
         eventHandlers.push_back(eventHandler);

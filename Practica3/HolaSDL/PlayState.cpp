@@ -30,11 +30,6 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	addGameObject(mothership);
 }
 
-//PlayState::~PlayState()
-//{
-//	GameState::~GameState();
-//}
-
 /// GAME LOGIC BLOCK:
 /// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
 /// con llamadas a los metodos principales, gestiona el framerate y tras acabar el bucle ppal

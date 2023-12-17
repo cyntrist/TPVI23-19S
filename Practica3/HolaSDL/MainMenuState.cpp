@@ -32,11 +32,6 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 			game->exitGame();
 		});
 }
-void MainMenuState::update()
-{
-	for (GameObject& i : gameObjects) //no se si el tipo de esto esta bien, pero funciona
-		i.update();
-}
 
 void MainMenuState::render() const
 {
