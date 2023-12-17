@@ -78,6 +78,7 @@ void PlayState::update()
 		mothership->update();
 		for (auto& i : gameObjects)
 			i.update();
+		startTime = SDL_GetTicks();
 	}
 
 	/*
@@ -180,7 +181,7 @@ void PlayState::exampleInit() {
 			                     (texture->getFrameHeight() + 3) * i + 32);
 			//+130 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
 			if (type == 0) 
-				object = new Alien (position, type, texture, this, mothership);
+				object = new ShooterAlien (position, type, texture, this, mothership);
 			else 
 				object = new Alien(position, type, texture, this, mothership);
 			addGameObject(object);
@@ -214,7 +215,7 @@ void PlayState::exampleInit() {
 	position = Point2D<>(WIN_WIDTH, WIN_HEIGHT / 2);
 	texture = game->getTexture(ufos);
 	object = new Ufo(position, texture, this, false, visible);
-				addGameObject(object);
+    addGameObject(object);
 	addSceneObject(object);
 }
 

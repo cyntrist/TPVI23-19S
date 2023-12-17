@@ -72,8 +72,8 @@ void Cannon::handleEvent(const SDL_Event& event)
 			Point2D<> pos(position.getX() + (texture->getFrameWidth() - LASER_WIDTH) / 2, position.getY() - texture->getFrameHeight());
 			Vector2D speed(0, -LASER_MOV_SPEED);
 			auto* laser = new Laser(pos, speed, 'r', playState);
-			playState->addSceneObject(laser);
 			playState->addGameObject(laser);
+			playState->addSceneObject(laser);
 			shootTimer = SHOOT_TIMER; // se resetea el timer a 0
 		}
 	}
