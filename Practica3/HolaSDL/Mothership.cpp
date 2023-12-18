@@ -2,6 +2,8 @@
 #include "Mothership.h"
 #include "PlayState.h"
 
+constexpr int ALIEN_REFRESH_RATE = 30;
+
 Mothership::Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer)
 : GameObject(gameState), direction(direction), alienCount(alienCount), level(level), movementTimer(movementTimer) { }
 

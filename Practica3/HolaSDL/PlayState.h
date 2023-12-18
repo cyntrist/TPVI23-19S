@@ -13,8 +13,7 @@ class Cannon;
 class Alien;
 using uint = unsigned int;
 
-constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del juego queremos que se ejecute el update de los aliens
-				INFOBAR_PADDING = 10, // espacio entre iconos del infobar
+constexpr int	INFOBAR_PADDING = 10, // espacio entre iconos del infobar
 				LEVEL_NUMBER = 4, // cantidad de niveles de juego que hay
 				// MOVEMENT SPEEDS
 				ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
