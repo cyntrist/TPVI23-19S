@@ -15,9 +15,7 @@ void Bunker::render() const
 
 /// avisa a game si ha de ser destruido cuando no le quedan vidas
 void Bunker::update() {
-	if (lives <= 0)
-		hasDied();
-	updateRect();
+	SceneObject::update(); // no hace falta que tenga su propio metodo pero lo dejo por si lo necesitamos 
 }
 
 /// metodo para guardar sus datos en el stream proporcionado
