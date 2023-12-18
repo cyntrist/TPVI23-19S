@@ -45,7 +45,7 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 		}
 		else if (chance == 1)
 		{ // genera reward
-			// ...
+			// ... jiji
 		}
 		return true;
 	} 
