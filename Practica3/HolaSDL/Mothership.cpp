@@ -14,7 +14,6 @@ bool Mothership::shouldMove() const {
 void Mothership::cannotMove() {
 	if (!switchDir)
 	{
-		std::cout << "CANNOT MOVE" << std::endl;
 		switchDir = true;
 		level++;
 	}

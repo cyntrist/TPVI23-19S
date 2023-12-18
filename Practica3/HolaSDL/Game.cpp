@@ -79,7 +79,6 @@ void Game::run()
 		handleEvents();
 		SDL_RenderPresent(renderer);
 	}
-	stateMachine->replaceState(new EndState(this));
 }
 
 void Game::handleEvents()
