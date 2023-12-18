@@ -6,6 +6,7 @@ class GameStateMachine
 {
 protected:
     std::stack<GameState*> stateStack;
+    std::list<GameState*> deleteList;
 public:
     GameStateMachine() = default;
     ~GameStateMachine();
