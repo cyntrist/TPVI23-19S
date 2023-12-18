@@ -15,10 +15,26 @@ const std::string TEXTURE_ROOT = "..\\images\\",
 			  SAVE_FILE_ROOT = "..\\";
 enum TextureName
 {
-	stars, spaceship, bunker, aliens, ufos, bomb, shield, shield_reward,
-	btn_cargar, btn_continuar, btn_guardar, btn_nueva, btn_salir, btn_volver,
-	codigo, game_over, has_ganado, menu
+	stars,
+	spaceship,
+	bunker,
+	aliens,
+	ufos,
+	bomb,
+	shield,
+	shield_reward,
+	btn_cargar,
+	btn_continuar,
+	btn_guardar,
+	btn_nueva,
+	btn_salir,
+	btn_volver,
+	codigo,
+	game_over,
+	has_ganado,
+	menu
 };
+
 class Game {
 private:
 	SDL_Window* window = nullptr;

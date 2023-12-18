@@ -43,7 +43,6 @@ bool Alien::hit(const SDL_Rect* otherRect, char friendly){
 		playState->addScore(score);
 		mothership->alienDied();
 		hasDied();
-		std::cout << mothership->getAlienCount() << std::endl;
 		return true;
 	}
 	return false;

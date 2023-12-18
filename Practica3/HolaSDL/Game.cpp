@@ -91,13 +91,6 @@ void Game::handleEvents()
 			exit = true;
 		else
 		{
-			/*if (event.type == SDL_KEYDOWN && key == SDLK_s) // en vez de esto, listeners?
-			{
-				if (stateMachine->getStateID() == "MENU")
-					stateMachine->replaceState(new PauseState(this));
-				else
-					stateMachine->replaceState(new MainMenuState(this));
-			}*/
 			stateMachine->handleEvent(event);
 		}
 		/* VERSION ANTIGUA:

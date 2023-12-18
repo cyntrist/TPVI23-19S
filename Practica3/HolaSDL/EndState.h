@@ -6,6 +6,6 @@ class EndState : public GameState
 {
 public:
 	EndState(Game* game);
-    virtual void render() const {};
+    virtual void render() const;
 };
 

@@ -50,9 +50,3 @@ void PauseState::render() const
 	game->getTexture(stars)->render();
 	GameState::render();
 }
-
-//void PauseState::handleEvent(const SDL_Event& event)
-//{
-//	for (EventHandler* i : eventHandlers)
-//		i->handleEvent(event);
-//}

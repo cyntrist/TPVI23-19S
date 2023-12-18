@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "SceneObject.h"
 #include "Cannon.h"
+#include "EndState.h"
 #include "PauseState.h"
 using namespace std;
 
@@ -24,8 +25,7 @@ PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
-	emptyLists();
-	if (!readData("map" + std::to_string(mapLevel), game, true))
+	//if (!readData("map" + std::to_string(mapLevel), game, true))
 		exampleInit();
 
 	addGameObject(infoBar);
@@ -49,11 +49,10 @@ void PlayState::update()
 		{
 			mapLevel = mapLevel % LEVEL_NUMBER;
 			game->getStateMachine()->replaceState(new PlayState(game)); // vamos a ver si esto es una manera inteligente de resetearlo
-			/* Version antigua:
-			emptyLists();
-			mothership->resetLevel();
-			readData("map" + std::to_string(++mapLevel), game, true); */
 		}
+
+		if (cannon->getLives() <= 0)
+			game->getStateMachine()->replaceState(new EndState(game)); // vamos a ver si esto es una manera inteligente de resetearlo
 	}
 }
 
@@ -78,52 +77,6 @@ void PlayState::handleEvent(const SDL_Event& event)
 	SDL_Keycode key = event.key.keysym.sym;
     if (event.type == SDL_KEYDOWN && (key == SDLK_ESCAPE))
 		game->getStateMachine()->pushState(new PauseState(game));
-
-	//SDL_PollEvent(&event) && 
-	/*while (!exit)
-	{
-		SDL_Keycode key = event.key.keysym.sym;
-		if (event.type == SDL_QUIT) exit = true;
-		else if (event.type == SDL_KEYDOWN && (key == SDLK_s || key == SDLK_l ||key == SDLK_m))
-		{
-			if (key == SDLK_s) // guardar
-			{
-				std::cout << "Input save slot to save to: " << std::endl;
-				char k;
-				std::cin >> k;
-				if (isdigit(k))
-				{
-					saveData("save" + std::to_string(k - '0'));
-					endGame();
-					std::cout << "Saved game." << std::endl;
-				}
-				else std::cout << "Invalid number, resuming game." << std::endl;
-			}
-			else if (key == SDLK_l)
-			{
-				std::cout << "Input save slot to load: " << std::endl;
-				char k;
-				std::cin >> k;
-				if (isdigit(k))
-				{
-					emptyLists();
-					readData("save" + std::to_string(k - '0'), game, false);
-					std::cout << "Loaded game." << std::endl;
-				}
-				else std::cout << "Invalid number, resuming game." << std::endl;
-			}
-			else if (key == SDLK_m)
-			{
-				cout << "Map name: ";
-				std::string mapName;
-				cin >> mapName;
-				emptyLists();
-				readData(mapName, game, true);
-			}
-		}
-		else if (cannon != nullptr) 
-			cannon->handleEvent(event);
-	}*/
 }
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
@@ -167,7 +120,7 @@ void PlayState::exampleInit() {
 	texture = game->getTexture(spaceship);
 	position = Point2D<>(WIN_WIDTH / 2 - texture->getFrameWidth() / 2,
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
-	cannon = new Cannon(position, texture, this, 3);
+	cannon = new Cannon(position, texture, this, 1);
 	object = cannon;
 	addSceneObject(object);
 	addEventListener(cannon);

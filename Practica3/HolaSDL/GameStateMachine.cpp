@@ -60,8 +60,4 @@ void GameStateMachine::handleEvent(const SDL_Event& event)
 {
 	if (!stateStack.empty())
 		stateStack.top()->handleEvent(event);
-	//while (!deleteList.empty()) {
-	//	delete deleteList.back();
-	//	deleteList.pop_back();
-	//}
 }

@@ -23,18 +23,13 @@ Cannon::Cannon(const Point2D<>& _position, Texture* _texture, PlayState* _playSt
 ///	tambien contempla si es invencible y rebaja su temporizador, ademas del de disparo
 void Cannon::update()
 {
-	if (lives <= 0) {
-		gameState->hasDied(anchor);
-		playState->hasDied(sceneObjsAnchor);
-		playState->endGame(); //asumo que solo va a haber un cannon
-	}
+	SceneObject::update();
 
 	position = position + Vector2D(CANNON_MOV_SPEED * movement, 0);
 	if (position.getX() < 0)
 		position = Point2D<>(0, position.getY());
 	if (position.getX() > WIN_WIDTH - texture->getFrameWidth())
 		position  = Vector2D<>(WIN_WIDTH - texture->getFrameWidth(), position.getY());
-	updateRect();
 
 	if (shootTimer > 0)
 		shootTimer--;
@@ -52,10 +47,7 @@ void Cannon::update()
 			invincibleTimer--;
 		}
 	}
-	else
-	{
-		SDL_SetTextureColorMod(texture->getTexture(), 255, 255, 255);
-	}
+	else SDL_SetTextureColorMod(texture->getTexture(), 255, 255, 255);
 }
 
 /// gestiona el movimiento lateral y el disparo segun las teclas pulsadas
