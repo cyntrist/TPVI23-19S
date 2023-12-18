@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "PlayState.h"
 #include "Cannon.h"
+#include "Reward.h"
 
 Ufo::Ufo(Point2D<> p, Texture* t, PlayState* ps, bool d, int s)
 	: SceneObject(p, 1, t, ps)
@@ -34,18 +35,18 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
 		playState->addScore(SCORE_POINTS);
-		playState->getCannon()->setInvincible(true);
+		//playState->getCannon()->setInvincible(true); //supongo que esto no hace falta porque ya esta la reward
 		lives--;
 
 		// generacion de reward o bomba
-		int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
+		int chance = playState->getRandomRange(1, 1); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
 		if (chance == 0)
 		{ // genera bomba
-			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState));
+			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState)); //al darle al ufo y spawnearse la bomba, el laser colisiona con la bomba antes de ser destruido y le resta una vida a la bomba instantaneamente pero tampoco es que haya tiempo para ponerse a arreglar estos detalles cuando hay cosas mas importantes aun
 		}
 		else if (chance == 1)
 		{ // genera reward
-			// ... jiji
+			playState->addSceneObject(new Reward(position, playState->getGame()->getTexture(shield_reward), playState));
 		}
 		return true;
 	} 

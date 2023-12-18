@@ -15,7 +15,7 @@ void Bomb::update()
 	position = Vector2D<>(position.getX(), position.getY() + BOMB_MOV_SPEED);
 	SceneObject::update();
 	if (playState->damage(getRect(), FRIENDLY_CHAR) || lives <= 0 || position.getY()  < 0 || position.getY() > WIN_HEIGHT)
-		hasDied();
+ 		hasDied();
 }
 
 bool Bomb::hit(const SDL_Rect* otherRect, char friendly)
