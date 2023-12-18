@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <string>
+
+#include "EndState.h"
 #include "Laser.h"
 #include "MainMenuState.h"
 #include "PauseState.h"
@@ -77,6 +79,7 @@ void Game::run()
 		handleEvents();
 		SDL_RenderPresent(renderer);
 	}
+	stateMachine->replaceState(new EndState(this));
 }
 
 void Game::handleEvents()

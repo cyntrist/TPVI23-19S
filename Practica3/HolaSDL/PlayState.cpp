@@ -69,10 +69,9 @@ void PlayState::update()
 	frameTime = SDL_GetTicks() - startTime;
 	if (frameTime > TIME_BETWEEN_FRAMES)
 	{
-		mothership->update();
+		GameState::update();
 		infoBar->setPoints(playerPoints);
 		infoBar->setLives(cannon->getLives());
-		GameState::update();
 		startTime = SDL_GetTicks();
 	}
 }
@@ -203,7 +202,7 @@ void PlayState::exampleInit() {
 }
 
 /// DATA MANAGEMENT BLOCK:
-///	invoca el método save() de cada objeto y guarda en el stream que se le proporciona sus datos
+///	invoca el metodo save() de cada objeto y guarda en el stream que se le proporciona sus datos
 void PlayState::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())

@@ -5,8 +5,7 @@
 class EndState : public GameState
 {
 public:
-	EndState(Game* game) : GameState(game, "END") {}
-	virtual void update() {};
+	EndState(Game* game);
     virtual void render() const {};
 };
 
