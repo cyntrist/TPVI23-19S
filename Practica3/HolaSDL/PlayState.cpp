@@ -63,8 +63,11 @@ void PlayState::update()
 		
 		if (mothership->getAlienCount() <= 0)
 		{
-			mapLevel = mapLevel % LEVEL_NUMBER;
-			game->getStateMachine()->replaceState(new PlayState(game, mapLevel++, 1)); // vamos a ver si esto es una manera inteligente de resetearlo
+			if (mapLevel < LEVEL_NUMBER)
+				mapLevel++;
+			else
+				mapLevel = 1;
+			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, 0)); // vamos a ver si esto es una manera inteligente de resetearlo
 		}
 
 		if (cannon->getLives() <= 0)
