@@ -6,6 +6,7 @@ Alien::Alien(const Point2D<>& position, int type, Texture* texture, PlayState* p
 	: SceneObject(position, 1, texture, playState), type(type), mothership(mothership)
 {
 	descent = position.getY();
+	mothership->addAlienCount();
 }
 
 void Alien::render() const

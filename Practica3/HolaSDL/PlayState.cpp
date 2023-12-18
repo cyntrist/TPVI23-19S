@@ -173,7 +173,6 @@ void PlayState::exampleInit() {
 			else 
 				object = new Alien(position, type, texture, this, mothership);
 			addSceneObject(object);
-			mothership->addAlienCount();
 		}
 	}
 
@@ -296,7 +295,6 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> type;
 			position = Point2D<>(x, y);
 			object = new Alien(position, type, game->getTexture(aliens), this, mothership);
-			mothership->addAlienCount();
 			alienCount++;
 			break;
 		case 2: // shooter alien
@@ -304,7 +302,6 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
 			object = new ShooterAlien(position, type, game->getTexture(aliens), this, mothership, timer);
-			mothership->addAlienCount();
 			alienCount++;
 			break;
 		case 3: // mothership
