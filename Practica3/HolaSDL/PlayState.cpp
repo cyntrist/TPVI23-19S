@@ -70,20 +70,11 @@ void PlayState::update()
 	if (frameTime > TIME_BETWEEN_FRAMES)
 	{
 		mothership->update();
+		infoBar->setPoints(playerPoints);
 		for (auto& i : gameObjects)
 			i.update();
 		startTime = SDL_GetTicks();
 	}
-
-	/*
-	for (auto i : deleteObjs)
-	{
-		sceneObjs.erase(i.getIterator());
-		delete i;
-	}
-	*/
-	//infoBar->update();
-	//deleteObjs.clear();
 }
 
 /// le aplica al renderer el fondo, la textura de cada objeto de escena y el infobar, y lo presenta en pantalla
@@ -160,7 +151,7 @@ void PlayState::handleEvent(const SDL_Event& event)
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
 void PlayState::exampleInit() {
-	auto it = sceneObjs.begin();
+	auto it = sceneObjects.begin();
 	Point2D<> position;
 	SceneObject* object;
 	Texture* texture;
@@ -218,7 +209,7 @@ void PlayState::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
 		throw FileNotFoundError("Could not read the save file called "s + saveFileName);
-	for (auto i : sceneObjs)
+	for (auto i : sceneObjects)
 		i.save(out);
 	out << "7 " << playerPoints << endl;
 	out.close();
@@ -231,7 +222,7 @@ void PlayState::saveData(const std::string& saveFileName) const {
 void PlayState::addSceneObject(SceneObject* object)
 { // método para simplificar las inicializaciones del tablero
 	addGameObject(object);
-	sceneObjs.push_back(object);
+	sceneObjects.push_back(object);
 	object->updateRect();
 }
 
@@ -239,14 +230,14 @@ void PlayState::addSceneObject(SceneObject* object)
 /// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
 void PlayState::emptyLists()
 {
-	//for (auto it = sceneObjs.begin(); it != sceneObjs.end(); ++it)
-	//for (auto i : sceneObjs)
-		//sceneObjs.erase(i.getSceneObjsAnchor());
+	//for (auto it = sceneObjects.begin(); it != sceneObjects.end(); ++it)
+	//for (auto i : sceneObjects)
+		//sceneObjects.erase(i.getSceneObjsAnchor());
 	/*
 	for (auto i : deleteObjs)
 		deleteObjs.erase(i.getIterator());
 	*/
-	//sceneObjs.clear();
+	//sceneObjects.clear();
 	//deleteObjs.clear();
 }
 
@@ -255,8 +246,8 @@ void PlayState::emptyLists()
 /// correspondientes
 bool PlayState::damage(SDL_Rect* rect, char friendly) const 
 {
-	//std::any_of(sceneObjs.begin(), sceneObjs.end(),);
-	for (auto& i : sceneObjs)
+	//std::any_of(sceneObjects.begin(), sceneObjects.end(),);
+	for (auto& i : sceneObjects)
 		if (i.hit(rect, friendly))
 			return true;
 	return false;
@@ -281,7 +272,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	if (in.peek() == std::ifstream::traits_type::eof())
 		throw FileFormatError("Empty data file: "s + fileroot);
 
-	auto it = sceneObjs.begin();
+	auto it = sceneObjects.begin();
 	int read, x, y, lives, timer, type, state, level;
 	int alienCount = 0;
 	char color;

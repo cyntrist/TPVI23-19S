@@ -25,6 +25,10 @@ public:
 	InfoBar() = default;
 	InfoBar(const Point2D<>& position, Texture* texture, int padding, GameState* gameState, SDL_Renderer* renderer);
 	void render() const override;
-	void update() override; 
+	void update() override {};
+	void setPoints(int value) {
+		points = value;
+	}
 	void save(std::ostream& os) const override {}
+
 };

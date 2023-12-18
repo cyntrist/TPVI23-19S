@@ -36,9 +36,3 @@ void InfoBar::render() const
 	SDL_FreeSurface(textSurface);
 	SDL_DestroyTexture(scoreTexture);
 }
-
-/// actualiza el score
-void InfoBar::update()
-{
-	//points = gameState->getScore();
-}

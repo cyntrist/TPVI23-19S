@@ -25,7 +25,7 @@ constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del 
 class PlayState : public GameState
 {
 protected:
-    GameList<SceneObject> sceneObjs;
+    GameList<SceneObject> sceneObjects;
 	InfoBar* infoBar;
 	Mothership* mothership;
 	Cannon* cannon;
@@ -49,7 +49,7 @@ public:
 	int getRandomRange(int min, int max);
 	void hasDied(const GameList<SceneObject>::anchor& anchor)
     {
-		sceneObjs.erase(anchor); // vamos a probar si funciona asi
+		sceneObjects.erase(anchor); // vamos a probar si funciona asi
     }
 	void endGame()
 	{
