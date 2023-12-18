@@ -27,3 +27,9 @@ bool Bomb::hit(const SDL_Rect* otherRect, char friendly)
 	}
 	return false;
 }
+
+void Bomb::save(std::ostream& os) const
+{
+	os << "8 ";
+	SceneObject::save(os);
+}

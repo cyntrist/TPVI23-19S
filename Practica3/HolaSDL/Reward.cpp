@@ -20,3 +20,8 @@ void Reward::update()
         hasDied();
     }
 }
+void Reward::save(std::ostream& os) const
+{
+    os << "9 ";
+    SceneObject::save(os);
+}

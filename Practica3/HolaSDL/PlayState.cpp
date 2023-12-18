@@ -7,6 +7,7 @@
 #include <string>
 #include "Laser.h"
 #include "Alien.h"
+#include "Bomb.h"
 #include "Bunker.h"
 #include "ShooterAlien.h"
 #include "Ufo.h"
@@ -17,16 +18,31 @@
 #include "Cannon.h"
 #include "EndState.h"
 #include "PauseState.h"
+#include "Reward.h"
 using namespace std;
 
-PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
+PlayState::PlayState(Game* game, int mapLvl, int menuCase) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) , mapLevel(mapLvl)//idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
 {
 	startTime = SDL_GetTicks();
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
 	//if (!readData("map" + std::to_string(mapLevel), game, true))
-		exampleInit();
+		//exampleInit();
+	//readData("map" + std::to_string(mapLevel), game, true);
+    switch (menuCase)
+    {
+	case(0):
+	    {
+		    readData("map" + std::to_string(mapLevel), game, true);
+			break;
+	    }
+	case(1):
+	    {
+		    readData("save" + std::to_string(1), game, false);
+			break;
+	    }
+    }
 
 	addGameObject(infoBar);
 	addGameObject(mothership);
@@ -48,7 +64,7 @@ void PlayState::update()
 		if (mothership->getAlienCount() <= 0)
 		{
 			mapLevel = mapLevel % LEVEL_NUMBER;
-			game->getStateMachine()->replaceState(new PlayState(game)); // vamos a ver si esto es una manera inteligente de resetearlo
+			game->getStateMachine()->replaceState(new PlayState(game, mapLevel++, 1)); // vamos a ver si esto es una manera inteligente de resetearlo
 		}
 
 		if (cannon->getLives() <= 0)
@@ -138,7 +154,7 @@ void PlayState::saveData(const std::string& saveFileName) const {
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
 		throw FileNotFoundError("Could not read the save file called "s + saveFileName);
-	for (auto i : sceneObjects)
+	for (auto& i : gameObjects)
 		i.save(out);
 	out << "7 " << playerPoints << endl;
 	out.close();
@@ -185,7 +201,6 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	if (in.peek() == std::ifstream::traits_type::eof()) 
 		throw FileFormatError("Empty data file: "s + fileroot); 
 
-	auto it = sceneObjects.begin();
 	int read, x, y, lives, timer, type, state, level;
 	char color;
 	Point2D<> position;
@@ -250,11 +265,26 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 		case 7: // score
 			cin >> playerPoints;
 			break;
+		case 8:
+		{
+			cin >> x >> y;
+			position = Point2D<>(x, y);
+			object = new Bomb(position, game->getTexture(bomb), this);
+			break;
+		}
+		case 9:
+		{
+			cin >> x >> y;
+			position = Point2D<>(x, y);
+			object = new Reward(position, game->getTexture(shield_reward), this);
+		}
 		default: // nada
 			break;
 		}
 		if (object != nullptr)
+		{
 			addSceneObject(object);
+		}
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();

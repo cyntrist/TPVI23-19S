@@ -1,5 +1,6 @@
 #pragma once
 #include <stack>
+#include <string>
 
 #include "GameState.h"
 class GameStateMachine
@@ -19,4 +20,10 @@ public:
     int getStackSize() const { return stateStack.size(); }
     std::stack<GameState*> getStack() const { return stateStack; }
     std::string getStateID() const { return stateStack.top()->getStateID(); }
+    void saveGame()
+    {
+        popState();
+
+        stateStack.top()->save("save1");
+    }
 };

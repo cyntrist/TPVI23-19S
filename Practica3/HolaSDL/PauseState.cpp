@@ -20,8 +20,8 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(loadGameBtn);
 	loadGameBtn->Connect([this](const SDL_Event& arg)
 		{
-			//PauseState* pause = new PauseState(game); //sustituir todo esto por lo que sea que haga el boton
-			//game->getStateMachine()->pushState(pause);
+			PlayState* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
+			game->getStateMachine()->replaceState(play)	;
 		});
 
 	// GUARDAR
@@ -30,8 +30,8 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(saveGameBtn);
 	saveGameBtn->Connect([this](const SDL_Event& arg)
 		{
-			//PauseState* pause = new PauseState(game); //sustituir todo esto por lo que sea que haga el boton
-			//game->getStateMachine()->pushState(pause);
+			game->getStateMachine()->saveGame();
+			game->exitGame();
 		});
 
 	// SALIR

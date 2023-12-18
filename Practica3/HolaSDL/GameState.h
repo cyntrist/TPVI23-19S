@@ -38,7 +38,7 @@ public:
     {
         eventHandlers.push_back(eventHandler);
     }
-    virtual void save(std::ostream&) const {}
+    virtual void save(const std::string& fileName) const {}
     virtual void hasDied(const GameList<GameObject, true>::anchor& anchor)
     {
 	    gameObjects.erase(anchor);

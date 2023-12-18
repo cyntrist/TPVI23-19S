@@ -40,12 +40,15 @@ protected:
 	bool readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-	PlayState(Game* game);
+	PlayState(Game* game, int _mapLvl, int menuCase);
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;
 	void update() override;
 	void run();
+
+	void save(const std::string& fileName) const override { saveData(fileName);  };
+
 	int getRandomRange(int min, int max);
 	void hasDied(const GameList<SceneObject>::anchor& anchor)
     {
