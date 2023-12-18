@@ -59,7 +59,6 @@ public:
 	{
 		playerPoints += value;
 	}
-	void emptyLists();
     bool damage(SDL_Rect* rect, char friendly) const;
 
 	// getters

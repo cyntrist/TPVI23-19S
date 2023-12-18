@@ -45,10 +45,11 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 		});
 }
 
-//void PauseState::render() const
-//{
-//	GameState::render();
-//}
+void PauseState::render() const
+{
+	game->getTexture(stars)->render();
+	GameState::render();
+}
 
 //void PauseState::handleEvent(const SDL_Event& event)
 //{

@@ -202,21 +202,6 @@ void PlayState::addSceneObject(SceneObject* object)
 	object->updateRect();
 }
 
-
-/// metodo para vaciar ambas listas de objetos y liberar su memoria, usado previo a cargar partida o mapa
-void PlayState::emptyLists()
-{
-	//for (auto it = sceneObjects.begin(); it != sceneObjects.end(); ++it)
-	//for (auto i : sceneObjects)
-		//sceneObjects.erase(i.getSceneObjsAnchor());
-	/*
-	for (auto i : deleteObjs)
-		deleteObjs.erase(i.getIterator());
-	*/
-	//sceneObjects.clear();
-	//deleteObjs.clear();
-}
-
 /// gestiona las colisiones entre el laser dado y cada objeto en la escena
 ///	devuelve true si ha colisionado con algo y se invocaran a los metodos
 /// correspondientes

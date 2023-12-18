@@ -39,9 +39,4 @@ void MainMenuState::render() const
 	GameState::render();
 }
 
-void MainMenuState::handleEvent(const SDL_Event& event)
-{
-	for (EventHandler* i : eventHandlers)
-		i->handleEvent(event);
-}
 
