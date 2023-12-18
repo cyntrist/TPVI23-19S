@@ -15,6 +15,7 @@ private:
 	Point2D<> position = Point2D<>(0, 0);
 	Texture* cannonTexture = nullptr; // textura del cannon
 	int padding; // margen entre texturas del cannon
+	int lives; // las vidas del cannon
 
 	int points = 0; // score
 	SDL_Renderer* renderer; // referencia de render de game
@@ -28,6 +29,10 @@ public:
 	void update() override {};
 	void setPoints(int value) {
 		points = value;
+	}
+	void setLives(int value)
+	{
+		lives = value;
 	}
 	void save(std::ostream& os) const override {}
 

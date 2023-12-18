@@ -71,8 +71,8 @@ void PlayState::update()
 	{
 		mothership->update();
 		infoBar->setPoints(playerPoints);
-		for (auto& i : gameObjects)
-			i.update();
+		infoBar->setLives(cannon->getLives());
+		GameState::update();
 		startTime = SDL_GetTicks();
 	}
 }

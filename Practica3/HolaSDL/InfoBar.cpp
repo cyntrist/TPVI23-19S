@@ -17,11 +17,11 @@ void InfoBar::render() const
 		cannonTexture->getFrameWidth(),
 		cannonTexture->getFrameHeight()
 	};
-	/*for (int i = 1; i < gameState->getCannon()->getLives() + 1; i++)
+	for (int i = 1; i < lives + 1; i++)
 	{
 		cannonTexture->renderFrame(livesRect, cannonTexture->getNumRows() - 1, cannonTexture->getNumColumns() - 1);
 		livesRect.x = cannonTexture->getFrameWidth() * i + padding * (i + 1);
-	}*/
+	}
 
 	/// BLOQUE DE SCORE
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font, std::to_string(points).c_str(), color); // texto de score
