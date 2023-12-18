@@ -233,7 +233,7 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			break;
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
-			cin >> state >> level >> timer;
+			cin >> level >> timer;
 			//mothership.setState(state);
 			mothership->setLevel(level);
 			mothership->setTimer(timer);

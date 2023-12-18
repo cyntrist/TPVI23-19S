@@ -39,7 +39,7 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 		lives--;
 
 		// generacion de reward o bomba
-		int chance = playState->getRandomRange(1, 1); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
+		int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
 		if (chance == 0)
 		{ // genera bomba
 			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState)); //al darle al ufo y spawnearse la bomba, el laser colisiona con la bomba antes de ser destruido y le resta una vida a la bomba instantaneamente pero tampoco es que haya tiempo para ponerse a arreglar estos detalles cuando hay cosas mas importantes aun
