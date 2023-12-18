@@ -30,8 +30,10 @@ void GameStateMachine::replaceState(GameState *state)
 {
 	if(!stateStack.empty())
 	{
+		/* Quiero obviar esta comprobación para que el playState se pueda resetear a sí mismo
 		if(stateStack.top()->getStateID() == state->getStateID())
 			return; // si se va a reemplazar con si mismo, no hace nada (vuelve)
+			*/
 		if (stateStack.top()->onExit())
 		{ // si el estado actual sale
 			deleteList.push_back(stateStack.top());

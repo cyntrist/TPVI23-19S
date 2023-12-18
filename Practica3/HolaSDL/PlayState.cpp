@@ -20,52 +20,23 @@ using namespace std;
 
 PlayState::PlayState(Game* game) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) //idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
 {
-	mothership = new Mothership(1, 0, 0, 0, this, 0);
-	//emptyLists();
-	exampleInit();
 	startTime = SDL_GetTicks();
+	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
+	emptyLists();
+	if (!readData("map" + std::to_string(mapLevel), game, true))
+		exampleInit();
+
 	addGameObject(infoBar);
 	addGameObject(mothership);
 }
 
 /// GAME LOGIC BLOCK:
-/// inicializa los GameObjects y el tablero acorde a el, despues va el bucle principal del juego
-/// con llamadas a los metodos principales, gestiona el framerate y tras acabar el bucle ppal
-/// la puntuacion por consola*/
-void PlayState::run()
-{ 
-	/*
-    readData("map" + std::to_string(mapLevel), game, true);
-	startTime = SDL_GetTicks();
-	while (!exit)
-	{
-		SDL_Event event;
-		handleEvent(event);
-		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > TIME_BETWEEN_FRAMES) 
-		{
-			update();
-			startTime = SDL_GetTicks();
-		}
-		render();
-		if (mothership->getAlienCount() <= 0)
-		{
-			emptyLists();
-			mothership->resetLevel();
-			mapLevel = mapLevel % LEVEL_NUMBER;
-			readData("map" + std::to_string(++mapLevel), game, true);
-		}
-	}
-	cout << "\n*** GAME OVER ***\n" << "*** PUNTUACION FINAL: " << playerPoints << " ***\n";*/
-}
-
 /// recorre los objetos de escena y si alguno ha avisado de que ha muerto, estara en la lista de objetos a borrar
 ///	estos seran borrados y su memoria liberada, y la lista de objetos a borrar se limpiara
 void PlayState::update()
 {
-
 	frameTime = SDL_GetTicks() - startTime;
 	if (frameTime > TIME_BETWEEN_FRAMES)
 	{
@@ -73,6 +44,16 @@ void PlayState::update()
 		infoBar->setPoints(playerPoints);
 		infoBar->setLives(cannon->getLives());
 		startTime = SDL_GetTicks();
+		
+		if (mothership->getAlienCount() <= 0)
+		{
+			mapLevel = mapLevel % LEVEL_NUMBER;
+			game->getStateMachine()->replaceState(new PlayState(game)); // vamos a ver si esto es una manera inteligente de resetearlo
+			/* Version antigua:
+			emptyLists();
+			mothership->resetLevel();
+			readData("map" + std::to_string(++mapLevel), game, true); */
+		}
 	}
 }
 
@@ -92,15 +73,12 @@ void PlayState::render() const
 ///	y de salida 
 void PlayState::handleEvent(const SDL_Event& event)
 {
-	for (auto i : eventHandlers)
-		i->handleEvent(event);
+	GameState::handleEvent(event);
 
 	SDL_Keycode key = event.key.keysym.sym;
     if (event.type == SDL_KEYDOWN && (key == SDLK_ESCAPE))
-	{
-		PauseState* pause = new PauseState(game);
-		game->getStateMachine()->pushState(pause);
-	}
+		game->getStateMachine()->pushState(new PauseState(game));
+
 	//SDL_PollEvent(&event) && 
 	/*while (!exit)
 	{
@@ -257,9 +235,9 @@ int PlayState::getRandomRange(int min, int max) {
 }
 
 /// lee y anyade al juego las diferentes entidades del archivo proporcionado, ya sea mapa o partida guardada
-///	para gestionar esto último se utiliza un bool que indica si es mapa o no, para determinar la raíz de directorio
+///	para gestionar esto ultimo se utiliza un bool que indica si es mapa o no, para determinar la raíz de directorio
 ///	que le corresponde
-void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
+bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	string fileroot;
 	if (!isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
 	else fileroot = MAP_ROOT + filename + ".txt";
@@ -267,12 +245,11 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 	if (in.fail())
 		throw FileNotFoundError("Could not read the specified data file at "s + fileroot) ;
-	if (in.peek() == std::ifstream::traits_type::eof())
-		throw FileFormatError("Empty data file: "s + fileroot);
+	if (in.peek() == std::ifstream::traits_type::eof()) 
+		throw FileFormatError("Empty data file: "s + fileroot); 
 
 	auto it = sceneObjects.begin();
 	int read, x, y, lives, timer, type, state, level;
-	int alienCount = 0;
 	char color;
 	Point2D<> position;
 	SceneObject* object; // para simplificar
@@ -287,6 +264,7 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			position  = Point2D<>(x, y);
 			cannon = new Cannon(position, game->getTexture(spaceship), this, lives, timer);
 			object = cannon;
+			addEventListener(cannon);
 			break;
 		}
 		case 1: // alien
@@ -294,14 +272,12 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			cin >> type;
 			position = Point2D<>(x, y);
 			object = new Alien(position, type, game->getTexture(aliens), this, mothership);
-			alienCount++;
 			break;
 		case 2: // shooter alien
 			cin >> x >> y;
 			cin >> type >> timer;
 			position = Point2D<>(x, y);
 			object = new ShooterAlien(position, type, game->getTexture(aliens), this, mothership, timer);
-			alienCount++;
 			break;
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
@@ -345,4 +321,5 @@ void PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();
+	return true;
 }

@@ -35,7 +35,7 @@ protected:
 	int mapLevel = 1; // el nivel de juego a cargar (mapk.txt), no deberia salirse por encima de LEVEL_NUMBER con los mapas actuales
 
 	void exampleInit();
-	void readData(const std::string& saveFileName, Game* juego, bool isMap);
+	bool readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
 	PlayState(Game* game);
