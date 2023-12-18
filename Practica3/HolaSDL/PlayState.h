@@ -20,7 +20,8 @@ constexpr int	ALIEN_REFRESH_RATE = 0.5 * FRAME_RATE, //cada cuantos updates del 
 				ALIEN_MOV_SPEED = 1 * TIME_BETWEEN_FRAMES,
 				UFO_MOV_SPEED = 0.3 * TIME_BETWEEN_FRAMES, 
 				CANNON_MOV_SPEED = 0.25 * TIME_BETWEEN_FRAMES,
-				LASER_MOV_SPEED = 0.5 * TIME_BETWEEN_FRAMES;
+				LASER_MOV_SPEED = 0.5 * TIME_BETWEEN_FRAMES,
+				BOMB_MOV_SPEED = 0.2 * TIME_BETWEEN_FRAMES;
 
 class PlayState : public GameState
 {
@@ -67,6 +68,10 @@ public:
 	Cannon* getCannon() const
 	{
 		return cannon;
+	}
+	Game* getGame() const
+	{
+		return game;
 	}
 };
 

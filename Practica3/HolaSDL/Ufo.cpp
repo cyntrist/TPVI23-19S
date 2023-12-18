@@ -1,6 +1,9 @@
 #include "Ufo.h"
+
+#include "Bomb.h"
 #include "Game.h"
 #include "PlayState.h"
+#include "Cannon.h"
 
 Ufo::Ufo(Point2D<> p, Texture* t, PlayState* ps, bool d, int s)
 	: SceneObject(p, 1, t, ps)
@@ -30,9 +33,20 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 {
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
-		//gameState->addScore(SCORE_POINTS);
-		//gameState->getCannon()->setInvincible(true);
+		playState->addScore(SCORE_POINTS);
+		playState->getCannon()->setInvincible(true);
 		lives--;
+
+		// generacion de reward o bomba
+		int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
+		if (chance == 0)
+		{ // genera bomba
+			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState));
+		}
+		else if (chance == 1)
+		{ // genera reward
+			// ...
+		}
 		return true;
 	} 
 	return false; 

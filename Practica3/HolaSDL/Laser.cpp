@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "PlayState.h"
 
-Laser::Laser(Point2D<>& p, Vector2D<int>& s, char c, PlayState* ps) {
+Laser::Laser(Point2D<>& p, Vector2D<>& s, char c, PlayState* ps) {
 	width = LASER_WIDTH;
 	height = LASER_HEIGHT;
 	lives = 1;
@@ -31,7 +31,6 @@ void Laser::render() const
 	if (color == FRIENDLY_CHAR)
 		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	SDL_RenderFillRect(renderer, &rect);
-	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //esto hace que la cosa esa rara que pasa en mitad de la pantalla sea de color negro en vez de ser del color del ultimo laser disparado, no es una solucion pero queda mejor visualmente (ah y esta puta mierda de bug de render solo esta cuando estas en la ventana de juego por la cara, si no lo estas no (que cojones?????))
 }
 
 /// metodo para guardar sus datos en el stream proporcionado

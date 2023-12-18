@@ -160,7 +160,6 @@ void PlayState::addSceneObject(SceneObject* object)
 /// correspondientes
 bool PlayState::damage(SDL_Rect* rect, char friendly) const 
 {
-	//std::any_of(sceneObjects.begin(), sceneObjects.end(),);
 	for (auto& i : sceneObjects)
 		if (i.hit(rect, friendly))
 			return true;
