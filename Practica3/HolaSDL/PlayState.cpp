@@ -120,7 +120,7 @@ void PlayState::exampleInit() {
 	texture = game->getTexture(spaceship);
 	position = Point2D<>(WIN_WIDTH / 2 - texture->getFrameWidth() / 2,
 	                     WIN_HEIGHT - WIN_HEIGHT / 8.0 - texture->getFrameHeight());
-	cannon = new Cannon(position, texture, this, 0);
+	cannon = new Cannon(position, texture, this, 3);
 	object = cannon;
 	addSceneObject(object);
 	addEventListener(cannon);
