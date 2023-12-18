@@ -85,7 +85,7 @@ void Ufo::update()
 		{
 			state = visible;
 			position = iniPos;
-			//hiddenTimer = game->getRandomRange( 10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
+			hiddenTimer = playState->getRandomRange( 10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
 		}
 		else hiddenTimer--;
 		break;
