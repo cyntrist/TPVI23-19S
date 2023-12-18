@@ -30,6 +30,7 @@ public:
 	void render() const override;
 	void save(std::ostream& os) const override;
 	void update() override;
+	void hasDied();
 	virtual void updateRect();
 	virtual bool hit(const SDL_Rect* otherRect, char friendly);
 	void setListAnchor(GameList<SceneObject>::anchor value)

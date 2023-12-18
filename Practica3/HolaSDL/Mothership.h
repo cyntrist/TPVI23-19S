@@ -11,7 +11,7 @@ class Mothership : public GameObject
 	// int state; no hemos usado un enum ciclico al final
 	int level; // nivel de bajada de los aliens
 	int movementTimer; // temporizador de movimento de los aliens
-	bool switchDir = false; // si ha de cambiar la direccion
+	bool switchDir; // si ha de cambiar la direccion
 
 public:
 	Mothership() = default;

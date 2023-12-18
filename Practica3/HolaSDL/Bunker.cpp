@@ -2,6 +2,7 @@
 #include "Bunker.h"
 #include <algorithm>
 #include "Game.h"
+#include "PlayState.h"
 
 Bunker::Bunker(const Point2D<>& position, int lives, Texture* texture, PlayState* playState)
 	: SceneObject(position, lives, texture, playState) { }
@@ -15,7 +16,7 @@ void Bunker::render() const
 /// avisa a game si ha de ser destruido cuando no le quedan vidas
 void Bunker::update() {
 	if (lives <= 0)
-		//game->hasDied(iterator);
+		hasDied();
 	updateRect();
 }
 

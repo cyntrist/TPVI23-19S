@@ -30,9 +30,14 @@ void SceneObject::update()
 {
 	updateRect();
 	if (lives <= 0)
-		playState->hasDied(sceneObjsAnchor);
+		hasDied();
 }
 
+void SceneObject::hasDied()
+{
+	gameState->hasDied(anchor);
+	playState->hasDied(sceneObjsAnchor);
+}
 
 /// devuelve bool si hay interseccion entre su rectangulo y el otro
 bool SceneObject::hit(const SDL_Rect* otherRect, char friendly)

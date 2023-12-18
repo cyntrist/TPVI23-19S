@@ -40,8 +40,8 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(exitBtn);
 	exitBtn->Connect([this](const SDL_Event& arg)
 		{
-			//auto* mainMenu = new MainMenuState(game);
-			//game->getStateMachine()->replaceState(mainMenu);
+			auto* mainMenu = new MainMenuState(game);
+			game->getStateMachine()->replaceState(mainMenu);
 		});
 }
 
