@@ -1,0 +1,7 @@
+- virtual declaracion en cpp porque si no queda feo
+- lambda evento no hace falta
+- ir borrando los deletelist en el update (momento seguro)
+- SDL point in rect en el update del boton.
+- corregir con reward (generico)
+- corregir las expeciones (what)
+- cargar y guardar ingame
