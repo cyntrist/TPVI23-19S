@@ -17,6 +17,7 @@ public:
     void update();
     void render() const;
     void handleEvent(const SDL_Event&);
+    void deleteStates();
     int getStackSize() const { return stateStack.size(); }
     std::stack<GameState*> getStack() const { return stateStack; }
     std::string getStateID() const { return stateStack.top()->getStateID(); }

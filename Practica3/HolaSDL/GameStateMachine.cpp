@@ -1,11 +1,9 @@
+#include "checkML.h"
 #include "GameStateMachine.h"
 
 GameStateMachine::~GameStateMachine()
 { // si uso el default no borra nada por algun motivo
-	while (!stateStack.empty())
-		popState();
-	for (const auto* i : deleteList)
-		delete i;
+	deleteStates();
 }
 
 void GameStateMachine::pushState(GameState* state) 
@@ -48,6 +46,7 @@ void GameStateMachine::update()
 {
 	if (!stateStack.empty())
 		stateStack.top()->update();
+	//deleteStates();
 }
 
 void GameStateMachine::render() const
@@ -60,4 +59,12 @@ void GameStateMachine::handleEvent(const SDL_Event& event)
 {
 	if (!stateStack.empty())
 		stateStack.top()->handleEvent(event);
+}
+
+void GameStateMachine::deleteStates()
+{
+	while (!stateStack.empty())
+		popState();
+	for (const auto* i : deleteList)
+		delete i;
 }

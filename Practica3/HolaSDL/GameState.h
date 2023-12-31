@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "gameList.h"
+#include "GameList.h"
 #include "EventHandler.h"
 #include <list>
 #include <SDL_events.h>
