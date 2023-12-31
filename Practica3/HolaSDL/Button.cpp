@@ -3,7 +3,12 @@
 #include "Vector2D.h"
 
 Button::Button(Vector2D<>position, Texture* texture) : GameObject(), position(position), texture(texture)
-{ }
+{
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.w = texture->getFrameWidth();
+	rect.h = texture->getFrameHeight();
+}
 
 void Button::render() const
 {
@@ -18,14 +23,15 @@ void Button::render() const
 
 void Button::update() 
 {
-	//Vector2D mousePos; //TheInputHandler::Instance()->getMousePosition(); <-- deberiamos hacer un singleton como este?? XD
-	int mouseX, mouseY;
-	SDL_GetMouseState(&mouseX, &mouseY);
+	/*int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);*/
+	SDL_GetMouseState(&mousePoint.x, &mousePoint.y);
 
-	if	  (mouseX < position.getX() + texture->getFrameWidth() 
-		&& mouseX > position.getX()
-		&& mouseY < position.getY() + texture->getFrameHeight() 
-		&& mouseY > position.getY())
+	//if	  (mouseX < position.getX() + texture->getFrameWidth() 
+	//	&& mouseX > position.getX()
+	//	&& mouseY < position.getY() + texture->getFrameHeight() 
+	//	&& mouseY > position.getY()) 
+	if (SDL_PointInRect(&mousePoint, &rect)) 
 	{
 		buttonPos = MOUSE_OVER;
 	}

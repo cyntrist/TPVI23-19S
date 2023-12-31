@@ -15,6 +15,12 @@ public:
 	T getY() const {
 		return y;
 	}
+	void setX(T value) {
+		x = value;
+	}
+	void setY(T value) {
+		y = value;
+	}
 	Vector2D operator+(const Vector2D& v) const {
 		Vector2D r;
 		r.x = this->x + v.x;

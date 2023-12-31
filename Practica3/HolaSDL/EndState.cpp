@@ -9,7 +9,7 @@ EndState::EndState(Game* _game) : GameState(_game, "END")
 	auto* saveGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_volver)->getFrameWidth()) / 2, WIN_HEIGHT / 2), game->getTexture(btn_volver));
 	addGameObject(saveGameBtn);
 	addEventListener(saveGameBtn);
-	saveGameBtn->Connect([this](const SDL_Event& arg)
+	saveGameBtn->Connect([this]()
 		{
 			game->getStateMachine()->pushState(new MainMenuState(game));
 		});
@@ -18,7 +18,7 @@ EndState::EndState(Game* _game) : GameState(_game, "END")
 	auto* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, WIN_HEIGHT * 3 / 4), game->getTexture(btn_salir));
 	addGameObject(exitBtn);
 	addEventListener(exitBtn);
-	exitBtn->Connect([this](const SDL_Event& arg)
+	exitBtn->Connect([this]()
 		{
 			game->exitGame();
 		});

@@ -21,6 +21,8 @@ class Button : public GameObject, public EventHandler
 {
 protected:
 	Vector2D<> position;
+	SDL_Point mousePoint;	// posicon DEL RATON
+	SDL_Rect rect;	// rectangulo DEL BOTON
     Texture* texture;
 	button_state buttonPos;
 	// callback(s)
