@@ -49,8 +49,7 @@ public:
 	void handleEvents();
 	SDL_Renderer* getRenderer() const { return renderer; }
 	Texture* getTexture(TextureName name) const { return textures[name]; }
-	SDL_Renderer* getRenderer() { return renderer; }
-	GameStateMachine* getStateMachine() { return  stateMachine; }
+	GameStateMachine* getStateMachine() const { return  stateMachine; }
 	void exitGame() { exit = true; }
 };
 

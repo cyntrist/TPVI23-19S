@@ -11,7 +11,7 @@ protected:
 public:
 	GameObject() = default;
 	GameObject(GameState* gameState) : gameState(gameState) { }
-	virtual GameState* getGameState() { return gameState; } 
+	virtual GameState* getGameState() const { return gameState; } 
 	virtual ~GameObject() = default; // destructora 
 	virtual void render() const = 0; // para renderizra sprites enteros
 	virtual void render(int row, int col) const { } // para renderizar frames concretos
