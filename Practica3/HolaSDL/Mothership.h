@@ -1,8 +1,9 @@
 #pragma once
+#include "GameObject.h"
 #include "Vector2D.h"
-#include "Alien.h"
+//#include "Alien.h"
 //enum states {}; // no hemos usado un enum ciclico al final
-
+class Alien;
 class Mothership : public GameObject
 {
 	int direction; // direccion de movimiento de los aliens

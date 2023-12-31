@@ -7,7 +7,7 @@ class GameStateMachine
 {
 protected:
     std::stack<GameState*> stateStack;
-    std::list<GameState*> deleteList;
+    std::stack<GameState*> deleteStack;
 public:
     GameStateMachine() = default;
     ~GameStateMachine();
@@ -24,7 +24,6 @@ public:
     void saveGame()
     {
         popState();
-
         stateStack.top()->save("save1");
     }
 };

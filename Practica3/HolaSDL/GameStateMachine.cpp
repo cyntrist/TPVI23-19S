@@ -3,6 +3,8 @@
 
 GameStateMachine::~GameStateMachine()
 { // si uso el default no borra nada por algun motivo
+	while (!stateStack.empty())
+		popState();
 	deleteStates();
 }
 
@@ -18,7 +20,8 @@ void GameStateMachine::popState()
 	{		
 		if (stateStack.top()->onExit())
 		{
-			deleteList.push_back(stateStack.top());
+			//deleteList.push_back(stateStack.top());
+			deleteStack.push(stateStack.top());
 			stateStack.pop();
 		}
 	}
@@ -34,7 +37,8 @@ void GameStateMachine::replaceState(GameState *state)
 			*/
 		if (stateStack.top()->onExit())
 		{ // si el estado actual sale
-			deleteList.push_back(stateStack.top());
+			//deleteList.push_back(stateStack.top());
+			deleteStack.push(stateStack.top());
 			stateStack.pop(); // lo borra de la pila
 		}
 	}
@@ -44,9 +48,9 @@ void GameStateMachine::replaceState(GameState *state)
 
 void GameStateMachine::update()
 {
-	if (!stateStack.empty())
+	if (!stateStack.empty()) 
 		stateStack.top()->update();
-	//deleteStates();
+	deleteStates();
 }
 
 void GameStateMachine::render() const
@@ -61,10 +65,12 @@ void GameStateMachine::handleEvent(const SDL_Event& event)
 		stateStack.top()->handleEvent(event);
 }
 
-void GameStateMachine::deleteStates()
+void GameStateMachine::deleteStates() 
 {
-	while (!stateStack.empty())
-		popState();
-	for (const auto* i : deleteList)
-		delete i;
+	const int realSize = deleteStack.size();
+	for (auto i = 0; i < realSize; i++)
+	{
+		delete deleteStack.top();
+		deleteStack.pop();
+	}
 }

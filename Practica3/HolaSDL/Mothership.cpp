@@ -1,7 +1,7 @@
 #include "checkML.h"
 #include "Mothership.h"
 #include "PlayState.h"
-
+#include "Alien.h"
 constexpr int ALIEN_REFRESH_RATE = 30;
 
 Mothership::Mothership(int direction, int alienCount, int state, int level, GameState* gameState, int movementTimer)
