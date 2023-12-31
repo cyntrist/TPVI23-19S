@@ -22,12 +22,12 @@ void Reward::update()
     	//callback();
         for (SDLCallback& buttonCallback : callbacks)
 				buttonCallback();
-    	//playState->hasDied(sceneObjAnchor);
+    	hasDied();
 	}
     // si no ocurre lo anterior y ha salido de la pantalla
 	else if (position.getY()  < 0 || position.getY() > WIN_HEIGHT) 
     {
-		//playState->hasDied(sceneObjAnchor);
+		hasDied();
 	}
 }
 void Reward::save(std::ostream& os) const
