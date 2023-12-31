@@ -41,7 +41,7 @@ void Button::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		if (buttonPos == MOUSE_OVER) {
 			for (SDLCallback& buttonCallback : callbacks)
-				buttonCallback(event);
+				buttonCallback();
 		}
 	}
 }

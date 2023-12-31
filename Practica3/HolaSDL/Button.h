@@ -8,7 +8,7 @@
 
 
 /// Nuestros botones no tienen hover ni nada asi que no hace falta esto creo
-using SDLCallback = std::function<void(const SDL_Event&)>;
+using SDLCallback = std::function<void()>;
 
 enum button_state
 {
