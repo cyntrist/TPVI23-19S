@@ -45,8 +45,8 @@ public:
 	void render() const override;
 	void update() override;
 	void run();
-
-	void save(const std::string& fileName) const override { saveData(fileName);  };
+	void save(const std::string& fileName) const override { saveData(fileName); }
+    bool mayGrantReward(SDL_Rect* rect) const;
 
 	int getRandomRange(int min, int max);
 	void hasDied(const GameList<SceneObject>::anchor& anchor)

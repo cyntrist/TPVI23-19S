@@ -13,7 +13,7 @@ protected:
 	Texture* texture; // no se si va en esta clase pero es lo que m�s sentido me parece que tiene?
 	SDL_Rect rect; // idem
 	PlayState* playState; // para acceder a los métodos únicos de PlayState
-	GameList<SceneObject>::anchor sceneObjsAnchor; // interador identificador
+	GameList<SceneObject>::anchor sceneObjAnchor; // interador identificador
 public:
 	// constructor
 	SceneObject() = default;
@@ -25,7 +25,7 @@ public:
 	int getLives() const { return lives; }
 	Texture* getTexture() const { return texture; }
 	SDL_Rect* getRect() { return &rect; }
-	GameList<SceneObject>::anchor getSceneObjsAnchor() const { return sceneObjsAnchor; }
+	GameList<SceneObject>::anchor getSceneObjAnchor() const { return sceneObjAnchor; }
 	// methods
 	void render() const override;
 	void save(std::ostream& os) const override;
@@ -35,6 +35,6 @@ public:
 	virtual bool hit(const SDL_Rect* otherRect, char friendly);
 	void setListAnchor(GameList<SceneObject>::anchor value)
 	{
-		GameObject::setListAnchor(value->elem->getAnchor()); sceneObjsAnchor = value;
+		GameObject::setListAnchor(value->elem->getAnchor()); sceneObjAnchor = value;
 	}
 };

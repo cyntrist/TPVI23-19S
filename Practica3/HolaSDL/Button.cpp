@@ -2,7 +2,8 @@
 #include "Button.h"
 #include "Vector2D.h"
 
-Button::Button(Vector2D<>position, Texture* texture) : GameObject(), position(position), texture(texture)
+Button::Button(Vector2D<>position, Texture* texture)
+: GameObject(), position(position), texture(texture)
 {
 	rect.x = position.getX();
 	rect.y = position.getY();
@@ -39,7 +40,6 @@ void Button::update()
 	{
 		buttonPos = MOUSE_OUT;
 	}
-
 }
 
 void Button::handleEvent(const SDL_Event& event)

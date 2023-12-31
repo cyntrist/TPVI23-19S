@@ -37,7 +37,7 @@ void SceneObject::update()
 void SceneObject::hasDied()
 {
 	gameState->hasDied(anchor);
-	playState->hasDied(sceneObjsAnchor);
+	playState->hasDied(sceneObjAnchor);
 }
 
 /// devuelve bool si hay interseccion entre su rectangulo y el otro

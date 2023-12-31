@@ -185,6 +185,11 @@ bool PlayState::damage(SDL_Rect* rect, char friendly) const
 	return false;
 }
 
+bool PlayState::mayGrantReward(SDL_Rect* rect) const
+{
+	return SDL_HasIntersection(rect, cannon->getRect());
+}
+
 /// devuelve un numero aleatorio entre min y max
 int PlayState::getRandomRange(int min, int max) {
 	return std::uniform_int_distribution<>(min, max)(randomGenerator);

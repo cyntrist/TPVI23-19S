@@ -4,7 +4,8 @@
 #include "Cannon.h"
 #include "PlayState.h"
 
-Reward::Reward(Point2D<> _position, Texture* _texture, PlayState* _playState) : SceneObject(_position, 1, _texture, _playState)
+Reward::Reward(Point2D<> _position, Texture* _texture, PlayState* _playState)
+: SceneObject(_position, 1, _texture, _playState)
 {
 
 }
@@ -12,13 +13,22 @@ Reward::Reward(Point2D<> _position, Texture* _texture, PlayState* _playState) : 
 void Reward::update()
 {
     updateRect();
-    position = Vector2D<>(position.getX(), position.getY() + REWARD_MOV_SPEED);
+    position = Vector2D(position.getX(), position.getY() + REWARD_MOV_SPEED);
     SceneObject::update();
-    if(SDL_HasIntersection(getRect(), playState->getCannon()->getRect()))
+
+    // si ha chocado con el cannon y le ha de dar un reward
+    if (playState->mayGrantReward(&rect)) 
     {
-        playState->getCannon()->setInvincible(true);
-        hasDied();
-    }
+    	//callback();
+        for (SDLCallback& buttonCallback : callbacks)
+				buttonCallback();
+    	//playState->hasDied(sceneObjAnchor);
+	}
+    // si no ocurre lo anterior y ha salido de la pantalla
+	else if (position.getY()  < 0 || position.getY() > WIN_HEIGHT) 
+    {
+		//playState->hasDied(sceneObjAnchor);
+	}
 }
 void Reward::save(std::ostream& os) const
 {
