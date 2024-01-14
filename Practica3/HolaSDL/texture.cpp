@@ -8,10 +8,10 @@
 using namespace std;
 
 Texture::Texture(SDL_Renderer* renderer, SDL_Texture* texture, int rows, int columns)
-  : renderer(renderer)
-  , texture(texture)
-  , nrows(rows)
-  , ncolumns(columns)
+	: renderer(renderer)
+	  , texture(texture)
+	  , nrows(rows)
+	  , ncolumns(columns)
 {
 	SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
 
@@ -20,10 +20,10 @@ Texture::Texture(SDL_Renderer* renderer, SDL_Texture* texture, int rows, int col
 }
 
 Texture::Texture(SDL_Renderer* renderer, const char* filename, int rows, int columns)
-  : renderer(renderer)
-  , texture(nullptr)
-  , nrows(rows)
-  , ncolumns(columns)
+	: renderer(renderer)
+	  , texture(nullptr)
+	  , nrows(rows)
+	  , ncolumns(columns)
 {
 	SDL_Surface* surface = IMG_Load(filename);
 

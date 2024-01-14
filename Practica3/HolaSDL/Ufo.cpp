@@ -36,12 +36,11 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 	if (SDL_HasIntersection(getRect(), otherRect) && friendly == 'r' && state != destroyed)
 	{
 		playState->addScore(SCORE_POINTS);
-		//playState->getCannon()->setInvincible(true); //supongo que esto no hace falta porque ya esta la reward
 		lives--;
 
 		// generacion de reward o bomba
-		int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
-		chance = 1 ;
+		const int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
+		//chance = 1 ;
 		if (chance == 0)
 		{ // genera bomba
 			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState)); //al darle al ufo y spawnearse la bomba, el laser colisiona con la bomba antes de ser destruido y le resta una vida a la bomba instantaneamente pero tampoco es que haya tiempo para ponerse a arreglar estos detalles cuando hay cosas mas importantes aun

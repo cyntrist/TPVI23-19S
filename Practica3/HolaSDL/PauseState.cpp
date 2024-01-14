@@ -21,7 +21,7 @@ PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 	addEventListener(loadGameBtn);
 	loadGameBtn->Connect([this]()
 		{
-			PlayState* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
+			auto* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
 			game->getStateMachine()->replaceState(play)	;
 		});
 

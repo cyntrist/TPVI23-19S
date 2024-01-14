@@ -21,28 +21,18 @@
 #include "Reward.h"
 using namespace std;
 
-PlayState::PlayState(Game* game, int mapLvl, int menuCase) : GameState(game, "PLAY"), randomGenerator(time(nullptr)) , mapLevel(mapLvl)//idea, meter un param mas en este constructor para saber cuando cargar un mapa, un archivo de guardado o lo que sea (basicamente un int con un switch y a chuparla, apunto esto para que no se me olvide mas tarde)
+PlayState::PlayState(Game* game, int mapLvl, bool menuCase) : GameState(game, "PLAY"), randomGenerator(time(nullptr)),
+                                                             mapLevel(mapLvl)
 {
 	startTime = SDL_GetTicks();
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
-	//if (!readData("map" + std::to_string(mapLevel), game, true))
-		//exampleInit();
-	//readData("map" + std::to_string(mapLevel), game, true);
-    switch (menuCase)
-    {
-	case(0):
-	    {
-		    readData("map" + std::to_string(mapLevel), game, true);
-			break;
-	    }
-	case(1):
-	    {
-		    readData("save" + std::to_string(1), game, false);
-			break;
-	    }
-    }
+
+	if (menuCase) 
+		readData("save" + std::to_string(1), game, false);
+	else 
+		readData("map" + std::to_string(mapLevel), game, true);
 
 	addGameObject(infoBar);
 	addGameObject(mothership);
@@ -60,18 +50,20 @@ void PlayState::update()
 		infoBar->setPoints(playerPoints);
 		infoBar->setLives(cannon->getLives());
 		startTime = SDL_GetTicks();
-		
+
 		if (mothership->getAlienCount() <= 0)
 		{
 			if (mapLevel < LEVEL_NUMBER)
 				mapLevel++;
 			else
 				mapLevel = 1;
-			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, 0)); // vamos a ver si esto es una manera inteligente de resetearlo
+			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, 0));
+			// vamos a ver si esto es una manera inteligente de resetearlo
 		}
 
 		if (cannon->getLives() <= 0)
-			game->getStateMachine()->replaceState(new EndState(game)); // vamos a ver si esto es una manera inteligente de resetearlo
+			game->getStateMachine()->replaceState(new EndState(game));
+		// vamos a ver si esto es una manera inteligente de resetearlo
 	}
 }
 
@@ -93,13 +85,14 @@ void PlayState::handleEvent(const SDL_Event& event)
 {
 	GameState::handleEvent(event);
 
-	SDL_Keycode key = event.key.keysym.sym;
-    if (event.type == SDL_KEYDOWN && (key == SDLK_ESCAPE))
+	const SDL_Keycode key = event.key.keysym.sym;
+	if (event.type == SDL_KEYDOWN && key == SDLK_ESCAPE)
 		game->getStateMachine()->pushState(new PauseState(game));
 }
 
 /// genera un tablero ejemplo predeterminado (utilizado principalmente para debugging inicial)
-void PlayState::exampleInit() {
+void PlayState::exampleInit()
+{
 	auto it = sceneObjects.begin();
 	Point2D<> position;
 	SceneObject* object;
@@ -117,9 +110,9 @@ void PlayState::exampleInit() {
 			position = Point2D<>((texture->getFrameWidth() + 3) * j + 130,
 			                     (texture->getFrameHeight() + 3) * i + 32);
 			//+130 para que esten centrados, +32 para que no aparezcan arriba del todo y +3 para que no esten pegados entre ellos
-			if (type == 0) 
-				object = new ShooterAlien (position, type, texture, this, mothership);
-			else 
+			if (type == 0)
+				object = new ShooterAlien(position, type, texture, this, mothership);
+			else
 				object = new Alien(position, type, texture, this, mothership);
 			addSceneObject(object);
 		}
@@ -153,7 +146,8 @@ void PlayState::exampleInit() {
 
 /// DATA MANAGEMENT BLOCK:
 ///	invoca el metodo save() de cada objeto y guarda en el stream que se le proporciona sus datos
-void PlayState::saveData(const std::string& saveFileName) const {
+void PlayState::saveData(const std::string& saveFileName) const
+{
 	std::ofstream out(SAVE_FILE_ROOT + saveFileName + ".txt");
 	if (out.fail())
 		throw FileNotFoundError("Could not read the save file called "s + saveFileName);
@@ -168,7 +162,8 @@ void PlayState::saveData(const std::string& saveFileName) const {
 ///	puesto que se llama muchas veces a estas lineas de manera conjunta,
 ///	realiza el push back, la asignacion del iterador al objeto y actualiza su rectangulo inicialmente
 void PlayState::addSceneObject(SceneObject* object)
-{ // método para simplificar las inicializaciones del tablero
+{
+	// metodo para simplificar las inicializaciones del tablero
 	addGameObject(object);
 	sceneObjects.push_back(object);
 	object->updateRect();
@@ -177,7 +172,7 @@ void PlayState::addSceneObject(SceneObject* object)
 /// gestiona las colisiones entre el laser dado y cada objeto en la escena
 ///	devuelve true si ha colisionado con algo y se invocaran a los metodos
 /// correspondientes
-bool PlayState::damage(SDL_Rect* rect, char friendly) const 
+bool PlayState::damage(SDL_Rect* rect, char friendly) const
 {
 	for (auto& i : sceneObjects)
 		if (i.hit(rect, friendly))
@@ -191,42 +186,45 @@ bool PlayState::mayGrantReward(SDL_Rect* rect) const
 }
 
 /// devuelve un numero aleatorio entre min y max
-int PlayState::getRandomRange(int min, int max) {
+int PlayState::getRandomRange(int min, int max)
+{
 	return std::uniform_int_distribution<>(min, max)(randomGenerator);
 }
 
 /// lee y anyade al juego las diferentes entidades del archivo proporcionado, ya sea mapa o partida guardada
-///	para gestionar esto ultimo se utiliza un bool que indica si es mapa o no, para determinar la raíz de directorio
+///	para gestionar esto ultimo se utiliza un bool que indica si es mapa o no, para determinar la raiz de directorio
 ///	que le corresponde
-bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
+bool PlayState::readData(const std::string& filename, Game* juego, bool isMap)
+{
 	string fileroot;
 	if (!isMap) fileroot = SAVE_FILE_ROOT + filename + ".txt";
 	else fileroot = MAP_ROOT + filename + ".txt";
 	std::ifstream in(fileroot);
 	const auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to "map name".txt 
 	if (in.fail())
-		throw FileNotFoundError("Could not read the specified data file at "s + fileroot) ;
-	if (in.peek() == std::ifstream::traits_type::eof()) 
-		throw FileFormatError("Empty data file: "s + fileroot); 
+		throw FileNotFoundError("Could not read the specified data file at "s + fileroot);
+	if (in.peek() == std::ifstream::traits_type::eof())
+		throw FileFormatError("Empty data file: "s + fileroot);
 
 	int read, x, y, lives, timer, type, state, level;
 	char color;
 	Point2D<> position;
 	SceneObject* object; // para simplificar
-	while (cin >> read) {
+	while (cin >> read)
+	{
 		object = nullptr;
 		switch (read)
 		{
 		case 0: // cannon
-		{
-			cin >> x >> y;
-			cin >> lives >> timer;
-			position  = Point2D<>(x, y);
-			cannon = new Cannon(position, game->getTexture(spaceship), this, lives, timer);
-			object = cannon;
-			addEventListener(cannon);
-			break;
-		}
+			{
+				cin >> x >> y;
+				cin >> lives >> timer;
+				position = Point2D<>(x, y);
+				cannon = new Cannon(position, game->getTexture(spaceship), this, lives, timer);
+				object = cannon;
+				addEventListener(cannon);
+				break;
+			}
 		case 1: // alien
 			cin >> x >> y;
 			cin >> type;
@@ -242,7 +240,7 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 		case 3: // mothership
 			cin >> x >> y; // para gastarlos
 			cin >> level >> timer;
-			//mothership.setState(state);
+		//mothership->setState(state);
 			mothership->setLevel(level);
 			mothership->setTimer(timer);
 			break;
@@ -259,33 +257,33 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap) {
 			object = new Ufo(position, game->getTexture(ufos), this, false, state, timer);
 			break;
 		case 6: // laser
-		{
-			cin >> x >> y;
-			cin >> color;
-			position = Point2D<>(x, y);
-			int direction = 1;
-			if (color == 'r')
-				direction = -1;
-			auto speed = Vector2D(0, direction * LASER_MOV_SPEED);
-			object = new Laser(position, speed, color, this);
-			break;
-		}
+			{
+				cin >> x >> y;
+				cin >> color;
+				position = Point2D<>(x, y);
+				int direction = 1;
+				if (color == 'r')
+					direction = -1;
+				auto speed = Vector2D(0, direction * LASER_MOV_SPEED);
+				object = new Laser(position, speed, color, this);
+				break;
+			}
 		case 7: // score
 			cin >> playerPoints;
 			break;
 		case 8:
-		{
-			cin >> x >> y;
-			position = Point2D<>(x, y);
-			object = new Bomb(position, game->getTexture(bomb), this);
-			break;
-		}
+			{
+				cin >> x >> y;
+				position = Point2D<>(x, y);
+				object = new Bomb(position, game->getTexture(bomb), this);
+				break;
+			}
 		case 9:
-		{
-			cin >> x >> y;
-			position = Point2D<>(x, y);
-			object = new Reward(position, game->getTexture(shield_reward), this);
-		}
+			{
+				cin >> x >> y;
+				position = Point2D<>(x, y);
+				object = new Reward(position, game->getTexture(shield_reward), this);
+			}
 		default: // nada
 			break;
 		}

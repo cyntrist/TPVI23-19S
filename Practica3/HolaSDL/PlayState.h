@@ -39,12 +39,11 @@ protected:
 	bool readData(const std::string& saveFileName, Game* juego, bool isMap);
 	void saveData(const std::string& saveFileName) const;
 public:
-	PlayState(Game* game, int _mapLvl, int menuCase);
+	PlayState(Game*, int, bool);
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;
 	void update() override;
-	void run();
 	void save(const std::string& fileName) const override { saveData(fileName); }
     bool mayGrantReward(SDL_Rect* rect) const;
 
@@ -53,7 +52,7 @@ public:
     {
 		sceneObjects.erase(anchor); // vamos a probar si funciona asi
     }
-	void endGame()
+	void endGame() const
 	{
 		game->exitGame();
 	}

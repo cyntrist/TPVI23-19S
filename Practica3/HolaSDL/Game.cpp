@@ -90,51 +90,6 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) 
 			exit = true;
 		else
-		{
 			stateMachine->handleEvent(event);
-		}
-		/* VERSION ANTIGUA:
-		SDL_Keycode key = event.key.keysym.sym;
-		if (event.type == SDL_QUIT) exit = true;
-		else if (event.type == SDL_KEYDOWN && (key == SDLK_s || key == SDLK_l ||key == SDLK_m))
-		{
-			if (key == SDLK_s) // guardar
-			{
-				std::cout << "Input save slot to save to: " << std::endl;
-				char k;
-				std::cin >> k;
-				if (isdigit(k))
-				{
-					saveData("save" + std::to_string(k - '0'));
-					endGame();
-					std::cout << "Saved game." << std::endl;
-				}
-				else std::cout << "Invalid number, resuming game." << std::endl;
-			}
-			else if (key == SDLK_l)
-			{
-				std::cout << "Input save slot to load: " << std::endl;
-				char k;
-				std::cin >> k;
-				if (isdigit(k))
-				{
-					emptyLists();
-					readData("save" + std::to_string(k - '0'), this, false);
-					std::cout << "Loaded game." << std::endl;
-				}
-				else std::cout << "Invalid number, resuming game." << std::endl;
-			}
-			else if (key == SDLK_m)
-			{
-				cout << "Map name: ";
-				std::string mapName;
-				cin >> mapName;
-				emptyLists();
-				readData(mapName, this, true);
-			}
-		}
-		else if (cannon != nullptr) 
-				cannon->handleEvent(event);
-		*/
 	}
 }
