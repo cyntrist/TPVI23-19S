@@ -27,7 +27,7 @@ SDL_Surface* Font::generateSurface(const std::string& text, SDL_Color color) con
 }
 
 Texture* Font::generateTexture(SDL_Renderer* renderer, const std::string& text,
-                               SDL_Color color)
+                               SDL_Color color) const
 {
 	SDL_Surface* surface = generateSurface(text.c_str(), color);
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);

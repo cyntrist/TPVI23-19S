@@ -17,6 +17,4 @@ public:
 	SDL_Surface* generateSurface(const std::string& text, SDL_Color color) const;
 	Texture* generateTexture(SDL_Renderer* renderer, const std::string& text,
 	                         SDL_Color color) const;
-	Texture* generateTexture(SDL_Renderer* renderer, const std::string& text,
-                               SDL_Color color);
 };

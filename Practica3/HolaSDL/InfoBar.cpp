@@ -8,11 +8,11 @@ InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, GameS
 {
 }
 
-InfoBar::~InfoBar()
-{
-	TTF_CloseFont(font);
-	GameObject::~GameObject();
-}
+//InfoBar::~InfoBar()
+//{
+//	~font();
+//	GameObject::~GameObject();
+//}
 
 /// Renderiza las vidas en la esquina inferior izquierda y el score en la esquina inferior derecha con el padding acorde
 void InfoBar::render() const
@@ -31,15 +31,12 @@ void InfoBar::render() const
 	}
 
 	/// BLOQUE DE SCORE
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, std::to_string(points).c_str(), color); // texto de score
-	SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	const Texture* scoreTexture = font->generateTexture(renderer, std::to_string(points), color);
 	const SDL_Rect scoreRect{
-		WIN_WIDTH - textSurface->w - padding,
-		WIN_HEIGHT - textSurface->h - padding,
-		textSurface->w,
-		textSurface->h
+		WIN_WIDTH - scoreTexture->getFrameWidth() - padding,
+		WIN_HEIGHT - scoreTexture->getFrameHeight() - padding,
+		scoreTexture->getFrameWidth(),
+		scoreTexture->getFrameHeight()
 	};
-	SDL_RenderCopy(renderer, scoreTexture, nullptr, &scoreRect);
-	SDL_FreeSurface(textSurface);
-	SDL_DestroyTexture(scoreTexture);
+	scoreTexture->render(scoreRect);
 }
