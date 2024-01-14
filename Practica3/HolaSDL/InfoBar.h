@@ -22,9 +22,6 @@ private:
 	int points = 0; // score
 	SDL_Renderer* renderer; // referencia de render de game
 	SDL_Color color = { 255, 255, 255 , 255}; // color para score
-	/*
-	TTF_Font* font = TTF_OpenFont(FONT_ROOT.c_str(), 24); // fuente para el score
-	*/
 
 public:
 	InfoBar() = default;
