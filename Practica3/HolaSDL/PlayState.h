@@ -40,13 +40,13 @@ protected:
 	void saveData(const std::string& saveFileName) const;
 public:
 	PlayState(Game*, int, bool);
+	PlayState(Game*, int, bool, int);
 	void addSceneObject(SceneObject* object);
 	void handleEvent(const SDL_Event&) override;
 	void render() const override;
 	void update() override;
 	void save(const std::string& fileName) const override { saveData(fileName); }
     bool mayGrantReward(SDL_Rect* rect) const;
-
 	int getRandomRange(int min, int max);
 	void hasDied(const GameList<SceneObject>::anchor& anchor)
     {

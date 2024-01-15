@@ -22,20 +22,25 @@
 using namespace std;
 
 PlayState::PlayState(Game* game, int mapLvl, bool menuCase) : GameState(game, "PLAY"), randomGenerator(time(nullptr)),
-                                                             mapLevel(mapLvl)
+                                                              mapLevel(mapLvl)
 {
 	startTime = SDL_GetTicks();
 	mothership = new Mothership(1, 0, 0, 0, this, 0);
 	infoBar = new InfoBar(Point2D<>(0, WIN_HEIGHT - game->getTexture(spaceship)->getFrameHeight()),
 	                      game->getTexture(spaceship), INFOBAR_PADDING, this, game->getRenderer());
 
-	if (menuCase) 
+	if (menuCase)
 		readData("save" + std::to_string(1), game, false);
-	else 
+	else
 		readData("map" + std::to_string(mapLevel), game, true);
 
 	addGameObject(infoBar);
 	addGameObject(mothership);
+}
+
+PlayState::PlayState(Game* game, int mapLvl, bool menuCase, int score) : PlayState(game, mapLvl, menuCase)
+{
+	playerPoints = score;
 }
 
 /// GAME LOGIC BLOCK:
@@ -58,7 +63,7 @@ void PlayState::update()
 			else
 				mapLevel = 1;
 
-			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, false));
+			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, false, playerPoints));
 			// vamos a ver si esto es una manera inteligente de resetearlo
 		}
 
@@ -289,9 +294,7 @@ bool PlayState::readData(const std::string& filename, Game* juego, bool isMap)
 			break;
 		}
 		if (object != nullptr)
-		{
 			addSceneObject(object);
-		}
 	}
 	std::cin.rdbuf(cinbuf); //restablecer entrada
 	in.close();

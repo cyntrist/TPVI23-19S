@@ -15,6 +15,8 @@ Ufo::Ufo(Point2D<> p, Texture* t, PlayState* ps, bool d, int s)
 	direction = d ? 1 : -1;
 	state = s;
 	hiddenTimer = HIDDEN_DURATION;
+	if (iniPos.getX() < WIN_WIDTH)
+		iniPos.setX(WIN_WIDTH + texture->getFrameWidth());
 }
 
 /// constructora con sobrecarga hiddenTimer específico
@@ -39,14 +41,18 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 		lives--;
 
 		// generacion de reward o bomba
-		const int chance = playState->getRandomRange(0, 3); // 25% de soltar un reward o bomba, 50% de nada (por poner algo)
+		const int chance = playState->getRandomRange(0, 3);
+		// 25% de soltar un reward o bomba, 50% de nada (por poner algo)
 		//chance = 1 ;
 		if (chance == 0)
-		{ // genera bomba
-			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState)); //al darle al ufo y spawnearse la bomba, el laser colisiona con la bomba antes de ser destruido y le resta una vida a la bomba instantaneamente pero tampoco es que haya tiempo para ponerse a arreglar estos detalles cuando hay cosas mas importantes aun
+		{
+			// genera bomba
+			playState->addSceneObject(new Bomb(position, playState->getGame()->getTexture(bomb), playState));
+			//al darle al ufo y spawnearse la bomba, el laser colisiona con la bomba antes de ser destruido y le resta una vida a la bomba instantaneamente pero tampoco es que haya tiempo para ponerse a arreglar estos detalles cuando hay cosas mas importantes aun
 		}
 		else if (chance == 1)
-		{ // genera reward
+		{
+			// genera reward
 			auto* reward = new Reward(position, playState->getGame()->getTexture(shield_reward), playState);
 			playState->addSceneObject(reward);
 			//reward->setCallback([this] { playState->getCannon()->setInvincible(true); });
@@ -56,13 +62,14 @@ bool Ufo::hit(const SDL_Rect* otherRect, char friendly)
 			});
 		}
 		return true;
-	} 
-	return false; 
+	}
+	return false;
 }
 
 /// metodo para guardar sus datos en el stream proporcionado
-void Ufo::save(std::ostream& os) const 
-{ // no tiene sentido imprimir la altura dos veces, pero como en los mapas lo hace pues lo hago aqui tambien 
+void Ufo::save(std::ostream& os) const
+{
+	// no tiene sentido imprimir la altura dos veces, pero como en los mapas lo hace pues lo hago aqui tambien 
 	os << "5 ";
 	SceneObject::save(os);
 	os << position.getY() << " " << state << " " << hiddenTimer << std::endl;
@@ -74,15 +81,16 @@ void Ufo::save(std::ostream& os) const
 ///	destroyed y hidden tienen sus respectivos contadores de tiempo para animarlos o hacerlos desaparecer
 ///	un intervalo aleatorio, respectivamente ademas de devolverlo a su posicion inicial
 void Ufo::update()
-{ 
+{
 	updateRect();
 	switch (state)
 	{
 	case visible:
-		if (hiddenTimer <= 0) // esta comprobacion para cuando se leen de archivo con estado 0 (visible) y espera concretas
-			position = position + Vector2D(direction * UFO_MOV_SPEED, 0); 
+		if (hiddenTimer <= 0)
+			// esta comprobacion para cuando se leen de archivo con estado 0 (visible) y espera concretas
+			position = position + Vector2D(direction * UFO_MOV_SPEED, 0);
 		else hiddenTimer--;
-		
+
 		if (getPosition().getX() + width < 0)
 			state = hidden;
 
@@ -107,11 +115,11 @@ void Ufo::update()
 		{
 			state = visible;
 			position = iniPos;
-			hiddenTimer = playState->getRandomRange( 10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
+			hiddenTimer = playState->getRandomRange(10 * TIME_BETWEEN_FRAMES, 50 * TIME_BETWEEN_FRAMES);
 		}
 		else hiddenTimer--;
 		break;
 	default: // nunca se puede dar?? pero lo contemplo por si acaso
 		break;
 	}
-} 
+}
