@@ -13,7 +13,7 @@ public:
 	Font(const Font& font) = delete;
 	~Font();
 	void load(const std::string& filename, int size);
-	//void free();
+	void freeMemory();
 	SDL_Surface* generateSurface(const std::string& text, SDL_Color color) const;
 	Texture* generateTexture(SDL_Renderer* renderer, const std::string& text,
 	                         SDL_Color color) const;

@@ -4,6 +4,7 @@
 #include "EventHandler.h"
 #include <list>
 #include <SDL_events.h>
+#include "Button.h"
 class Game;
 #include "GameObject.h"
 class GameState
@@ -12,6 +13,7 @@ protected:
     Game* game;
     GameList<GameObject, true> gameObjects;
     std::list<EventHandler*> eventHandlers;
+    std::list<Button*> buttons;
     std::string stateID;
 
 public:

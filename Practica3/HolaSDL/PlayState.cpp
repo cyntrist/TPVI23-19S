@@ -57,7 +57,8 @@ void PlayState::update()
 				mapLevel++;
 			else
 				mapLevel = 1;
-			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, 0));
+
+			game->getStateMachine()->replaceState(new PlayState(game, mapLevel, false));
 			// vamos a ver si esto es una manera inteligente de resetearlo
 		}
 

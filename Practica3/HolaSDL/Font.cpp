@@ -6,8 +6,7 @@ Font::Font(const std::string& filename, int size) { load(filename, size); }
 
 Font::~Font()
 {
-	TTF_CloseFont(font);
-	font = nullptr;
+	freeMemory();
 }
 
 void Font::load(const std::string& filename, int size)
@@ -15,11 +14,11 @@ void Font::load(const std::string& filename, int size)
 	font = TTF_OpenFont(filename.c_str(), size);
 }
 
-//void Font::free()
-//{
-//	TTF_CloseFont(font);
-//	font = nullptr;
-//}
+void Font::freeMemory()
+{
+	TTF_CloseFont(font);
+	font = nullptr;
+}
 
 SDL_Surface* Font::generateSurface(const std::string& text, SDL_Color color) const
 {

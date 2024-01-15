@@ -8,11 +8,11 @@ InfoBar::InfoBar(const Point2D<>& position, Texture* texture, int padding, GameS
 {
 }
 
-//InfoBar::~InfoBar()
-//{
-//	~font();
-//	GameObject::~GameObject();
-//}
+InfoBar::~InfoBar()
+{
+	delete font;
+	GameObject::~GameObject();
+}
 
 /// Renderiza las vidas en la esquina inferior izquierda y el score en la esquina inferior derecha con el padding acorde
 void InfoBar::render() const
@@ -39,4 +39,5 @@ void InfoBar::render() const
 		scoreTexture->getFrameHeight()
 	};
 	scoreTexture->render(scoreRect);
+	delete scoreTexture;
 }

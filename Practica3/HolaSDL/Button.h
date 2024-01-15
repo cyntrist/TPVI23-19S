@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-
+#include "Font.h"
 #include "GameObject.h"
 #include "EventHandler.h"
 #include "texture.h"
@@ -25,16 +25,31 @@ protected:
 	SDL_Rect rect;	// rectangulo DEL BOTON
     Texture* texture;
 	button_state buttonPos;
+	Font* font;
+	SDL_Color color = { 255, 255, 255 , 255}; // color para score
 	// callback(s)
 	std::list<SDLCallback> callbacks;
 
 public:
 	Button() = default;
 	Button(Vector2D<> position, Texture* texture);
+	Button(Vector2D<> position, std::string text, SDL_Renderer* renderer);
+	Button(Vector2D<> position, std::string text, SDL_Color color, SDL_Renderer* renderer);
+	~Button() override;
 	void render() const override;
 	void update() override;
 	void save(std::ostream& os) const override {}
 	void handleEvent(const SDL_Event& event) override;
-	void Connect(SDLCallback cb);
+	void connect(SDLCallback cb);
+	Texture* getTexture() const
+	{
+		return texture;
+	}
+	Font* getFont() const
+	{
+		return font;
+	}
+	void setPosition(Vector2D<> value);
+
 };
 

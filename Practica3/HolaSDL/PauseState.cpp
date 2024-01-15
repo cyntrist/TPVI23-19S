@@ -7,43 +7,52 @@
 PauseState::PauseState(Game* _game) : GameState(_game, "PAUSE")
 {
 	// CONTINUAR
-	auto* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 100), game->getTexture(btn_continuar));
+	auto* continueGameBtn = new Button(
+		Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 100), "CONTINUAR",
+		game->getRenderer());
 	addGameObject(continueGameBtn);
 	addEventListener(continueGameBtn);
-	continueGameBtn->Connect([this]()
-		{
-			game->getStateMachine()->popState();
-		});
+	continueGameBtn->connect([this]()
+	{
+		game->getStateMachine()->popState();
+	});
 
 	// CARGAR
-	auto* loadGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_cargar)->getFrameWidth()) / 2, 200), game->getTexture(btn_cargar));
+	auto* loadGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_cargar)->getFrameWidth()) / 2, 200),
+	                               "CARGAR PARTIDA", game->getRenderer());
 	addGameObject(loadGameBtn);
 	addEventListener(loadGameBtn);
-	loadGameBtn->Connect([this]()
-		{
-			auto* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
-			game->getStateMachine()->replaceState(play)	;
-		});
+	loadGameBtn->connect([this]()
+	{
+		auto* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
+		game->getStateMachine()->replaceState(play);
+	});
 
 	// GUARDAR
-	auto* saveGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_guardar)->getFrameWidth()) / 2, 300), game->getTexture(btn_guardar));
+	auto* saveGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_guardar)->getFrameWidth()) / 2, 300),
+	                               "GUARDAR PARTIDA", game->getRenderer());
 	addGameObject(saveGameBtn);
 	addEventListener(saveGameBtn);
-	saveGameBtn->Connect([this]()
-		{
-			game->getStateMachine()->saveGame();
-			game->exitGame();
-		});
+	saveGameBtn->connect([this]()
+	{
+		game->getStateMachine()->saveGame();
+		game->exitGame();
+	});
 
 	// SALIR
-	auto* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 400), game->getTexture(btn_salir));
+	auto* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 400), "SALIR",
+	                           game->getRenderer());
 	addGameObject(exitBtn);
 	addEventListener(exitBtn);
-	exitBtn->Connect([this]()
-		{
-			auto* mainMenu = new MainMenuState(game);
-			game->getStateMachine()->replaceState(mainMenu);
-		});
+	exitBtn->connect([this]()
+	{
+		auto* mainMenu = new MainMenuState(game);
+		game->getStateMachine()->replaceState(mainMenu);
+	});
+
+	buttons.push_back(loadGameBtn);
+	buttons.push_back(saveGameBtn);
+	buttons.push_back(exitBtn);
 }
 
 void PauseState::render() const

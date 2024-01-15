@@ -1,9 +1,8 @@
-- [HECHO] virtual declaracion en cpp porque si no queda feo
-- [HECHO] lambda evento no hace falta
+- [HECHO] declaraciones de metodos virtuales en cpp porque si no queda feo
+- [HECHO] event en funcion lambda no hace falta
 - [HECHO] ir borrando los deletelist en el update (momento seguro)
 - [HECHO] SDL point in rect en el update del boton.
-- [HECHO] corregir con reward (generico)
+- [HECHO] corregir reward (generico)
 - [HECHO] corregir las expeciones (what)
 - [HECHO] cargar y guardar ingame
 
->>> IMPORTANTE: escribir correo de la movida de mothership que no la aguanto MÁSSSSSSSSSSSSSSS

@@ -9,29 +9,33 @@ MainMenuState::MainMenuState(Game* _game) : GameState(_game, "MENU")
 {
 	menuTexture = game->getTexture(menu);
 
-	auto* newGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_nueva)->getFrameWidth()) / 2, 130), game->getTexture(btn_nueva));
+	auto* newGameBtn = new Button(Vector2D((WIN_WIDTH - game->getTexture(btn_nueva)->getFrameWidth()) / 2, 130), "NUEVA PARTIDA", game->getRenderer());
 	addGameObject(newGameBtn);
 	addEventListener(newGameBtn);
-	newGameBtn->Connect([this]
+	newGameBtn->connect([this]
 		{
-			auto* play = new PlayState(game, 1, 0); //sustituir todo esto por lo que sea que haga el boton
+			auto* play = new PlayState(game, 1, false);
 			game->getStateMachine()->replaceState(play);
 		});
-	auto* continueGameBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), game->getTexture(btn_continuar));
+	auto* continueGameBtn = new Button(Vector2D((WIN_WIDTH - game->getTexture(btn_continuar)->getFrameWidth()) / 2, 190), "CONTINUAR", game->getRenderer());
 	addGameObject(continueGameBtn);
 	addEventListener(continueGameBtn);
-	continueGameBtn->Connect([this]
+	continueGameBtn->connect([this]
 		{
-			auto* play = new PlayState(game, 1, 1); //sustituir todo esto por lo que sea que haga el boton
+			auto* play = new PlayState(game, 1, true); 
 			game->getStateMachine()->replaceState(play);
 		});
-	auto* exitBtn = new Button(Vector2D<>((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), game->getTexture(btn_salir));
+	auto* exitBtn = new Button(Vector2D((WIN_WIDTH - game->getTexture(btn_salir)->getFrameWidth()) / 2, 250), "SALIR", game->getRenderer());
 	addGameObject(exitBtn);
 	addEventListener(exitBtn);
-	exitBtn->Connect([this]
+	exitBtn->connect([this]
 		{
 			game->exitGame();
 		});
+
+	buttons.push_back(newGameBtn);
+	buttons.push_back(continueGameBtn);
+	buttons.push_back(exitBtn);
 }
 
 void MainMenuState::render() const
